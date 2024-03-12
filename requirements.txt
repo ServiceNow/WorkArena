@@ -1,0 +1,5 @@
+browsergym-core==0.0.1a10
+english-words>=2.0.1
+numpy>=1.14
+requests>=2.31
+tenacity>=8.2.3  # only used in cheat() -> move to tests?
