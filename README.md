@@ -8,6 +8,10 @@ By harnessing the ubiquitous [ServiceNow](https://www.servicenow.com/what-is-ser
 WorkArena is included in [BrowserGym](https://github.com/ServiceNow/BrowserGym), a conversational gym environment for the evaluation of web agents.
 
 
+https://github.com/ServiceNow/WorkArena/assets/2374980/ca61cbeb-0d13-474b-b444-db76a2d46456
+
+
+
 ## Benchmark Contents
 
 At the moment, WorkArena includes `23,150` task instances drawn from `29` tasks that cover the main components of the ServiceNow user interface. The following videos show an agent built on `GPT-4-vision` interacting with every such component. As emphasized by our results, this benchmark is not solved and thus, the performance of the agent is not always on point.
