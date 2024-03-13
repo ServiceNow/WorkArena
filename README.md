@@ -78,13 +78,6 @@ Then, run this command in a terminal to upload the benchmark data to your Servic
 workarena-install
 ```
 
-### c) Validate Your Installation
-
-The are a lot of moving parts (authentication credentials, benchmark data, etc.) so we highly recommend that you sanity-check your installation using our provided unit tests. Do this by running (might take a few minutes):
-```
-pytest -v .
-```
-
 Your installation is now complete! 🎉
 
 
