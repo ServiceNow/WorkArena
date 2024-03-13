@@ -18,19 +18,19 @@ At the moment, WorkArena includes `23,150` task instances drawn from `29` tasks 
 
 _The agent interacts with the user via BrowserGym's conversational interface._
 
-https://github.com/ServiceNow/ui-copilot/assets/2374980/a778fbfd-6f9c-41b2-9c20-1d97cc348866
+https://github.com/ServiceNow/WorkArena/assets/1726818/e2c54e47-a161-4d41-a553-66f9031f075d
 
 ### Forms
 
 **Goal:** The agent must fill a complex form with specific values for each field.
 
-https://github.com/ServiceNow/ui-copilot/assets/2374980/1f3fa96d-d76e-4f04-a75f-bcf758c5aa42
+https://github.com/ServiceNow/WorkArena/assets/1726818/03a3250f-7ed9-4bbc-837f-7f381a65d351
 
 ### Service Catalogs
 
 **Goal:** The agent must order items with specific configurations from the company's service catalog.
 
-https://github.com/ServiceNow/ui-copilot/assets/2374980/8451faa8-3776-4e52-bb90-a560ea23a709
+https://github.com/ServiceNow/WorkArena/assets/1726818/85f71b9e-6680-4961-940b-d05163f4206a
 
 ### Lists
 
@@ -38,14 +38,13 @@ https://github.com/ServiceNow/ui-copilot/assets/2374980/8451faa8-3776-4e52-bb90-
 
 _In this example, the agent struggles to manipulate the UI and fails to create the filter._
 
-https://github.com/ServiceNow/ui-copilot/assets/2374980/042f058b-a966-4f5e-a38f-146464132c49
+https://github.com/ServiceNow/WorkArena/assets/1726818/d28c62ee-7fde-4a3c-af6d-ea9e2637351d
 
 ### Menus
 
 **Goal:** The agent must navigate to a specific application using the main menu.
 
-https://github.com/ServiceNow/ui-copilot/assets/2374980/d5f89fd0-ed72-49b8-81ce-8a493a2c8f5f
-
+https://github.com/ServiceNow/WorkArena/assets/1726818/1371862f-0cbb-46f3-9424-a6819afad035
 
 ## Getting Started
 
