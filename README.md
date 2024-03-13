@@ -86,14 +86,17 @@ Your installation is now complete! 🎉
 Run this code to see WorkArena in action.
 
 ```python
+import random
+
 from browsergym.core.env import BrowserEnv
 from browsergym.workarena import ALL_WORKARENA_TASKS
 from time import sleep
 
 
+random.shuffle(ALL_WORKARENA_TASKS)
 for task in ALL_WORKARENA_TASKS:
     print("Task:", task)
-    
+
     # Instantiate a new environment
     env = BrowserEnv(task_entrypoint=task,
                     headless=False, 
@@ -103,10 +106,16 @@ for task in ALL_WORKARENA_TASKS:
     # Cheat functions use Playwright to automatically solve the task
     env.chat.add_message(role="assistant", msg="On it. Please wait...")
     env.task.cheat(env.page, env.chat.messages)
-    env.chat.add_message(role="assistant", msg="I'm done!")
+
+    # Post question-answering solution to chat
+    if "KnowledgeBaseSearchTask" in str(task):
+        answer = env.chat.messages[-1]["message"]
+        env.chat.add_message(role="assistant", msg=f"The answer is:")
+        env.chat.add_message(role="assistant", msg=answer)
+    else:
+        env.chat.add_message(role="assistant", msg="I'm done!")
 
     # Validate the solution
-    env.chat.add_message(role="user", msg="Let's see...")
     reward, stop, info, message = env.task.validate(env.page, env.chat.messages)
     if reward == 1:
         env.chat.add_message(role="user", msg="Yes, that works. Thanks!")
