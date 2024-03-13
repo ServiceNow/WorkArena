@@ -196,11 +196,23 @@ class OrderHardwareTask(AbstractServiceNowTask):
     def form_js_selector(self):
         return self.js_prefix + "." + self.js_api_forms
 
-    def setup(self, page: playwright.sync_api.Page, seed: int = None) -> tuple[str, dict]:
-        self.pre_setup(seed=seed, page=page)
-
-        self._add_init_scripts_to_context_and_reload(page, ["registerGsftMainLoaded();"])
+    def setup(self, page: playwright.sync_api.Page, seed: int = None) -> None:
+        self.pre_setup(page=page, seed=seed)
+        # the cart is shared for all agents running in parallel. The "Order Now" button
+        # is not affected so we'll make sure the agent can only use that one
+        disable_add_to_cart = """
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const button = document.querySelector('button[aria-label="Add to Cart"]');
+            if (button) {
+                button.disabled = true;
+            }
+        });
+        """
+        self._add_init_scripts_to_context_and_reload(
+            page, ["registerGsftMainLoaded()", disable_add_to_cart]
+        )
         self._wait_for_ready(page)
+        self._remove_top_items_panel(page)
         assert self.all_configs is not None, "No configuration available for the task."
         config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
         # use fixed config if any
@@ -218,6 +230,23 @@ class OrderHardwareTask(AbstractServiceNowTask):
         info = {}
 
         return goal, info
+
+    def _remove_top_items_panel(self, page: Page):
+        """Removes the 'top items' panel that sometimes on the landing page"""
+        frame = page.wait_for_selector("iframe#gsft_main").content_frame()
+
+        # Use evaluate to find and remove divs containing an element with role="heading" and the text "Top Requests"
+        frame.evaluate(
+            """() => {
+                const headings = Array.from(document.querySelectorAll('[role="heading"]'));
+                headings.forEach((heading) => {
+                    if (heading.textContent.includes("Top Requests")) {
+                        let parentDiv = heading.closest('div.drag_section');
+                        if (parentDiv) parentDiv.remove();
+                    }
+                });
+            }"""
+        )
 
     def cheat(self, page: Page, chat_messages: list[str]) -> None:
         super().cheat(page, chat_messages)
@@ -302,9 +331,20 @@ class OrderHardwareTask(AbstractServiceNowTask):
             order_now_button.click()
 
     def _generate_random_config(self, seed: int, page: Page):
-        super().setup(seed=seed, page=page)
-
-        self._add_init_scripts_to_context_and_reload(page, ["registerGsftMainLoaded()"])
+        self.pre_setup(page=page, seed=seed)
+        # the cart is shared for all agents running in parallel. The "Order Now" button
+        # is not affected so we'll make sure the agent can only use that one
+        disable_add_to_cart = """
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const button = document.querySelector('button[aria-label="Add to Cart"]');
+            if (button) {
+                button.disabled = true;
+            }
+        });
+        """
+        self._add_init_scripts_to_context_and_reload(
+            page, ["registerGsftMainLoaded()", disable_add_to_cart]
+        )
         self._wait_for_ready(page)
         if self.fixed_request_item:
             self.requested_item = self.fixed_request_item

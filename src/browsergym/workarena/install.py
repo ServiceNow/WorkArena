@@ -285,3 +285,12 @@ def setup():
     # XXX: Install workflows first because they may automate some downstream installations
     setup_workflows()
     setup_knowledge_base()
+
+
+def main():
+    """
+    Entrypoint for package CLI installation command
+
+    """
+    logging.basicConfig(level=logging.INFO)
+    setup()

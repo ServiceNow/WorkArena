@@ -222,7 +222,7 @@ class SortListTask(ServiceNowListTask):
         return self.goal
 
     def _generate_random_config(self, seed: int, page: Page):
-        super().setup(seed, page)
+        self.pre_setup(seed, page)
         self._wait_for_ready(page)
         self.list_info = self._extract_list_info(page)
         # Get available fields
@@ -427,7 +427,7 @@ class FilterListTask(ServiceNowListTask):
         self.filter_len = len(self.filter_columns)
 
     def _generate_random_config(self, seed: int, page: Page):
-        super().setup(seed, page)
+        self.pre_setup(seed, page)
         self._wait_for_ready(page)
 
         # Extract the list from the page

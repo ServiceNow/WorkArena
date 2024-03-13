@@ -322,7 +322,7 @@ class GenericNewRecordTask(ServiceNowFormTask):
 
     def _generate_random_config(self, seed: int, page: Page) -> None:
         """Generate a random configuration for the task."""
-        super().setup(seed, page)
+        self.pre_setup(seed, page)
         self._run_init_scripts(page)
         # Determine task fields
         logging.debug("Determining task fields")
