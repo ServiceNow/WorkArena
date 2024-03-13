@@ -1,6 +1,6 @@
 # WorkArena - How Capable are Web Agents at Solving Common Knowledge Work Tasks?
 
-[[Paper]](https://arxiv.org/abs/2403.07718) ♦ [[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work)
+[[Paper]](https://arxiv.org/abs/2403.07718) ♦ [[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[Live Demo]](#live-demo) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work)
 
 `WorkArena` is a suite of browser-based tasks tailored to gauge web agents' effectiveness in supporting routine tasks for knowledge workers. 
 By harnessing the ubiquitous [ServiceNow](https://www.servicenow.com/what-is-servicenow.html) platform, this benchmark will be instrumental in assessing the widespread state of such automations in modern knowledge work environments.
@@ -79,6 +79,43 @@ workarena-install
 ```
 
 Your installation is now complete! 🎉
+
+
+## Live Demo
+
+Run this code to see WorkArena in action.
+
+```python
+from browsergym.core.env import BrowserEnv
+from browsergym.workarena import ALL_WORKARENA_TASKS
+from time import sleep
+
+
+for task in ALL_WORKARENA_TASKS:
+    print("Task:", task)
+    
+    # Instantiate a new environment
+    env = BrowserEnv(task_entrypoint=task,
+                    headless=False, 
+                    slow_mo=1000)
+    env.reset()
+
+    # Cheat functions use Playwright to automatically solve the task
+    env.chat.add_message(role="assistant", msg="On it. Please wait...")
+    env.task.cheat(env.page, env.chat.messages)
+    env.chat.add_message(role="assistant", msg="I'm done!")
+
+    # Validate the solution
+    env.chat.add_message(role="user", msg="Let's see...")
+    reward, stop, info, message = env.task.validate(env.page, env.chat.messages)
+    if reward == 1:
+        env.chat.add_message(role="user", msg="Yes, that works. Thanks!")
+    else:
+        env.chat.add_message(role="user", msg=f"No, that doesn't work. {message['message']}")
+
+    sleep(3)
+    env.close()
+```
 
 
 ## Citing This Work
