@@ -120,6 +120,7 @@ for task in ALL_WORKARENA_TASKS:
 
 ## Citing This Work
 
+Please use the following BibTeX to cite our work:
 ```
 @misc{workarena2024,
       title={WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?}, 
