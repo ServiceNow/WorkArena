@@ -8,8 +8,7 @@ By harnessing the ubiquitous [ServiceNow](https://www.servicenow.com/what-is-ser
 WorkArena is included in [BrowserGym](https://github.com/ServiceNow/BrowserGym), a conversational gym environment for the evaluation of web agents.
 
 
-https://github.com/ServiceNow/WorkArena/assets/2374980/ca61cbeb-0d13-474b-b444-db76a2d46456
-
+https://github.com/ServiceNow/WorkArena/assets/2374980/68640f09-7d6f-4eb1-b556-c294a6afef70
 
 
 ## Benchmark Contents
