@@ -78,6 +78,11 @@ Then, run this command in a terminal to upload the benchmark data to your Servic
 workarena-install
 ```
 
+Finally, install [Playwright](https://github.com/microsoft/playwright):
+```
+playwright install
+```
+
 Your installation is now complete! 🎉
 
 
