@@ -111,7 +111,7 @@ for task in ALL_WORKARENA_TASKS:
     if reward == 1:
         env.chat.add_message(role="user", msg="Yes, that works. Thanks!")
     else:
-        env.chat.add_message(role="user", msg=f"No, that doesn't work. {message['message']}")
+        env.chat.add_message(role="user", msg=f"No, that doesn't work. {message.get('message', '')}")
 
     sleep(3)
     env.close()
