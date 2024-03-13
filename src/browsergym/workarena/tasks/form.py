@@ -286,7 +286,21 @@ class GenericNewRecordTask(ServiceNowFormTask):
         self.task_fields = config["task_fields"]
         self.fields = config["fields"]
 
-        self.created_sysids = []  # Used to track an
+        self.created_sysids = []
+
+        # generate the goal
+        goal = (
+            f"Create a new {self.table_label} with "
+            + " and ".join(
+                [
+                    f'a value of "{self.template_record[f]}"' + f' for field "{self.fields[f]}"'
+                    for f in self.task_fields
+                ]
+            )
+            + "."
+        )
+        info = {}
+        return goal, info
 
     def _run_init_scripts(self, page: Page) -> None:
         self._add_init_scripts_to_context_and_reload(

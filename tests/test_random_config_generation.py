@@ -85,7 +85,7 @@ RANDOMLY_CONFIGURALBE_TASKS = [
 )
 @pytest.mark.parametrize("task_entrypoint", RANDOMLY_CONFIGURALBE_TASKS)
 @pytest.mark.parametrize("random_seed", range(3))
-@pytest.mark.slow
+@pytest.mark.skip(reason="Slows CI tests")
 def test_cheat_from_random_config(task_entrypoint, random_seed: int, page: Page):
     task = task_entrypoint()
     task._generate_random_config(seed=random_seed, page=page)

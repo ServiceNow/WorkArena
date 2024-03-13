@@ -1,4 +1,5 @@
 import json
+import logging
 import multiprocessing
 
 from browsergym.workarena.config import (
@@ -109,27 +110,51 @@ task_to_config_path_mapping = {
 }
 
 
-@retry(stop=stop_after_attempt(10), reraise=True)
-def validate_task(task_config, task_class):
+@retry(stop=stop_after_attempt(3), reraise=True)
+def validate_task(task_config, task_class, page=None):
     """Validates a task with a given configuration"""
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        context = browser.new_context()
-        page = context.new_page()
+    num_attempts = 4
+    tries = 0
+    browser = None
+    p = None
+    while tries < num_attempts:
+        if page is None and p is None:
+            p = sync_playwright().start()
+            browser = p.chromium.launch(slow_mo=1000)
+            context = browser.new_context()
+            page = context.new_page()
         task = task_class(fixed_config=task_config)
-        task.setup(page=page)
+        task.setup(page=page, seed=1)
         chat_messages = []
         task.cheat(page=page, chat_messages=chat_messages)
+        page.wait_for_timeout(2000)
         task_successful = task.validate(page, chat_messages)[1]
         task.teardown()
+        tries += 1
+        if task_successful:
+            break
+        else:
+            logging.warning(
+                f"Task {task_class.__name__} was not successful ({tries} / {num_attempts})"
+            )
+
+    if browser is not None:
         browser.close()
+    if p is not None:
+        p.stop()
 
-        return task_successful, task_config
+    return task_successful, task_config
 
 
-def validate_configs(task_class, config_path) -> list[dict]:
+def validate_configs(
+    task_class, config_path, num_tasks: int = None, save_failed_tasks: bool = True, page=None
+) -> list[dict]:
+    """Validate that the configs are working. Saves failing configs to json so they can be tested."""
     with open(config_path, "r") as f:
         all_configs = json.load(f)
+
+    if num_tasks is not None:
+        all_configs = all_configs[:num_tasks]
 
     failed_tasks = []
     with tqdm(
@@ -137,7 +162,7 @@ def validate_configs(task_class, config_path) -> list[dict]:
     ) as pbar:
         for task_config in all_configs:
             try:
-                success, task_config = validate_task(task_config, task_class)
+                success, task_config = validate_task(task_config, task_class, page)
                 print(f"success: {success}")
                 if not success:
                     failed_tasks.append(task_config)
@@ -145,9 +170,12 @@ def validate_configs(task_class, config_path) -> list[dict]:
                 failed_tasks.append(task_config)
                 print(f"Exception")
             pbar.update(1)
-    # Save failed tasks to a JSON file
-    with open(f"failed_{task_class.__name__}.json", "w") as f:
-        json.dump(failed_tasks, f)
+    if save_failed_tasks:
+        # Save failed tasks to a JSON file
+        with open(f"failed_{task_class.__name__}.json", "w") as f:
+            json.dump(failed_tasks, f)
+
+    return failed_tasks
 
 
 if __name__ == "__main__":

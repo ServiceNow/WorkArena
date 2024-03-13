@@ -216,10 +216,11 @@ class SortListTask(ServiceNowListTask):
         config = self.random.choice(self.all_configs)
         self.sort_fields = config["sort_fields"]
         self.sort_dirs = config["sort_dirs"]
-        self.goal = config["goal"]
+        goal = config["goal"]
 
-    def get_goal(self) -> str:
-        return self.goal
+        info = {}
+
+        return goal, info
 
     def _generate_random_config(self, seed: int, page: Page):
         self.pre_setup(seed, page)

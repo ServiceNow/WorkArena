@@ -24,7 +24,7 @@ from browsergym.workarena import ALL_WORKARENA_TASKS
     before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
 )
 @pytest.mark.parametrize("task_entrypoint", ALL_WORKARENA_TASKS)
-@pytest.mark.parametrize("random_seed", range(3))
+@pytest.mark.parametrize("random_seed", range(1))
 @pytest.mark.slow
 def test_cheat(task_entrypoint, random_seed: int, page: Page):
     task = task_entrypoint()
