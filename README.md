@@ -18,19 +18,19 @@ At the moment, WorkArena includes `23,150` task instances drawn from `29` tasks 
 
 _The agent interacts with the user via BrowserGym's conversational interface._
 
-https://github.com/ServiceNow/WorkArena/assets/1726818/e2c54e47-a161-4d41-a553-66f9031f075d
+https://github.com/ServiceNow/WorkArena/assets/1726818/352341ba-b501-46ac-bfa6-a6c9be1ac2b7
 
 ### Forms
 
 **Goal:** The agent must fill a complex form with specific values for each field.
 
-https://github.com/ServiceNow/WorkArena/assets/1726818/03a3250f-7ed9-4bbc-837f-7f381a65d351
+https://github.com/ServiceNow/WorkArena/assets/1726818/e2c2b5cb-3386-4f3c-b073-c8c619e0e81b
 
 ### Service Catalogs
 
 **Goal:** The agent must order items with specific configurations from the company's service catalog.
 
-https://github.com/ServiceNow/WorkArena/assets/1726818/85f71b9e-6680-4961-940b-d05163f4206a
+https://github.com/ServiceNow/WorkArena/assets/1726818/ac64db3b-9abf-4b5f-84a7-e2d9c9cee863
 
 ### Lists
 
@@ -38,13 +38,13 @@ https://github.com/ServiceNow/WorkArena/assets/1726818/85f71b9e-6680-4961-940b-d
 
 _In this example, the agent struggles to manipulate the UI and fails to create the filter._
 
-https://github.com/ServiceNow/WorkArena/assets/1726818/d28c62ee-7fde-4a3c-af6d-ea9e2637351d
+https://github.com/ServiceNow/WorkArena/assets/1726818/7538b3ef-d39b-4978-b9ea-8b9e106df28e
 
 ### Menus
 
 **Goal:** The agent must navigate to a specific application using the main menu.
 
-https://github.com/ServiceNow/WorkArena/assets/1726818/1371862f-0cbb-46f3-9424-a6819afad035
+https://github.com/ServiceNow/WorkArena/assets/1726818/ca26dfaf-2358-4418-855f-80e482435e6e
 
 ## Getting Started
 
