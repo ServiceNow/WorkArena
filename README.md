@@ -1,4 +1,4 @@
-# 🤖💻 WorkArena - How Capable are Web Agents at Solving Common Knowledge Work Tasks?
+# WorkArena - How Capable are Web Agents at Solving Common Knowledge Work Tasks?
 
 [[Paper]](https://arxiv.org/abs/2403.07718) ♦ [[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work)
 
