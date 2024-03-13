@@ -94,11 +94,13 @@ def generic_task_cheat_test(task_class, config_path, page: Page):
     task_config = json.load(open(config_path, "r"))[0]
 
     task = task_class(fixed_config=task_config)
-    task.setup(page=page, seed=1)
+    goal, info = task.setup(page=page, seed=1)
     chat_messages = []
-    assert task.validate(page, chat_messages)[1] is False
+    reward, done, message, info = task.validate(page, chat_messages)
+    assert done is False and reward == 0.0
     task.cheat(page=page, chat_messages=chat_messages)
-    assert task.validate(page, chat_messages)[1] is True
+    reward, done, message, info = task.validate(page, chat_messages)
+    assert done is True and reward == 1.0
     task.teardown()
 
 

@@ -427,6 +427,21 @@ class FilterListTask(ServiceNowListTask):
         self.list_info = config["list_info"]
         self.filter_len = len(self.filter_columns)
 
+        # generate goal
+        goal = (
+            f"Create a filter for the list to extract all entries where "
+            + f" {'and' if self.filter_kind == 'AND' else 'or'} ".join(
+                [
+                    f'"{self.list_info["columns"][col]["label"]}" is "{val}"'
+                    for col, val in zip(self.filter_columns, self.filter_values)
+                ]
+            )
+            + "."
+        )
+        info = {}
+
+        return goal, info
+
     def _generate_random_config(self, seed: int, page: Page):
         self.pre_setup(seed, page)
         self._wait_for_ready(page)
@@ -496,22 +511,6 @@ class FilterListTask(ServiceNowListTask):
                     self.filter_values[i] = self.random.choice(
                         list(self.list_info["columns"][c]["choices"].values())
                     )
-
-        # generate goal
-        goal = (
-            f'Create a filter for the "{self.list_info["title"].lower()}" list '
-            + f"to extract all entries where "
-            + f" {'and' if self.filter_kind == 'AND' else 'or'} ".join(
-                [
-                    f'"{self.list_info["columns"][col]["label"]}" is "{val}"'
-                    for col, val in zip(self.filter_columns, self.filter_values)
-                ]
-            )
-            + "."
-        )
-        info = {}
-
-        return goal, info
 
     def cheat(self, page: Page, chat_messages: list[str]) -> None:
         super().cheat(page, chat_messages)

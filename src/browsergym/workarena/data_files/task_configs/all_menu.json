@@ -475,31 +475,6 @@
         "url": "/now/nav/ui/classic/params/target/interaction_wrap_up_configuration_list.do%3Fsysparm_userpref_module%3D5d2e87400f022010603bf634a7767e81"
     },
     {
-        "application": "ISM Monitoring",
-        "module": "Daily ISM Scan Results ",
-        "url": "/now/nav/ui/classic/params/target/sn_app_ism_monitor_check_result_list.do%3Fsysparm_userpref_module%3D1d3bde79ff351110f416d018d53bf1d9%26sysparm_query%3Dsys_created_onONToday%2540javascript%253Ags.beginningOfToday%2528%2529%2540javascript%253Ags.endOfToday%2528%2529%255EEQ"
-    },
-    {
-        "application": "ISM Monitoring",
-        "module": "Flow",
-        "url": "/now/nav/ui/classic/params/target/%24flow-designer.do%23%2Fflow-designer%2Fc79a2bf1ff001110f416d018d53bf1f3"
-    },
-    {
-        "application": "ISM Monitoring",
-        "module": "Flow Executions",
-        "url": "/now/nav/ui/classic/params/target/sys_flow_context_list.do%3Fsysparm_userpref_module%3D21ec5af9ff351110f416d018d53bf1ae%26sysparm_query%3Dflow%253Dc79a2bf1ff001110f416d018d53bf1f3%255EEQ"
-    },
-    {
-        "application": "ISM Monitoring",
-        "module": "Scan Suites",
-        "url": "/now/nav/ui/classic/params/target/scan_check_suite_list.do%3Fsysparm_userpref_module%3Dbf8dd63dff351110f416d018d53bf11e%26sysparm_query%3Dsys_scope%253D02b1d852ff320110f416d018d53bf121%255EEQ"
-    },
-    {
-        "application": "ISM Monitoring",
-        "module": "ATF Suites",
-        "url": "/now/nav/ui/classic/params/target/sys_atf_test_suite_list.do%3Fsysparm_userpref_module%3D44cdd63dff351110f416d018d53bf1a1%26sysparm_query%3Dsys_scope%253D02b1d852ff320110f416d018d53bf121%255EEQ"
-    },
-    {
         "application": "Issue Auto Resolution",
         "module": "Settings",
         "url": "/now/nav/ui/classic/params/target/sys_cs_auto_resolution_configuration_list.do%3Fsysparm_userpref_module%3De79a07d05332011031a5ddeeff7b12d0"
@@ -3630,11 +3605,6 @@
         "url": "/now/nav/ui/classic/params/target/sc_cat_item_subscribe_mtom_list.do%3Fsysparm_userpref_module%3D00bc628e231200106682110d96bf65a7%26sysparm_query%3Dservice_offering.service_classification%253DBusiness%2BService%255EEQ"
     },
     {
-        "application": "ECC",
-        "module": "Queue",
-        "url": "/now/nav/ui/classic/params/target/ecc_queue_list.do%3Fsysparm_userpref_module%3D6924fdb4c0a8016901ee5b3609621423%26sysparm_query%3Dsys_created_onONToday%2540javascript%253Ags.daysAgoStart%25280%2529%2540javascript%253Ags.daysAgoEnd%25280%2529%255EEQ"
-    },
-    {
         "application": "Email Client",
         "module": "Response Templates - Received > Forward",
         "url": "/now/nav/ui/classic/params/target/sys_email_client_template_list.do%3Fsysparm_userpref_module%3D4d593d4407032010289f982d0ad30016%26sysparm_view%3Dforward-received%26sysparm_query%3Dname%253Dforward-received%255EEQ%26sysparm_view_forced%3Dtrue%26sysparm_userpref_module%3Dfalse%26sysparm_view%3Dforward-received"
@@ -4012,7 +3982,7 @@
     {
         "application": "System Applications",
         "module": "All Available Applications > All",
-        "url": "/now/nav/ui/classic/params/target/%24allappsmgmt.do"
+        "url": "/now/nav/ui/classic/params/target/%24allappsmgmt.do%3Fsysparm_use_polaris%3Dfalse"
     },
     {
         "application": "System Applications",
@@ -4022,12 +3992,7 @@
     {
         "application": "System Applications",
         "module": "All Available Applications > ServiceNow Products",
-        "url": "/now/nav/ui/classic/params/target/%24products.do"
-    },
-    {
-        "application": "All Available Applications",
-        "module": "Available To Obtain From Store",
-        "url": "/now/nav/ui/classic/params/target/%24allappsmgmt.do%3Fview%3Dstore"
+        "url": "/now/nav/ui/classic/params/target/%24products.do%3Fsysparm_use_polaris%3Dfalse"
     },
     {
         "application": "System Archiving",
@@ -4998,5 +4963,40 @@
         "application": "System UI",
         "module": "Field Styles",
         "url": "/now/nav/ui/classic/params/target/sys_ui_style_list.do%3Fsysparm_userpref_module%3Dc5cc1c4cc0a80164013e846f439f500f"
+    },
+    {
+        "application": "Workspace Experience",
+        "module": "Forms > UI Action Groups",
+        "url": "/now/nav/ui/classic/params/target/sys_aw_form_uiaction_group_list.do%3Fsysparm_query%3DORDERBYui_action_layout%255EORDERBYoverflow%255EORDERBYorder"
+    },
+    {
+        "application": "Workspace Experience",
+        "module": "Forms > Workspace Ribbon Settings",
+        "url": "/now/nav/ui/classic/params/target/sys_aw_ribbon_setting_list.do%3Fsysparm_view%3Dworkspace"
+    },
+    {
+        "application": "Workspace Experience",
+        "module": "Forms > Workspace Form Headers",
+        "url": "/now/nav/ui/classic/params/target/sys_aw_form_header_list.do%3Fsysparm_view%3Dworkspace"
+    },
+    {
+        "application": "Workspace Experience",
+        "module": "Forms > Workspace View Rules",
+        "url": "/now/nav/ui/classic/params/target/sysrule_view_workspace_list.do%3Fsysparm_view%3Dworkspace"
+    },
+    {
+        "application": "Workspace Experience",
+        "module": "Actions & Components > Field Decorators",
+        "url": "/now/nav/ui/classic/params/target/sys_declarative_action_assignment_list.do%3Fsysparm_fixed_query%3Dmodel%253D15920e6d534723003eddddeeff7b1244%26sysparm_view%3Ddecorators%0D%0A"
+    },
+    {
+        "application": "Workspace Experience",
+        "module": "Actions & Components > List Actions",
+        "url": "/now/nav/ui/classic/params/target/sys_declarative_action_assignment_list.do%3Fsysparm_fixed_query%3Dmodel%253Dc3547169534723003eddddeeff7b126c%26sysparm_view%3Dlist_action"
+    },
+    {
+        "application": "Workspace Experience",
+        "module": "Actions & Components > Related List Actions",
+        "url": "/now/nav/ui/classic/params/target/sys_declarative_action_assignment_list.do%3Fsysparm_fixed_query%3Dmodel%253Dd91731a9534723003eddddeeff7b121c%26sysparm_view%3Dlist_action"
     }
 ]
