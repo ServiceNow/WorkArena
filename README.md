@@ -107,7 +107,7 @@ for task in ALL_WORKARENA_TASKS:
     env.chat.add_message(role="assistant", msg="On it. Please wait...")
     env.task.cheat(env.page, env.chat.messages)
 
-    # Post question-answering solution to chat
+    # Post solution to chat
     if "KnowledgeBaseSearchTask" in str(task):
         answer = env.chat.messages[-1]["message"]
         env.chat.add_message(role="assistant", msg=f"The answer is:")
