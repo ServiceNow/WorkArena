@@ -1,6 +1,357 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="0;url=https://github.com/servicenow/workarena">
+    <meta charset="utf-8">
+    <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+    <!-- Replace the content tag with appropriate information -->
+    <meta name="description" content="DESCRIPTION META TAG">
+    <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
+    <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
+    <meta property="og:url" content="URL OF THE WEBSITE" />
+    <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+    <meta property="og:image" content="static/image/your_banner_image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+
+    <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+    <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+    <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+    <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Keywords for your paper to be indexed by-->
+    <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>WorkArena: How Capable are Web Agents at Solving Common Knowledge Work Tasks?</title>
+    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+    <script src="static/js/bulma-carousel.min.js"></script>
+    <script src="static/js/bulma-slider.min.js"></script>
+    <script src="static/js/index.js"></script>
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title">WorkArena: How Capable are Web Agents at Solving Common
+                            Knowledge
+                            Work Tasks?</h1>
+                        <div class="is-size-5 publication-authors">
+                            <!-- Paper authors -->
+                            <span class="author-block">
+                                <a href="https://Alexdrouin.com" target="_blank">Alexandre
+                                    Drouin</a><sup>*</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://www.maximegasse.com/" target="_blank">Maxime
+                                    Gasse</a><sup>*</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://optimass.github.io/" target="_blank">Massimo Caccia</a>,</span>
+                            <span class="author-block">
+                                <a href="https://issamlaradji.github.io/" target="_blank">Issam H. Laradji</a>,</span>
+                            <span class="author-block">
+                                <a href="https://mila.quebec/en/person/manuel-del-verme/" target="_blank">Manuel Del
+                                    Verme</a>,</span>
+                            <span class="author-block">
+                                <a href="https://3rdcore.github.io/" target="_blank">Tom Marty</a>,</span>
+                            <span class="author-block">
+                                <a href="https://ca.linkedin.com/in/l%C3%A9o-boisvert-1a7a78a7" target="_blank">Leo
+                                    Boisvert</a>,</span>
+                            <span class="author-block">
+                                <a href="https://megh-thakkar.github.io/" target="_blank">Megh Thakkar</a>,</span>
+                            <span class="author-block">
+                                <a href="https://www.polymtl.ca/expertises/en/cappart-quentin-0" target="_blank">Quentin
+                                    Cappart</a>,</span>
+                            <span class="author-block">
+                                <a href="https://www.servicenow.com/research/author/david-vazquez.html"
+                                    target="_blank">David Vazquez</a>,</span>
+                            <span class="author-block">
+                                <a href="https://www.servicenow.com/research/author/nicolas-chapados.html"
+                                    target="_blank">Nicolas Chapados</a>,</span>
+                            <span class="author-block">
+                                <a href="https://www.servicenow.com/research/author/alexandre-lacoste.html"
+                                    target="_blank">Alexandre Lacoste
+                            </span>
+                        </div>
+
+                        <div class="is-size-5 publication-authors">
+                            <a href="https://www.servicenow.com/research/" class="author-block">ServiceNow Research</a>
+                            <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+                        </div>
+
+
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- Arxiv PDF link -->
+                                <span class="link-block">
+                                    <a href="https://arxiv.org/pdf/2403.07718.pdf" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                                        <span>Paper</span>
+                                    </a>
+                                </span>
+
+                                <!-- Supplementary PDF link
+                                <span class="link-block">
+                                    <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                                        <span>Supplementary</span>
+                                    </a>
+                                </span> -->
+
+                                <!-- Github link -->
+                                <span class="link-block">
+                                    <a href="https://github.com/ServiceNow/WorkArena" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fab fa-github"></i>
+                                        </span>
+                                        <span>Code</span>
+                                    </a>
+                                </span>
+
+                                <!-- ArXiv abstract Link -->
+                                <span class="link-block">
+                                    <a href="https://arxiv.org/abs/2403.07718" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>arXiv</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Teaser video-->
+    <section class="hero teaser">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <video poster="" id="tree" autoplay controls muted loop height="100%">
+                    <!-- Your video here -->
+                    <source
+                        src="https://private-user-images.githubusercontent.com/2374980/312648326-68640f09-7d6f-4eb1-b556-c294a6afef70.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTA0MzA3OTUsIm5iZiI6MTcxMDQzMDQ5NSwicGF0aCI6Ii8yMzc0OTgwLzMxMjY0ODMyNi02ODY0MGYwOS03ZDZmLTRlYjEtYjU1Ni1jMjk0YTZhZmVmNzAubXA0P1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDMxNCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAzMTRUMTUzNDU1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9NDkxM2Y1YmNjMzFlYjJjOTg4YzhjMWU3MWRiMjJlZGM4MTE3NWUyN2RkNDkzNDNkZGMzNGUwNzE4MWIzNzI3OCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.NxC-1R7QfEueWi_Ng-pOw64qitZa2e6LgxzbIuTThiQ"
+                        type="video/mp4">
+                </video>
+                <h2 class="subtitle has-text-centered">
+                    <!-- WorkArena is amazing! -->
+                </h2>
+            </div>
+        </div>
+    </section>
+    <!-- End teaser video -->
+
+    <!-- Paper abstract -->
+    <section class="section hero is-light">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            We study the use of large language model-based agents for interacting with software via web
+                            browsers.
+                            Unlike prior work, we focus on measuring the agents' ability to perform tasks that span the
+                            typical daily
+                            work of knowledge workers utilizing enterprise software systems.
+                            To this end, we propose WorkArena, a remote-hosted benchmark of 29 tasks based on the
+                            widely-used
+                            ServiceNow platform.
+                            We also introduce BrowserGym, an environment for the design and evaluation of such agents,
+                            offering a rich
+                            set of actions as well as multimodal observations.
+                            Our empirical evaluation reveals that while current agents show promise on WorkArena, there
+                            remains a
+                            considerable gap towards achieving full task automation. Notably, our analysis uncovers a
+                            significant
+                            performance disparity between open and closed-source LLMs, highlighting a critical area for
+                            future
+                            exploration and development in the field.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End paper abstract -->
+
+
+    <!-- WorkArena tasks -->
+    <section class="section has-text-centered">
+        <div class="container is-max-desktop">
+            <h2 class="title">WorkArena Tasks</h2>
+            <div class="columns is-centered">
+                <div class="column is-four-fifths">
+                    <p style="text-align: center;">
+                        WorkArena is a suite of browser-based tasks tailored to gauge web agents' effectiveness in
+                        supporting
+                        routine tasks for knowledge workers.
+                        By harnessing the ubiquitous <a href="https://www.servicenow.com/what-is-servicenow.html"
+                            target="_blank">ServiceNow</a> platform, this benchmark will be instrumental in assessing
+                        the
+                        widespread state of such automations in modern knowledge work environments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section has-text-centered">
+        <div class="container is-max-desktop">
+            <h3 class="title is-5">Knowledge Bases</h3>
+            <p>
+                <strong>Goal:</strong> The agent must search for specific information in the company knowledge base.
+            </p>
+            <p>
+                <em>The agent interacts with the user via BrowserGym's conversational interface.</em>
+            </p>
+            <video poster="" autoplay controls muted loop height="70%" width="70%">
+                <source
+                    src="https://github.com/ServiceNow/WorkArena/assets/1726818/352341ba-b501-46ac-bfa6-a6c9be1ac2b7"
+                    type="video/mp4">
+            </video>
+        </div>
+    </section>
+
+    <section class="section has-text-centered">
+        <div class="container is-max-desktop">
+            <h3 class="title is-5">Forms</h3>
+            <p>
+                <strong>Goal:</strong> The agent must fill a complex form with specific values for each field.
+            </p>
+            <video poster="" autoplay controls muted loop height="70%" width="70%">
+                <source
+                    src="https://github.com/ServiceNow/WorkArena/assets/1726818/e2c2b5cb-3386-4f3c-b073-c8c619e0e81b"
+                    type="video/mp4">
+            </video>
+        </div>
+    </section>
+
+    <section class="section has-text-centered">
+        <div class="container is-max-desktop">
+            <h3 class="title is-5">Service Catalogs</h3>
+            <p>
+                <strong>Goal:</strong> The agent must order items with specific configurations from the company's
+                service catalog.
+            </p>
+            <video poster="" autoplay controls muted loop height="70%" width="70%">
+                <source
+                    src="https://github.com/ServiceNow/WorkArena/assets/1726818/ac64db3b-9abf-4b5f-84a7-e2d9c9cee863"
+                    type="video/mp4">
+            </video>
+        </div>
+    </section>
+
+    <section class="section has-text-centered">
+        <div class="container is-max-desktop">
+            <h3 class="title is-5">Lists</h3>
+            <p>
+                <strong>Goal:</strong> The agent must filter a list according to some specifications.
+            </p>
+            <p>
+                <em>In this example, the agent struggles to manipulate the UI and fails to create the filter.</em>
+            </p>
+            <video poster="" autoplay controls muted loop height="70%" width="70%">
+                <source
+                    src="https://github.com/ServiceNow/WorkArena/assets/1726818/7538b3ef-d39b-4978-b9ea-8b9e106df28e"
+                    type="video/mp4">
+            </video>
+        </div>
+    </section>
+
+    <section class="section has-text-centered">
+        <div class="container is-max-desktop">
+            <h3 class="title is-5">Menus</h3>
+            <p>
+                <strong>Goal:</strong> The agent must navigate to a specific application using the main menu.
+            </p>
+            <video poster="" autoplay controls muted loop height="70%" width="70%">
+                <source
+                    src="https://github.com/ServiceNow/WorkArena/assets/1726818/ca26dfaf-2358-4418-855f-80e482435e6e"
+                    type="video/mp4">
+            </video>
+        </div>
+    </section>
+
+
+
+
+
+
+    <!--BibTex citation -->
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre><code>@misc{workarena2024,
+                title={WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?}, 
+                author={Alexandre Drouin and Maxime Gasse and Massimo Caccia and Issam H. Laradji and Manuel Del Verme and Tom Marty and Léo Boisvert and Megh Thakkar and Quentin Cappart and David Vazquez and Nicolas Chapados and Alexandre Lacoste},
+                year={2024},
+                eprint={2403.07718},
+                archivePrefix={arXiv},
+                primaryClass={cs.LG}
+          }</code></pre>
+        </div>
+    </section>
+    <!--End BibTex citation -->
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content">
+
+                        <p>
+                            This page was built using the <a
+                                href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+                            You are free to borrow the of this website, we just ask that you link back to this page in
+                            the footer.
+                            <br> This website is licensed under a <a rel="license"
+                                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                                Commons Attribution-ShareAlike 4.0 International License</a>.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Statcounter tracking code -->
+
+    <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+</body>
+
 </html>
