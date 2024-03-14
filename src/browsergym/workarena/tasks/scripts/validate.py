@@ -128,7 +128,8 @@ def validate_task(task_config, task_class, page=None):
         chat_messages = []
         task.cheat(page=page, chat_messages=chat_messages)
         page.wait_for_timeout(2000)
-        task_successful = task.validate(page, chat_messages)[1]
+        reward, done, _, _ = task.validate(page, chat_messages)
+        task_successful = done is True and reward == 1.0
         task.teardown()
         tries += 1
         if task_successful:

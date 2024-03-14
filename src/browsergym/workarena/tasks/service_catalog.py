@@ -23,11 +23,12 @@ from ..config import (
     ORDER_DEVELOPMENT_LAPTOP_PC_TASK_CONFIG_PATH,
     ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH,
 )
-from browsergym.workarena.api.requests import (
+from .utils.form import fill_text
+from ..api.requests import (
     get_request_by_id,
     db_delete_from_table,
 )
-from browsergym.workarena.tasks.base import AbstractServiceNowTask
+from .base import AbstractServiceNowTask
 
 ADDITIONAL_SOFTWARE = [
     "Slack",
@@ -310,18 +311,10 @@ class OrderHardwareTask(AbstractServiceNowTask):
                 element_id = element_control.get_attribute("id")  # this look superfluous
                 text_element = iframe.query_selector(f'[id="{element_id}"]')
                 text_element.click()
-                from .utils.form import fill_text
-
                 fill_text(page=page, input_field=text_element, value=value, iframe=iframe)
+
             elif control_type == "select-one":
-                select_options = iframe.query_selector(f'select[id="{element_id}"]', strict=True)
-                select_options.click()
-                options = select_options.query_selector_all("option")
-                for option in options:
-                    if option.inner_text().startswith(value):
-                        page.keyboard.press("Enter")
-                        break
-                    page.keyboard.press("ArrowDown")
+                iframe.locator(f"id={element_id}").select_option(value)
             else:
                 raise ValueError(f"Unknown control type {control_type}")
 
@@ -475,10 +468,13 @@ class OrderHardwareTask(AbstractServiceNowTask):
 
 
 def option_match_heuristic(value, option):
-    value = str(value).lower()
-    option = str(option).lower()
-    option = option.replace("_", " ")
-    return value == option
+    def _process(x):
+        x = str(x).lower()
+        x = x.replace("_", "")
+        x = x.replace(" ", "")
+        return x
+
+    return _process(value) == _process(option)
 
 
 class OrderDeveloperLaptopTask(OrderHardwareTask):

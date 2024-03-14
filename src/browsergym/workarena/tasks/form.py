@@ -81,7 +81,7 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         # ... augment with rendered metadata
         # XXX: Additional useful info is present in the rendered HTML. We extract it from there.
         for f in self.table_metadata:
-            loc = page.frame(name=self.js_prefix).locator(f"#sys_display\.{self.table_name}\.{f}")
+            loc = page.frame(name=self.js_prefix).locator(f"#sys_display.{self.table_name}.{f}")
             if loc.count() > 0:
                 # Check if the field is dependent on another field
                 self.table_metadata[f]["dependent_on_field"] = loc.first.get_attribute(
