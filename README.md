@@ -56,7 +56,7 @@ To setup WorkArena, you will need to get your own ServiceNow instance, install o
 ### a) Create a ServiceNow Developer Instance
 
 1. Go to https://developer.servicenow.com/ and create an account.
-2. Click on `Request an instance` and select the `Vancouver` release (initializing the instance will take a few minutes)
+2. Click on `Request an instance` and select the `Utah` release (initializing the instance will take a few minutes)
 3. Once the instance is ready, click _Return to the Developer Portal_, then navigate to _Manage instance password_ and click _Reset instance password_.
 4. You should now see your URL and credentials. Based on this information, set the following environment variables:
     * `SNOW_INSTANCE_URL`: The URL of your ServiceNow developer instance
