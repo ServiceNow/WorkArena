@@ -6,7 +6,7 @@ import re
 from playwright.sync_api import sync_playwright
 
 from .api.utils import table_api_call
-from .config import KB_FILEPATH, KB_NAME, WORKFLOWS
+from .config import KB_FILEPATH, KB_NAME, EXPECTED_USER_COLUMNS_PATH, WORKFLOWS
 from .instance import SNowInstance
 from .utils import ui_login
 
@@ -277,6 +277,60 @@ def install_workflows():
         browser.close()
 
 
+def display_all_columns(url: str):
+    """Display all columns in a given list view."""
+    with sync_playwright() as playwright:
+        instance = SNowInstance()
+        browser = playwright.chromium.launch(headless=True, slow_mo=1000)
+        page = browser.new_page()
+        ui_login(instance, page)
+        page.goto(instance.snow_url + url)
+        frame = page.wait_for_selector("iframe#gsft_main").content_frame()
+        frame.get_by_text("Personalize List").click()
+        available_columns = frame.get_by_label("Available")
+        available_columns.get_by_role("option").first.click()
+        available_columns.get_by_role("option").last.click(modifiers=["Shift"])
+        frame.get_by_text("Add").click()
+        frame.click("#ok_button")
+
+
+def check_all_columns_displayed(url: str, expected_columns_path: str):
+    """Get the visible columns and checks that all expected columns are displayed."""
+    with open(expected_columns_path, "r") as f:
+        expected_columns = set(json.load(f))
+    with sync_playwright() as playwright:
+        instance = SNowInstance()
+        browser = playwright.chromium.launch(headless=True, slow_mo=1000)
+        page = browser.new_page()
+        ui_login(instance, page)
+        page.goto(instance.snow_url + url)
+        iframe = page.frame("gsft_main")
+        lst = iframe.locator("table.data_list_table")
+        lst.wait_for()
+
+        # Validate the number of lists on the page
+        lst = lst.nth(0)
+        js_selector = f"gsft_main.GlideList2.get('{lst.get_attribute('data-list_id')}')"
+        visible_columns = set(page.evaluate(f"{js_selector}.fields").split(","))
+
+        # check if expected columns is contained in the visible columns
+        if not expected_columns.issubset(visible_columns):
+            logging.info(
+                f"Error setting up list at {url} \n Expected {expected_columns} columns, but got {visible_columns}."
+            )
+            return False
+        logging.info(f"All columns properly displayed for {url}.")
+        return True
+
+
+def setup_list_columns(url: str, expected_columns_path: str):
+    """Setup the list view to display the expected number of columns."""
+    display_all_columns(url)
+    assert check_all_columns_displayed(
+        url, expected_columns_path
+    ), f"Error setting up list columns at {url}"
+
+
 def setup():
     """
     Check that WorkArena is installed correctly in the instance.
@@ -285,6 +339,11 @@ def setup():
     # XXX: Install workflows first because they may automate some downstream installations
     setup_workflows()
     setup_knowledge_base()
+    # Setup the user list columns by displaying all columns and checking that the expected number are displayed
+    setup_list_columns(
+        "/now/nav/ui/classic/params/target/sys_user_list.do%3Fsysparm_view%3D%26sysparm_userpref.sys_user_list.view%3D%26sysparm_userpref.sys_user.view%3D%26sysparm_query%3Dactive%253Dtrue%255Ecompany%253D81fd65ecac1d55eb42a426568fc87a63",
+        EXPECTED_USER_COLUMNS_PATH,
+    )
 
 
 def main():

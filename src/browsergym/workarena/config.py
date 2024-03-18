@@ -51,7 +51,7 @@ ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH = str(
 
 # Knowledge base that is included with the benchmark
 KB_NAME = "General Knowledge"
-KB_FILEPATH = str(resources.files(data_files).joinpath("knowledge_base.json"))
+KB_FILEPATH = str(resources.files(data_files).joinpath("setup_files/knowledge_base.json"))
 
 # Form tasks
 CREATE_CHANGE_REQUEST_CONFIG_PATH = str(
@@ -112,6 +112,13 @@ SORT_USER_LIST_CONFIG_PATH = str(
 WORKFLOWS = {
     "kb_publish": {
         "name": "WorkArena Auto-Publish",
-        "update_set": str(resources.files(data_files).joinpath("kb_autopublish_workflow.xml")),
+        "update_set": str(
+            resources.files(data_files).joinpath("setup_files/kb_autopublish_workflow.xml")
+        ),
     }
 }
+
+# Number of columns in the user list; used for setup
+EXPECTED_USER_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/expected_user_columns.json")
+)

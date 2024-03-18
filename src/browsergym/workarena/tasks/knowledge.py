@@ -33,7 +33,7 @@ class KnowledgeBaseSearchTask(AbstractServiceNowTask):
     def __init__(self, instance=None, fixed_config: dict = None) -> None:
         super().__init__(
             instance=instance,
-            start_rel_url="/now/nav/ui/classic/params/target/knowledge_home_launcher.do",
+            start_rel_url="/now/nav/ui/classic/params/target/%24knowledge.do",
         )
 
         # Load the knowledge base and check its integrity
