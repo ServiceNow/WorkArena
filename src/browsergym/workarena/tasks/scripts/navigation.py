@@ -17,7 +17,7 @@ def get_all_impersonation_users():
         if u["first_name"].strip() and u["last_name"].strip()
     ]
 
-    return candidate_users[:NUM_CONFIGS]
+    return candidate_users
 
 
 if __name__ == "__main__":
@@ -26,4 +26,5 @@ if __name__ == "__main__":
         "browsergym/workarena/src/browsergym/workarena/data_files/task_configs/impersonation_users.json",
         "w",
     ) as f:
+        all_users = sorted(list(all_users))
         json.dump(all_users, f)

@@ -32,4 +32,8 @@ def test_validate_configs(page: Page):
         save_failed_tasks=False,
         page=page,
     )
-    assert len(failed_tasks) == 0
+    # assert that there are no failed tasks
+    assert len(failed_tasks["cheat"]) == 0
+    assert len(failed_tasks["no_reward"]) == 0
+    assert len(failed_tasks["exception"]) == 0
+    assert len(failed_tasks["not_done"]) == 0

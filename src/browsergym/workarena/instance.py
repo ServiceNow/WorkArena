@@ -2,6 +2,7 @@ import os
 import requests
 import re
 
+from playwright.sync_api import sync_playwright
 from typing import Optional
 
 from .config import SNOW_BROWSER_TIMEOUT
@@ -87,3 +88,39 @@ class SNowInstance:
             raise RuntimeError(
                 f"ServiceNow instance at {self.snow_url} is not reachable. Please check the URL."
             )
+
+    @property
+    def release_version(self) -> str:
+        """
+        Get the release of the ServiceNow instance
+
+        Returns:
+        --------
+        dict
+            Information about the release of the ServiceNow instance
+
+        """
+        # XXX: Need to include the import here to avoid circular imports
+        from .utils import ui_login
+
+        keys = ["build name", "build date", "build tag"]
+
+        # We need to use playwright since the page is loaded dynamically
+        # and its source doesn't contain the information we need
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch(headless=True)
+            page = browser.new_page()
+            ui_login(self, page)
+            page.goto(self.snow_url + "/stats.do")
+
+            # The page contains a big list of information separated by <br> tags. Extract it.
+            release_info = {
+                key.strip(): value.strip()
+                for x in page.content().lower().split("<br>")
+                if ":" in x
+                for key, value in [x.split(":", 1)]
+                if key in keys
+            }
+            browser.close()
+
+        return release_info

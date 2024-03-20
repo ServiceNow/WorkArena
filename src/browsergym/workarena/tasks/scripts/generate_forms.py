@@ -15,7 +15,7 @@ def camel_to_snake(name):
     return re.sub("([a-z0-9])([A-Z])", r"\1_\2", name).lower()
 
 
-def generate_form_task_configs(task_name, task_class, num_configs=1000):
+def generate_form_task_configs(task_name, task_class, num_configs=1):
     """Generate forms by using random setup and validating the feasibility of the task; also ensure that the task is new."""
 
     @retry(
@@ -45,7 +45,9 @@ def generate_form_task_configs(task_name, task_class, num_configs=1000):
                 chat_messages = []
                 try:
                     task.cheat(page=page, chat_messages=chat_messages)
-                    task_successful = task.validate(page, chat_messages)[1]
+                    reward, done, message, info = task.validate(page, chat_messages)
+                    task_successful = done is True and reward == 1.0
+
                 except Exception as e:  # Catch the exception
                     print(f"Error cheating on task {task_name} with seed {seed}: {str(e)}")
                     task_successful = False
@@ -68,9 +70,10 @@ def generate_form_task_configs(task_name, task_class, num_configs=1000):
                 current_task_configs.append(config)
                 pbar.update(1)
 
-    path = f"/home/toolkit/ui-copilot/browsergym/workarena/src/browsergym/workarena/data_files/task_configs/{camel_to_snake(task_name)}.json"
+    path = f"{camel_to_snake(task_name)}.json"
     with open(path, "w") as f:
-        json.dump(current_task_configs, f)
+        current_task_configs = sorted(current_task_configs, key=lambda x: list(x["fields"].keys()))
+        json.dump(current_task_configs, f, indent=4, sort_keys=True)
 
 
 if __name__ == "__main__":

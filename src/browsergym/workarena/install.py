@@ -4,9 +4,29 @@ import logging
 import re
 
 from playwright.sync_api import sync_playwright
+from tenacity import retry, stop_after_attempt, retry_if_exception_type
 
 from .api.utils import table_api_call
-from .config import KB_FILEPATH, KB_NAME, EXPECTED_USER_COLUMNS_PATH, WORKFLOWS
+from .config import (
+    # for knowledge base setup
+    KB_FILEPATH,
+    KB_NAME,
+    # For list setup
+    EXPECTED_ASSET_LIST_COLUMNS_PATH,
+    EXPECTED_CHANGE_REQUEST_COLUMNS_PATH,
+    EXPECTED_HARDWARE_COLUMNS_PATH,
+    EXPECTED_INCIDENT_COLUMNS_PATH,
+    EXPECTED_SERVICE_CATALOG_COLUMNS_PATH,
+    EXPECTED_USER_COLUMNS_PATH,
+    # for form setup
+    EXPECTED_CHANGE_REQUEST_FORM_FIELDS_PATH,
+    EXPECTED_HARDWARE_FORM_FIELDS_PATH,
+    EXPECTED_INCIDENT_FORM_FIELDS_PATH,
+    EXPECTED_PROBLEM_FORM_FIELDS_PATH,
+    EXPECTED_USER_FORM_FIELDS_PATH,
+    # For workflows setup
+    WORKFLOWS,
+)
 from .instance import SNowInstance
 from .utils import ui_login
 
@@ -277,8 +297,14 @@ def install_workflows():
         browser.close()
 
 
-def display_all_columns(url: str):
-    """Display all columns in a given list view."""
+@retry(
+    stop=stop_after_attempt(3),
+    retry=retry_if_exception_type(TimeoutError),
+    reraise=True,
+    before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
+)
+def display_all_expected_columns(url: str, expected_columns: set[str]):
+    """Display all expected columns in a given list view."""
     with sync_playwright() as playwright:
         instance = SNowInstance()
         browser = playwright.chromium.launch(headless=True, slow_mo=1000)
@@ -286,18 +312,34 @@ def display_all_columns(url: str):
         ui_login(instance, page)
         page.goto(instance.snow_url + url)
         frame = page.wait_for_selector("iframe#gsft_main").content_frame()
-        frame.get_by_text("Personalize List").click()
-        available_columns = frame.get_by_label("Available")
-        available_columns.get_by_role("option").first.click()
-        available_columns.get_by_role("option").last.click(modifiers=["Shift"])
-        frame.get_by_text("Add").click()
+        # Open list personalization view
+        frame.click(
+            'i[data-title="Personalize List Columns"]'
+        )  # CSS selector to support both unmodified and modified list views
+        selected_columns = frame.get_by_label("Selected", exact=True)
+        selected_columns_required = set()
+        # Required columns that are already added
+        for option in selected_columns.get_by_role("option").all():
+            value = option.get_attribute("value")
+            if value:
+                if value in expected_columns:
+                    selected_columns_required.add(value)
+                # Remove extra columns
+                else:
+                    option.click()
+                    frame.get_by_text("Remove", exact=True).click()
+        columns_to_add = set(expected_columns) - selected_columns_required
+
+        # Add required columns
+        for column in columns_to_add:
+            # Using CSS selector because some elements can't be selected otherwise (e.g. "sys_class_name")
+            frame.click(f'option[value="{column}"]')
+            frame.get_by_text("Add").click()
         frame.click("#ok_button")
 
 
-def check_all_columns_displayed(url: str, expected_columns_path: str):
+def check_all_columns_displayed(url: str, expected_columns: set[str]) -> bool:
     """Get the visible columns and checks that all expected columns are displayed."""
-    with open(expected_columns_path, "r") as f:
-        expected_columns = set(json.load(f))
     with sync_playwright() as playwright:
         instance = SNowInstance()
         browser = playwright.chromium.launch(headless=True, slow_mo=1000)
@@ -311,6 +353,8 @@ def check_all_columns_displayed(url: str, expected_columns_path: str):
         # Validate the number of lists on the page
         lst = lst.nth(0)
         js_selector = f"gsft_main.GlideList2.get('{lst.get_attribute('data-list_id')}')"
+        # Wait for gsft_main.GlideList2 to be available
+        page.wait_for_function("typeof gsft_main.GlideList2 !== 'undefined'")
         visible_columns = set(page.evaluate(f"{js_selector}.fields").split(","))
 
         # check if expected columns is contained in the visible columns
@@ -323,12 +367,154 @@ def check_all_columns_displayed(url: str, expected_columns_path: str):
         return True
 
 
-def setup_list_columns(url: str, expected_columns_path: str):
+def setup_list_columns():
     """Setup the list view to display the expected number of columns."""
-    display_all_columns(url)
-    assert check_all_columns_displayed(
-        url, expected_columns_path
-    ), f"Error setting up list columns at {url}"
+    list_mappings = {
+        "alm_asset": {
+            "url": "/now/nav/ui/classic/params/target/alm_asset_list.do%3Fsysparm_view%3Ditam_workspace%26sysparm_userpref.alm_asset_list.view%3Ditam_workspace%26sysparm_userpref.alm_asset.view%3Ditam_workspace%26sysparm_query%3D%26sysparm_fixed_query%3D",
+            "expected_columns_path": EXPECTED_ASSET_LIST_COLUMNS_PATH,
+        },
+        "alm_hardware": {
+            "url": "/now/nav/ui/classic/params/target/alm_hardware_list.do%3Fsysparm_view%3Ditam_workspace%26sysparm_userpref.alm_hardware_list.view%3Ditam_workspace%26sysparm_userpref.alm_hardware.view%3Ditam_workspace%3D%26sysparm_query%3Dinstall_status%253D6%255Esubstatus%253Dpre_allocated",
+            "expected_columns_path": EXPECTED_HARDWARE_COLUMNS_PATH,
+        },
+        "change_request": {
+            "url": "/now/nav/ui/classic/params/target/change_request_list.do%3Fsysparm_view%3Dsow%26sysparm_userpref.change_request_list.view%3Dsow%26sysparm_userpref.change_request.view%3Dsow%26sysparm_query%3D%26sysparm_fixed_query%3D",
+            "expected_columns_path": EXPECTED_CHANGE_REQUEST_COLUMNS_PATH,
+        },
+        "incident": {
+            "url": "/now/nav/ui/classic/params/target/incident_list.do%3Fsysparm_query%3Dactive%253Dtrue%26sysparm_first_row%3D1%26sysparm_view%3DMajor%2520Incidents",
+            "expected_columns_path": EXPECTED_INCIDENT_COLUMNS_PATH,
+        },
+        "sys_user": {
+            "url": "/now/nav/ui/classic/params/target/sys_user_list.do%3Fsysparm_view%3D%26sysparm_userpref.sys_user_list.view%3D%26sysparm_userpref.sys_user.view%3D%26sysparm_query%3Dactive%253Dtrue%255Ecompany%253D81fd65ecac1d55eb42a426568fc87a63",
+            "expected_columns_path": EXPECTED_USER_COLUMNS_PATH,
+        },
+        "sc_cat_item": {
+            "url": "/now/nav/ui/classic/params/target/sc_cat_item_list.do%3Fsysparm_view%3D%26sysparm_userpref.sc_cat_item_list.view%3D%26sysparm_userpref.sc_cat_item.view%3D%26sysparm_query%3D%26sysparm_fixed_query%3D",
+            "expected_columns_path": EXPECTED_SERVICE_CATALOG_COLUMNS_PATH,
+        },
+    }
+    for task, task_info in list_mappings.items():
+        expected_columns_path = task_info["expected_columns_path"]
+        with open(expected_columns_path, "r") as f:
+            expected_columns = set(json.load(f))
+        display_all_expected_columns(task_info["url"], expected_columns=expected_columns)
+        assert check_all_columns_displayed(
+            task_info["url"], expected_columns=expected_columns
+        ), f"Error setting up list columns at {task_info['url']}"
+
+
+@retry(
+    stop=stop_after_attempt(3),
+    retry=retry_if_exception_type(TimeoutError),
+    reraise=True,
+    before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
+)
+def process_form_fields(url: str, expected_fields: list[str], action: str):
+    """Process form fields based on the given action."""
+    with sync_playwright() as playwright:
+        instance = SNowInstance()
+        browser = playwright.chromium.launch(headless=True, slow_mo=1000)
+        page = browser.new_page()
+        ui_login(instance, page)
+        page.goto(instance.snow_url + url)
+        frame = page.wait_for_selector("iframe#gsft_main").content_frame()
+        # Open form personalization view if not expanded
+        form_personalization_expanded = frame.locator(
+            'button:has-text("Personalize Form")'
+        ).get_attribute("aria-expanded")
+        if form_personalization_expanded == "false":
+            frame.click('button:has-text("Personalize Form")')
+        available_options = (
+            frame.get_by_label("Personalize Form").locator('li[role="presentation"] input').all()
+        )
+
+        for option in available_options:
+            id = option.get_attribute("id")
+            disabled = option.get_attribute("disabled")
+            if disabled == "disabled":
+                continue
+            checked = option.get_attribute("aria-checked")
+            if action == "display":
+                if id in expected_fields and checked == "false":
+                    option.click()
+                elif id not in expected_fields and checked == "true":
+                    option.click()
+            elif action == "check":
+                if id in expected_fields and checked == "false":
+                    logging.info(
+                        f"Error setting up form fields at {url} \n Field {id} was supposed to be checked, but was not."
+                    )
+                    return False
+                elif id not in expected_fields and checked == "true":
+                    logging.info(
+                        f"Error setting up form fields at {url} \n Field {id} was not supposed to be checked, but was."
+                    )
+                    return False
+        if action == "check":
+            logging.info(f"All fields properly displayed for {url}.")
+        # Close the form personalization view
+        frame.click('button:has-text("Personalize Form")')
+        return True
+
+
+def setup_form_fields():
+    task_mapping = {
+        "create_change_request": {
+            "expected_fields_path": EXPECTED_CHANGE_REQUEST_FORM_FIELDS_PATH,
+            "url": "/now/nav/ui/classic/params/target/change_request.do",
+        },
+        "create_incident": {
+            "expected_fields_path": EXPECTED_INCIDENT_FORM_FIELDS_PATH,
+            "url": "/now/nav/ui/classic/params/target/incident.do",
+        },
+        "create_hardware": {
+            "expected_fields_path": EXPECTED_HARDWARE_FORM_FIELDS_PATH,
+            "url": "/now/nav/ui/classic/params/target/alm_hardware.do",
+        },
+        "create_problem": {
+            "expected_fields_path": EXPECTED_PROBLEM_FORM_FIELDS_PATH,
+            "url": "/now/nav/ui/classic/params/target/problem.do",
+        },
+        "create_user": {
+            "expected_fields_path": EXPECTED_USER_FORM_FIELDS_PATH,
+            "url": "/now/nav/ui/classic/params/target/sys_user.do",
+        },
+    }
+    for task, task_info in task_mapping.items():
+        expected_fields_path = task_info["expected_fields_path"]
+        with open(expected_fields_path, "r") as f:
+            expected_fields = json.load(f)
+        process_form_fields(task_info["url"], expected_fields=expected_fields, action="display")
+        assert process_form_fields(
+            task_info["url"], expected_fields=expected_fields, action="check"
+        ), f"Error setting up form fields at {task_info['url']}"
+    logging.info("All form fields properly displayed.")
+    print("all columns displayed")
+
+
+from .config import SNOW_SUPPORTED_RELEASES
+
+
+def check_instance_release_support():
+    """
+    Check that the instance is running a compatible version of ServiceNow.
+
+    Returns:
+    --------
+    bool: True if the version is supported, False otherwise.
+
+    """
+    instance = SNowInstance()
+    version_info = instance.release_version
+    if version_info["build name"] not in SNOW_SUPPORTED_RELEASES:
+        logging.error(
+            f"The ServiceNow release version of your instance is not supported. "
+            f"Supported versions: {SNOW_SUPPORTED_RELEASES}. "
+            f"You are running {version_info['build name']} {version_info}."
+        )
+        return False
 
 
 def setup():
@@ -336,14 +522,15 @@ def setup():
     Check that WorkArena is installed correctly in the instance.
 
     """
+    if not check_instance_release_support():
+        return  # Don't continue if the instance is not supported
+
     # XXX: Install workflows first because they may automate some downstream installations
     setup_workflows()
     setup_knowledge_base()
     # Setup the user list columns by displaying all columns and checking that the expected number are displayed
-    setup_list_columns(
-        "/now/nav/ui/classic/params/target/sys_user_list.do%3Fsysparm_view%3D%26sysparm_userpref.sys_user_list.view%3D%26sysparm_userpref.sys_user.view%3D%26sysparm_query%3Dactive%253Dtrue%255Ecompany%253D81fd65ecac1d55eb42a426568fc87a63",
-        EXPECTED_USER_COLUMNS_PATH,
-    )
+    setup_list_columns()
+    setup_form_fields()
 
 
 def main():

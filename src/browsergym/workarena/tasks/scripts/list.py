@@ -23,11 +23,12 @@ def generate_task_configs(task_class, num_configs=1000, task_type="sort"):
                 context = browser.new_context()  # Set the timeout here
                 context.set_default_timeout(5000)
                 page = context.new_page()
-                task._generate_random_config(seed=seed, page=page)
+                goal, _ = task._generate_random_config(seed=seed, page=page)
                 chat_messages = []
                 try:
                     task.cheat(page=page, chat_messages=chat_messages)
-                    task_successful = task.validate(page, chat_messages)[1]
+                    reward, done, message, info = task.validate(page, chat_messages)
+                    task_successful = done is True and reward == 1.0
                 except Exception as e:  # Catch the exception
                     print(f"Error cheating on task {task_name} with seed {seed}: {str(e)}")
                     task_successful = False
@@ -35,7 +36,7 @@ def generate_task_configs(task_class, num_configs=1000, task_type="sort"):
                     config = {
                         "sort_fields": task.sort_fields,
                         "sort_dirs": task.sort_dirs,
-                        "goal": task.goal,
+                        "goal": goal,
                     }
                 elif task_type == "filter":
                     list_info = {k: v for k, v in task.list_info.items() if k in ["columns"]}
@@ -68,10 +69,18 @@ def generate_task_configs(task_class, num_configs=1000, task_type="sort"):
                 pbar.update(1)
                 print(f"Success for {task_name} config")
     with open(
-        f"browsergym/workarena/src/browsergym/workarena/data_files/task_configs/{task_name}.json",
+        f"{task_name}.json",
         "w",
     ) as f:
-        json.dump(current_task_configs, f)
+        if task_type == "sort":
+            current_task_configs = sorted(
+                current_task_configs, key=lambda x: sorted(list(x["sort_fields"]))
+            )
+        else:
+            current_task_configs = sorted(
+                current_task_configs, key=lambda x: sorted(list(x["filter_columns"]))
+            )
+        json.dump(current_task_configs, f, indent=4, sort_keys=True)
 
 
 if __name__ == "__main__":
@@ -79,6 +88,6 @@ if __name__ == "__main__":
     with multiprocessing.Pool() as pool:
         pool.starmap(
             generate_task_configs,
-            [(task, 1000, "sort") for task in SORT_TASKS]
-            + [(task, 1000, "filter") for task in FILTER_TASKS],
+            [(task, 1, "sort") for task in SORT_TASKS]
+            + [(task, 1, "filter") for task in FILTER_TASKS],
         )

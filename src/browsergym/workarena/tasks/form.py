@@ -17,11 +17,18 @@ from ..api.utils import (
 from .base import AbstractServiceNowTask
 from ..config import (
     SNOW_BROWSER_TIMEOUT,
+    # Paths to the configuration files
     CREATE_CHANGE_REQUEST_CONFIG_PATH,
     CREATE_HARDWARE_CONFIG_PATH,
     CREATE_INCIDENT_CONFIG_PATH,
     CREATE_PROBLEM_CONFIG_PATH,
     CREATE_USER_CONFIG_PATH,
+    # Paths to the expected fields files
+    EXPECTED_CHANGE_REQUEST_FORM_FIELDS_PATH,
+    EXPECTED_HARDWARE_FORM_FIELDS_PATH,
+    EXPECTED_INCIDENT_FORM_FIELDS_PATH,
+    EXPECTED_PROBLEM_FORM_FIELDS_PATH,
+    EXPECTED_USER_FORM_FIELDS_PATH,
 )
 from ..instance import SNowInstance
 from .utils.form import fill_text
@@ -101,9 +108,11 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         # Get the form fields
         logging.debug("Extracting valid form fields")
         editable_fields = page.evaluate(f"{self.form_js_selector}.getEditableFields()")
+        field_elements = page.evaluate(f"{self.form_js_selector}.elements")
+        all_visible_fields = [f["fieldName"] for f in field_elements]
         self.fields = {
             f["fieldName"]: f
-            for f in page.evaluate(f"{self.form_js_selector}.elements")
+            for f in field_elements
             if f["fieldName"] in editable_fields
             and f["fieldName"] not in self.prohibited_fields
             and f["type"] in self.supported_types
@@ -128,6 +137,9 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         assert all(
             f not in self.fields for f in self.prohibited_fields
         ), "Some prohibited fields are editable in the form."
+        assert set(all_visible_fields) == set(
+            self.expected_fields
+        ), "Some fields are missing from the form., Re-run workarena-install to correct this."
 
     def _preprocess_fields(self, field, value):
         """
@@ -234,6 +246,8 @@ class GenericNewRecordTask(ServiceNowFormTask):
         for an example of a configuration file.
     config_path:
         The path to the JSON file containing all configurations for the task. Provided by subclasses
+    expected_fields_path:
+        The path to the JSON file containing all expected fields for the task. Provided by subclasses
     """
 
     def __init__(
@@ -247,6 +261,7 @@ class GenericNewRecordTask(ServiceNowFormTask):
         max_fields: int = None,
         fixed_config: dict = None,
         config_path: str = None,
+        expected_fields_path: str = None,
     ) -> None:
         super().__init__(
             instance=instance,
@@ -275,6 +290,9 @@ class GenericNewRecordTask(ServiceNowFormTask):
         if config_path:
             with open(config_path, "r") as f:
                 self.all_configs = json.load(f)
+        if expected_fields_path:
+            with open(expected_fields_path, "r") as f:
+                self.expected_fields = json.load(f)
 
     def setup(self, seed: int, page: Page) -> tuple[str, dict]:
         self.pre_setup(seed, page)
@@ -284,7 +302,6 @@ class GenericNewRecordTask(ServiceNowFormTask):
 
         self.template_record = config["template_record"]
         self.task_fields = config["task_fields"]
-        self.fields = config["fields"]
 
         self.created_sysids = []
 
@@ -654,6 +671,7 @@ class CreateChangeRequestTask(GenericNewRecordTask):
             prohibited_fields=["chg_model", "state"],
             fixed_config=fixed_config,
             config_path=CREATE_CHANGE_REQUEST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_CHANGE_REQUEST_FORM_FIELDS_PATH,
         )
 
 
@@ -670,6 +688,7 @@ class CreateIncidentTask(GenericNewRecordTask):
             prohibited_fields=["state"],
             fixed_config=fixed_config,
             config_path=CREATE_INCIDENT_CONFIG_PATH,
+            expected_fields_path=EXPECTED_INCIDENT_FORM_FIELDS_PATH,
         )
 
 
@@ -693,6 +712,7 @@ class CreateHardwareAssetTask(GenericNewRecordTask):
             unique_valued_fields={"serial_number": lambda x: f"SN-{self.unique_id}"},
             fixed_config=fixed_config,
             config_path=CREATE_HARDWARE_CONFIG_PATH,
+            expected_fields_path=EXPECTED_HARDWARE_FORM_FIELDS_PATH,
         )
 
 
@@ -709,6 +729,7 @@ class CreateProblemTask(GenericNewRecordTask):
             prohibited_fields=["state", "first_reported_by_task"],
             fixed_config=fixed_config,
             config_path=CREATE_PROBLEM_CONFIG_PATH,
+            expected_fields_path=EXPECTED_PROBLEM_FORM_FIELDS_PATH,
             # TODO: The last field is disabled because somehow the value is not in the autocomplete
             #       list even though it's in the database. I'm not sure why. It doesn't matter much
             #       since in the future we'll pre-generate tasks and keep only the ones where the
@@ -730,6 +751,7 @@ class CreateUserTask(GenericNewRecordTask):
             unique_valued_fields={"user_name": lambda x: str(hash(x + self.unique_id))},
             fixed_config=fixed_config,
             config_path=CREATE_USER_CONFIG_PATH,
+            expected_fields_path=EXPECTED_USER_FORM_FIELDS_PATH,
         )
 
 

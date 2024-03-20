@@ -115,23 +115,19 @@ def validate_task(task_config, task_class, page=None):
     """Validates a task with a given configuration"""
     num_attempts = 4
     tries = 0
-    browser = None
-    p = None
     while tries < num_attempts:
-        if page is None and p is None:
-            p = sync_playwright().start()
-            browser = p.chromium.launch(slow_mo=1000)
-            context = browser.new_context()
-            page = context.new_page()
-        task = task_class(fixed_config=task_config)
-        task.setup(page=page, seed=1)
-        chat_messages = []
-        task.cheat(page=page, chat_messages=chat_messages)
-        page.wait_for_timeout(2000)
-        reward, done, _, _ = task.validate(page, chat_messages)
-        task_successful = done is True and reward == 1.0
-        task.teardown()
+        if page is None:
+            # To run validation
+            with sync_playwright() as p:
+                browser = p.chromium.launch(slow_mo=1000)
+                context = browser.new_context()
+                page = context.new_page()
+                cheat_passed, task_done, reward = validate_on_page(task_class, task_config, page)
+        else:
+            # For testing pusposes
+            cheat_passed, task_done, reward = validate_on_page(task_class, task_config, page)
         tries += 1
+        task_successful = task_done is True and reward == 1.0
         if task_successful:
             break
         else:
@@ -139,12 +135,24 @@ def validate_task(task_config, task_class, page=None):
                 f"Task {task_class.__name__} was not successful ({tries} / {num_attempts})"
             )
 
-    if browser is not None:
-        browser.close()
-    if p is not None:
-        p.stop()
+    return task_done, reward, task_config, cheat_passed
 
-    return task_successful, task_config
+
+def validate_on_page(task_class, task_config, page):
+    """Validate a configuration on a given page"""
+    cheat_passed = False
+    task_done = False
+    reward = 0.0
+    task = task_class(fixed_config=task_config)
+    task.setup(page=page, seed=1)
+    chat_messages = []
+    task.cheat(page=page, chat_messages=chat_messages)
+    cheat_passed = True
+    page.wait_for_timeout(2000)
+    reward, task_done, _, _ = task.validate(page, chat_messages)
+    task.teardown()
+
+    return cheat_passed, task_done, reward
 
 
 def validate_configs(
@@ -157,19 +165,27 @@ def validate_configs(
     if num_tasks is not None:
         all_configs = all_configs[:num_tasks]
 
-    failed_tasks = []
+    failed_tasks = {"cheat": [], "no_reward": [], "exception": [], "not_done": []}
     with tqdm(
         total=len(all_configs), desc=f"Validating {task_class.__name__} configs", ncols=150
     ) as pbar:
         for task_config in all_configs:
             try:
-                success, task_config = validate_task(task_config, task_class, page)
-                print(f"success: {success}")
-                if not success:
-                    failed_tasks.append(task_config)
+                task_done, reward, task_config, cheat_passed = validate_task(
+                    task_config, task_class, page
+                )
+                success = task_done and reward == 1.0
+                if not cheat_passed:
+                    failed_tasks["cheat"].append(task_config)
+                elif not task_done:
+                    failed_tasks["not_done"].append(task_config)
+                elif reward == 0:
+                    failed_tasks["no_reward"].append(task_config)
+
+                print(success)
             except Exception as e:
-                failed_tasks.append(task_config)
-                print(f"Exception")
+                failed_tasks["exception"].append(task_config)
+                print(f"Exception {e}")
             pbar.update(1)
     if save_failed_tasks:
         # Save failed tasks to a JSON file

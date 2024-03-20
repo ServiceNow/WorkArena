@@ -29,6 +29,13 @@ from ..config import (
     SORT_INCIDENT_LIST_CONFIG_PATH,
     SORT_SERVICE_CATALOG_ITEM_LIST_CONFIG_PATH,
     SORT_USER_LIST_CONFIG_PATH,
+    # EXPECTED FIELDS
+    EXPECTED_ASSET_LIST_COLUMNS_PATH,
+    EXPECTED_CHANGE_REQUEST_COLUMNS_PATH,
+    EXPECTED_HARDWARE_COLUMNS_PATH,
+    EXPECTED_INCIDENT_COLUMNS_PATH,
+    EXPECTED_SERVICE_CATALOG_COLUMNS_PATH,
+    EXPECTED_USER_COLUMNS_PATH,
 )
 from .base import AbstractServiceNowTask
 from .utils.form import fill_text
@@ -187,6 +194,8 @@ class SortListTask(ServiceNowListTask):
         for an example of a configuration file.
     config_path:
         The path to the JSON file containing all configurations for the task. Provided by subclasses
+    expected_fields_path:
+        The path to the JSON file containing all expected fields for the task. Provided by subclasses
     """
 
     def __init__(
@@ -196,6 +205,7 @@ class SortListTask(ServiceNowListTask):
         forbidden_fields=[],
         fixed_config: dict = None,
         config_path: str = None,
+        expected_fields_path: str = None,
     ) -> None:
         super().__init__(instance=instance, start_rel_url=list_url)
         self.min_sort_len = 1
@@ -205,18 +215,25 @@ class SortListTask(ServiceNowListTask):
         if config_path:
             with open(config_path, "r") as f:
                 self.all_configs = json.load(f)
+        with open(expected_fields_path, "r") as f:
+            self.expected_fields = set(json.load(f))
 
     def setup(self, seed: int, page: Page) -> tuple[str, dict]:
         self.pre_setup(seed, page)
         self._wait_for_ready(page)
         # Extract the list from the page
         self.list_info = self._extract_list_info(page)
+        visible_columns = set(self.list_info["fields"].split(","))
         config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
 
         config = self.random.choice(self.all_configs)
         self.sort_fields = config["sort_fields"]
         self.sort_dirs = config["sort_dirs"]
         goal = config["goal"]
+        # Ensure that the fields that need to be sorted are visible
+        assert (
+            set(self.sort_fields) <= visible_columns and visible_columns == self.expected_fields
+        ), f"Fields {self.sort_fields} are not all visible in the list. Re-run workarena-install to correct this."
 
         info = {}
 
@@ -403,10 +420,17 @@ class FilterListTask(ServiceNowListTask):
         for an example of a configuration file.
     config_path:
         The path to the JSON file containing all configurations for the task. Provided by subclasses
+    expected_fields_path:
+        The path to the JSON file containing all expected fields for the task. Provided by subclasses
     """
 
     def __init__(
-        self, instance=None, list_url="", fixed_config: dict = None, config_path: str = None
+        self,
+        instance=None,
+        list_url="",
+        fixed_config: dict = None,
+        config_path: str = None,
+        expected_fields_path: str = None,
     ) -> None:
         self.min_filter_len = 2
         self.max_filter_len = 5
@@ -415,6 +439,8 @@ class FilterListTask(ServiceNowListTask):
         if config_path:
             with open(config_path, "r") as f:
                 self.all_configs = json.load(f)
+        with open(expected_fields_path, "r") as f:
+            self.expected_fields = set(json.load(f))
 
     def setup(self, seed: int, page: Page) -> tuple[str, dict]:
         self.pre_setup(seed, page)
@@ -426,7 +452,12 @@ class FilterListTask(ServiceNowListTask):
         self.filter_kind = config["filter_kind"]
         self.list_info = config["list_info"]
         self.filter_len = len(self.filter_columns)
-
+        visible_list_info = self._extract_list_info(page)
+        visible_columns = set(visible_list_info["fields"].split(","))
+        # Assert that required fields are visible
+        assert (
+            set(self.filter_columns) <= visible_columns and visible_columns == self.expected_fields
+        ), f"Fields {self.filter_columns} are not all visible in the list. Re-run workarena-install to correct this."
         # generate goal
         goal = (
             f"Create a filter for the list to extract all entries where "
@@ -511,6 +542,18 @@ class FilterListTask(ServiceNowListTask):
                     self.filter_values[i] = self.random.choice(
                         list(self.list_info["columns"][c]["choices"].values())
                     )
+        goal = (
+            f"Create a filter for the list to extract all entries where "
+            + f" {'and' if self.filter_kind == 'AND' else 'or'} ".join(
+                [
+                    f'"{self.list_info["columns"][col]["label"]}" is "{val}"'
+                    for col, val in zip(self.filter_columns, self.filter_values)
+                ]
+            )
+            + "."
+        )
+
+        return goal, {}
 
     def cheat(self, page: Page, chat_messages: list[str]) -> None:
         super().cheat(page, chat_messages)
@@ -694,6 +737,7 @@ class FilterAssetListTask(FilterListTask):
             list_url=LISTS["alm_asset"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_ASSET_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_ASSET_LIST_COLUMNS_PATH,
         )
 
 
@@ -708,6 +752,7 @@ class FilterChangeRequestListTask(FilterListTask):
             list_url=LISTS["change_request"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_CHANGE_REQUEST_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_CHANGE_REQUEST_COLUMNS_PATH,
         )
 
 
@@ -722,6 +767,7 @@ class FilterHardwareListTask(FilterListTask):
             list_url=LISTS["alm_hardware"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_HARDWARE_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_HARDWARE_COLUMNS_PATH,
         )
 
 
@@ -736,6 +782,7 @@ class FilterIncidentListTask(FilterListTask):
             list_url=LISTS["incident"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_INCIDENT_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_INCIDENT_COLUMNS_PATH,
         )
 
 
@@ -750,6 +797,7 @@ class FilterServiceCatalogItemListTask(FilterListTask):
             list_url=LISTS["sc_cat_item"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_SERVICE_CATALOG_ITEM_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_SERVICE_CATALOG_COLUMNS_PATH,
         )
 
 
@@ -764,6 +812,7 @@ class FilterUserListTask(FilterListTask):
             list_url=LISTS["sys_user"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_USER_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_USER_COLUMNS_PATH,
         )
 
 
@@ -779,6 +828,7 @@ class SortAssetListTask(SortListTask):
             forbidden_fields=LISTS["alm_asset"]["forbidden_fields"],
             fixed_config=fixed_config,
             config_path=SORT_ASSET_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_ASSET_LIST_COLUMNS_PATH,
         )
 
 
@@ -794,6 +844,7 @@ class SortChangeRequestListTask(SortListTask):
             forbidden_fields=LISTS["change_request"]["forbidden_fields"],
             fixed_config=fixed_config,
             config_path=SORT_CHANGE_REQUEST_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_CHANGE_REQUEST_COLUMNS_PATH,
         )
 
 
@@ -809,6 +860,7 @@ class SortHardwareListTask(SortListTask):
             forbidden_fields=LISTS["alm_hardware"]["forbidden_fields"],
             fixed_config=fixed_config,
             config_path=SORT_HARDWARE_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_HARDWARE_COLUMNS_PATH,
         )
 
 
@@ -824,6 +876,7 @@ class SortIncidentListTask(SortListTask):
             forbidden_fields=LISTS["incident"]["forbidden_fields"],
             fixed_config=fixed_config,
             config_path=SORT_INCIDENT_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_INCIDENT_COLUMNS_PATH,
         )
 
 
@@ -839,6 +892,7 @@ class SortServiceCatalogItemListTask(SortListTask):
             forbidden_fields=LISTS["sc_cat_item"]["forbidden_fields"],
             fixed_config=fixed_config,
             config_path=SORT_SERVICE_CATALOG_ITEM_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_SERVICE_CATALOG_COLUMNS_PATH,
         )
 
 
@@ -854,6 +908,7 @@ class SortUserListTask(SortListTask):
             forbidden_fields=LISTS["sys_user"]["forbidden_fields"],
             fixed_config=fixed_config,
             config_path=SORT_USER_LIST_CONFIG_PATH,
+            expected_fields_path=EXPECTED_USER_COLUMNS_PATH,
         )
 
 

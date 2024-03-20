@@ -200,6 +200,9 @@ if __name__ == "__main__":
                         while len(context.pages) > 1:
                             context.pages[-1].close()
             with open("Menu-Tasks.json", "w") as f:
+                all_menu_items = sorted(
+                    all_menu_items, key=lambda x: (x["application"], x["module"])
+                )
                 json.dump(all_menu_items, f)
 
         except Exception as e:

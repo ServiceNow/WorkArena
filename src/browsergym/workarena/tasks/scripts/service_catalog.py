@@ -64,7 +64,10 @@ def generate_configs_for_all_items():
             f"browsergym/workarena/src/browsergym/workarena/data_files/task_configs/{task_name}.json",
             "w",
         ) as f:
-            json.dump(all_configs_for_a_single_item, f)
+            all_configs_for_a_single_item = sorted(
+                all_configs_for_a_single_item, key=lambda x: x["item"] + str(x["quantity"])
+            )
+            json.dump(all_configs_for_a_single_item, f, indent=4, sort_keys=True)
 
 
 def generate_all_item_configs(item_choice, configs):

@@ -7,6 +7,7 @@ from ..workarena.tasks import utils
 SNOW_DATA_LOOKBACK_MINUTES = 5
 SNOW_BROWSER_TIMEOUT = 30000  # Milliseconds
 SNOW_JS_UTILS_FILEPATH = str(resources.files(utils).joinpath("js_utils.js"))
+SNOW_SUPPORTED_RELEASES = ["utah"]
 
 # Path to the Menu navigation task configuration
 ALL_MENU_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu.json"))
@@ -19,8 +20,6 @@ IMPERSONATION_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/impersonation_users.json")
 )
 # Path to the service catalog configs
-
-
 ORDER_DEVELOPER_LAPTOP_TASK_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/order_developer_laptop_task.json")
 )
@@ -51,7 +50,7 @@ ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH = str(
 
 # Knowledge base that is included with the benchmark
 KB_NAME = "General Knowledge"
-KB_FILEPATH = str(resources.files(data_files).joinpath("setup_files/knowledge_base.json"))
+KB_FILEPATH = str(resources.files(data_files).joinpath("setup_files/knowledge/knowledge_base.json"))
 
 # Form tasks
 CREATE_CHANGE_REQUEST_CONFIG_PATH = str(
@@ -113,12 +112,54 @@ WORKFLOWS = {
     "kb_publish": {
         "name": "WorkArena Auto-Publish",
         "update_set": str(
-            resources.files(data_files).joinpath("setup_files/kb_autopublish_workflow.xml")
+            resources.files(data_files).joinpath(
+                "setup_files/knowledge/kb_autopublish_workflow.xml"
+            )
         ),
     }
 }
 
-# Number of columns in the user list; used for setup
+# Expected columns for list tasks; used in setup
+EXPECTED_ASSET_LIST_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/lists/expected_asset_list_columns.json")
+)
+EXPECTED_CHANGE_REQUEST_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath(
+        "setup_files/lists/expected_change_request_list_columns.json"
+    )
+)
+EXPECTED_HARDWARE_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/lists/expected_hardware_list_columns.json")
+)
+EXPECTED_INCIDENT_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/lists/expected_incident_list_columns.json")
+)
+EXPECTED_SERVICE_CATALOG_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath(
+        "setup_files/lists/expected_service_catalog_list_columns.json"
+    )
+)
 EXPECTED_USER_COLUMNS_PATH = str(
-    resources.files(data_files).joinpath("setup_files/expected_user_columns.json")
+    resources.files(data_files).joinpath("setup_files/lists/expected_user_list_columns.json")
+)
+# Expected form fields for form tasks; used in setup
+EXPECTED_ASSET_FORM_FIELDS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/forms/expected_asset_form_fields.json")
+)
+EXPECTED_CHANGE_REQUEST_FORM_FIELDS_PATH = str(
+    resources.files(data_files).joinpath(
+        "setup_files/forms/expected_change_request_form_fields.json"
+    )
+)
+EXPECTED_HARDWARE_FORM_FIELDS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/forms/expected_hardware_form_fields.json")
+)
+EXPECTED_INCIDENT_FORM_FIELDS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/forms/expected_incident_form_fields.json")
+)
+EXPECTED_PROBLEM_FORM_FIELDS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/forms/expected_problem_form_fields.json")
+)
+EXPECTED_USER_FORM_FIELDS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/forms/expected_user_form_fields.json")
 )
