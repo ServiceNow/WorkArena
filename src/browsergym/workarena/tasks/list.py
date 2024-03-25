@@ -3,6 +3,7 @@ Tasks related to lists
 
 """
 
+import itertools
 import json
 import logging
 import playwright.sync_api
@@ -226,7 +227,6 @@ class SortListTask(ServiceNowListTask):
         visible_columns = set(self.list_info["fields"].split(","))
         config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
 
-        config = self.random.choice(self.all_configs)
         self.sort_fields = config["sort_fields"]
         self.sort_dirs = config["sort_dirs"]
         goal = config["goal"]
@@ -238,6 +238,44 @@ class SortListTask(ServiceNowListTask):
         info = {}
 
         return goal, info
+
+    def _generate_all_configs(self, seed: int, page: Page, n_fields_to_sort: int):
+        self.pre_setup(seed, page)
+        self._wait_for_ready(page)
+        list_info = self._extract_list_info(page)
+
+        # Get available fields
+        available_fields = list(list_info["columns"].keys())
+        # ... remove forbidden fields
+        available_fields = [f for f in available_fields if f not in self.forbidden_fields]
+
+        field_txt = {k: x["label"] for k, x in list_info["columns"].items()}
+        dir_txt = {"asc": "ascending", "desc": "descending"}
+
+        # compute all field combinations
+        all_sort_fields = list(itertools.combinations(available_fields, n_fields_to_sort))
+        # compute all direction combinations
+        all_sort_dirs = list(itertools.product(*[["asc", "desc"] for _ in range(n_fields_to_sort)]))
+
+        # product of field combinations x direction combinations
+        all_configs = list(itertools.product(all_sort_fields, all_sort_dirs))
+
+        all_configs = [
+            {
+                "sort_fields": sort_fields,
+                "sort_dirs": sort_dirs,
+                "goal": f'Sort the "{list_info["title"]}" list by the following fields:\n'
+                + "\n".join(
+                    [
+                        f" - {field_txt[field]} ({dir_txt[dir]})"
+                        for field, dir in zip(sort_fields, sort_dirs)
+                    ]
+                ),
+            }
+            for sort_fields, sort_dirs in all_configs
+        ]
+
+        return all_configs
 
     def _generate_random_config(self, seed: int, page: Page):
         self.pre_setup(seed, page)

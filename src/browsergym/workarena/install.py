@@ -317,25 +317,31 @@ def display_all_expected_columns(url: str, expected_columns: set[str]):
             'i[data-title="Personalize List Columns"]'
         )  # CSS selector to support both unmodified and modified list views
         selected_columns = frame.get_by_label("Selected", exact=True)
+        columns_to_remove = []
         selected_columns_required = set()
-        # Required columns that are already added
+
+        # Check for required columns that are already added, and extra columns that must be removed
+
         for option in selected_columns.get_by_role("option").all():
             value = option.get_attribute("value")
             if value:
                 if value in expected_columns:
                     selected_columns_required.add(value)
-                # Remove extra columns
                 else:
-                    option.click()
-                    frame.get_by_text("Remove", exact=True).click()
-        columns_to_add = set(expected_columns) - selected_columns_required
+                    columns_to_remove.append(value)
 
-        # Add required columns
-        for column in columns_to_add:
-            # Using CSS selector because some elements can't be selected otherwise (e.g. "sys_class_name")
-            frame.click(f'option[value="{column}"]')
-            frame.get_by_text("Add").click()
-        frame.click("#ok_button")
+        # Remove extra columns
+        selected_columns.select_option(value=columns_to_remove)
+        frame.get_by_text("Remove", exact=True).click()
+
+        # Add missing columns
+        available_columns = frame.get_by_label("Available", exact=True)
+        columns_to_add = list(set(expected_columns) - selected_columns_required)
+        available_columns.select_option(value=columns_to_add)
+        frame.get_by_text("Add", exact=True).click()
+
+        # Confirm
+        frame.locator("#ok_button").click()
 
 
 def check_all_columns_displayed(url: str, expected_columns: set[str]) -> bool:
@@ -346,15 +352,14 @@ def check_all_columns_displayed(url: str, expected_columns: set[str]) -> bool:
         page = browser.new_page()
         ui_login(instance, page)
         page.goto(instance.snow_url + url)
-        iframe = page.frame("gsft_main")
+        iframe = page.wait_for_selector("iframe#gsft_main").content_frame()
+        # Wait for gsft_main.GlideList2 to be available
+        page.wait_for_function("typeof gsft_main.GlideList2 !== 'undefined'")
         lst = iframe.locator("table.data_list_table")
-        lst.wait_for()
 
         # Validate the number of lists on the page
         lst = lst.nth(0)
         js_selector = f"gsft_main.GlideList2.get('{lst.get_attribute('data-list_id')}')"
-        # Wait for gsft_main.GlideList2 to be available
-        page.wait_for_function("typeof gsft_main.GlideList2 !== 'undefined'")
         visible_columns = set(page.evaluate(f"{js_selector}.fields").split(","))
 
         # check if expected columns is contained in the visible columns
@@ -420,6 +425,7 @@ def process_form_fields(url: str, expected_fields: list[str], action: str):
         ui_login(instance, page)
         page.goto(instance.snow_url + url)
         frame = page.wait_for_selector("iframe#gsft_main").content_frame()
+        page.wait_for_function("typeof gsft_main.GlideList2 !== 'undefined'")
         # Open form personalization view if not expanded
         form_personalization_expanded = frame.locator(
             'button:has-text("Personalize Form")'
@@ -515,6 +521,7 @@ def check_instance_release_support():
             f"You are running {version_info['build name']} {version_info}."
         )
         return False
+    return True
 
 
 def setup():

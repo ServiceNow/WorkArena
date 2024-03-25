@@ -32,6 +32,12 @@ def test_cheat(task_entrypoint, random_seed: int, page: Page):
     chat_messages = []
     reward, done, message, info = task.validate(page, chat_messages)
     assert done is False and reward == 0.0
+    assert (
+        isinstance(reward, (int, float))
+        and type(done) == bool
+        and type(message) == str
+        and type(info) == dict
+    )
     task.cheat(page=page, chat_messages=chat_messages)
     reward, done, message, info = task.validate(page, chat_messages)
     assert done is True and reward == 1.0

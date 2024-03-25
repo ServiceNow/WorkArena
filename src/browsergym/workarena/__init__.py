@@ -1,4 +1,4 @@
-__version__ = "0.1.0rc6"
+__version__ = "0.1.0rc7"
 
 from browsergym.core.registration import register_task
 
@@ -18,4 +18,8 @@ ALL_WORKARENA_TASKS = [
 
 # register the WorkArena benchmark
 for task in ALL_WORKARENA_TASKS:
-    register_task(task.get_task_id(), task)
+    register_task(
+        task.get_task_id(),
+        task,
+        kwargs={"viewport": {"width": 1280, "height": 720}, "timeout": 10000},
+    )

@@ -75,7 +75,6 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         Loads a bunch of info about the form on a page into object variables
 
         """
-        self._wait_for_ready(page)
 
         # Extract Glide table information
         logging.debug("Extracting Glide table metadata")
@@ -179,7 +178,7 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         """
         logging.debug(f"Waiting for {self.js_prefix} to be fully loaded")
         page.wait_for_function(
-            f"typeof window.{self.js_prefix} !== 'undefined' && window.{self.js_prefix}.WORKARENA_LOAD_COMPLETE"
+            f"typeof window.{self.js_prefix} !== 'undefined' && window.{self.js_prefix}.WORKARENA_LOAD_COMPLETE",
         )
         logging.debug(f"Detected {self.js_prefix} ready")
 
@@ -218,6 +217,7 @@ class ServiceNowFormTask(AbstractServiceNowTask):
             ],
         )
 
+        self._wait_for_ready(page)
         self._get_form(page)
 
 
@@ -301,8 +301,10 @@ class GenericNewRecordTask(ServiceNowFormTask):
         config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
 
         self.template_record = config["template_record"]
-        self.task_fields = config["task_fields"]
+        for f, func in self.unique_valued_fields.items():
+            self.template_record[f] = func(self.template_record[f])
 
+        self.task_fields = config["task_fields"]
         self.created_sysids = []
 
         # generate the goal
@@ -310,7 +312,8 @@ class GenericNewRecordTask(ServiceNowFormTask):
             f"Create a new {self.table_label} with "
             + " and ".join(
                 [
-                    f'a value of "{self.template_record[f]}"' + f' for field "{self.fields[f]}"'
+                    f'a value of "{self.template_record[f]}"'
+                    + f' for field "{self.fields[f]["label"]}"'
                     for f in self.task_fields
                 ]
             )
@@ -568,7 +571,6 @@ class GenericNewRecordTask(ServiceNowFormTask):
                 that are not part of the task.
 
         """
-        self._wait_for_ready(page)
 
         # Retrieve the created record's sys_id from the session storage
         sys_id = page.evaluate("localStorage").get(self.session_sys_id_field, None)
@@ -627,7 +629,7 @@ class GenericNewRecordTask(ServiceNowFormTask):
                 logging.info(
                     f'The field "{self.fields[f]["label"]}" has the wrong value. Expected: "{self.template_record[f]}", got: "{record[f]}".'
                 )
-                error_msg = (f'The field "{self.fields[f]["label"]}" has the wrong value.',)
+                error_msg = f'The field "{self.fields[f]["label"]}" has the wrong value.'
                 return (
                     0,
                     True,  # End episode (incorrect information pushed to the DB)
@@ -638,7 +640,6 @@ class GenericNewRecordTask(ServiceNowFormTask):
         return 1, True, "Nice work, thank you!", {"message": "The record was successfully created."}
 
     def teardown(self) -> None:
-        self._wait_for_ready(self.page)
 
         # Retrieve the current record's sys_id from the session storage
         sys_id = self.page.evaluate("localStorage").get(self.session_sys_id_field, None)
