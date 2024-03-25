@@ -10,15 +10,12 @@ WorkArena is included in [BrowserGym](https://github.com/ServiceNow/BrowserGym),
 
 https://github.com/ServiceNow/WorkArena/assets/2374980/68640f09-7d6f-4eb1-b556-c294a6afef70
 
-## ⚠️ Current Version Changes ⚠️
-Please note that WorkArena is currently undergoing updates that may cause discrepancies with results reported in our latest arXiv preprint. These changes are part of our preparations for releasing WorkArena 1.0, which enhances reliability and adds a new suite of tasks.
-
-## Upcoming: WorkArena 1.0
-We are in the process of finalizing WorkArena 1.0 and updating all results for a camera-ready submission. This version will bring improvements and align the software with our documented outcomes.
+## ⚠️ Pre-Release warning ⚠️
+Please note that the WorkArena benchmark is still undergoing minor bug fixes and updates, which may cause discrepancies with results reported in our latest arXiv preprint. We plan to release soon a stable version of WorkArena v0.1.0 with enhanced stability, and a final version v1.0.0 with a new suite of tasks.
 
 ## Benchmark Contents
 
-At the moment, WorkArena includes `23,150` task instances drawn from `29` tasks that cover the main components of the ServiceNow user interface. The following videos show an agent built on `GPT-4-vision` interacting with every such component. As emphasized by our results, this benchmark is not solved and thus, the performance of the agent is not always on point.
+At the moment, WorkArena includes `19,400` task instances drawn from `29` tasks that cover the main components of the ServiceNow user interface. The following videos show an agent built on `GPT-4-vision` interacting with every such component. As emphasized by our results, this benchmark is not solved and thus, the performance of the agent is not always on point.
 
 ### Knowledge Bases
 
