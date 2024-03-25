@@ -10,6 +10,11 @@ WorkArena is included in [BrowserGym](https://github.com/ServiceNow/BrowserGym),
 
 https://github.com/ServiceNow/WorkArena/assets/2374980/68640f09-7d6f-4eb1-b556-c294a6afef70
 
+## ⚠️ Current Version Changes ⚠️
+Please note that WorkArena is currently undergoing updates that may cause discrepancies with results reported in our latest arXiv preprint. These changes are part of our preparations for releasing WorkArena 1.0, which enhances reliability and adds a new suite of tasks.
+
+## Upcoming: WorkArena 1.0
+We are in the process of finalizing WorkArena 1.0 and updating all results for a camera-ready submission. This version will bring improvements and align the software with our documented outcomes.
 
 ## Benchmark Contents
 
