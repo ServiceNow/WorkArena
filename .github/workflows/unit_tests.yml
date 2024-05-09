@@ -25,7 +25,7 @@ jobs:
           cache: 'pip' # caching pip dependencies
 
       - name: Pip install
-        run: pip install -r requirements.txt
+        run: pip install black[jupyter]==24.2.0 blacken-docs
 
       - name: Pip list
         run: pip list
