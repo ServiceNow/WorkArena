@@ -8,11 +8,11 @@ import json
 import logging
 import playwright.sync_api
 import re
-import urllib.parse
 
 from playwright.sync_api import Page
 from tenacity import retry, retry_if_exception_type, stop_after_delay
-from typing import Tuple
+from typing import List, Tuple
+from urllib import parse
 from warnings import warn
 
 from ..api.utils import table_api_call, table_column_info
@@ -40,27 +40,28 @@ from ..config import (
 )
 from .base import AbstractServiceNowTask
 from .utils.form import fill_text
+from .utils.utils import check_url_suffix_match
 
 
 LISTS = {
     "alm_asset": {
-        "url": "/now/nav/ui/classic/params/target/alm_asset_list.do%3Fsysparm_view%3Ditam_workspace%26sysparm_userpref.alm_asset_list.view%3Ditam_workspace%26sysparm_userpref.alm_asset.view%3Ditam_workspace%26sysparm_query%3D%26sysparm_fixed_query%3D",
+        "url": "/now/nav/ui/classic/params/target/alm_asset_list.do",
         "forbidden_fields": ["sys_class_name"],
     },
     "alm_hardware": {
-        "url": "/now/nav/ui/classic/params/target/alm_hardware_list.do%3Fsysparm_view%3Ditam_workspace%26sysparm_userpref.alm_hardware_list.view%3Ditam_workspace%26sysparm_userpref.alm_hardware.view%3Ditam_workspace%3D%26sysparm_query%3Dinstall_status%253D6%255Esubstatus%253Dpre_allocated",
+        "url": "/now/nav/ui/classic/params/target/alm_hardware_list.do",
         "forbidden_fields": [],
     },
     "change_request": {
-        "url": "/now/nav/ui/classic/params/target/change_request_list.do%3Fsysparm_view%3Dsow%26sysparm_userpref.change_request_list.view%3Dsow%26sysparm_userpref.change_request.view%3Dsow%26sysparm_query%3D%26sysparm_fixed_query%3D",
+        "url": "/now/nav/ui/classic/params/target/change_request_list.do",
         "forbidden_fields": [],
     },
     "incident": {
-        "url": "/now/nav/ui/classic/params/target/incident_list.do%3Fsysparm_query%3Dactive%253Dtrue%26sysparm_first_row%3D1%26sysparm_view%3DMajor%2520Incidents",
+        "url": "/now/nav/ui/classic/params/target/incident_list.do",
         "forbidden_fields": [],
     },
     "sys_user": {
-        "url": "/now/nav/ui/classic/params/target/sys_user_list.do%3Fsysparm_view%3D%26sysparm_userpref.sys_user_list.view%3D%26sysparm_userpref.sys_user.view%3D%26sysparm_query%3Dactive%253Dtrue%255Ecompany%253D81fd65ecac1d55eb42a426568fc87a63",
+        "url": "/now/nav/ui/classic/params/target/sys_user_list.do",
         "forbidden_fields": [
             "sys_class_name",
             "roles",
@@ -70,13 +71,16 @@ LISTS = {
         ],
     },
     "sc_cat_item": {
-        "url": "/now/nav/ui/classic/params/target/sc_cat_item_list.do%3Fsysparm_view%3D%26sysparm_userpref.sc_cat_item_list.view%3D%26sysparm_userpref.sc_cat_item.view%3D%26sysparm_query%3D%26sysparm_fixed_query%3D",
+        "url": "/now/nav/ui/classic/params/target/sc_cat_item_list.do",
         "forbidden_fields": ["roles", "sc_catalogs"],
     },
 }
 
 
 class ServiceNowListTask(AbstractServiceNowTask):
+    def get_init_scripts(self) -> List[str]:
+        return super().get_init_scripts() + ["registerGsftMainLoaded();"]
+
     def _get_visible_list(self, page: Page):
         self._wait_for_ready(page)
 
@@ -164,16 +168,6 @@ class ServiceNowListTask(AbstractServiceNowTask):
         page.wait_for_function("window.gsft_main.GlideList2 !== undefined")
         logging.debug("Detected Glide list API ready")
 
-    def pre_setup(self, seed: int, page: Page):
-        super().pre_setup(seed, page)
-
-        self._add_init_scripts_to_context_and_reload(
-            page,
-            [
-                "registerGsftMainLoaded();",
-            ],
-        )
-
 
 class SortListTask(ServiceNowListTask):
     """
@@ -181,6 +175,8 @@ class SortListTask(ServiceNowListTask):
 
     Parameters:
     -----------
+    seed: int
+        Random seed
     instance: SNowInstance
         The instance to use.
     list_url: str
@@ -201,6 +197,7 @@ class SortListTask(ServiceNowListTask):
 
     def __init__(
         self,
+        seed: int,
         instance=None,
         list_url="",
         forbidden_fields=[],
@@ -208,7 +205,7 @@ class SortListTask(ServiceNowListTask):
         config_path: str = None,
         expected_fields_path: str = None,
     ) -> None:
-        super().__init__(instance=instance, start_rel_url=list_url)
+        super().__init__(seed=seed, instance=instance, start_rel_url=list_url)
         self.min_sort_len = 1
         self.max_sort_len = 3
         self.forbidden_fields = forbidden_fields
@@ -219,28 +216,33 @@ class SortListTask(ServiceNowListTask):
         with open(expected_fields_path, "r") as f:
             self.expected_fields = set(json.load(f))
 
-    def setup(self, seed: int, page: Page) -> tuple[str, dict]:
-        self.pre_setup(seed, page)
-        self._wait_for_ready(page)
-        # Extract the list from the page
-        self.list_info = self._extract_list_info(page)
-        visible_columns = set(self.list_info["fields"].split(","))
-        config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
+    def setup_goal(self, page: Page) -> tuple[str, dict]:
+        super().setup_goal(page=page)
 
+        # Get the task configuration
+        config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
         self.sort_fields = config["sort_fields"]
         self.sort_dirs = config["sort_dirs"]
-        goal = config["goal"]
-        # Ensure that the fields that need to be sorted are visible
-        assert (
-            set(self.sort_fields) <= visible_columns and visible_columns == self.expected_fields
-        ), f"Fields {self.sort_fields} are not all visible in the list. Re-run workarena-install to correct this."
 
+        # Get the task goal
+        goal = config["goal"]
         info = {}
 
         return goal, info
 
+    def start(self, page: Page) -> None:
+        super().start(page)
+        self._wait_for_ready(page)
+
+        # Ensure that the fields that need to be sorted are visible (task feasibility check)
+        self.list_info = self._extract_list_info(page)
+        visible_columns = set(self.list_info["fields"].split(","))
+        assert (
+            set(self.sort_fields) <= visible_columns and visible_columns == self.expected_fields
+        ), f"Fields {self.sort_fields} are not all visible in the list. Re-run workarena-install to correct this."
+
     def _generate_all_configs(self, seed: int, page: Page, n_fields_to_sort: int):
-        self.pre_setup(seed, page)
+        self.setup(seed=seed, page=page)
         self._wait_for_ready(page)
         list_info = self._extract_list_info(page)
 
@@ -277,8 +279,8 @@ class SortListTask(ServiceNowListTask):
 
         return all_configs
 
-    def _generate_random_config(self, seed: int, page: Page):
-        self.pre_setup(seed, page)
+    def _generate_random_config(self, page: Page):
+        self.setup(page=page)
         self._wait_for_ready(page)
         self.list_info = self._extract_list_info(page)
         # Get available fields
@@ -325,7 +327,7 @@ class SortListTask(ServiceNowListTask):
         return goal, info
 
     def cheat(self, page: Page, chat_messages: list[str]) -> None:
-        super().cheat(page, chat_messages)
+        super().cheat(page=page, chat_messages=chat_messages)
         self._wait_for_ready(page)
 
         iframe, _, _ = self._get_visible_list(page)
@@ -387,8 +389,19 @@ class SortListTask(ServiceNowListTask):
     def validate(
         self, page: playwright.sync_api.Page, chat_messages: list[str]
     ) -> Tuple[float, bool, str, dict]:
+        right_url = check_url_suffix_match(
+            page, expected_url=self.start_url[: self.start_url.find("%3F")], task=self
+        )
+        if not right_url:
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"The page is not in the right URL to validate task {self.__class__.__name__}."
+                },
+            )
         self._wait_for_ready(page)
-
         if len(self.sort_fields) == 1:
             # XXX: Treat this as a separate case because the user may have sorted by clicking
             #      on the column header. In that case, the URL will not contain the ORDERBY.
@@ -409,9 +422,9 @@ class SortListTask(ServiceNowListTask):
         else:
             # pre-process the URL
             page_url = page.evaluate("() => window.location.href")
-            page_url = urllib.parse.unquote(page_url)
-            page_query = urllib.parse.urlparse(page_url).query
-            page_qs = urllib.parse.parse_qs(page_query)
+            page_url = parse.unquote(page_url)
+            page_query = parse.urlparse(page_url).query
+            page_qs = parse.parse_qs(page_query)
 
             # make sure "sysparm_query" is present
             if "sysparm_query" not in page_qs:
@@ -464,6 +477,7 @@ class FilterListTask(ServiceNowListTask):
 
     def __init__(
         self,
+        seed: int,
         instance=None,
         list_url="",
         fixed_config: dict = None,
@@ -472,7 +486,7 @@ class FilterListTask(ServiceNowListTask):
     ) -> None:
         self.min_filter_len = 2
         self.max_filter_len = 5
-        super().__init__(instance=instance, start_rel_url=list_url)
+        super().__init__(seed=seed, instance=instance, start_rel_url=list_url)
         self.fixed_config = fixed_config
         if config_path:
             with open(config_path, "r") as f:
@@ -480,23 +494,18 @@ class FilterListTask(ServiceNowListTask):
         with open(expected_fields_path, "r") as f:
             self.expected_fields = set(json.load(f))
 
-    def setup(self, seed: int, page: Page) -> tuple[str, dict]:
-        self.pre_setup(seed, page)
-        self._wait_for_ready(page)
-        config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
+    def setup_goal(self, page: Page) -> tuple[str, dict]:
+        super().setup_goal(page=page)
 
+        # Get the task configuration
+        config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
         self.filter_columns = config["filter_columns"]
         self.filter_values = config["filter_values"]
         self.filter_kind = config["filter_kind"]
         self.list_info = config["list_info"]
         self.filter_len = len(self.filter_columns)
-        visible_list_info = self._extract_list_info(page)
-        visible_columns = set(visible_list_info["fields"].split(","))
-        # Assert that required fields are visible
-        assert (
-            set(self.filter_columns) <= visible_columns and visible_columns == self.expected_fields
-        ), f"Fields {self.filter_columns} are not all visible in the list. Re-run workarena-install to correct this."
-        # generate goal
+
+        # Generate goal
         goal = (
             f"Create a filter for the list to extract all entries where "
             + f" {'and' if self.filter_kind == 'AND' else 'or'} ".join(
@@ -511,8 +520,20 @@ class FilterListTask(ServiceNowListTask):
 
         return goal, info
 
-    def _generate_random_config(self, seed: int, page: Page):
-        self.pre_setup(seed, page)
+    def start(self, page: Page) -> None:
+        super().start(page)
+
+        self._wait_for_ready(page)
+
+        # Assert that required fields are visible (task feasibility check)
+        visible_list_info = self._extract_list_info(page)
+        visible_columns = set(visible_list_info["fields"].split(","))
+        assert (
+            set(self.filter_columns) <= visible_columns and visible_columns == self.expected_fields
+        ), f"Fields {self.filter_columns} are not all visible in the list. Re-run workarena-install to correct this."
+
+    def _generate_random_config(self, page: Page):
+        self.setup(page=page)
         self._wait_for_ready(page)
 
         # Extract the list from the page
@@ -594,7 +615,7 @@ class FilterListTask(ServiceNowListTask):
         return goal, {}
 
     def cheat(self, page: Page, chat_messages: list[str]) -> None:
-        super().cheat(page, chat_messages)
+        super().cheat(page=page, chat_messages=chat_messages)
         self._wait_for_ready(page)
 
         iframe, _, _ = self._get_visible_list(page)
@@ -686,8 +707,17 @@ class FilterListTask(ServiceNowListTask):
         Note: current implementation is limited to AND and OR filters (single type per filter) with equality operators
 
         """
+        right_url = check_url_suffix_match(page, expected_url=self.start_url, task=self)
+        if not right_url:
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"The page is not in the right URL to validate task {self.__class__.__name__}."
+                },
+            )
         self._wait_for_ready(page)
-
         if self.filter_kind not in ["AND", "OR"]:
             raise NotImplementedError("Only AND and OR filters are supported.")
         # Excludes AND because that's the default and its sep is ^ which matches everywhere
@@ -767,11 +797,13 @@ class FilterListTask(ServiceNowListTask):
 class FilterAssetListTask(FilterListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["alm_asset"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_ASSET_LIST_CONFIG_PATH,
@@ -782,11 +814,13 @@ class FilterAssetListTask(FilterListTask):
 class FilterChangeRequestListTask(FilterListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["change_request"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_CHANGE_REQUEST_LIST_CONFIG_PATH,
@@ -797,11 +831,13 @@ class FilterChangeRequestListTask(FilterListTask):
 class FilterHardwareListTask(FilterListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["alm_hardware"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_HARDWARE_LIST_CONFIG_PATH,
@@ -812,11 +848,13 @@ class FilterHardwareListTask(FilterListTask):
 class FilterIncidentListTask(FilterListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["incident"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_INCIDENT_LIST_CONFIG_PATH,
@@ -827,11 +865,13 @@ class FilterIncidentListTask(FilterListTask):
 class FilterServiceCatalogItemListTask(FilterListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["sc_cat_item"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_SERVICE_CATALOG_ITEM_LIST_CONFIG_PATH,
@@ -842,11 +882,13 @@ class FilterServiceCatalogItemListTask(FilterListTask):
 class FilterUserListTask(FilterListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["sys_user"]["url"],
             fixed_config=fixed_config,
             config_path=FILTER_USER_LIST_CONFIG_PATH,
@@ -857,11 +899,13 @@ class FilterUserListTask(FilterListTask):
 class SortAssetListTask(SortListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["alm_asset"]["url"],
             forbidden_fields=LISTS["alm_asset"]["forbidden_fields"],
             fixed_config=fixed_config,
@@ -873,11 +917,13 @@ class SortAssetListTask(SortListTask):
 class SortChangeRequestListTask(SortListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["change_request"]["url"],
             forbidden_fields=LISTS["change_request"]["forbidden_fields"],
             fixed_config=fixed_config,
@@ -889,11 +935,13 @@ class SortChangeRequestListTask(SortListTask):
 class SortHardwareListTask(SortListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["alm_hardware"]["url"],
             forbidden_fields=LISTS["alm_hardware"]["forbidden_fields"],
             fixed_config=fixed_config,
@@ -905,11 +953,13 @@ class SortHardwareListTask(SortListTask):
 class SortIncidentListTask(SortListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["incident"]["url"],
             forbidden_fields=LISTS["incident"]["forbidden_fields"],
             fixed_config=fixed_config,
@@ -921,11 +971,13 @@ class SortIncidentListTask(SortListTask):
 class SortServiceCatalogItemListTask(SortListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["sc_cat_item"]["url"],
             forbidden_fields=LISTS["sc_cat_item"]["forbidden_fields"],
             fixed_config=fixed_config,
@@ -937,11 +989,13 @@ class SortServiceCatalogItemListTask(SortListTask):
 class SortUserListTask(SortListTask):
     def __init__(
         self,
+        seed: int,
         instance=None,
         fixed_config: dict = None,
     ) -> None:
         super().__init__(
-            instance,
+            seed=seed,
+            instance=instance,
             list_url=LISTS["sys_user"]["url"],
             forbidden_fields=LISTS["sys_user"]["forbidden_fields"],
             fixed_config=fixed_config,

@@ -32,19 +32,21 @@ def fill_text(page, input_field, value, iframe=None):
         # Fill in the value using a procedure that triggers the autocomplete
         input_field.fill(value[:-1])
         page.keyboard.press(value[-1])
+        time.sleep(0.5)
 
-        # Wait until the attribute of the locator changes to the desired value
+        # Wait for the autocomplete menu to open and be ready
         max_wait_time = SNOW_BROWSER_TIMEOUT  # maximum time to wait in seconds
         start_time = time.time()
         while True:
-            if input_field.get_attribute("aria-expanded") == "true":
+            if input_field.get_attribute("aria-expanded") == "true" and not input_field.evaluate(
+                "e => e.ac.isResolving()"
+            ):
                 break
             if time.time() - start_time > (max_wait_time / 1000):
                 raise TimeoutError("Timeout waiting for autocompletion menu to open")
             time.sleep(0.5)  # wait for a short period before checking again
 
         # Select the desired value
-        time.sleep(0.5)  # wait for the list to be populated
         options = iframe.locator("[id^='ac_option_']")
         for i in range(options.count()):
             opt = options.nth(i)

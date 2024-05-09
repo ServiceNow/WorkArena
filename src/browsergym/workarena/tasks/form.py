@@ -7,6 +7,7 @@ from english_words import get_english_words_set
 from playwright.sync_api._generated import Page
 from time import sleep
 from typing import List, Tuple
+from urllib import parse
 
 from ..api.utils import (
     db_delete_from_table,
@@ -32,6 +33,7 @@ from ..config import (
 )
 from ..instance import SNowInstance
 from .utils.form import fill_text
+from .utils.utils import check_url_suffix_match
 
 
 ENGLISH_WORDS = list(get_english_words_set(["web2"]))
@@ -40,6 +42,7 @@ ENGLISH_WORDS = list(get_english_words_set(["web2"]))
 class ServiceNowFormTask(AbstractServiceNowTask):
     def __init__(
         self,
+        seed: int,
         start_rel_url,
         instance: SNowInstance = None,
         extra_mandatory_fields: List = [],
@@ -68,7 +71,7 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         # Prohibited fields: fields that we shouldn't interact with
         self.prohibited_fields = prohibited_fields
 
-        super().__init__(instance=instance, start_rel_url=start_rel_url)
+        super().__init__(seed=seed, instance=instance, start_rel_url=start_rel_url)
 
     def _get_form(self, page):
         """
@@ -105,10 +108,19 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         )["result"][0]["label"].lower()
 
         # Get the form fields
+        def is_field_visible(field):
+            return page.evaluate(
+                f"""
+                {self.form_js_selector}.isVisible(
+                    {self.form_js_selector}.getGlideUIElement('{field}'),
+                    {self.form_js_selector}.getControl('{field}')
+                );"""
+            )
+
         logging.debug("Extracting valid form fields")
         editable_fields = page.evaluate(f"{self.form_js_selector}.getEditableFields()")
         field_elements = page.evaluate(f"{self.form_js_selector}.elements")
-        all_visible_fields = [f["fieldName"] for f in field_elements]
+        all_fields = [f["fieldName"] for f in field_elements]
         self.fields = {
             f["fieldName"]: f
             for f in field_elements
@@ -129,16 +141,25 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         self.optional_fields = [f for f in set(self.fields.keys()) - set(self.mandatory_fields)]
 
         # Sanity check
-        assert len(self.fields) > 0, "No editable fields found."
+        assert len(self.fields) > 0, "No fields found on page."
+        assert len(editable_fields) > 0, "No editable fields found on page."
+        # ... check that the script that marks some fields as mandatory worked
         assert set(self.extra_mandatory_fields) <= set(
             self.mandatory_fields
         ), "Some extra mandatory fields are not mandatory in the form."
+        # ... check that the script that makes some fields read-only worked
         assert all(
             f not in self.fields for f in self.prohibited_fields
         ), "Some prohibited fields are editable in the form."
-        assert set(all_visible_fields) == set(
-            self.expected_fields
-        ), "Some fields are missing from the form., Re-run workarena-install to correct this."
+        # ... check that all the fields that the config expects are present and that extra fields are not visible
+        all_visible_fields = set([f for f in all_fields if is_field_visible(f)])
+        expected_visible_fields = set([f for f in self.expected_fields if is_field_visible(f)])
+        set_diff = all_visible_fields.union(
+            expected_visible_fields
+        ) - all_visible_fields.intersection(expected_visible_fields)
+        assert (
+            len(set_diff) == 0
+        ), f"The fields {set_diff} are either missing or unexpectedly visible on the form. Re-run 'workarena-install' to correct this."
 
     def _preprocess_fields(self, field, value):
         """
@@ -173,7 +194,7 @@ class ServiceNowFormTask(AbstractServiceNowTask):
 
     def _wait_for_ready(self, page: Page) -> None:
         """
-        Waits for the main iframe to be fully loaded
+        Waits for the main iframe to be fully loaded.
 
         """
         logging.debug(f"Waiting for {self.js_prefix} to be fully loaded")
@@ -190,33 +211,27 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         page.wait_for_function(f"typeof window.{self.js_prefix}.g_tabs2Sections !== 'undefined'")
         logging.debug("Detected Glide tabs API ready")
 
-    def pre_setup(self, seed: int, page: Page):
-        super().pre_setup(seed, page)
+    def get_init_scripts(self) -> List[str]:
+        # Extract expected URL suffix
+        url_suffix = parse.urlparse(self.start_url).path.split("/")[-1]
 
-        # Register a few initialization scripts
-        self._add_init_scripts_to_context_and_reload(
-            page,
-            [
-                "registerGsftMainLoaded();",
-                # ... Mark the extra mandatory fields as such
-                f"""
-            // Check that the script is running in the main iframe
-            if (window.frameElement?.id === '{self.js_prefix}') {{
-                waLog('Setting mandatory fields');
-                waitForCondition(() => typeof {self.js_api_forms} !== 'undefined', 100)
-                .then(waitForCondition(() => typeof window.WORKARENA_LOAD_COMPLETE !== 'undefined' && window.WORKARENA_LOAD_COMPLETE, 100)
-                    .then(
-                        function (){{
-                            {';'.join([self.js_api_forms + '.setMandatory("' + f + '", true)' for f in self.extra_mandatory_fields])}
-                            waLog('Mandatory fields set successfully.');
-                        }}
-                    )
-                );
-            }}
-            """,
-            ],
-        )
+        # Add a few initialization scripts
+        return super().get_init_scripts() + [
+            "registerGsftMainLoaded();",
+            # ... Mark the extra mandatory fields as such
+            f"""
+                function addFormMandatoryFields() {{
+                    waLog('Setting mandatory fields', 'addFormMandatoryFields');
+                    {";".join([f"{self.js_api_forms}.setMandatory('{f}', true)" for f in self.extra_mandatory_fields])}
+                    waLog('Mandatory fields set successfully.', 'addFormMandatoryFields');
+                }}
 
+                runInGsftMainOnlyAndProtectByURL(addFormMandatoryFields, '{url_suffix}');
+                """,
+        ]
+
+    def start(self, page: Page) -> None:
+        super().start(page)
         self._wait_for_ready(page)
         self._get_form(page)
 
@@ -252,7 +267,9 @@ class GenericNewRecordTask(ServiceNowFormTask):
 
     def __init__(
         self,
+        seed: int,
         form_url: str,
+        table_label: str,
         instance: SNowInstance = None,
         extra_mandatory_fields: List = [],
         prohibited_fields: List = [],
@@ -264,12 +281,16 @@ class GenericNewRecordTask(ServiceNowFormTask):
         expected_fields_path: str = None,
     ) -> None:
         super().__init__(
+            seed=seed,
             instance=instance,
             start_rel_url=form_url,
             extra_mandatory_fields=extra_mandatory_fields,
             prohibited_fields=prohibited_fields,
         )
         self.form_url = form_url
+
+        # Table pretty printed name
+        self.table_label = table_label
 
         # Key in which the sys_id of the created record will be stored in the local storage
         self.session_sys_id_field = f"{id(self)}.record_sys_id"
@@ -294,70 +315,65 @@ class GenericNewRecordTask(ServiceNowFormTask):
             with open(expected_fields_path, "r") as f:
                 self.expected_fields = json.load(f)
 
-    def setup(self, seed: int, page: Page) -> tuple[str, dict]:
-        self.pre_setup(seed, page)
-        self._run_init_scripts(page)
+    def get_init_scripts(self) -> List[str]:
+        # Extract expected URL suffix
+        url_suffix = parse.urlparse(self.start_url).path.split("/")[-1]
+
+        # Add a few initialization scripts
+        return super().get_init_scripts() + [
+            f"""
+                function patchSubmitButton() {{
+                    waLog('Attempting to override form submit function', 'patchSubmitButton');
+                    // Save the original function if it hasn't been saved yet
+                    if(typeof old_gsftSubmit == 'undefined'){{
+                        old_gsftSubmit = new Function('return ' + gsftSubmit.toString())();
+                        waLog('Saved original submit function', 'patchSubmitButton');
+                    }}
+
+                    // Override the function to save the sys_id in the local storage
+                    gsftSubmit = function(control, form, action_name) {{
+                        localStorage['{self.session_sys_id_field}'] = {self.js_api_forms}.getUniqueValue();
+                        old_gsftSubmit(control, form, action_name);
+                    }};
+                    waLog('Patched submit function. All done.', 'patchSubmitButton');
+                }}
+
+                runInGsftMainOnlyAndProtectByURL(patchSubmitButton, '{url_suffix}');
+                """
+        ]
+
+    def setup_goal(self, page: Page) -> tuple[str, dict]:
+        super().setup_goal(page=page)
+
+        # Get the task configuration
         assert self.all_configs is not None, "No configuration available for the task."
         config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
-
         self.template_record = config["template_record"]
         for f, func in self.unique_valued_fields.items():
             self.template_record[f] = func(self.template_record[f])
-
         self.task_fields = config["task_fields"]
         self.created_sysids = []
 
-        # generate the goal
+        # Generate the goal
         goal = (
             f"Create a new {self.table_label} with "
             + " and ".join(
                 [
                     f'a value of "{self.template_record[f]}"'
-                    + f' for field "{self.fields[f]["label"]}"'
+                    + f' for field "{config["fields"][f]}"'
                     for f in self.task_fields
                 ]
             )
             + "."
         )
         info = {}
+
         return goal, info
 
-    def _run_init_scripts(self, page: Page) -> None:
-        self._add_init_scripts_to_context_and_reload(
-            page,
-            [
-                f"""
-            // Check that the script is running in the main iframe
-            if (window.frameElement?.id === '{self.js_prefix}') {{
-                waLog('Attempting to override form submit function');
-                waitForCondition(() => typeof {self.js_api_forms} !== 'undefined', 100)
-                .then(waitForCondition(() => typeof gsftSubmit !== 'undefined', 100)
-                    .then(
-                        function overrideSubmit(){{
-                            // Save the original function if it hasn't been saved yet
-                            if(typeof old_gsftSubmit == 'undefined'){{
-                                old_gsftSubmit = new Function('return ' + gsftSubmit.toString())();
-                                waLog('Saved original submit function');
-                            }}
-
-                            // Override the function to save the sys_id in the local storage
-                            gsftSubmit = function(control, form, action_name) {{
-                                localStorage['{self.session_sys_id_field}'] = {self.js_api_forms}.getUniqueValue();
-                                old_gsftSubmit(control, form, action_name);
-                            }};
-                            waLog('Patched submit function. All done.');
-                        }}
-                    )
-                );
-            }}
-            """
-            ],
-        )
-
-    def _generate_random_config(self, seed: int, page: Page) -> None:
+    def _generate_random_config(self, page: Page) -> None:
         """Generate a random configuration for the task."""
-        self.pre_setup(seed, page)
-        self._run_init_scripts(page)
+        self.setup(page=page)
+
         # Determine task fields
         logging.debug("Determining task fields")
         # ... check that we have enough fields
@@ -482,7 +498,7 @@ class GenericNewRecordTask(ServiceNowFormTask):
         return goal, info
 
     def cheat(self, page: Page, chat_messages: list[str]) -> None:
-        super().cheat(page, chat_messages)
+        super().cheat(page=page, chat_messages=chat_messages)
         self._wait_for_ready(page)
         iframe = page.frame_locator(f'iframe[name="{self.js_prefix}"]')
 
@@ -522,11 +538,11 @@ class GenericNewRecordTask(ServiceNowFormTask):
             if section_id not in tab_sections:
                 return
 
-            page.evaluate(
+            page.evaluate_handle(
                 f"""{self.js_prefix}.g_tabs2Sections.tabsTabs[
                                                     {tab_sections[section_id]}
-                                                ].element.click()"""
-            )
+                                                ].element"""
+            ).click(force=True)
 
         for field in self.task_fields:
             # Get the field's input control
@@ -571,7 +587,17 @@ class GenericNewRecordTask(ServiceNowFormTask):
                 that are not part of the task.
 
         """
-
+        # check that the page is at the right url
+        right_url = check_url_suffix_match(page, expected_url=self.start_url, task=self)
+        if not right_url:
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"The page is not in the right URL to validate task {self.__class__.__name__}."
+                },
+            )
         # Retrieve the created record's sys_id from the session storage
         sys_id = page.evaluate("localStorage").get(self.session_sys_id_field, None)
 
@@ -665,10 +691,12 @@ class CreateChangeRequestTask(GenericNewRecordTask):
 
     """
 
-    def __init__(self, instance=None, fixed_config: dict = None) -> None:
+    def __init__(self, seed: int, instance=None, fixed_config: dict = None) -> None:
         super().__init__(
+            seed=seed,
             instance=instance,
             form_url="/now/nav/ui/classic/params/target/change_request.do",
+            table_label="change request",
             prohibited_fields=["chg_model", "state"],
             fixed_config=fixed_config,
             config_path=CREATE_CHANGE_REQUEST_CONFIG_PATH,
@@ -682,10 +710,12 @@ class CreateIncidentTask(GenericNewRecordTask):
 
     """
 
-    def __init__(self, instance=None, fixed_config: dict = None) -> None:
+    def __init__(self, seed: int, instance=None, fixed_config: dict = None) -> None:
         super().__init__(
+            seed=seed,
             instance=instance,
             form_url="/now/nav/ui/classic/params/target/incident.do",
+            table_label="incident",
             prohibited_fields=["state"],
             fixed_config=fixed_config,
             config_path=CREATE_INCIDENT_CONFIG_PATH,
@@ -699,10 +729,12 @@ class CreateHardwareAssetTask(GenericNewRecordTask):
 
     """
 
-    def __init__(self, instance=None, fixed_config: dict = None) -> None:
+    def __init__(self, seed: int, instance=None, fixed_config: dict = None) -> None:
         super().__init__(
+            seed=seed,
             instance=instance,
             form_url="/now/nav/ui/classic/params/target/alm_hardware.do",
+            table_label="hardware asset",
             prohibited_fields=["install_status"],
             extra_mandatory_fields=[
                 "model",
@@ -723,10 +755,12 @@ class CreateProblemTask(GenericNewRecordTask):
 
     """
 
-    def __init__(self, instance=None, fixed_config: dict = None) -> None:
+    def __init__(self, seed: int, instance=None, fixed_config: dict = None) -> None:
         super().__init__(
+            seed=seed,
             instance=instance,
             form_url="/now/nav/ui/classic/params/target/problem.do",
+            table_label="problem",
             prohibited_fields=["state", "first_reported_by_task"],
             fixed_config=fixed_config,
             config_path=CREATE_PROBLEM_CONFIG_PATH,
@@ -744,10 +778,12 @@ class CreateUserTask(GenericNewRecordTask):
 
     """
 
-    def __init__(self, instance=None, fixed_config: dict = None) -> None:
+    def __init__(self, seed: int, instance=None, fixed_config: dict = None) -> None:
         super().__init__(
+            seed=seed,
             instance=instance,
             form_url="/now/nav/ui/classic/params/target/sys_user.do",
+            table_label="user",
             extra_mandatory_fields=["user_name", "first_name", "last_name", "email"],
             unique_valued_fields={"user_name": lambda x: str(hash(x + self.unique_id))},
             fixed_config=fixed_config,

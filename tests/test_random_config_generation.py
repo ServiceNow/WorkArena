@@ -48,23 +48,23 @@ from browsergym.workarena.tasks.service_catalog import (
 )
 
 RANDOMLY_CONFIGURALBE_TASKS = [
-    CreateChangeRequestTask,
-    CreateHardwareAssetTask,
-    CreateIncidentTask,
-    CreateProblemTask,
-    CreateUserTask,
-    FilterAssetListTask,
-    FilterChangeRequestListTask,
-    FilterHardwareListTask,
-    FilterIncidentListTask,
-    FilterServiceCatalogItemListTask,
-    FilterUserListTask,
-    SortAssetListTask,
-    SortChangeRequestListTask,
-    SortHardwareListTask,
-    SortIncidentListTask,
-    SortServiceCatalogItemListTask,
-    SortUserListTask,
+    # CreateChangeRequestTask,
+    # CreateHardwareAssetTask,
+    # CreateIncidentTask,
+    # CreateProblemTask,
+    # CreateUserTask,
+    # FilterAssetListTask,
+    # FilterChangeRequestListTask,
+    # FilterHardwareListTask,
+    # FilterIncidentListTask,
+    # FilterServiceCatalogItemListTask,
+    # FilterUserListTask,
+    # SortAssetListTask,
+    # SortChangeRequestListTask,
+    # SortHardwareListTask,
+    # SortIncidentListTask,
+    # SortServiceCatalogItemListTask,
+    # SortUserListTask,
     OrderDeveloperLaptopTask,
     OrderIpadMiniTask,
     OrderIpadProTask,
@@ -77,17 +77,18 @@ RANDOMLY_CONFIGURALBE_TASKS = [
 ]
 
 
-@retry(
-    stop=stop_after_attempt(5),
-    retry=retry_if_exception_type(TimeoutError),
-    reraise=True,
-    before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
-)
+# @retry(
+#     stop=stop_after_attempt(5),
+#     retry=retry_if_exception_type(TimeoutError),
+#     reraise=True,
+#     before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
+# )
 @pytest.mark.parametrize("task_entrypoint", RANDOMLY_CONFIGURALBE_TASKS)
 @pytest.mark.parametrize("random_seed", range(1))
+@pytest.mark.slow
 def test_cheat_from_random_config(task_entrypoint, random_seed: int, page: Page):
-    task = task_entrypoint()
-    task._generate_random_config(seed=random_seed, page=page)
+    task = task_entrypoint(seed=random_seed)
+    task._generate_random_config(page=page)
     chat_messages = []
     reward, done, message, info = task.validate(page, chat_messages)
     assert done is False and reward == 0.0

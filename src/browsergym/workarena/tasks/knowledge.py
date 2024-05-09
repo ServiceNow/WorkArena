@@ -7,11 +7,13 @@ import json
 import logging
 
 from playwright.sync_api import Page
+from urllib import parse
 
 from .base import AbstractServiceNowTask
-from ..config import KB_FILEPATH, KB_CONFIG_PATH, SNOW_BROWSER_TIMEOUT
+from ..config import KB_NAME, KB_FILEPATH, KB_CONFIG_PATH, SNOW_BROWSER_TIMEOUT
 from ..install import check_knowledge_base
 from ..instance import SNowInstance
+from .utils.utils import check_url_suffix_match
 
 
 class KnowledgeBaseSearchTask(AbstractServiceNowTask):
@@ -30,17 +32,18 @@ class KnowledgeBaseSearchTask(AbstractServiceNowTask):
 
     """
 
-    def __init__(self, instance=None, fixed_config: dict = None) -> None:
+    def __init__(self, seed: int, instance=None, fixed_config: dict = None) -> None:
         super().__init__(
+            seed=seed,
             instance=instance,
-            start_rel_url="/now/nav/ui/classic/params/target/%24knowledge.do",
+            start_rel_url="/now/nav/ui/classic/params/target/kb?id=kb_home",
         )
 
         # Load the knowledge base and check its integrity
         with open(KB_FILEPATH, "r") as f:
             self.kb_entries = json.load(f)
         _, requires_install, requires_delete = check_knowledge_base(
-            self.instance, kb_data=self.kb_entries
+            self.instance, kb_data=self.kb_entries, kb_name=KB_NAME
         )
         with open(KB_CONFIG_PATH, "r") as f:
             self.all_configs = json.load(f)
@@ -53,7 +56,7 @@ class KnowledgeBaseSearchTask(AbstractServiceNowTask):
 
     def _wait_for_ready(self, page: Page) -> None:
         """
-        Waits for the main iframe to be fully loaded
+        Checks that the main iframe is fully loaded
 
         """
         # TODO: We don't use the flag-based method used in other tasks
@@ -80,32 +83,36 @@ class KnowledgeBaseSearchTask(AbstractServiceNowTask):
                 f"Timed out waiting for iframe to be ready in {self.instance.snow_url}"
             )
 
-    def setup(self, page: Page, seed: int = None) -> tuple[str, dict]:
-        self.pre_setup(seed, page)
+    def setup_goal(self, page: Page) -> tuple[str, dict]:
+        super().setup_goal(page=page)
+
+        # Get task configuration
         config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
         self.item = config["item"]
         self.answer = config["value"]
         self.alternative_answers = config["alternative_answers"]
         self.question = config["question"]
 
-        # generate goal
+        # Generate goal
         goal = f'Answer the following question using the knowledge base: "{self.question}"'
         info = {}
 
         return goal, info
 
     def cheat(self, page: Page, chat_messages: list[str]) -> None:
-        super().cheat(page, chat_messages)
+        super().cheat(page=page, chat_messages=chat_messages)
         self._wait_for_ready(page)
 
         iframe = page.frame(name="gsft_main")
-        search = iframe.locator("input.form-control-search")
+        search = iframe.locator('input[aria-label="Search"][role="textbox"]')
         search.fill(f'"{self.item}"')
-        self.page.keyboard.press("Enter")
+
+        with page.expect_navigation():
+            self.page.keyboard.press("Enter")
 
         # Click on the article
-        with self.page.expect_navigation():
-            iframe.locator(".kb_link").first.click()
+        with page.expect_navigation():
+            iframe.locator("a.kb-title").first.click()
 
         # Color the query and answer (this is just for visualization, it changes nothing to the validation)
         paragraphs = iframe.locator("p")
@@ -130,7 +137,16 @@ class KnowledgeBaseSearchTask(AbstractServiceNowTask):
         chat_messages.append({"role": "assistant", "message": str(self.answer)})
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[float, bool, str, dict]:
-
+        right_url = check_url_suffix_match(page, expected_url="target/kb", task=self)
+        if not right_url:
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"The page is not in the right URL to validate task {self.__class__.__name__}."
+                },
+            )
         if chat_messages and chat_messages[-1]["role"] == "assistant":
             answer = chat_messages[-1]["message"]
         else:

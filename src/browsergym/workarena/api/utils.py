@@ -86,7 +86,7 @@ def table_column_info(instance: SNowInstance, table: str) -> dict:
 
     # Clean column value choices
     for info in meta_info.values():
-        if "choices" in info:
+        if info.get("choices", None):
             info["choices"] = {c["value"]: c["label"] for c in info["choices"]}
 
     # Query the sys_dictionnary table to find more info (e.g., is this column dependent on another)

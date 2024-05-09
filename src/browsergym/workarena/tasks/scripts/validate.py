@@ -143,8 +143,8 @@ def validate_on_page(task_class, task_config, page):
     cheat_passed = False
     task_done = False
     reward = 0.0
-    task = task_class(fixed_config=task_config)
-    task.setup(page=page, seed=1)
+    task = task_class(seed=1, fixed_config=task_config)
+    task.setup(page=page)
     chat_messages = []
     task.cheat(page=page, chat_messages=chat_messages)
     cheat_passed = True

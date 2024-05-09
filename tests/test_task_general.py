@@ -27,8 +27,8 @@ from browsergym.workarena import ALL_WORKARENA_TASKS
 @pytest.mark.parametrize("random_seed", range(1))
 @pytest.mark.slow
 def test_cheat(task_entrypoint, random_seed: int, page: Page):
-    task = task_entrypoint()
-    goal, info = task.setup(seed=random_seed, page=page)
+    task = task_entrypoint(seed=random_seed)
+    goal, info = task.setup(page=page)
     chat_messages = []
     reward, done, message, info = task.validate(page, chat_messages)
     assert done is False and reward == 0.0
