@@ -47,12 +47,12 @@ def generate_task_configs(task_class, num_configs=1000, task_type="sort"):
         """Try to setup and cheat a task, and return its configuration if it's new"""
         try:
             with sync_playwright() as p:
-                task = task_class()
+                task = task_class(seed=seed)
                 browser = p.chromium.launch()
                 context = browser.new_context()  # Set the timeout here
                 context.set_default_timeout(5000)
                 page = context.new_page()
-                goal, _ = task._generate_random_config(seed=seed, page=page)
+                goal, _ = task._generate_random_config(page=page)
                 chat_messages = []
                 try:
                     task.cheat(page=page, chat_messages=chat_messages)

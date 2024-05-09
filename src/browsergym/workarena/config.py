@@ -7,10 +7,25 @@ from ..workarena.tasks import utils
 SNOW_DATA_LOOKBACK_MINUTES = 5
 SNOW_BROWSER_TIMEOUT = 30000  # Milliseconds
 SNOW_JS_UTILS_FILEPATH = str(resources.files(utils).joinpath("js_utils.js"))
-SNOW_SUPPORTED_RELEASES = ["utah"]
+SNOW_SUPPORTED_RELEASES = ["washingtondc"]
 
 # Path to the Menu navigation task configuration
 ALL_MENU_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu.json"))
+
+# Path to the dashboard/report retrieval task configurations
+DASHBOARD_RETRIEVAL_MINMAX_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/dashboard_retrieval_minmax_task.json")
+)
+DASHBOARD_RETRIEVAL_VALUE_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/dashboard_retrieval_value_task.json")
+)
+REPORT_RETRIEVAL_MINMAX_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/report_retrieval_minmax_task.json")
+)
+REPORT_RETRIEVAL_VALUE_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/report_retrieval_value_task.json")
+)
+
 # Path to knowledge base task configurations
 KB_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/knowledge_base_configs.json")
@@ -119,6 +134,28 @@ WORKFLOWS = {
     }
 }
 
+
+# Custom UI Themes
+UI_THEMES_UPDATE_SET = {
+    "name": "WorkArena UI Themes",
+    "update_set": str(
+        resources.files(data_files).joinpath("setup_files/ui_themes/workarena_themes.xml")
+    ),
+    "variants": [
+        "Astranova",
+        "Charlies",
+        "Great pasta",
+        "Mighty capital",
+        "Speedy tires",
+        "Skyward",
+        "Turbobots",
+        "Ultrashoes",
+        "Vitasphere",
+        "Workarena",
+    ],
+}
+
+
 # Expected columns for list tasks; used in setup
 EXPECTED_ASSET_LIST_COLUMNS_PATH = str(
     resources.files(data_files).joinpath("setup_files/lists/expected_asset_list_columns.json")
@@ -163,3 +200,8 @@ EXPECTED_PROBLEM_FORM_FIELDS_PATH = str(
 EXPECTED_USER_FORM_FIELDS_PATH = str(
     resources.files(data_files).joinpath("setup_files/forms/expected_user_form_fields.json")
 )
+
+
+# Report date filter patch flag
+REPORT_PATCH_FLAG = "WORKARENA_DATE_FILTER_PATCH"
+REPORT_DATE_FILTER = "2024-04-01"

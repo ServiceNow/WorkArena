@@ -92,8 +92,8 @@ from browsergym.workarena.tasks.service_catalog import (
 )
 def generic_task_cheat_test(task_class, config_path, page: Page, expected_goal: str = None):
     task_config = json.load(open(config_path, "r"))[0]
-    task = task_class(fixed_config=task_config)
-    goal, _ = task.setup(page=page, seed=1)
+    task = task_class(seed=1, fixed_config=task_config)
+    goal, _ = task.setup(page=page)
     if expected_goal:
         assert goal == expected_goal
     chat_messages = []
