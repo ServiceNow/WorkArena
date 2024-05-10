@@ -48,10 +48,11 @@ jobs:
           uses: pypa/gh-action-pypi-publish@release/v1
 
     github-release:
-      name: Sign with Sigstore and upload them to GitHub Release
+      name: Sign packages with Sigstore and upload them to GitHub Release
       needs:
       - publish-to-pypi
       runs-on: ubuntu-latest
+
       permissions:
         contents: write  # IMPORTANT: mandatory for making GitHub Releases
         id-token: write  # IMPORTANT: mandatory for sigstore
@@ -64,7 +65,7 @@ jobs:
           path: dist/
 
       - name: Sign the dists with Sigstore
-        uses: sigstore/gh-action-sigstore-python@v1.2.3
+        uses: sigstore/gh-action-sigstore-python@v2.1.1
         with:
           inputs: >-
             ./dist/*.tar.gz
