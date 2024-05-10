@@ -11,6 +11,7 @@ authors = [
     {name = "Maxime Gasse"},
     {name = "Alex Lacoste"},
     {name = "Manuel Del Verme"},
+    {name = "Megh Thakkar"},
 ]
 readme = "README.md"
 requires-python = ">3.7"
