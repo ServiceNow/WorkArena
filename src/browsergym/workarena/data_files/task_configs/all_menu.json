@@ -441,11 +441,6 @@
     },
     {
         "application": "CSDM",
-        "module": "Manage Technical Services > Application Service",
-        "url": "/now/nav/ui/classic/params/target/cmdb_ci_service_auto_list.do%3Fsysparm_userpref_module%3Ddeaba64e231200106682110d96bf65ca%26sysparm_view%3Dcsdm_view%26sysparm_query%3Dservice_classification%253DApplication%2BService%255EEQ"
-    },
-    {
-        "application": "CSDM",
         "module": "Manage Technical Services > Technical Service",
         "url": "/now/nav/ui/classic/params/target/cmdb_ci_service_technical_list.do%3Fsysparm_userpref_module%3D292944a3231300106682110d96bf659d"
     },
@@ -1687,7 +1682,7 @@
     {
         "application": "Conversational Interfaces",
         "module": "Virtual Agent > Designer",
-        "url": "/now/nav/ui/classic/params/target/%24conversation-builder.do"
+        "url": "/now/nav/ui/classic/params/target/%24conversation-builder.do%23%2F"
     },
     {
         "application": "Conversational Interfaces",
@@ -2101,13 +2096,8 @@
     },
     {
         "application": "Issue Auto Resolution",
-        "module": "Settings",
-        "url": "/now/nav/ui/classic/params/target/sys_cs_auto_resolution_configuration_list.do%3Fsysparm_userpref_module%3De79a07d05332011031a5ddeeff7b12d0"
-    },
-    {
-        "application": "Issue Auto Resolution",
-        "module": "Simulation",
-        "url": "/now/nav/ui/classic/params/target/sys_cs_auto_resolution_simulation_configuration_list.do%3Fsysparm_userpref_module%3De1ea0bd05332011031a5ddeeff7b1296"
+        "module": "Simulations",
+        "url": "/now/conversation/iar/simulation/home"
     },
     {
         "application": "Knowledge",
@@ -2231,6 +2221,11 @@
     },
     {
         "application": "MID Server",
+        "module": "Audit Logs > Command Audit Logs",
+        "url": "/now/nav/ui/classic/params/target/ecc_agent_command_audit_log_list.do%3Fsysparm_userpref_module%3D091f72daff1550103894c787d53bf11b"
+    },
+    {
+        "application": "MID Server",
         "module": "Extensions > MID SNMP Trap Listener",
         "url": "/now/nav/ui/classic/params/target/ecc_agent_ext_context_trap_list.do%3Fsysparm_userpref_module%3D4e670b25df7221008ef489865df26368"
     },
@@ -2243,11 +2238,6 @@
         "application": "MID Server",
         "module": "Profiles and Deployments > MID Deployment Requests",
         "url": "/now/nav/ui/classic/params/target/mid_server_deployment_list.do%3Fsysparm_userpref_module%3D7db2c83453353010347cddeeff7b12b7"
-    },
-    {
-        "application": "MID Server",
-        "module": "Profiles and Deployments > MID Deployment Templates",
-        "url": "/now/nav/ui/classic/params/target/mid_deployment_template_list.do%3Fsysparm_userpref_module%3D03a3aea653763010347cddeeff7b121d"
     },
     {
         "application": "MID Server",
@@ -2328,41 +2318,6 @@
         "application": "Normalization Data Services",
         "module": "Guided Setup",
         "url": "/now/nav/ui/classic/params/target/%24guided_setup.do%23%2Fcontent%2Ff22be6a20b111200a8d7a12cf6673a57%3Ffocus%3Dbc577ee20b111200a8d7a12cf6673aba%26group_focuses%3D%26home_options%3Dintro%26scroll_to%3D%26filter%3Dall"
-    },
-    {
-        "application": "Now Experience Framework",
-        "module": "Actions and Events > Action Bar Declarative Actions",
-        "url": "/now/nav/ui/classic/params/target/sys_declarative_action_assignment_list.do%3Fsysparm_fixed_query%3Dmodel%253D360935e9534723003eddddeeff7b127d%5Eform_position%3Daction_bar%26sysparm_view%3Dform_action"
-    },
-    {
-        "application": "Now Experience Framework",
-        "module": "Actions and Events > UX Declarative Actions",
-        "url": "/now/nav/ui/classic/params/target/sys_declarative_action_assignment_list.do%3Fsysparm_fixed_query%3Dmodel%253D607c997b73210010fd843c78caf6a752%26sysparm_view%3Duxf_actions"
-    },
-    {
-        "application": "Now Experience Framework",
-        "module": "Actions and Events > UX Events",
-        "url": "/now/nav/ui/classic/params/target/sys_ux_event_list.do%3Fsysparm_userpref_module%3D79a12ec773601010fd843c78caf6a71b"
-    },
-    {
-        "application": "Now Experience Framework",
-        "module": "Actions and Events > UX Form Action Groups",
-        "url": "/now/nav/ui/classic/params/target/sys_ux_form_action_layout_group_list.do%3Fsysparm_userpref_module%3D86de4e9653dd1010ac9bddeeff7b1296"
-    },
-    {
-        "application": "Now Experience Framework",
-        "module": "Actions and Events > UX Form Action Layouts",
-        "url": "/now/nav/ui/classic/params/target/sys_ux_form_action_layout_list.do%3Fsysparm_userpref_module%3D8a0f8e9653dd1010ac9bddeeff7b12df"
-    },
-    {
-        "application": "Now Experience Framework",
-        "module": "Actions and Events > UX Form Actions",
-        "url": "/now/nav/ui/classic/params/target/sys_ux_form_action_list.do%3Fsysparm_userpref_module%3D516e0a9653dd1010ac9bddeeff7b123d"
-    },
-    {
-        "application": "Now Experience Framework",
-        "module": "Actions and Events > UX Form Actions Configs",
-        "url": "/now/nav/ui/classic/params/target/sys_ux_action_config_list.do%3Fsysparm_userpref_module%3Dc3616ac773601010fd843c78caf6a7ea"
     },
     {
         "application": "Now Experience Framework",
@@ -2902,12 +2857,12 @@
     {
         "application": "Predictive Intelligence",
         "module": "Clustering > Solution Definitions",
-        "url": "/now/nav/ui/classic/params/target/ml_capability_definition_clustering_list.do%3Fsysparm_userpref_module%3D5ee127a80f312300aeb1b211ff767e1d%26sysparm_view%3Dml%26sysparm_view_forced%3Dtrue%26sysparm_fixed_query%3Drequest_source%3D%5EORrequest_source%3Dui"
+        "url": "/now/nav/ui/classic/params/target/ml_capability_definition_clustering_list.do%3Fsysparm_userpref_module%3D5ee127a80f312300aeb1b211ff767e1d%26sysparm_view%3Dml%26sysparm_view_forced%3Dtrue%26sysparm_fixed_query%3Drequest_source%3D%5EORrequest_source%3Dui%5EORtriggered_source%3D%5EORtriggered_source%3DUI"
     },
     {
         "application": "Predictive Intelligence",
         "module": "Clustering > Solutions",
-        "url": "/now/nav/ui/classic/params/target/ml_solution_list.do%3Fsysparm_userpref_module%3Dd61227a80f312300aeb1b211ff767ed3%26sysparm_view%3Dclustering%26sysparm_query%3DGROUPBYsolution_name%5EORDERBYDESCactive%5EORDERBYDESCversion%26sysparm_view_forced%3Dtrue%26sysparm_fixed_query%3Dcapability%3Dclustering_trainer%5Erequest_source%3D%5EORrequest_source%3Dui"
+        "url": "/now/nav/ui/classic/params/target/ml_solution_list.do%3Fsysparm_userpref_module%3Dd61227a80f312300aeb1b211ff767ed3%26sysparm_view%3Dclustering%26sysparm_query%3DGROUPBYsolution_name%5EORDERBYDESCactive%5EORDERBYDESCversion%26sysparm_view_forced%3Dtrue%26sysparm_fixed_query%3Dcapability%3Dclustering_trainer%5EORcapability%3Dworkflow_clustering_trainer%5Erequest_source%3D%5EORrequest_source%3Dui%5EORtriggered_source%3D%5EORtriggered_source%3DUI"
     },
     {
         "application": "Predictive Intelligence",
@@ -2922,12 +2877,12 @@
     {
         "application": "Predictive Intelligence",
         "module": "Similarity > Solution Definitions",
-        "url": "/now/nav/ui/classic/params/target/ml_capability_definition_similarity_list.do%3Fsysparm_userpref_module%3D243939a687321300f018f7c736cb0bc0%26sysparm_view%3Dml%26sysparm_view_forced%3Dtrue%26sysparm_fixed_query%3Drequest_source%3D%5EORrequest_source%3Dui"
+        "url": "/now/nav/ui/classic/params/target/ml_capability_definition_similarity_list.do%3Fsysparm_userpref_module%3D243939a687321300f018f7c736cb0bc0%26sysparm_view%3Dml%26sysparm_view_forced%3Dtrue%26sysparm_fixed_query%3Drequest_source%3D%5EORrequest_source%3Dui%5EORtriggered_source%3D%5EORtriggered_source%3DUI"
     },
     {
         "application": "Predictive Intelligence",
         "module": "Similarity > Solutions",
-        "url": "/now/nav/ui/classic/params/target/ml_solution_list.do%3Fsysparm_userpref_module%3D655979a687321300f018f7c736cb0bf6%26sysparm_view%3Dsimilarity%26sysparm_query%3DGROUPBYsolution_name%5EORDERBYDESCactive%5EORDERBYDESCversion%26sysparm_view_forced%3Dtrue%26sysparm_fixed_query%3Dcapability%3Dsimilarity_trainer%5Erequest_source%3D%5EORrequest_source%3Dui"
+        "url": "/now/nav/ui/classic/params/target/ml_solution_list.do%3Fsysparm_userpref_module%3D655979a687321300f018f7c736cb0bf6%26sysparm_view%3Dsimilarity%26sysparm_query%3DGROUPBYsolution_name%5EORDERBYDESCactive%5EORDERBYDESCversion%26sysparm_view_forced%3Dtrue%26sysparm_fixed_query%3Dcapability%3Dsimilarity_trainer%5EORcapability%3Dworkflow_similarity_trainer%5Erequest_source%3D%5EORrequest_source%3Dui%5EORtriggered_source%3D%5EORtriggered_source%3DUI"
     },
     {
         "application": "Problem",
@@ -2966,6 +2921,11 @@
     },
     {
         "application": "Process Automation",
+        "module": "Flow Administration > FDIH Dashboard",
+        "url": "/now/fdih-dashboards/home/params/selected-tab-index/0"
+    },
+    {
+        "application": "Process Automation",
         "module": "Flow Administration > Feature Access List",
         "url": "/now/nav/ui/classic/params/target/feature_access.do"
     },
@@ -2973,11 +2933,6 @@
         "application": "Process Automation",
         "module": "Flow Administration > Inbound Email Flows",
         "url": "/now/nav/ui/classic/params/target/sys_hub_trigger_instance_list.do%3Fsysparm_userpref_module%3D46268b5653332300eb7c0a1806dc34d7%26sysparm_query%3Dtrigger_definition%253D6f0180400b320300f4eb8bf637673ad4%255Eflow.sys_class_name%253Dsys_hub_flow%255EEQ"
-    },
-    {
-        "application": "Process Automation",
-        "module": "Flow Administration > Operations Dashboard",
-        "url": "/now/fdih-dashboards/home/params/selected-tab-index/0"
     },
     {
         "application": "Process Automation",
@@ -3083,11 +3038,6 @@
         "application": "Quick Actions",
         "module": "Parameters",
         "url": "/now/nav/ui/classic/params/target/quickactions_param_list.do%3Fsysparm_userpref_module%3D2fdbfb9567132300a0bd35e643415a2a"
-    },
-    {
-        "application": "Recommendation Framework",
-        "module": "Administration > Recommendation Properties",
-        "url": "/now/nav/ui/classic/params/target/system_properties_ui.do%3Fsysparm_title%3DRecommendation%2520Properties%26sysparm_category%3DRule%2520Active%2520Properties%2CExperience%2520Threshold%2520Properties"
     },
     {
         "application": "Reports",
@@ -3397,7 +3347,7 @@
     {
         "application": "Service Catalog",
         "module": "Catalog Definitions > Content Items",
-        "url": "/now/nav/ui/classic/params/target/sc_cat_item_content_list.do%3Fsysparm_userpref_module%3Dd32ddd200a0a0b1200a1edd1b630649b"
+        "url": "/now/nav/ui/classic/params/target/sc_cat_item_content_list.do%3Fsysparm_userpref_module%3Dd32ddd200a0a0b1200a1edd1b630649b%26sysparm_query%3Dcontent_type%2521%253Ddynamic%255EEQ"
     },
     {
         "application": "Service Catalog",
@@ -3740,11 +3690,6 @@
         "url": "/now/nav/ui/classic/params/target/sn_gf_strategy_list.do%3Fsysparm_userpref_module%3D80d70944538630103913ddeeff7b1288"
     },
     {
-        "application": "Subscription Management",
-        "module": "Properties",
-        "url": "/now/nav/ui/classic/params/target/system_properties_ui.do%3Fsysparm_title%3DSubscription%2520Management%2520Properties%26sysparm_category%3DSubscriptions%2CEnforcement%2520Overrides"
-    },
-    {
         "application": "Survey",
         "module": "Administration > Custom Metric Type",
         "url": "/now/nav/ui/classic/params/target/asmt_custom_metric_list.do%3Fsysparm_userpref_module%3D31fd7f09c30230100aab789dce40dd36"
@@ -3792,7 +3737,7 @@
     {
         "application": "System Applications",
         "module": "All Available Applications > All",
-        "url": "/now/nav/ui/classic/params/target/%24allappsmgmt.do%3Fsysparm_use_polaris%3Dfalse"
+        "url": "/now/app-manager/home/tab/available_for_you/sort/recently_released"
     },
     {
         "application": "System Applications",
@@ -3893,11 +3838,6 @@
         "application": "System Definition",
         "module": "NowMQ > NowMQ Messages",
         "url": "/now/nav/ui/classic/params/target/sys_nowmq_message_list.do%3Fsysparm_userpref_module%3D7ede3c0053b10110b72addeeff7b12e9"
-    },
-    {
-        "application": "System Definition",
-        "module": "NowMQ > NowMQ Messages Archive",
-        "url": "/now/nav/ui/classic/params/target/sys_nowmq_message_archive_list.do%3Fsysparm_userpref_module%3Dca1f344053b10110b72addeeff7b12c7"
     },
     {
         "application": "System Definition",
@@ -4900,6 +4840,81 @@
         "url": "/now/nav/ui/classic/params/target/sys_ui_theme_list.do%3Fsysparm_userpref_module%3Dfdc86ffcc0a8820100cd1d577a407ce6"
     },
     {
+        "application": "System Web Services",
+        "module": "REST > CORS Rules",
+        "url": "/now/nav/ui/classic/params/target/sys_cors_rule_list.do%3Fsysparm_userpref_module%3Dcbbd9e02473002004695d7527c9a719e"
+    },
+    {
+        "application": "System Web Services",
+        "module": "REST > Example Client Apps",
+        "url": "/now/nav/ui/classic/params/target/example_apps_list.do"
+    },
+    {
+        "application": "System Web Services",
+        "module": "REST > Insert Multiple",
+        "url": "/now/nav/ui/classic/params/target/sys_rest_insert_multiple_list.do%3Fsysparm_userpref_module%3D9eb73373ff1110105cf343d0653bf140"
+    },
+    {
+        "application": "System Web Services",
+        "module": "REST > Rate Limit Rules",
+        "url": "/now/nav/ui/classic/params/target/sys_rate_limit_rules_list.do%3Fsysparm_userpref_module%3D1a0bac1c3b120300de4aa2e334efc41b"
+    },
+    {
+        "application": "System Web Services",
+        "module": "REST > Rate Limit Violations",
+        "url": "/now/nav/ui/classic/params/target/sys_rate_limit_violations_list.do%3Fsysparm_userpref_module%3D6a3320e63b001300de4aa2e334efc442%26sysparm_query%3Dsys_created_onONCurrent%2Bhour%2540javascript%253Ags.beginningOfCurrentHour%2528%2529%2540javascript%253Ags.endOfCurrentHour%2528%2529%255EEQ"
+    },
+    {
+        "application": "Targeted Communications",
+        "module": "Active Publications",
+        "url": "/now/nav/ui/classic/params/target/sn_publications_publication_list.do%3Fsysparm_userpref_module%3Dbfdda483d72302004f1e82285e61039f%26sysparm_query%3Dstage%2521%253Dexpired%255Estage%2521%253Dcancelled%255EEQ"
+    },
+    {
+        "application": "Targeted Communications",
+        "module": "Create New Publication",
+        "url": "/now/nav/ui/classic/params/target/sn_publications_publication.do%3Fsys_id%3D-1%26sysparm_stack%3Dsn_publications_publication_list.do"
+    },
+    {
+        "application": "Targeted Communications",
+        "module": "Draft Publications",
+        "url": "/now/nav/ui/classic/params/target/sn_publications_publication_list.do%3Fsysparm_userpref_module%3D7cca3965d70112004f1e82285e6103f4%26sysparm_query%3Dstage%253Dauthor%255EEQ"
+    },
+    {
+        "application": "Targeted Communications",
+        "module": "Expired Publications",
+        "url": "/now/nav/ui/classic/params/target/sn_publications_publication_list.do%3Fsysparm_userpref_module%3D20880b46d7b302004f1e82285e6103fe%26sysparm_query%3Dstage%253Dexpired%255EEQ"
+    },
+    {
+        "application": "Targeted Communications",
+        "module": "Publication Workflow",
+        "url": "/now/nav/ui/classic/params/target/sn_publications_workflow_config.do%3Fsysparm_stack%3Dsn_publications_workflow_config_list.do%26sysparm_query%3Dsys_id%253D6c9b0e65c30112004bd67bfaa2d3ae56%255EEQ"
+    },
+    {
+        "application": "Targeted Communications",
+        "module": "Recipients Lists",
+        "url": "/now/nav/ui/classic/params/target/sn_publications_recipients_list_list.do%3Fsysparm_userpref_module%3D4d2dee55d70112004f1e82285e6103dd"
+    },
+    {
+        "application": "Targeted Communications",
+        "module": "Recurrences",
+        "url": "/now/nav/ui/classic/params/target/sn_publications_recurrence_list.do%3Fsysparm_userpref_module%3Dc6b5503dd73302004f1e82285e6103e1"
+    },
+    {
+        "application": "Upgrade Center",
+        "module": "Administration > Properties",
+        "url": "/now/nav/ui/classic/params/target/system_properties_ui.do%3Fsysparm_title%3DUpgrade%2520Center%2520Properties%26sysparm_category%3DUpgrade%2520Duration%2520Estimation%2520Properties%2CUpgrade%2520Visual%2520Task%2520Board%2520Properties%2CUpgrade%2520Plan%2520Properties"
+    },
+    {
+        "application": "Upgrade Center",
+        "module": "Administration > Upgrade Center VTB Labels",
+        "url": "/now/nav/ui/classic/params/target/upgrade_task_board_label_list.do%3Fsysparm_userpref_module%3De09b9a60ff33001078ad6b7e0c46bda8"
+    },
+    {
+        "application": "Upgrade Center",
+        "module": "Administration > Upgrade Plan Notification",
+        "url": "/now/nav/ui/classic/params/target/sysevent_email_action.do%3Fsysparm_stack%3Dsysevent_email_action_list.do%26sysparm_query%3Dname%253DUpgrade%2BPlan%2Bpreparation%2Berror%255EEQ"
+    },
+    {
         "application": "Usage Tracking Consent",
         "module": "Enable/Disable Tracking",
         "url": "/now/nav/ui/classic/params/target/toggle_tracking_consent.do"
@@ -4963,21 +4978,6 @@
         "application": "Workflow",
         "module": "Live Workflows > History",
         "url": "/now/nav/ui/classic/params/target/wf_history_list.do%3Fsysparm_userpref_module%3Da72f02d2c0a80164005d9d903ea839ad"
-    },
-    {
-        "application": "Workspace Experience",
-        "module": "Actions & Components > Field Decorators",
-        "url": "/now/nav/ui/classic/params/target/sys_declarative_action_assignment_list.do%3Fsysparm_fixed_query%3Dmodel%253D15920e6d534723003eddddeeff7b1244%26sysparm_view%3Ddecorators%0D%0A"
-    },
-    {
-        "application": "Workspace Experience",
-        "module": "Actions & Components > List Actions",
-        "url": "/now/nav/ui/classic/params/target/sys_declarative_action_assignment_list.do%3Fsysparm_fixed_query%3Dmodel%253Dc3547169534723003eddddeeff7b126c%26sysparm_view%3Dlist_action"
-    },
-    {
-        "application": "Workspace Experience",
-        "module": "Actions & Components > Related List Actions",
-        "url": "/now/nav/ui/classic/params/target/sys_declarative_action_assignment_list.do%3Fsysparm_fixed_query%3Dmodel%253Dd91731a9534723003eddddeeff7b121c%26sysparm_view%3Dlist_action"
     },
     {
         "application": "Workspace Experience",
