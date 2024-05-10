@@ -11,7 +11,7 @@ WorkArena is included in [BrowserGym](https://github.com/ServiceNow/BrowserGym),
 https://github.com/ServiceNow/WorkArena/assets/2374980/68640f09-7d6f-4eb1-b556-c294a6afef70
 
 ## ⚠️ Pre-Release warning ⚠️
-Please note that the WorkArena benchmark is still undergoing minor bug fixes and updates, which may cause discrepancies with results reported in our latest arXiv preprint. We plan to release soon a stable version of WorkArena v0.1.0 with enhanced stability, and a final version v1.0.0 with a new suite of tasks.
+Please note that the WorkArena benchmark is still undergoing minor bug fixes and updates, which may cause discrepancies with results reported in our latest arXiv preprint. We plan to release soon a stable version of WorkArena with enhanced stability, and a final version v1.0.0 with a new suite of tasks.
 
 ## Benchmark Contents
 
@@ -58,7 +58,7 @@ To setup WorkArena, you will need to get your own ServiceNow instance, install o
 ### a) Create a ServiceNow Developer Instance
 
 1. Go to https://developer.servicenow.com/ and create an account.
-2. Click on `Request an instance` and select the `Utah` release (initializing the instance will take a few minutes)
+2. Click on `Request an instance` and select the `Washington` release (initializing the instance will take a few minutes)
 3. Once the instance is ready, you should see your instance URL and credentials. If not, click _Return to the Developer Portal_, then navigate to _Manage instance password_ and click _Reset instance password_.
 4. You should now see your URL and credentials. Based on this information, set the following environment variables:
     * `SNOW_INSTANCE_URL`: The URL of your ServiceNow developer instance
