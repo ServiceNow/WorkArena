@@ -15,7 +15,7 @@ Please note that the WorkArena benchmark is still undergoing minor bug fixes and
 
 ## Benchmark Contents
 
-At the moment, WorkArena includes `18,050` task instances drawn from `29` tasks that cover the main components of the ServiceNow user interface. The following videos show an agent built on `GPT-4-vision` interacting with every such component. As emphasized by our results, this benchmark is not solved and thus, the performance of the agent is not always on point.
+At the moment, WorkArena includes `18,050` task instances drawn from `33` tasks that cover the main components of the ServiceNow user interface. The following videos show an agent built on `GPT-4-vision` interacting with every such component. As emphasized by our results, this benchmark is not solved and thus, the performance of the agent is not always on point.
 
 ### Knowledge Bases
 
@@ -50,6 +50,12 @@ https://github.com/ServiceNow/WorkArena/assets/1726818/7538b3ef-d39b-4978-b9ea-8
 **Goal:** The agent must navigate to a specific application using the main menu.
 
 https://github.com/ServiceNow/WorkArena/assets/1726818/ca26dfaf-2358-4418-855f-80e482435e6e
+
+### Dashboards
+
+**Goal:** The agent must extract information from a dashboard.
+
+
 
 ## Getting Started
 
