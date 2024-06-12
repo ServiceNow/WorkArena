@@ -1,4 +1,4 @@
-# WorkArena: How Capable are Web Agents at Solving Common Knowledge Work Tasks?
+# WorkArena++: Towards Compositional Planning and Reasoning-based Common Knowledge Work Tasks
 
 [[Paper]](https://arxiv.org/abs/2403.07718) ♦ [[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[Live Demo]](#live-demo) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work)
 
@@ -104,12 +104,16 @@ Note: the following example executes WorkArena's oracle (cheat) function to solv
 import random
 
 from browsergym.core.env import BrowserEnv
-from browsergym.workarena import ALL_WORKARENA_TASKS
+from browsergym.workarena import get_all_tasks_agents
+ 
+AGENT_L2_SAMPLED_SET = get_all_tasks_agents(filter="l2")
+ 
+AGENT_L2_SAMPLED_TASKS, AGENT_L2_SEEDS = [sampled_set[0] for sampled_set in AGENT_L2_SAMPLED_SET], [
+    sampled_set[1] for sampled_set in AGENT_L2_SAMPLED_SET
+]
 from time import sleep
 
-
-random.shuffle(ALL_WORKARENA_TASKS)
-for task in ALL_WORKARENA_TASKS:
+for (task, seed) in zip(AGENT_L2_SAMPLED_TASKS, AGENT_L2_SEEDS):
     print("Task:", task)
 
     # Instantiate a new environment
