@@ -191,24 +191,25 @@
                     <h2 class="title is-3">Abstract</h2>
                     <div class="content has-text-justified">
                         <p>
-                            We study the use of large language model-based agents for interacting with software via web
-                            browsers.
-                            Unlike prior work, we focus on measuring the agents' ability to perform tasks that span the
-                            typical daily
-                            work of knowledge workers utilizing enterprise software systems.
-                            To this end, we propose WorkArena, a remote-hosted benchmark of 29 tasks based on the
-                            widely-used
-                            ServiceNow platform.
-                            We also introduce BrowserGym, an environment for the design and evaluation of such agents,
-                            offering a rich
-                            set of actions as well as multimodal observations.
-                            Our empirical evaluation reveals that while current agents show promise on WorkArena, there
-                            remains a
-                            considerable gap towards achieving full task automation. Notably, our analysis uncovers a
-                            significant
-                            performance disparity between open and closed-source LLMs, highlighting a critical area for
-                            future
-                            exploration and development in the field.
+                            We study the use of large language model-based
+                            agents for interacting with software via web
+                            browsers. Unlike prior work, we focus on measuring
+                            the agents' ability to perform tasks that span
+                            the typical daily work of knowledge workers utilizing
+                            enterprise software systems. To this end, we
+                            proposeWorkArena, a remote-hosted benchmark
+                            of 33 tasks based on the widely-used ServiceNow
+                            platform. We also introduce BrowserGym, an
+                            environment for the design and evaluation of such
+                            agents, offering a rich set of actions as well as multimodal
+                            observations. Our empirical evaluation
+                            reveals that while current agents show promise
+                            onWorkArena, there remains a considerable gap
+                            towards achieving full task automation. Notably,
+                            our analysis uncovers a significant performance
+                            disparity between open and closed-source LLMs,
+                            highlighting a critical area for future exploration
+                            and development in the field.
                     </div>
                 </div>
             </div>
@@ -314,6 +315,21 @@
         </div>
     </section>
 
+    <section class="section has-text-centered">
+        <div class="container is-max-desktop">
+            <h3 class="title is-5">Dashboards</h3>
+            <p>
+                <strong>Goal:</strong> The agent must answer a question that requires reading charts and
+                (optionally) performing simple reasoning over them.
+            </p>
+            <!-- <video poster="" autoplay controls muted loop height="70%" width="70%">
+                <source
+                    src="https://github.com/ServiceNow/WorkArena/assets/1726818/ca26dfaf-2358-4418-855f-80e482435e6e"
+                    type="video/mp4">
+            </video> -->
+        </div>
+    </section>
+
     <section class="section hero is-light">
         <div class="container is-max-desktop content">
             <h2 class="title has-text-centered">Challenges and Solutions</h2>
@@ -349,9 +365,9 @@
     <section class="section">
         <div class="container is-max-desktop content">
             <h2 class="title has-text-centered">Results</h2>
-            WorkArena poses a real challenge! Even with GPT4 and our top-performing configs, we're seeing only a 55%
+            WorkArena poses a real challenge! Even with GPT4 and our top-performing configs, we're seeing only a 42.7%
             success rate.
-            A SOTA OSS code LLM hasn’t had a single successful episode yet.
+            A SOTA OSS LLM, LLama3-70B-instruct, obtains only 17.9%.
             <br>
             <br>
             ✨We're calling on the open-source community to help bridge this significant gap.
