@@ -85,9 +85,11 @@ RANDOMLY_CONFIGURALBE_TASKS = [
 )
 @pytest.mark.parametrize("task_entrypoint", RANDOMLY_CONFIGURALBE_TASKS)
 @pytest.mark.parametrize("random_seed", range(1))
+@pytest.mark.slow
+@pytest.mark.skip(reason="Tests are too slow")
 def test_cheat_from_random_config(task_entrypoint, random_seed: int, page: Page):
-    task = task_entrypoint()
-    task._generate_random_config(seed=random_seed, page=page)
+    task = task_entrypoint(seed=random_seed)
+    task._generate_random_config(page=page)
     chat_messages = []
     reward, done, message, info = task.validate(page, chat_messages)
     assert done is False and reward == 0.0

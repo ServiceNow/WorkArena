@@ -28,12 +28,12 @@ def generate_form_task_configs(task_name, task_class, num_configs=1):
         """Try to setup and cheat a task, and return its configuration if it's new"""
         try:
             with sync_playwright() as p:
-                task = task_class()
+                task = task_class(seed=seed)
                 browser = p.chromium.launch()
                 context = browser.new_context()  # Set the timeout here
                 context.set_default_timeout(5000)
                 page = context.new_page()
-                task._generate_random_config(seed=seed, page=page)
+                task._generate_random_config(page=page)
                 config = {
                     "template_record": task.template_record,
                     "fields": {

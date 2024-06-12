@@ -7,10 +7,25 @@ from ..workarena.tasks import utils
 SNOW_DATA_LOOKBACK_MINUTES = 5
 SNOW_BROWSER_TIMEOUT = 30000  # Milliseconds
 SNOW_JS_UTILS_FILEPATH = str(resources.files(utils).joinpath("js_utils.js"))
-SNOW_SUPPORTED_RELEASES = ["utah"]
+SNOW_SUPPORTED_RELEASES = ["washingtondc"]
 
 # Path to the Menu navigation task configuration
 ALL_MENU_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu.json"))
+
+# Path to the dashboard/report retrieval task configurations
+DASHBOARD_RETRIEVAL_MINMAX_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/dashboard_retrieval_minmax_task.json")
+)
+DASHBOARD_RETRIEVAL_VALUE_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/dashboard_retrieval_value_task.json")
+)
+REPORT_RETRIEVAL_MINMAX_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/report_retrieval_minmax_task.json")
+)
+REPORT_RETRIEVAL_VALUE_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/report_retrieval_value_task.json")
+)
+
 # Path to knowledge base task configurations
 KB_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/knowledge_base_configs.json")
@@ -51,6 +66,10 @@ ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH = str(
 # Knowledge base that is included with the benchmark
 KB_NAME = "General Knowledge"
 KB_FILEPATH = str(resources.files(data_files).joinpath("setup_files/knowledge/knowledge_base.json"))
+PROTOCOL_KB_NAME = "Company Protocols"
+PROTOCOL_KB_FILEPATH = str(
+    resources.files(data_files).joinpath("setup_files/knowledge/protocols.json")
+)
 
 # Form tasks
 CREATE_CHANGE_REQUEST_CONFIG_PATH = str(
@@ -119,6 +138,28 @@ WORKFLOWS = {
     }
 }
 
+
+# Custom UI Themes
+UI_THEMES_UPDATE_SET = {
+    "name": "WorkArena UI Themes",
+    "update_set": str(
+        resources.files(data_files).joinpath("setup_files/ui_themes/workarena_themes.xml")
+    ),
+    "variants": [
+        "Astranova",
+        "Charlies",
+        "Great pasta",
+        "Mighty capital",
+        "Speedy tires",
+        "Skyward",
+        "Turbobots",
+        "Ultrashoes",
+        "Vitasphere",
+        "Workarena",
+    ],
+}
+
+
 # Expected columns for list tasks; used in setup
 EXPECTED_ASSET_LIST_COLUMNS_PATH = str(
     resources.files(data_files).joinpath("setup_files/lists/expected_asset_list_columns.json")
@@ -128,11 +169,24 @@ EXPECTED_CHANGE_REQUEST_COLUMNS_PATH = str(
         "setup_files/lists/expected_change_request_list_columns.json"
     )
 )
+EXPECTED_EXPENSE_LINE_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath(
+        "setup_files/lists/expected_expense_line_list_columns.json"
+    )
+)
 EXPECTED_HARDWARE_COLUMNS_PATH = str(
     resources.files(data_files).joinpath("setup_files/lists/expected_hardware_list_columns.json")
 )
 EXPECTED_INCIDENT_COLUMNS_PATH = str(
     resources.files(data_files).joinpath("setup_files/lists/expected_incident_list_columns.json")
+)
+EXPECTED_PROBLEM_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/lists/expected_problem_list_columns.json")
+)
+EXPECTED_REQUESTED_ITEMS_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath(
+        "setup_files/lists/expected_requested_items_list_columns.json"
+    )
 )
 EXPECTED_SERVICE_CATALOG_COLUMNS_PATH = str(
     resources.files(data_files).joinpath(
@@ -151,6 +205,7 @@ EXPECTED_CHANGE_REQUEST_FORM_FIELDS_PATH = str(
         "setup_files/forms/expected_change_request_form_fields.json"
     )
 )
+
 EXPECTED_HARDWARE_FORM_FIELDS_PATH = str(
     resources.files(data_files).joinpath("setup_files/forms/expected_hardware_form_fields.json")
 )
@@ -163,3 +218,10 @@ EXPECTED_PROBLEM_FORM_FIELDS_PATH = str(
 EXPECTED_USER_FORM_FIELDS_PATH = str(
     resources.files(data_files).joinpath("setup_files/forms/expected_user_form_fields.json")
 )
+EXPECTED_REQUEST_ITEM_FORM_FIELDS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/forms/expected_request_item_form_fields.json")
+)
+
+# Report date filter patch flag
+REPORT_PATCH_FLAG = "WORKARENA_DATE_FILTER_PATCH"
+REPORT_DATE_FILTER = "2024-04-01"

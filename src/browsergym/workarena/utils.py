@@ -26,7 +26,7 @@ def impersonate_user(username: str, page: playwright.sync_api.Page):
     * If you provide a username that matches to multiple users (e.g., a partial one), the first one will be selected
 
     """
-    page.get_by_label("Avatar: available, user preferences").click()
+    page.locator(".header-avatar-button").click()
     page.get_by_role("menuitem", name="Impersonate user").click()
     page.locator("input.now-typeahead-native-input").click()
     page.locator("input.now-typeahead-native-input").fill(username)
@@ -67,4 +67,33 @@ def ui_login(instance: SNowInstance, page: playwright.sync_api.Page):
     # Check if we have been returned to the login page (appends /welcome.do)
     current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
     if current_url.path.endswith("/welcome.do"):
-        raise RuntimeError("Login failed.")
+        raise RuntimeError("Login failed. Check credentials.")
+
+
+def url_login(instance: SNowInstance, page: playwright.sync_api.Page):
+    """
+    Log into the instance via the URL
+
+    Parameters:
+    -----------
+    instance:
+        The instance to log into
+    page:
+        The page instance to use for the URL login
+
+    """
+    (snow_username, snow_password) = instance.snow_credentials
+
+    # Encode special characters
+    snow_username = parse.quote(snow_username)
+    snow_password = parse.quote(snow_password)
+
+    # Log in via URL
+    page.goto(
+        f"{instance.snow_url}/login.do?user_name={snow_username}&user_password={snow_password}&sys_action=sysverb_login"
+    )
+
+    # Check if we have been returned to the login page
+    current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
+    if "login.do" in current_url.path:
+        raise RuntimeError("Login failed. Check credentials and make sure to have run installer.")

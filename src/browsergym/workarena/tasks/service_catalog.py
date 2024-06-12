@@ -5,13 +5,22 @@ Tasks that require interacting with the service catalog
 
 import json
 import logging
+from typing import List
+import numpy as np
+import playwright.sync_api
+
+from playwright.sync_api import Page
+import re
 from time import sleep
 from urllib import parse
 
-import numpy as np
-import playwright.sync_api
-from playwright.sync_api import Page
-from ..instance import SNowInstance
+from .base import AbstractServiceNowTask
+from .utils.form import fill_text
+
+from ..api.requests import (
+    get_request_by_id,
+    db_delete_from_table,
+)
 from ..config import (
     ORDER_DEVELOPER_LAPTOP_TASK_CONFIG_PATH,
     ORDER_IPAD_MINI_TASK_CONFIG_PATH,
@@ -23,12 +32,8 @@ from ..config import (
     ORDER_DEVELOPMENT_LAPTOP_PC_TASK_CONFIG_PATH,
     ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH,
 )
-from .utils.form import fill_text
-from ..api.requests import (
-    get_request_by_id,
-    db_delete_from_table,
-)
-from .base import AbstractServiceNowTask
+from ..instance import SNowInstance
+from .utils.utils import check_url_suffix_match
 
 ADDITIONAL_SOFTWARE = [
     "Slack",
@@ -56,7 +61,10 @@ META_CONFIGS = {
     "iPad mini": {
         "desc": "Request for iPad mini",
         "options": {
-            "Choose the colour": ("radio", ["Space Grey", "Pink", "Purple", "Starlight"]),
+            "Choose the colour": (
+                "radio",
+                ["Space Grey", "Pink", "Purple", "Starlight"],
+            ),
             "Choose the storage": ("radio", ["64", "256"]),
         },
     },
@@ -142,24 +150,32 @@ class OrderHardwareTask(AbstractServiceNowTask):
 
     Parameters:
     -----------
+    seed: int
+        Random seed
     instance: SNowInstance
         The instance to use.
+    fixed_request_item: str
+        The item to order. If provided, the task will always order this item.
     fixed_config: dict
         Configuration to use for the task. If provided, the task will use the provided configuration instead of
         selecting a random one. See browsergym/workarena/data_files/task_configs/order_ipda_pro_task.json
         for an example of a configuration file.
-    config_path:
-        The path to the JSON file containing all configurations for the task. Provided by subclasses
+    config_only_in_desc: bool
+        If True, the model to order will be omitted from the task description in comp tasks.
+
     """
 
     def __init__(
         self,
+        seed: int = None,
         instance: SNowInstance = None,
         fixed_request_item: str = None,
         fixed_config: dict = None,
-        config_path: str = None,
+        config_only_in_desc: bool = False,
+        **kwargs,
     ):
         super().__init__(
+            seed=seed,
             instance=instance,
             start_rel_url="/now/nav/ui/classic/params/target/catalog_home.do%3Fsysparm_view%3Dcatalog_default",
             final_rel_url="/now/nav/ui/classic/params/target/com.glideapp.servicecatalog_checkout_view_v2.do",
@@ -170,16 +186,23 @@ class OrderHardwareTask(AbstractServiceNowTask):
                 raise ValueError(f"'fixed_request_item' and 'fixed_config[\"item\"]' do not match")
 
         self.fixed_config = fixed_config
+        self.config = None
         self.fixed_request_item = fixed_request_item
+        self.config_only_in_desc = config_only_in_desc
 
         self.js_prefix = "gsft_main"
         self.js_api_forms = "g_form"
-        with open(config_path, "r") as f:
-            self.all_configs = json.load(f)
+        self.all_configs = self.all_configs()
+        self.__dict__.update(kwargs)
 
-    def _wait_for_ready(self, page: Page, wait_for_form_api=False) -> None:
+    @classmethod
+    def all_configs(cls) -> List[dict]:
+        with open(cls.config_path, "r") as f:
+            return json.load(f)
+
+    def _wait_for_ready(self, page: Page, wait_for_form_api: bool = False) -> None:
         """
-        Waits for the main iframe to be fully loaded
+        Waits for the the main iframe to be loaded
 
         """
         logging.debug(f"Waiting for {self.js_prefix} to be fully loaded")
@@ -197,60 +220,91 @@ class OrderHardwareTask(AbstractServiceNowTask):
     def form_js_selector(self):
         return self.js_prefix + "." + self.js_api_forms
 
-    def setup(self, page: playwright.sync_api.Page, seed: int = None) -> None:
-        self.pre_setup(page=page, seed=seed)
-        # the cart is shared for all agents running in parallel. The "Order Now" button
-        # is not affected so we'll make sure the agent can only use that one
-        disable_add_to_cart = """
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const button = document.querySelector('button[aria-label="Add to Cart"]');
-            if (button) {
-                button.disabled = true;
-            }
-        });
+    def get_init_scripts(self) -> List[str]:
+        return super().get_init_scripts() + [
+            "registerGsftMainLoaded()",
+            self._get_disable_add_to_cart_script(),
+            self._get_remove_top_items_panel_script(),
+        ]
+
+    def _get_disable_add_to_cart_script(self):
         """
-        self._add_init_scripts_to_context_and_reload(
-            page, ["registerGsftMainLoaded()", disable_add_to_cart]
-        )
-        self._wait_for_ready(page)
-        self._remove_top_items_panel(page)
+        Disables the 'Add to Cart' button on the service catalog page
+        This is necessary so that agents running in parallel do not interfere with each other (cart is shared between sessions)
+
+        """
+        script = """
+            function disableAddToCartButton() {
+                waLog('Searching for top items panel...', 'disableAddToCartButton');
+                let button = document.querySelector('button[aria-label="Add to Cart"]');
+                if (button) {
+                    button.disabled = true;
+                    waLog('WorkArena: Disabled the "Add to Cart" button', 'disableAddToCartButton');
+                } else {
+                    waLog('WorkArena: Could not find the "Add to Cart" button', 'disableAddToCartButton');
+                }
+            }
+
+            runInGsftMainOnlyAndProtectByURL(disableAddToCartButton, 'glideapp.servicecatalog_cat_item_view.do');
+        """
+        return script
+
+    def _get_remove_top_items_panel_script(self):
+        """Get script that removes the 'top items' panel that sometimes on the landing page of service catalog
+        Disables the 'Top Requests' panel that sometimes appears on the landing page of the service catalog
+        Runs in a loop to keep checking for the host element and shadow root
+        URL is secured by running only on the catalog_home page; this is a heuristic to avoid running on other pages
+        and does not check that the URL is an exact match, as moving back and forth between pages can cause the URL
+        to change, but catalog_home will always be present.
+        """
+        script = """
+            function removeTopItemsPanel() {
+                waLog('Searching for top items panel...', 'removeTopItemsPanel');
+                let headings = Array.from(document.querySelectorAll('[role="heading"]'));
+                headings.forEach((heading) => {
+                    if (heading.textContent.includes("Top Requests")) {
+                        let parentDiv = heading.closest('div.drag_section');
+                        if (parentDiv) {
+                            parentDiv.remove();
+                            waLog('Removed parent div for heading: ' + heading.textContent, 'removeTopItemsPanel');
+                        }
+                    }
+                });
+            }
+
+            runInGsftMainOnlyAndProtectByURL(removeTopItemsPanel, `catalog_home`);
+            """
+        return script
+
+    def setup_goal(self, page: Page) -> tuple[str, dict]:
+        super().setup_goal(page=page)
+
+        # Get the task configuration
         assert self.all_configs is not None, "No configuration available for the task."
-        config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
-        # use fixed config if any
-        self.requested_item = config["item"]
-        self.short_description = config["description"]
-        self.quantity = config["quantity"]
-        self.requested_configuration = config["configuration"]
+        self.config = (
+            self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
+        )
+        self.requested_item = self.config["item"]
+        self.short_description = self.config["description"]
+        self.quantity = self.config["quantity"]
+        self.requested_configuration = self.config["configuration"]
 
-        self.request_sysid = None
-
-        # generate goal
-        goal = f'Go to the hardware store and order {self.quantity} "{self.requested_item}"'
+        # Generate goal
+        if self.config_only_in_desc:
+            goal = self.get_pretty_printed_description()
+        else:
+            goal = f'Go to the hardware store and order {self.quantity} "{self.requested_item}"'
         if len(self.requested_configuration) > 0:
             goal += f" with configuration {dict((k, v[1]) for k, v in self.requested_configuration.items())}"
         info = {}
 
+        # Used to keep track of the sysid of the request for validation
+        self.request_sysid = None
+
         return goal, info
 
-    def _remove_top_items_panel(self, page: Page):
-        """Removes the 'top items' panel that sometimes on the landing page"""
-        frame = page.wait_for_selector("iframe#gsft_main").content_frame()
-
-        # Use evaluate to find and remove divs containing an element with role="heading" and the text "Top Requests"
-        frame.evaluate(
-            """() => {
-                const headings = Array.from(document.querySelectorAll('[role="heading"]'));
-                headings.forEach((heading) => {
-                    if (heading.textContent.includes("Top Requests")) {
-                        let parentDiv = heading.closest('div.drag_section');
-                        if (parentDiv) parentDiv.remove();
-                    }
-                });
-            }"""
-        )
-
     def cheat(self, page: Page, chat_messages: list[str]) -> None:
-        super().cheat(page, chat_messages)
+        super().cheat(page=page, chat_messages=chat_messages)
         self._wait_for_ready(page=page)
 
         iframe = page.frame(self.js_prefix)
@@ -323,22 +377,12 @@ class OrderHardwareTask(AbstractServiceNowTask):
         with page.expect_navigation():
             order_now_button.click()
 
-    def _generate_random_config(self, seed: int, page: Page):
-        self.pre_setup(page=page, seed=seed)
-        # the cart is shared for all agents running in parallel. The "Order Now" button
-        # is not affected so we'll make sure the agent can only use that one
-        disable_add_to_cart = """
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const button = document.querySelector('button[aria-label="Add to Cart"]');
-            if (button) {
-                button.disabled = true;
-            }
-        });
-        """
-        self._add_init_scripts_to_context_and_reload(
-            page, ["registerGsftMainLoaded()", disable_add_to_cart]
+    def _generate_random_config(self, page: Page):
+        """Generate a random configuration for the task"""
+        self.task_is_setup = (
+            False  # This is a hack to avoid raising an exception in the setup method
         )
-        self._wait_for_ready(page)
+        self.setup(page=page, do_start=False)
         if self.fixed_request_item:
             self.requested_item = self.fixed_request_item
         else:
@@ -346,15 +390,16 @@ class OrderHardwareTask(AbstractServiceNowTask):
             self.requested_item = self.random.choice(list(META_CONFIGS.keys()))
 
         meta_config = META_CONFIGS[self.requested_item]
-        self.short_description = meta_config["desc"]
-        # ... choose a random quantity and configuration
-        self.quantity = self.random.randint(1, 11)
-        self.requested_configuration = {
-            ctrl_name: (ctrl_type, self.random.choice(values))
-            for ctrl_name, (ctrl_type, values) in meta_config["options"].items()
+        self.fixed_config = {
+            "item": self.requested_item,
+            "description": meta_config["desc"],
+            "quantity": self.random.randint(1, 11),
+            "configuration": {
+                ctrl_name: (ctrl_type, self.random.choice(values))
+                for ctrl_name, (ctrl_type, values) in meta_config["options"].items()
+            },
         }
-
-        self.request_sysid = None
+        self.setup(page=page, do_start=True)
 
     def _get_control_description(self, page, field):
         """
@@ -382,6 +427,39 @@ class OrderHardwareTask(AbstractServiceNowTask):
             raise ValueError(f"Unknown control type {control_type}")
         return control_text
 
+    def get_pretty_printed_description(self) -> str:
+        """
+        Get the task info for this task when used in a private task; Used in L3 compositional tasks.
+        called by subclasses
+        """
+        class_name = self.__class__.__name__
+        class_name = class_name.replace("Task", "")
+        # Split the words
+        words = re.findall(r"[A-Z][^A-Z]*", class_name)
+        class_name_formatted = " ".join(words)
+        task_specs = {
+            "Quantity": self.config["quantity"],
+            "Configuration": self.config["configuration"],
+        }
+        if self.config_only_in_desc:
+            task_info = f"- Order the item in the following quantities and with the following configuration:\n"
+        else:
+            task_specs["Description"] = self.config["description"]
+            task_info = f"- {class_name_formatted} with the following specifications:\n"
+        for k, v in task_specs.items():
+            # Some values might be empty - like the configuration of the apple watch. It is more natural to exclude them
+            if not v:
+                continue
+            # If the value is a dictionary, print it in a nested way
+            if isinstance(v, dict):
+                task_info += f"    - {k}:\n"
+                for k2, v2 in v.items():
+                    task_info += f"        - {k2}: {v2[1]}\n"
+            else:
+                task_info += f"    - {k}: {v}\n"
+
+        return task_info
+
     def teardown(self) -> None:
         """
         Deletes the request (and automatically all its items)
@@ -394,11 +472,19 @@ class OrderHardwareTask(AbstractServiceNowTask):
             )
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
-        self._wait_for_ready(page)
+        right_url = check_url_suffix_match(page, expected_url=self.final_url, task=self)
+        if not right_url:
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"The page is not in the right URL to validate task {self.__class__.__name__}."
+                },
+            )
+
         # Retrieve the request sysid from the URL
-        current_url = parse.urlparse(
-            parse.unquote(self.page.evaluate("() => window.location.href"))
-        )
+        current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
         (self.request_sysid,) = parse.parse_qs(current_url.query).get("sysparm_sys_id", [None])
         if self.request_sysid is None:
             return (
@@ -464,7 +550,12 @@ class OrderHardwareTask(AbstractServiceNowTask):
                         {"message": error_msg},
                     )
 
-        return 1, True, "Nice work, thank you!", {"message": "Task completed successfully."}
+        return (
+            1,
+            True,
+            "Nice work, thank you!",
+            {"message": "Task completed successfully."},
+        )
 
 
 def option_match_heuristic(value, option):
@@ -478,91 +569,100 @@ def option_match_heuristic(value, option):
 
 
 class OrderDeveloperLaptopTask(OrderHardwareTask):
+    config_path = ORDER_DEVELOPER_LAPTOP_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Developer Laptop (Mac)",
-            config_path=ORDER_DEVELOPER_LAPTOP_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderIpadMiniTask(OrderHardwareTask):
+    config_path = ORDER_IPAD_MINI_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="iPad mini",
-            config_path=ORDER_IPAD_MINI_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderIpadProTask(OrderHardwareTask):
+    config_path = ORDER_IPAD_PRO_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="iPad pro",
-            config_path=ORDER_IPAD_PRO_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderSalesLaptopTask(OrderHardwareTask):
+    config_path = ORDER_SALES_LAPTOP_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Sales Laptop",
-            config_path=ORDER_SALES_LAPTOP_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderStandardLaptopTask(OrderHardwareTask):
+    config_path = ORDER_STANDARD_LAPTOP_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Standard Laptop",
-            config_path=ORDER_STANDARD_LAPTOP_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderAppleWatchTask(OrderHardwareTask):
+    config_path = ORDER_APPLE_WATCH_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Apple Watch",
-            config_path=ORDER_APPLE_WATCH_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderAppleMacBookPro15Task(OrderHardwareTask):
+    config_path = ORDER_APPLE_MAC_BOOK_PRO15_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Apple MacBook Pro 15",
-            config_path=ORDER_APPLE_MAC_BOOK_PRO15_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderDevelopmentLaptopPCTask(OrderHardwareTask):
+    config_path = ORDER_DEVELOPMENT_LAPTOP_PC_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Development Laptop (PC)",
-            config_path=ORDER_DEVELOPMENT_LAPTOP_PC_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderLoanerLaptopTask(OrderHardwareTask):
+    config_path = ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Loaner Laptop",
-            config_path=ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH,
             **kwargs,
         )
 

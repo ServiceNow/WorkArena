@@ -1,1 +1,12 @@
-["name", "short_description", "active", "roles", "sc_catalogs", "category", "price", "type", "sys_updated_on"]
+[
+    "name",
+    "short_description",
+    "sc_catalogs",
+    "category",
+    "type",
+    "price",
+    "sys_class_name",
+    "delivery_time",
+    "description",
+    "fulfillment_automation_level"
+]

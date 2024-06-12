@@ -3,6 +3,7 @@ import requests
 from ..instance import SNowInstance
 
 from requests.exceptions import HTTPError
+from time import sleep
 
 # ServiceNow API configuration
 SNOW_API_HEADERS = {"Content-Type": "application/json", "Accept": "application/json"}
@@ -15,12 +16,17 @@ def table_api_call(
     params: dict = {},
     json: dict = {},
     method: str = "GET",
+    wait_for_record: bool = False,
+    max_retries: int = 5,
+    raise_on_wait_expired: bool = True,
 ) -> dict:
     """
     Make a call to the ServiceNow Table API
 
     Parameters:
     -----------
+    instance: SNowInstance
+        The ServiceNow instance to interact with
     table: str
         The name of the table to interact with
     data: dict
@@ -31,6 +37,13 @@ def table_api_call(
         The JSON data to send with the request
     method: str
         The HTTP method to use (GET, POST, PUT, DELETE).
+    wait_for_record: bool
+        If True, will wait up to 2 seconds for the record to be present before returning
+    max_retries: int
+        The number of retries to attempt before failing
+    raise_on_wait_expired: bool
+        If True, will raise an exception if the record is not found after max_retries.
+        Otherwise, will return an empty result.
 
     Returns:
     --------
@@ -49,13 +62,44 @@ def table_api_call(
         params=params,
         json=json,
     )
+    if method == "POST":
+        sys_id = response.json()["result"]["sys_id"]
+        data = {}
+        params = {"sysparm_query": f"sys_id={sys_id}"}
 
-    # Check for HTTP code 200 (fail otherwise)
+    # Check for HTTP success code (fail otherwise)
     response.raise_for_status()
 
+    record_exists = False
+    num_retries = 0
+    if method == "POST" or wait_for_record:
+        while not record_exists:
+            sleep(0.5)
+            get_response = table_api_call(
+                instance=instance,
+                table=table,
+                params=params,
+                json=json,
+                data=data,
+                method="GET",
+            )
+            record_exists = len(get_response["result"]) > 0
+            num_retries += 1
+            if num_retries > max_retries:
+                if raise_on_wait_expired:
+                    raise HTTPError(f"Record not found after {max_retries} retries")
+                else:
+                    return {"result": []}
+            if method == "GET":
+                response = get_response
+
     if method != "DELETE":
-        # Decode the JSON response into a dictionary
-        return response.json()
+        # Decode the JSON response into a dictionary if necessary
+        # When using wait_for_record=True, the response is already a dict as it is a recursive call
+        if type(response) == dict:
+            return response
+        else:
+            return response.json()
     else:
         return response
 
@@ -86,7 +130,7 @@ def table_column_info(instance: SNowInstance, table: str) -> dict:
 
     # Clean column value choices
     for info in meta_info.values():
-        if "choices" in info:
+        if info.get("choices", None):
             info["choices"] = {c["value"]: c["label"] for c in info["choices"]}
 
     # Query the sys_dictionnary table to find more info (e.g., is this column dependent on another)

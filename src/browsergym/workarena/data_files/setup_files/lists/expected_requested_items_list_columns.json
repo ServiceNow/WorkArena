@@ -1,0 +1,12 @@
+[
+    "number",
+    "sc_catalog",
+    "cat_item",
+    "short_description",
+    "approval",
+    "request",
+    "requested_for",
+    "opened_by",
+    "quantity",
+    "stage"
+]

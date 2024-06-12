@@ -1,5 +1,6 @@
 import json
 import multiprocessing
+import random
 import re
 
 from browsergym.workarena.tasks.list import __TASKS__
@@ -13,17 +14,45 @@ FILTER_TASKS = [
 SORT_TASKS = [task for task in __TASKS__ if re.compile(r"^Sort\w+ListTask$").match(task.__name__)]
 
 
+def generate_sort_task_configs(task_class, num_configs_per_field_count=50):
+    name = task_class.__name__
+    name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
+    task_name = re.sub("([a-z0-9])([A-Z])", r"\1_\2", name).lower()
+    all_configs = []
+    for n_fields_to_sort in range(1, 4):
+        with sync_playwright() as p:
+            task = task_class()
+            browser = p.chromium.launch()
+            context = browser.new_context()  # Set the timeout here
+            context.set_default_timeout(5000)
+            page = context.new_page()
+            all_new_configs = task._generate_all_configs(
+                seed=None, page=page, n_fields_to_sort=n_fields_to_sort
+            )
+            new_configs = random.sample(all_new_configs, num_configs_per_field_count)
+            all_configs.extend(new_configs)
+
+        print(f"{task_name} {n_fields_to_sort} fields - {len(new_configs)} configs")
+
+    with open(
+        f"{task_name}.json",
+        "w",
+    ) as f:
+        all_configs = sorted(all_configs, key=lambda x: sorted(list(x["sort_fields"])))
+        json.dump(all_configs, f, indent=4, sort_keys=True)
+
+
 def generate_task_configs(task_class, num_configs=1000, task_type="sort"):
     def try_setup_and_cheat(task_class, seed, current_task_configs):
         """Try to setup and cheat a task, and return its configuration if it's new"""
         try:
             with sync_playwright() as p:
-                task = task_class()
+                task = task_class(seed=seed)
                 browser = p.chromium.launch()
                 context = browser.new_context()  # Set the timeout here
                 context.set_default_timeout(5000)
                 page = context.new_page()
-                goal, _ = task._generate_random_config(seed=seed, page=page)
+                goal, _ = task._generate_random_config(page=page)
                 chat_messages = []
                 try:
                     task.cheat(page=page, chat_messages=chat_messages)
@@ -84,10 +113,5 @@ def generate_task_configs(task_class, num_configs=1000, task_type="sort"):
 
 
 if __name__ == "__main__":
-    print(FILTER_TASKS)
-    with multiprocessing.Pool() as pool:
-        pool.starmap(
-            generate_task_configs,
-            [(task, 1, "sort") for task in SORT_TASKS]
-            + [(task, 1, "filter") for task in FILTER_TASKS],
-        )
+    for task in SORT_TASKS:
+        generate_sort_task_configs(task)
