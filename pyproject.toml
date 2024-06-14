@@ -31,6 +31,7 @@ homepage = "https://github.com/ServiceNow/WorkArena"
 
 [project.scripts]
 workarena-install = "browsergym.workarena.install:main"
+workarena-human-eval = "browsergym.workarena.human_eval.tool:main"
 
 [tool.hatch.version]
 path = "src/browsergym/workarena/__init__.py"

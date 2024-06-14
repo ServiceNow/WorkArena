@@ -65,7 +65,8 @@ def generate_configs_for_all_items():
             "w",
         ) as f:
             all_configs_for_a_single_item = sorted(
-                all_configs_for_a_single_item, key=lambda x: x["item"] + str(x["quantity"])
+                all_configs_for_a_single_item,
+                key=lambda x: x["item"] + str(x["quantity"]),
             )
             json.dump(all_configs_for_a_single_item, f, indent=4, sort_keys=True)
 

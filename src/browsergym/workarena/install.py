@@ -17,11 +17,16 @@ from .config import (
     # for knowledge base setup
     KB_FILEPATH,
     KB_NAME,
+    PROTOCOL_KB_FILEPATH,
+    PROTOCOL_KB_NAME,
     # For list setup
     EXPECTED_ASSET_LIST_COLUMNS_PATH,
     EXPECTED_CHANGE_REQUEST_COLUMNS_PATH,
+    EXPECTED_EXPENSE_LINE_COLUMNS_PATH,
     EXPECTED_HARDWARE_COLUMNS_PATH,
     EXPECTED_INCIDENT_COLUMNS_PATH,
+    EXPECTED_PROBLEM_COLUMNS_PATH,
+    EXPECTED_REQUESTED_ITEMS_COLUMNS_PATH,
     EXPECTED_SERVICE_CATALOG_COLUMNS_PATH,
     EXPECTED_USER_COLUMNS_PATH,
     # for form setup
@@ -29,6 +34,7 @@ from .config import (
     EXPECTED_HARDWARE_FORM_FIELDS_PATH,
     EXPECTED_INCIDENT_FORM_FIELDS_PATH,
     EXPECTED_PROBLEM_FORM_FIELDS_PATH,
+    EXPECTED_REQUEST_ITEM_FORM_FIELDS_PATH,
     EXPECTED_USER_FORM_FIELDS_PATH,
     # Patch flag for reports
     REPORT_PATCH_FLAG,
@@ -269,7 +275,11 @@ def delete_knowledge_base(instance: SNowInstance, kb_id: str, kb_name: str):
 
 
 def create_knowledge_base(
-    instance: SNowInstance, kb_name: str, kb_data: dict, disable_commenting: bool = True
+    instance: SNowInstance,
+    kb_name: str,
+    kb_data: dict,
+    disable_commenting: bool = True,
+    add_article_name: bool = False,
 ):
     """
     Create knowledge base and upload all articles.
@@ -283,6 +293,9 @@ def create_knowledge_base(
         The knowledge base data to upload
     disable_commenting: bool
         Whether to disable commenting on the knowledge base
+    add_article_name: bool
+        Whether to add the article name to the article text. If False, the articles will be named "Article <number>"
+        Otherwise, we will extract the article title from the 'item' field in the JSON file.
 
     """
     logging.info(f"Installing knowledge base {kb_name}...")
@@ -311,7 +324,10 @@ def create_knowledge_base(
     for i, kb_entry in enumerate(kb_data):
         logging.info(f"... Knowledge Base {kb_name} uploading article {i + 1}/{len(kb_data)}")
         article = kb_entry["article"]
-
+        if add_article_name:
+            short_description = kb_entry["item"]
+        else:
+            short_description = f"Article {i + 1}"
         # Plant a new article in kb_knowledge table
         table_api_call(
             instance,
@@ -319,7 +335,7 @@ def create_knowledge_base(
             method="POST",
             data=json.dumps(
                 {
-                    "short_description": f"Article {i + 1}",
+                    "short_description": short_description,
                     "sys_class_name": "kb_knowledge",
                     "text": article,
                     "article_type": "text",
@@ -337,11 +353,12 @@ def setup_knowledge_bases():
     """
     # Get the ServiceNow instance
     instance = SNowInstance()
-    # Mapping between knowledge base name and filepath + whether or not to disable comments
+    # Mapping between knowledge base name and filepath + whether or not to disable comments + whether or not to add article name
     knowledge_bases = {
-        KB_NAME: (KB_FILEPATH, True),
+        KB_NAME: (KB_FILEPATH, True, False),
+        PROTOCOL_KB_NAME: (PROTOCOL_KB_FILEPATH, True, True),
     }
-    for kb_name, (kb_filepath, disable_commenting) in knowledge_bases.items():
+    for kb_name, (kb_filepath, disable_commenting, add_article_name) in knowledge_bases.items():
         # Load the knowledge base
         with open(kb_filepath, "r") as f:
             kb_data = json.load(f)
@@ -365,6 +382,7 @@ def setup_knowledge_bases():
                 kb_name=kb_name,
                 kb_data=kb_data,
                 disable_commenting=disable_commenting,
+                add_article_name=add_article_name,
             )
 
             # Confirm that the knowledge base was installed correctly
@@ -570,9 +588,21 @@ def setup_list_columns():
             "url": "/now/nav/ui/classic/params/target/incident_list.do",
             "expected_columns_path": EXPECTED_INCIDENT_COLUMNS_PATH,
         },
+        "problem": {
+            "url": "/now/nav/ui/classic/params/target/problem_list.do",
+            "expected_columns_path": EXPECTED_PROBLEM_COLUMNS_PATH,
+        },
         "sys_user": {
             "url": "/now/nav/ui/classic/params/target/sys_user_list.do",
             "expected_columns_path": EXPECTED_USER_COLUMNS_PATH,
+        },
+        "sc_req_item": {
+            "url": "/now/nav/ui/classic/params/target/sc_req_item_list.do",
+            "expected_columns_path": EXPECTED_REQUESTED_ITEMS_COLUMNS_PATH,
+        },
+        "fm_expense_line": {
+            "url": "/now/nav/ui/classic/params/target/fm_expense_line_list.do",
+            "expected_columns_path": EXPECTED_EXPENSE_LINE_COLUMNS_PATH,
         },
         "sc_cat_item": {
             "url": "/now/nav/ui/classic/params/target/sc_cat_item_list.do",
@@ -679,6 +709,10 @@ def setup_form_fields():
         "create_user": {
             "expected_fields_path": EXPECTED_USER_FORM_FIELDS_PATH,
             "url": "/now/nav/ui/classic/params/target/sys_user.do",
+        },
+        "create_request_item": {
+            "expected_fields_path": EXPECTED_REQUEST_ITEM_FORM_FIELDS_PATH,
+            "url": "/now/nav/ui/classic/params/target/sc_req_item.do",
         },
     }
 
@@ -872,6 +906,17 @@ def wipe_system_admin_preferences():
         )
 
 
+def is_report_filter_using_time(filter):
+    """
+    Heuristic to check if a report is filtering based on time
+
+    This aims to detect the use of functions like "gs.endOfToday()". To avoid hardcoding all of them,
+    we simply check for the use of keywords. Our filter is definitely too wide, but that's ok.
+
+    """
+    return "javascript:gs." in filter or "@ago" in filter
+
+
 def patch_report_filters():
     """
     Add filters to reports to make sure they stay frozen in time and don't show new data
@@ -879,8 +924,6 @@ def patch_report_filters():
 
     """
     logging.info("Patching reports with date filter...")
-
-    cutoff_date = REPORT_DATE_FILTER
 
     instance = SNowInstance()
 
@@ -893,22 +936,35 @@ def patch_report_filters():
         },
     )["result"]
 
-    incompatible_reports = []
     for report in reports:
         # Find all sys_created_on columns of this record. Some have many.
         sys_created_on_cols = [
             c for c in table_column_info(instance, report["table"]).keys() if "sys_created_on" in c
         ]
-
         try:
             # XXX: We purposely do not support reports with multiple filter conditions for simplicity
             if len(sys_created_on_cols) == 0 or "^NQ" in report["filter"]:
-                raise NotImplementedError()
+                logging.info(f"Discarding report {report['title']} {report['sys_id']}...")
+                raise NotImplementedError()  # Mark for deletion
 
-            # Add the filter
+            if not is_report_filter_using_time(report["filter"]):
+                # That's a report we want to keep (use date cutoff filter)
+                filter_date = REPORT_DATE_FILTER
+                logging.info(
+                    f"Keeping report {report['title']} {report['sys_id']} (columns: {sys_created_on_cols})..."
+                )
+            else:
+                # XXX: We do not support reports with filters that rely on time (e.g., last 10 days) because
+                #      there are not stable. In this case, we don't delete them but add a filter to make
+                #      them empty. They will be shown as "No data available".
+                logging.info(
+                    f"Disabling report {report['title']} {report['sys_id']} because it uses time filters..."
+                )
+                filter_date = "1900-01-01"
+
             filter = "".join(
                 [
-                    f"^{col}<javascript:gs.dateGenerate('{cutoff_date}','00:00:00')"
+                    f"^{col}<javascript:gs.dateGenerate('{filter_date}','00:00:00')"
                     for col in sys_created_on_cols
                 ]
             ) + ("^" if len(report["filter"]) > 0 and not report["filter"].startswith("^") else "")
@@ -921,16 +977,21 @@ def patch_report_filters():
                     "description": report["description"] + " " + REPORT_PATCH_FLAG,
                 },
             )
-            logging.info(
-                f"Patched report {report['title']} {report['sys_id']} (columns: {sys_created_on_cols})..."
-            )
+            logging.info(f"... done")
 
         except (NotImplementedError, HTTPError):
             # HTTPError occurs when some reports simply cannot be patched because they are critical and protected
-            incompatible_reports.append(report["sys_id"])
-            logging.info(
-                f"Did not patch report {report['title']} {report['title']} (columns: {sys_created_on_cols})..."
-            )
+            logging.info(f"...failed to patch report. Attempting delete...")
+
+            # Delete the report if it cannot be patched
+            # This might fail sometimes, but it's the best we can do.
+            try:
+                table_api_call(
+                    instance=instance, table=f"sys_report/{report['sys_id']}", method="DELETE"
+                )
+                logging.info(f"...... deleted.")
+            except:
+                logging.error(f"...... could not delete.")
 
 
 @tenacity.retry(

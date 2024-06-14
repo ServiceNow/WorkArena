@@ -1,0 +1,12 @@
+[
+    "number",
+    "short_description",
+    "state",
+    "priority",
+    "resolution_code",
+    "assigned_to",
+    "cmdb_ci",
+    "related_incidents",
+    "category",
+    "company"
+]

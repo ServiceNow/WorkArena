@@ -72,7 +72,10 @@ if __name__ == "__main__":
             expand_and_gather_paths(page, nested_parent_selector, new_path)
 
         if not collapsible_lists:
-            current_path_item = {"path": current_path.copy(), "selector": parent_selector}
+            current_path_item = {
+                "path": current_path.copy(),
+                "selector": parent_selector,
+            }
             base_paths.append(current_path_item)
 
     def expand_menu():
@@ -190,7 +193,11 @@ if __name__ == "__main__":
                             45:
                         ]  # get only the end of the url
                         if url not in urls:
-                            menu_task = {"application": application, "module": module, "url": url}
+                            menu_task = {
+                                "application": application,
+                                "module": module,
+                                "url": url,
+                            }
                             all_menu_items.append(menu_task)
                             urls[url] = True
 

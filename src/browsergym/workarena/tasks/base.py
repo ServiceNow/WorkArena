@@ -10,7 +10,7 @@ import playwright.sync_api
 
 from abc import ABC, abstractmethod
 from copy import deepcopy
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional, Tuple
 from uuid import uuid4
 from urllib import parse
 
@@ -18,7 +18,7 @@ from browsergym.core.task import AbstractBrowserTask
 from ..api.user import create_user
 from ..api.utils import table_api_call
 from ..config import SNOW_BROWSER_TIMEOUT, SNOW_JS_UTILS_FILEPATH
-from ..utils import impersonate_user, url_login
+from ..utils import url_login
 from ..instance import SNowInstance
 
 
@@ -34,7 +34,8 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         start_rel_url: str,
         instance: SNowInstance = None,
         final_rel_url: Optional[str] = None,
-        username: Optional[str] = "admin",
+        user_roles: List[str] = ["admin"],
+        has_description: bool = False,
     ) -> None:
         """
         Initialize the task
@@ -45,10 +46,14 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
             Random seed
         instance: SNowInstance
             The ServiceNow instance in which the task will be performed
-        start_url: str
+        start_rel_url: str
             The URL for the starting page of the task
-        final_url: str (optional)
+        final_rel_url: str (optional)
             The URL for the final page of the task (default: uses the value of base_url)
+        user_roles: list[str]
+            The roles to assign to the user (default: ["admin"])
+        has_description: bool
+            Whether the task has a description in L3 compositional tasks
 
         """
         super().__init__(seed)
@@ -66,6 +71,16 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         else:
             self.final_url = self.start_url
         self.final_url_ = parse.urlparse(self.final_url)
+
+        # Set the task's unique ID
+        self.unique_id = str(uuid4())
+        # Flag to ensure the task is setup only once
+        self.task_is_setup = False
+        self.delete_user_on_teardown = False
+        self.user_roles = user_roles
+        self.has_description = (
+            has_description  # Whether the task has a description in L3 compositional tasks
+        )
 
     def cheat(self, page: playwright.sync_api.Page, chat_messages: list[str]) -> None:
         # Don't call super cheat function because it's not implemented at the base level
@@ -102,6 +117,8 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
 
         """
         logging.debug("Setting up the base task")
+        if self.task_is_setup:
+            raise ValueError("The task is already setup")
 
         # Keep the page for client-side validation
         self.page = page
@@ -109,6 +126,15 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         # Set the page timeout
         page.set_default_timeout(SNOW_BROWSER_TIMEOUT)
 
+        # Create a new user to run the task if this is the starting task
+        if do_start:
+            self._base_initial_instance = self.instance
+            self._base_user_name, self._base_user_password, self._base_user_sysid = create_user(
+                instance=self.instance, user_roles=self.user_roles, random=self.random
+            )
+            self.instance = deepcopy(self.instance)
+            self.instance.snow_credentials = (self._base_user_name, self._base_user_password)
+            self.delete_user_on_teardown = True
         # Set the task's unique ID
         self.unique_id = str(uuid4())
 
@@ -116,25 +142,25 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         goal, info = self.setup_goal(page=page)
 
         # Load a few utility functions for init scripts
-        page.add_init_script(path=SNOW_JS_UTILS_FILEPATH)
+        page.context.add_init_script(path=SNOW_JS_UTILS_FILEPATH)
 
         # Add the initialization scripts to the page context
         for script in self.get_init_scripts():
             page.context.add_init_script(script)
 
-        # Create a new user to run the task
-        self._base_initial_instance = self.instance
-        self._base_user_name, self._base_user_password, self._base_user_sysid = create_user(
-            self.instance
-        )
-        self.instance = deepcopy(self.instance)
-        self.instance.snow_credentials = (self._base_user_name, self._base_user_password)
-
         # Start the task if requested
         if do_start:
             self.start(page)
 
+        self.task_is_setup = True
+
         return goal, info
+
+    def create_user(self, first_name: str = None, last_name: str = None):
+        """
+        Create a user in the ServiceNow instance
+
+        """
 
     @abstractmethod
     def setup_goal(self, page: playwright.sync_api.Page) -> tuple[str, dict]:
@@ -157,11 +183,20 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         page.goto(self.start_url)
 
     def teardown(self) -> None:
+        """
+        Clean up after the task
+
+        Notes:
+        ------
+        This method should not make assumptions on the state of the page (e.g., a specific URL).
+
+        """
         logging.debug("Tearing down the task")
 
-        # Delete the user
-        table_api_call(
-            instance=self._base_initial_instance,
-            table=f"sys_user/{self._base_user_sysid}",
-            method="DELETE",
-        )
+        if self.delete_user_on_teardown:
+            # Delete the user
+            table_api_call(
+                instance=self._base_initial_instance,
+                table=f"sys_user/{self._base_user_sysid}",
+                method="DELETE",
+            )

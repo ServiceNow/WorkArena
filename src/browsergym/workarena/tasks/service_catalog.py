@@ -10,6 +10,7 @@ import numpy as np
 import playwright.sync_api
 
 from playwright.sync_api import Page
+import re
 from time import sleep
 from urllib import parse
 
@@ -60,7 +61,10 @@ META_CONFIGS = {
     "iPad mini": {
         "desc": "Request for iPad mini",
         "options": {
-            "Choose the colour": ("radio", ["Space Grey", "Pink", "Purple", "Starlight"]),
+            "Choose the colour": (
+                "radio",
+                ["Space Grey", "Pink", "Purple", "Starlight"],
+            ),
             "Choose the storage": ("radio", ["64", "256"]),
         },
     },
@@ -150,21 +154,25 @@ class OrderHardwareTask(AbstractServiceNowTask):
         Random seed
     instance: SNowInstance
         The instance to use.
+    fixed_request_item: str
+        The item to order. If provided, the task will always order this item.
     fixed_config: dict
         Configuration to use for the task. If provided, the task will use the provided configuration instead of
         selecting a random one. See browsergym/workarena/data_files/task_configs/order_ipda_pro_task.json
         for an example of a configuration file.
-    config_path:
-        The path to the JSON file containing all configurations for the task. Provided by subclasses
+    config_only_in_desc: bool
+        If True, the model to order will be omitted from the task description in comp tasks.
+
     """
 
     def __init__(
         self,
-        seed: int,
+        seed: int = None,
         instance: SNowInstance = None,
         fixed_request_item: str = None,
         fixed_config: dict = None,
-        config_path: str = None,
+        config_only_in_desc: bool = False,
+        **kwargs,
     ):
         super().__init__(
             seed=seed,
@@ -178,12 +186,19 @@ class OrderHardwareTask(AbstractServiceNowTask):
                 raise ValueError(f"'fixed_request_item' and 'fixed_config[\"item\"]' do not match")
 
         self.fixed_config = fixed_config
+        self.config = None
         self.fixed_request_item = fixed_request_item
+        self.config_only_in_desc = config_only_in_desc
 
         self.js_prefix = "gsft_main"
         self.js_api_forms = "g_form"
-        with open(config_path, "r") as f:
-            self.all_configs = json.load(f)
+        self.all_configs = self.all_configs()
+        self.__dict__.update(kwargs)
+
+    @classmethod
+    def all_configs(cls) -> List[dict]:
+        with open(cls.config_path, "r") as f:
+            return json.load(f)
 
     def _wait_for_ready(self, page: Page, wait_for_form_api: bool = False) -> None:
         """
@@ -266,14 +281,19 @@ class OrderHardwareTask(AbstractServiceNowTask):
 
         # Get the task configuration
         assert self.all_configs is not None, "No configuration available for the task."
-        config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
-        self.requested_item = config["item"]
-        self.short_description = config["description"]
-        self.quantity = config["quantity"]
-        self.requested_configuration = config["configuration"]
+        self.config = (
+            self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
+        )
+        self.requested_item = self.config["item"]
+        self.short_description = self.config["description"]
+        self.quantity = self.config["quantity"]
+        self.requested_configuration = self.config["configuration"]
 
         # Generate goal
-        goal = f'Go to the hardware store and order {self.quantity} "{self.requested_item}"'
+        if self.config_only_in_desc:
+            goal = self.get_pretty_printed_description()
+        else:
+            goal = f'Go to the hardware store and order {self.quantity} "{self.requested_item}"'
         if len(self.requested_configuration) > 0:
             goal += f" with configuration {dict((k, v[1]) for k, v in self.requested_configuration.items())}"
         info = {}
@@ -359,6 +379,9 @@ class OrderHardwareTask(AbstractServiceNowTask):
 
     def _generate_random_config(self, page: Page):
         """Generate a random configuration for the task"""
+        self.task_is_setup = (
+            False  # This is a hack to avoid raising an exception in the setup method
+        )
         self.setup(page=page, do_start=False)
         if self.fixed_request_item:
             self.requested_item = self.fixed_request_item
@@ -404,6 +427,39 @@ class OrderHardwareTask(AbstractServiceNowTask):
             raise ValueError(f"Unknown control type {control_type}")
         return control_text
 
+    def get_pretty_printed_description(self) -> str:
+        """
+        Get the task info for this task when used in a private task; Used in L3 compositional tasks.
+        called by subclasses
+        """
+        class_name = self.__class__.__name__
+        class_name = class_name.replace("Task", "")
+        # Split the words
+        words = re.findall(r"[A-Z][^A-Z]*", class_name)
+        class_name_formatted = " ".join(words)
+        task_specs = {
+            "Quantity": self.config["quantity"],
+            "Configuration": self.config["configuration"],
+        }
+        if self.config_only_in_desc:
+            task_info = f"- Order the item in the following quantities and with the following configuration:\n"
+        else:
+            task_specs["Description"] = self.config["description"]
+            task_info = f"- {class_name_formatted} with the following specifications:\n"
+        for k, v in task_specs.items():
+            # Some values might be empty - like the configuration of the apple watch. It is more natural to exclude them
+            if not v:
+                continue
+            # If the value is a dictionary, print it in a nested way
+            if isinstance(v, dict):
+                task_info += f"    - {k}:\n"
+                for k2, v2 in v.items():
+                    task_info += f"        - {k2}: {v2[1]}\n"
+            else:
+                task_info += f"    - {k}: {v}\n"
+
+        return task_info
+
     def teardown(self) -> None:
         """
         Deletes the request (and automatically all its items)
@@ -428,9 +484,7 @@ class OrderHardwareTask(AbstractServiceNowTask):
             )
 
         # Retrieve the request sysid from the URL
-        current_url = parse.urlparse(
-            parse.unquote(self.page.evaluate("() => window.location.href"))
-        )
+        current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
         (self.request_sysid,) = parse.parse_qs(current_url.query).get("sysparm_sys_id", [None])
         if self.request_sysid is None:
             return (
@@ -496,7 +550,12 @@ class OrderHardwareTask(AbstractServiceNowTask):
                         {"message": error_msg},
                     )
 
-        return 1, True, "Nice work, thank you!", {"message": "Task completed successfully."}
+        return (
+            1,
+            True,
+            "Nice work, thank you!",
+            {"message": "Task completed successfully."},
+        )
 
 
 def option_match_heuristic(value, option):
@@ -510,91 +569,100 @@ def option_match_heuristic(value, option):
 
 
 class OrderDeveloperLaptopTask(OrderHardwareTask):
+    config_path = ORDER_DEVELOPER_LAPTOP_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Developer Laptop (Mac)",
-            config_path=ORDER_DEVELOPER_LAPTOP_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderIpadMiniTask(OrderHardwareTask):
+    config_path = ORDER_IPAD_MINI_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="iPad mini",
-            config_path=ORDER_IPAD_MINI_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderIpadProTask(OrderHardwareTask):
+    config_path = ORDER_IPAD_PRO_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="iPad pro",
-            config_path=ORDER_IPAD_PRO_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderSalesLaptopTask(OrderHardwareTask):
+    config_path = ORDER_SALES_LAPTOP_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Sales Laptop",
-            config_path=ORDER_SALES_LAPTOP_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderStandardLaptopTask(OrderHardwareTask):
+    config_path = ORDER_STANDARD_LAPTOP_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Standard Laptop",
-            config_path=ORDER_STANDARD_LAPTOP_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderAppleWatchTask(OrderHardwareTask):
+    config_path = ORDER_APPLE_WATCH_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Apple Watch",
-            config_path=ORDER_APPLE_WATCH_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderAppleMacBookPro15Task(OrderHardwareTask):
+    config_path = ORDER_APPLE_MAC_BOOK_PRO15_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Apple MacBook Pro 15",
-            config_path=ORDER_APPLE_MAC_BOOK_PRO15_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderDevelopmentLaptopPCTask(OrderHardwareTask):
+    config_path = ORDER_DEVELOPMENT_LAPTOP_PC_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Development Laptop (PC)",
-            config_path=ORDER_DEVELOPMENT_LAPTOP_PC_TASK_CONFIG_PATH,
             **kwargs,
         )
 
 
 class OrderLoanerLaptopTask(OrderHardwareTask):
+    config_path = ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
             fixed_request_item="Loaner Laptop",
-            config_path=ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH,
             **kwargs,
         )
 
