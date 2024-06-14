@@ -53,8 +53,9 @@ https://github.com/ServiceNow/WorkArena/assets/1726818/ca26dfaf-2358-4418-855f-8
 
 ### Dashboards
 
-**Goal:** The agent must extract information from a dashboard.
+**Goal:** The agent must answer a question that requires reading charts and (optionally) performing simple reasoning over them.
 
+https://github.com/ServiceNow/WorkArena/assets/1726818/0023232c-081f-4be4-99bd-f60c766e6c3f
 
 
 ## Getting Started
