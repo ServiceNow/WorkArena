@@ -7,6 +7,7 @@ Note: This script separates the tasks among 14 evaluators.
       to some issues with the annotation UI).
 
 """
+
 import random
 
 from browsergym.workarena import get_all_tasks_humans
