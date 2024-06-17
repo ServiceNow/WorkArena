@@ -1,5 +1,5 @@
-import random
 from faker import Faker
+import numpy as np
 import time
 
 fake = Faker()
@@ -14,7 +14,9 @@ def create_user(
     first_name: str = None,
     last_name: str = None,
     user_name: str = None,
-    admin=True,
+    return_full_response: bool = False,
+    user_roles: list[str] = ["admin"],
+    random: np.random = np.random,
 ) -> list[str]:
     """
     Create a user with a random username and password with an admin role
@@ -27,8 +29,8 @@ def create_user(
         The last name of the user, defaults to a random last name
     user_name: str
         The user name of the user, defaults to first_name.last_name
-    admin: bool
-        Whether to give the user admin permissions
+    user_roles: list[str]
+        The roles to assign to the user, defaults to ['admin']
 
     Returns:
     --------
@@ -56,12 +58,12 @@ def create_user(
     user_name = user_response["user_name"]
     user_sys_id = user_response["sys_id"]
 
-    # Get admin role sys_id
-    if admin:
+    # Get role sys_id's
+    for role in user_roles:
         role_sys_id = table_api_call(
             instance=instance,
             table="sys_user_role",
-            params={"sysparm_query": "name=admin", "sysparm_fields": "sys_id"},
+            params={"sysparm_query": f"name={role}", "sysparm_fields": "sys_id"},
             method="GET",
         )["result"][0]["sys_id"]
 
@@ -77,7 +79,8 @@ def create_user(
     set_user_preference(
         instance, "glide.ui.polaris.theme.variant", theme["style.sys_id"], user=user_sys_id
     )
-
+    if return_full_response:
+        return user_response
     return user_name, user_password, user_sys_id
 
 

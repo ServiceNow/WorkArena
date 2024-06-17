@@ -18,9 +18,6 @@ def fill_text(page, input_field, value, iframe=None):
         The locator of the iframe that contains the input field, by default None
 
     """
-    if value == "":
-        return
-
     if iframe is None:
         iframe = page
 
@@ -28,7 +25,7 @@ def fill_text(page, input_field, value, iframe=None):
     input_field.click(force=True)
 
     # If the field uses autocomplete, we need to wait for Ajax to finish (and expand the menu)
-    if input_field.get_attribute("aria-autocomplete") == "list":
+    if input_field.get_attribute("aria-autocomplete") == "list" and value != "":
         # Fill in the value using a procedure that triggers the autocomplete
         input_field.fill(value[:-1])
         page.keyboard.press(value[-1])

@@ -66,6 +66,10 @@ ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH = str(
 # Knowledge base that is included with the benchmark
 KB_NAME = "General Knowledge"
 KB_FILEPATH = str(resources.files(data_files).joinpath("setup_files/knowledge/knowledge_base.json"))
+PROTOCOL_KB_NAME = "Company Protocols"
+PROTOCOL_KB_FILEPATH = str(
+    resources.files(data_files).joinpath("setup_files/knowledge/protocols.json")
+)
 
 # Form tasks
 CREATE_CHANGE_REQUEST_CONFIG_PATH = str(
@@ -165,11 +169,24 @@ EXPECTED_CHANGE_REQUEST_COLUMNS_PATH = str(
         "setup_files/lists/expected_change_request_list_columns.json"
     )
 )
+EXPECTED_EXPENSE_LINE_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath(
+        "setup_files/lists/expected_expense_line_list_columns.json"
+    )
+)
 EXPECTED_HARDWARE_COLUMNS_PATH = str(
     resources.files(data_files).joinpath("setup_files/lists/expected_hardware_list_columns.json")
 )
 EXPECTED_INCIDENT_COLUMNS_PATH = str(
     resources.files(data_files).joinpath("setup_files/lists/expected_incident_list_columns.json")
+)
+EXPECTED_PROBLEM_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/lists/expected_problem_list_columns.json")
+)
+EXPECTED_REQUESTED_ITEMS_COLUMNS_PATH = str(
+    resources.files(data_files).joinpath(
+        "setup_files/lists/expected_requested_items_list_columns.json"
+    )
 )
 EXPECTED_SERVICE_CATALOG_COLUMNS_PATH = str(
     resources.files(data_files).joinpath(
@@ -188,6 +205,7 @@ EXPECTED_CHANGE_REQUEST_FORM_FIELDS_PATH = str(
         "setup_files/forms/expected_change_request_form_fields.json"
     )
 )
+
 EXPECTED_HARDWARE_FORM_FIELDS_PATH = str(
     resources.files(data_files).joinpath("setup_files/forms/expected_hardware_form_fields.json")
 )
@@ -200,7 +218,9 @@ EXPECTED_PROBLEM_FORM_FIELDS_PATH = str(
 EXPECTED_USER_FORM_FIELDS_PATH = str(
     resources.files(data_files).joinpath("setup_files/forms/expected_user_form_fields.json")
 )
-
+EXPECTED_REQUEST_ITEM_FORM_FIELDS_PATH = str(
+    resources.files(data_files).joinpath("setup_files/forms/expected_request_item_form_fields.json")
+)
 
 # Report date filter patch flag
 REPORT_PATCH_FLAG = "WORKARENA_DATE_FILTER_PATCH"

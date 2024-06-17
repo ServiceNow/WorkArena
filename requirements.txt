@@ -1,6 +1,6 @@
 browsergym-core>=0.2
 english-words>=2.0.1
-faker>=24.11.0
+Faker>=24.8.0
 numpy>=1.14
 requests>=2.31
 tenacity>=8.2.3  # only used in cheat() -> move to tests?

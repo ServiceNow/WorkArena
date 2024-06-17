@@ -10,12 +10,9 @@ WorkArena is included in [BrowserGym](https://github.com/ServiceNow/BrowserGym),
 
 https://github.com/ServiceNow/WorkArena/assets/2374980/68640f09-7d6f-4eb1-b556-c294a6afef70
 
-## ⚠️ Pre-Release warning ⚠️
-Please note that the WorkArena benchmark is still undergoing minor bug fixes and updates, which may cause discrepancies with results reported in our latest arXiv preprint. We plan to release soon a stable version of WorkArena with enhanced stability, and a final version v1.0.0 with a new suite of tasks.
-
 ## Benchmark Contents
 
-At the moment, WorkArena includes `19,951` task instances drawn from `33` tasks that cover the main components of the ServiceNow user interface. The following videos show an agent built on `GPT-4-vision` interacting with every such component. As emphasized by our results, this benchmark is not solved and thus, the performance of the agent is not always on point.
+At the moment, WorkArena includes `19,912` unique instances drawn from `33` tasks that cover the main components of the ServiceNow user interface. The following videos show an agent built on `GPT-4-vision` interacting with every such component. As emphasized by our results, this benchmark is not solved and thus, the performance of the agent is not always on point.
 
 ### Knowledge Bases
 
@@ -53,8 +50,11 @@ https://github.com/ServiceNow/WorkArena/assets/1726818/ca26dfaf-2358-4418-855f-8
 
 ### Dashboards
 
-**Goal:** The agent must extract information from a dashboard.
+**Goal:** The agent must answer a question that requires reading charts and (optionally) performing simple reasoning over them.
 
+*Note: For demonstration purposes, a human is controlling the cursor since this is a pure retrieval task*
+
+https://github.com/ServiceNow/WorkArena/assets/1726818/0023232c-081f-4be4-99bd-f60c766e6c3f
 
 
 ## Getting Started
@@ -98,6 +98,8 @@ Your installation is now complete! 🎉
 
 Run this code to see WorkArena in action.
 
+Note: the following example executes WorkArena's oracle (cheat) function to solve each task. To evaluate an agent, calls to `env.step()` must be used instead.
+
 ```python
 import random
 
@@ -112,28 +114,27 @@ for task in ALL_WORKARENA_TASKS:
 
     # Instantiate a new environment
     env = BrowserEnv(task_entrypoint=task,
-                    headless=False, 
-                    slow_mo=1000)
+                    headless=False)
     env.reset()
 
     # Cheat functions use Playwright to automatically solve the task
     env.chat.add_message(role="assistant", msg="On it. Please wait...")
-    env.task.cheat(env.page, env.chat.messages)
+    cheat_messages = []
+    env.task.cheat(env.page, cheat_messages)
+
+    # Send cheat messages to chat
+    for cheat_msg in cheat_messages:
+        env.chat.add_message(role=cheat_msg["role"], msg=cheat_msg["message"])
 
     # Post solution to chat
-    if "KnowledgeBaseSearchTask" in str(task):
-        answer = env.chat.messages[-1]["message"]
-        env.chat.add_message(role="assistant", msg=f"The answer is:")
-        env.chat.add_message(role="assistant", msg=answer)
-    else:
-        env.chat.add_message(role="assistant", msg="I'm done!")
+    env.chat.add_message(role="assistant", msg="I'm done!")
 
     # Validate the solution
-    reward, stop, info, message = env.task.validate(env.page, env.chat.messages)
+    reward, stop, message, info = env.task.validate(env.page, cheat_messages)
     if reward == 1:
         env.chat.add_message(role="user", msg="Yes, that works. Thanks!")
     else:
-        env.chat.add_message(role="user", msg=f"No, that doesn't work. {message.get('message', '')}")
+        env.chat.add_message(role="user", msg=f"No, that doesn't work. {info.get('message', '')}")
 
     sleep(3)
     env.close()

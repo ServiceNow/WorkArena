@@ -28,7 +28,7 @@ from browsergym.workarena.tasks.dashboard import DashboardRetrievalTask
 
 N_CPU = 20
 MAX_CONFIGS = 1000
-REPORT = True  # Set to True for reports, False for dashboards
+REPORT = False  # Set to True for reports, False for dashboards
 
 
 class DummyDashboard(DashboardRetrievalTask):
@@ -102,10 +102,10 @@ def get_dashboard_urls(instance):
         "18b1f472533130104c90ddeeff7b12a6",  # Incident overview
         "287d07d1ff3130106c1ef9a7cddcbd5d",  # Request overview
         "7ab78953eb32011008f2951ff15228e6",  # Service catalog overview
-        "2d297c880f1130101527008c07767e27",  # Survey overview
+        # "2d297c880f1130101527008c07767e27",  # Survey overview (almost empty post deleting reports that rely on time)
         "6b706f448f231110953ddffc9071a4f3",  # Telemetry - Table growth
-        "15c5d2d377213010a435478c4f5a993c",  # Usage overview
-        "85a57f9677100110ba155631dc5a9905",  # Web api usage overview
+        # "15c5d2d377213010a435478c4f5a993c",  # Usage overview
+        # "85a57f9677100110ba155631dc5a9905",  # Web api usage overview (empty post deleting reports that rely on time)
         "c38ca3a273031010ae8dd21efaf6a747",  # Data classification
         "3d48f669538223008329ddeeff7b1253",  # Problem overview
     ]
@@ -131,6 +131,7 @@ def get_all_configs_by_url(url, is_report):
                 "chart_series": "",
                 "question": "max",
             },
+            seed=0,
         )
         task.setup(page=page)
 
@@ -196,7 +197,7 @@ def get_all_configs_by_url(url, is_report):
                     )
             except Exception as e:
                 print("Exception in worker", url, chart_title, e)
-                return []
+                continue  # Skip this chart
 
         if len(questions) == 0:
             return []

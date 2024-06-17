@@ -10,6 +10,9 @@ from typing import List, Tuple
 from urllib import parse
 
 from .base import AbstractServiceNowTask
+from .comp_building_block import CompositionalBuildingBlockTask
+from .utils.utils import check_url_suffix_match
+
 from ..api.utils import table_api_call, table_column_info
 from ..config import (
     DASHBOARD_RETRIEVAL_MINMAX_CONFIG_PATH,
@@ -21,6 +24,7 @@ from ..config import (
 )
 from ..instance import SNowInstance
 from .utils.string import share_tri_gram
+from .utils.utils import check_url_suffix_match
 
 # XXX: Some notes on plot types
 #      - We currently don't support maps because they are clickable and would require a more evolved cheat function
@@ -33,10 +37,17 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
 
     """
 
-    def __init__(self, seed: int, instance: SNowInstance = None, fixed_config: dict = None) -> None:
+    def __init__(
+        self, seed: int = None, instance: SNowInstance = None, fixed_config: dict = None, **kwargs
+    ) -> None:
         super().__init__(seed=seed, instance=instance, start_rel_url="")
         self.iframe_id = "gsft_main"
         self.fixed_config = fixed_config
+        self.__dict__.update(kwargs)
+
+    @abstractmethod
+    def all_configs(self) -> List[dict]:
+        pass
 
     @abstractmethod
     def all_configs(self) -> List[dict]:
@@ -228,12 +239,6 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
         logging.debug("All plots loaded")
 
     def get_init_scripts(self) -> List[str]:
-        # Configure to page type
-        # ... extract URL suffix
-        url_suffix = parse.unquote(
-            parse.urlparse(self.config["url"].replace("%3F", "?")).path.split("/")[-1]
-        )
-
         return super().get_init_scripts() + [
             "registerGsftMainLoaded();",
             f"""
@@ -263,7 +268,28 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
                             waLog('All charts loaded', 'loadAllCharts');
                         }});
             }}
-            runInGsftMainOnlyAndProtectByURL(renderAllCharts, '{url_suffix}');
+            // Run on both dashboard and reports pages
+            runInGsftMainOnlyAndProtectByURL(renderAllCharts, 'pa_dashboard.do');
+            runInGsftMainOnlyAndProtectByURL(renderAllCharts, 'sys_report_template.do');
+            """,
+            f"""
+            function purifyReportUIButtons() {{
+                // Delete a lot of UI features that were causing issues due to the report refreshing without
+                // reloading the page. This makes the task easier, but it doesn't matter because we really
+                // want to evaluate retrieval and this doesn't prevent that.
+                document.querySelectorAll('[ng-click*="main.runReport"], #sidebar, #nlq-over-cb, #open-tree-navigation-button, .data-filtering-wrap').forEach(element => {{
+                    if (element && element.parentNode) {{
+                        element.parentNode.removeChild(element);
+                    }}
+                }});
+                document.addEventListener('click', function(event) {{
+                    event.stopPropagation();
+                    event.preventDefault();
+                }}, true);
+                waLog('Purified report UI.', 'purifyReportUIButtons');
+            }}
+            // Run it only on the reports page
+            runInGsftMainOnlyAndProtectByURL(purifyReportUIButtons, 'sys_report_template.do');
             """,
         ]
 
@@ -295,6 +321,12 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
             goal = f"What is the maximum value in {chart_locator}? Give me both the label and the count. If there are many, pick one."
         elif self.config["question"] == "min":
             goal = f"What is the minimum value in {chart_locator}? Give me both the label and the count. If there are many, pick one."
+        elif self.config["question"] == "mean":
+            goal = f"What is the average value in {chart_locator}? Round off to the next highest integer."
+        elif self.config["question"] == "median":
+            goal = f"What is the median value in {chart_locator}?"
+        elif self.config["question"] == "mode":
+            goal = f"What is the mode value in {chart_locator}?"
         else:
             raise NotImplementedError(f"Question type {self.config['question']} not supported")
 
@@ -302,6 +334,34 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
 
     def cheat(self, page: playwright.sync_api.Page, chat_messages: list[str]) -> None:
         super().cheat(page, chat_messages)
+        # Check if the page is the report list view. If so, open the report
+        page_is_report_list_view = check_url_suffix_match(
+            page, "/now/nav/ui/classic/params/target/sys_report_list.do", self
+        )
+        chart_title = self.config["chart_title"]
+        if page_is_report_list_view:
+            # Open the report
+            frame = page.wait_for_selector('iframe[name="gsft_main"]').content_frame()
+            # Search for the report by title
+            frame.get_by_label("Search a specific field of the Reports list").select_option("Title")
+            search_input = frame.locator('input[aria-label="Search"]')
+            search_input.click()
+            search_input.fill(chart_title)
+            search_input.press("Enter")
+            page.wait_for_function(
+                "typeof window.gsft_main !== 'undefined' && window.gsft_main.WORKARENA_LOAD_COMPLETE"
+            )
+            # Click on the chart preview to open it
+            frame.wait_for_selector(f'a[aria-label="Preview record: {chart_title}"]').click()
+            page.wait_for_timeout(1000)
+            page.keyboard.press("Enter")
+            # Now in the form view, wait for the page to load and click to view the report
+            page.wait_for_function(
+                "typeof window.gsft_main !== 'undefined' && window.gsft_main.WORKARENA_LOAD_COMPLETE"
+            )
+            frame = page.wait_for_selector('iframe[name="gsft_main"]').content_frame()
+            frame.get_by_text("View Report").first.click()
+
         self._wait_for_ready(page)
 
         # Get the chart data
@@ -345,6 +405,37 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
             chat_messages.append(
                 {"message": f"{min_point['label']}, {min_point['count']}", "role": "assistant"}
             )
+        elif self.config["question"] == "mean":
+            counts = [data["count"] for data in chart_data]
+            target_count = np.mean(counts)
+            chat_messages.append({"message": f"Mean / Average {target_count}", "role": "assistant"})
+        elif self.config["question"] == "median":
+            counts = [data["count"] for data in chart_data]
+            target_count = np.median(counts)
+            chat_messages.append({"message": f"Median {target_count}", "role": "assistant"})
+        elif self.config["question"] == "mode":
+            counts = [data["count"] for data in chart_data]
+            # We select the maximum value if there are two or more modes
+            frequencies = {}
+            for count in counts:
+                if count not in frequencies:
+                    frequencies[count] = 1
+                else:
+                    frequencies[count] += 1
+            sorted_frequencies = {
+                count: frequency
+                for count, frequency in sorted(
+                    frequencies.items(), key=lambda item: item[1], reverse=True
+                )
+            }
+            max_frequency = list(sorted_frequencies.values())[0]
+            max_frequencies = [
+                count
+                for count, frequency in sorted_frequencies.items()
+                if frequency == max_frequency
+            ]
+            target_count = max(max_frequencies)
+            chat_messages.append({"message": f"Mode {target_count}", "role": "assistant"})
         else:
             raise NotImplementedError(f"Question type \"{self.config['question']}\" not supported")
 
@@ -352,12 +443,28 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
         self, page: playwright.sync_api.Page, chat_messages: list[str]
     ) -> Tuple[float, bool, str, dict]:
         super().validate(page, chat_messages)
+
+        # Check if the page is in the right URL
+        logging.debug("Checking if the page is in the right URL to validate the task")
+        right_url = check_url_suffix_match(page, expected_url=self.start_url, task=self)
+        if not right_url:
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"The page is not in the right URL to validate task {self.__class__.__name__}."
+                },
+            )
+
         self._wait_for_ready(page)
 
         # Get the chart data
+        logging.debug("Extracting chart data")
         _, chart_data, _ = self._get_chart_by_title(page, self.config["chart_title"])
 
         # Extract the series
+        logging.debug("Extracting the series")
         if len(chart_data) == 1:
             chart_data = chart_data[0]["data"]
         else:
@@ -368,6 +475,7 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
             ][0]
 
         # Extract the agent's response
+        logging.debug("Extracting the agent's response")
         if chat_messages and chat_messages[-1]["role"] == "assistant":
             response = chat_messages[-1]["message"]
         else:
@@ -379,6 +487,7 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
             )
 
         # Extract all numbers mentioned by the agent
+        logging.debug("Extracting all numbers mentioned by the agent")
         # ... some value labels may contain numbers so we need to remove the labels from the response first
         labels = set([point["label"] for point in chart_data])
         response_ = str(response)
@@ -390,15 +499,29 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
         )
         del response_
 
+        if len(response_floats) == 0:
+            return (
+                0.0,
+                False,
+                "No number detected in the response.",
+                {"message": "No number detected in the response."},
+            )
+
         # Validate the response
+        logging.debug("Validating the response based on the question type")
         if self.config["question"].startswith("value"):
+            logging.debug("The question is a value question")
             # if more than one number is in the prompt, there is necessarily a false positive
             if len(response_floats) > 1:
                 error_msg = "Incorrect answer. More than one number detected in the response."
                 return 0.0, True, error_msg, {"message": error_msg}
 
+            logging.debug(
+                f"Extracting expected format and label from question for validation: {self.config['question']}"
+            )
             format = self.config["question"].split(";")[1].strip()
             label = self.config["question"].split(";")[2].strip()
+            logging.debug(f"Extracted format: {format}, label: {label}")
 
             expected_value = float(
                 [
@@ -416,6 +539,7 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
         elif "max" in self.config["question"] or "min" in self.config["question"]:
             # Determine whether to find max or min based on configuration
             target_func = max if self.config["question"] == "max" else min
+            logging.debug(f"The question is a {str(target_func)} question")
 
             # Get the target count value (max or min)
             target_count = float(target_func(chart_data, key=lambda x: x["count"])["count"])
@@ -434,6 +558,33 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
                     target_count, response_floats[0]
                 ):
                     return 1.0, True, "Nice work, thank you!", {"message": "Correct answer."}
+
+            # If no correct point is mentioned in the response
+            return 0.0, True, "Incorrect answer.", {"message": "Incorrect answer."}
+        # ... validate mean/median/mode responses
+        elif (
+            "mean" in self.config["question"]
+            or "median" in self.config["question"]
+            or "mode" in self.config["question"]
+        ):
+            counts = [data["count"] for data in chart_data]
+            if self.config["question"] == "mean":
+                target_count = np.mean(counts)
+            elif self.config["question"] == "median":
+                target_count = np.median(counts)
+            elif self.config["question"] == "mode":
+                _vals, _counts = np.unique(counts, return_counts=True)
+                max_frequency_index = np.argmax(_counts)
+                target_count = -_vals[max_frequency_index]
+
+            # if more than one number is in the prompt, there is necessarily a false positive
+            if len(response_floats) > 1:
+                error_msg = "Incorrect answer. More than one number detected in the response."
+                return 0.0, True, error_msg, {"message": error_msg}
+
+            # Check if any of these points are mentioned in the response
+            if np.isclose(target_count, response_floats[0]):
+                return 1.0, True, "Nice work, thank you!", {"message": "Correct answer."}
 
             # If no correct point is mentioned in the response
             return 0.0, True, "Incorrect answer.", {"message": "Incorrect answer."}
@@ -611,10 +762,39 @@ class ReportMinMaxRetrievalTask(DashboardRetrievalTask):
         return json.load(open(REPORT_RETRIEVAL_MINMAX_CONFIG_PATH, "r"))
 
 
+class ReportMeanMedianModeRetrievalTask(DashboardRetrievalTask, CompositionalBuildingBlockTask):
+    def all_configs(self):
+        return json.load(open(REPORT_RETRIEVAL_MINMAX_CONFIG_PATH, "r"))
+
+
+class WorkLoadBalancingMinMaxRetrievalTask(
+    DashboardMinMaxRetrievalTask, CompositionalBuildingBlockTask
+):
+    def all_configs(self):
+        return json.load(open(REPORT_RETRIEVAL_MINMAX_CONFIG_PATH, "r"))
+
+    def setup_goal(self, page: playwright.sync_api.Page) -> Tuple[str | dict]:
+        super().setup_goal(page=page)
+
+        # Configure task
+        # ... sample a configuration
+        self.config = (
+            self.fixed_config if self.fixed_config else self.random.choice(self.all_configs())
+        )
+        # ... set start URL based on config
+        self.start_url = self.instance.snow_url + self.config["url"]
+
+        goal = f"Create a filter to find reports whose title contains hashtag {self.problem_hashtag} and open the report."
+        goal += " From the report, identify the user with the most assigned problems and the user with the least assigned problems."
+
+        return goal, {}
+
+
 __TASKS__ = [
     var
     for var in locals().values()
     if isinstance(var, type)
     and issubclass(var, DashboardRetrievalTask)
+    and not issubclass(var, CompositionalBuildingBlockTask)
     and var is not DashboardRetrievalTask
 ]

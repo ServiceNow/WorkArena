@@ -156,7 +156,11 @@ def validate_on_page(task_class, task_config, page):
 
 
 def validate_configs(
-    task_class, config_path, num_tasks: int = None, save_failed_tasks: bool = True, page=None
+    task_class,
+    config_path,
+    num_tasks: int = None,
+    save_failed_tasks: bool = True,
+    page=None,
 ) -> list[dict]:
     """Validate that the configs are working. Saves failing configs to json so they can be tested."""
     with open(config_path, "r") as f:
@@ -167,7 +171,9 @@ def validate_configs(
 
     failed_tasks = {"cheat": [], "no_reward": [], "exception": [], "not_done": []}
     with tqdm(
-        total=len(all_configs), desc=f"Validating {task_class.__name__} configs", ncols=150
+        total=len(all_configs),
+        desc=f"Validating {task_class.__name__} configs",
+        ncols=150,
     ) as pbar:
         for task_config in all_configs:
             try:
