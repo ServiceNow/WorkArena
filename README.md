@@ -52,6 +52,8 @@ https://github.com/ServiceNow/WorkArena/assets/1726818/ca26dfaf-2358-4418-855f-8
 
 **Goal:** The agent must answer a question that requires reading charts and (optionally) performing simple reasoning over them.
 
+*Note: For demonstration purposes, a human is controlling the cursor since this is a pure retrieval task*
+
 https://github.com/ServiceNow/WorkArena/assets/1726818/0023232c-081f-4be4-99bd-f60c766e6c3f
 
 
