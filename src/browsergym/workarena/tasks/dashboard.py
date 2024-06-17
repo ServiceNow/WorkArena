@@ -762,7 +762,9 @@ class SingleChartMinMaxRetrievalTask(DashboardRetrievalTask):
         return json.load(open(REPORT_RETRIEVAL_MINMAX_CONFIG_PATH, "r"))
 
 
-class SingleChartMeanMedianModeRetrievalTask(DashboardRetrievalTask, CompositionalBuildingBlockTask):
+class SingleChartMeanMedianModeRetrievalTask(
+    DashboardRetrievalTask, CompositionalBuildingBlockTask
+):
     def all_configs(self):
         return json.load(open(REPORT_RETRIEVAL_MINMAX_CONFIG_PATH, "r"))
 
