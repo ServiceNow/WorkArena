@@ -1,5 +1,5 @@
 """
-A demonstration of how action traces (with observations) can be extracted
+A demonstration of how observation/action traces can be extracted
 for WorkArena tasks without modifying the task code.
 
 Author: Alexandre Drouin (alexandre.drouin@servicenow.com)
