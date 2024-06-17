@@ -4,7 +4,7 @@ from playwright.sync_api._generated import Page
 from .dash_do_base import DashboardRetrieveIncidentAndDoTask, DashDoFinalTask
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import SingleChartMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask, SingleChartMeanMedianModeRetrievalTask
 
 from ...api.utils import table_api_call, db_delete_from_table
 from ...instance import SNowInstance
@@ -672,7 +672,7 @@ class DashboardRetrieveIncidentAndMeanGreaterFilterAssetListTask(
             fixed_config=fixed_config,
             level=level,
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -702,7 +702,7 @@ class DashboardRetrieveIncidentAndMedianGreaterFilterAssetListTask(
             fixed_config=fixed_config,
             level=level,
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -732,7 +732,7 @@ class DashboardRetrieveIncidentAndModeGreaterFilterAssetListTask(
             fixed_config=fixed_config,
             level=level,
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -762,7 +762,7 @@ class DashboardRetrieveIncidentAndMeanLesserFilterAssetListTask(
             fixed_config=fixed_config,
             level=level,
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -792,7 +792,7 @@ class DashboardRetrieveIncidentAndMedianLesserFilterAssetListTask(
             fixed_config=fixed_config,
             level=level,
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -822,7 +822,7 @@ class DashboardRetrieveIncidentAndModeLesserFilterAssetListTask(
             fixed_config=fixed_config,
             level=level,
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -912,7 +912,7 @@ class DashboardRetrieveIncidentAndMeanGreaterFilterHardwareListTask(
             fixed_config=fixed_config,
             level=level,
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -942,7 +942,7 @@ class DashboardRetrieveIncidentAndMedianGreaterFilterHardwareListTask(
             fixed_config=fixed_config,
             level=level,
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -972,7 +972,7 @@ class DashboardRetrieveIncidentAndModeGreaterFilterHardwareListTask(
             fixed_config=fixed_config,
             level=level,
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1002,7 +1002,7 @@ class DashboardRetrieveIncidentAndMeanLesserFilterHardwareListTask(
             fixed_config=fixed_config,
             level=level,
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1032,7 +1032,7 @@ class DashboardRetrieveIncidentAndMedianLesserFilterHardwareListTask(
             fixed_config=fixed_config,
             level=level,
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1062,7 +1062,7 @@ class DashboardRetrieveIncidentAndModeLesserFilterHardwareListTask(
             fixed_config=fixed_config,
             level=level,
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1152,7 +1152,7 @@ class DashboardRetrieveIncidentAndMeanGreaterFilterIncidentListTask(
             fixed_config=fixed_config,
             level=level,
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1182,7 +1182,7 @@ class DashboardRetrieveIncidentAndMedianGreaterFilterIncidentListTask(
             fixed_config=fixed_config,
             level=level,
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1212,7 +1212,7 @@ class DashboardRetrieveIncidentAndModeGreaterFilterIncidentListTask(
             fixed_config=fixed_config,
             level=level,
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1242,7 +1242,7 @@ class DashboardRetrieveIncidentAndMeanLesserFilterIncidentListTask(
             fixed_config=fixed_config,
             level=level,
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1272,7 +1272,7 @@ class DashboardRetrieveIncidentAndMedianLesserFilterIncidentListTask(
             fixed_config=fixed_config,
             level=level,
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1302,7 +1302,7 @@ class DashboardRetrieveIncidentAndModeLesserFilterIncidentListTask(
             fixed_config=fixed_config,
             level=level,
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1392,7 +1392,7 @@ class DashboardRetrieveIncidentAndMeanGreaterFilterUserListTask(
             fixed_config=fixed_config,
             level=level,
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1422,7 +1422,7 @@ class DashboardRetrieveIncidentAndMedianGreaterFilterUserListTask(
             fixed_config=fixed_config,
             level=level,
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1452,7 +1452,7 @@ class DashboardRetrieveIncidentAndModeGreaterFilterUserListTask(
             fixed_config=fixed_config,
             level=level,
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1482,7 +1482,7 @@ class DashboardRetrieveIncidentAndMeanLesserFilterUserListTask(
             fixed_config=fixed_config,
             level=level,
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1512,7 +1512,7 @@ class DashboardRetrieveIncidentAndMedianLesserFilterUserListTask(
             fixed_config=fixed_config,
             level=level,
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1542,7 +1542,7 @@ class DashboardRetrieveIncidentAndModeLesserFilterUserListTask(
             fixed_config=fixed_config,
             level=level,
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 

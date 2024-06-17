@@ -5,7 +5,7 @@ from typing import Tuple
 from .dash_do_base import DashboardRetrieveIncidentAndDoTask, DashDoFinalTask
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import SingleChartMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask, SingleChartMeanMedianModeRetrievalTask
 
 from ...api.utils import table_api_call, db_delete_from_table
 from ...instance import SNowInstance
@@ -338,7 +338,7 @@ class DashboardRetrieveIncidentAndMeanRequestAppleWatchTask(
             level=level,
             item="Apple Watch",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -362,7 +362,7 @@ class DashboardRetrieveIncidentAndMedianRequestAppleWatchTask(
             level=level,
             item="Apple Watch",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -386,7 +386,7 @@ class DashboardRetrieveIncidentAndModeRequestAppleWatchTask(
             level=level,
             item="Apple Watch",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -434,7 +434,7 @@ class DashboardRetrieveIncidentAndMeanRequestAppleWatch2Task(
             level=level,
             item="Apple Watch Series 2",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -458,7 +458,7 @@ class DashboardRetrieveIncidentAndMedianRequestAppleWatch2Task(
             level=level,
             item="Apple Watch Series 2",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -482,7 +482,7 @@ class DashboardRetrieveIncidentAndModeRequestAppleWatch2Task(
             level=level,
             item="Apple Watch Series 2",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -530,7 +530,7 @@ class DashboardRetrieveIncidentAndMeanRequestAppleIpad3Task(
             level=level,
             item="Apple iPad 3",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -554,7 +554,7 @@ class DashboardRetrieveIncidentAndMedianRequestAppleIpad3Task(
             level=level,
             item="Apple iPad 3",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -578,7 +578,7 @@ class DashboardRetrieveIncidentAndModeRequestAppleIpad3Task(
             level=level,
             item="Apple iPad 3",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -626,7 +626,7 @@ class DashboardRetrieveIncidentAndMeanRequestAppleIphone13proTask(
             level=level,
             item="Apple iPhone 13 pro",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -650,7 +650,7 @@ class DashboardRetrieveIncidentAndMedianRequestAppleIphone13proTask(
             level=level,
             item="Apple iPhone 13 pro",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -674,7 +674,7 @@ class DashboardRetrieveIncidentAndModeRequestAppleIphone13proTask(
             level=level,
             item="Apple iPhone 13 pro",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -722,7 +722,7 @@ class DashboardRetrieveIncidentAndMeanRequestAppleIphone13Task(
             level=level,
             item="Apple iPhone 13",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -746,7 +746,7 @@ class DashboardRetrieveIncidentAndMedianRequestAppleIphone13Task(
             level=level,
             item="Apple iPhone 13",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -770,7 +770,7 @@ class DashboardRetrieveIncidentAndModeRequestAppleIphone13Task(
             level=level,
             item="Apple iPhone 13",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -818,7 +818,7 @@ class DashboardRetrieveIncidentAndMeanRequestGalaxyNote20Task(
             level=level,
             item="Galaxy Note 20",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -842,7 +842,7 @@ class DashboardRetrieveIncidentAndMedianRequestGalaxyNote20Task(
             level=level,
             item="Galaxy Note 20",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -866,7 +866,7 @@ class DashboardRetrieveIncidentAndModeRequestGalaxyNote20Task(
             level=level,
             item="Galaxy Note 20",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -914,7 +914,7 @@ class DashboardRetrieveIncidentAndMeanRequestGoogleNexus7Task(
             level=level,
             item="Google Nexus 7",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -938,7 +938,7 @@ class DashboardRetrieveIncidentAndMedianRequestGoogleNexus7Task(
             level=level,
             item="Google Nexus 7",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -962,7 +962,7 @@ class DashboardRetrieveIncidentAndModeRequestGoogleNexus7Task(
             level=level,
             item="Google Nexus 7",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1010,7 +1010,7 @@ class DashboardRetrieveIncidentAndMeanRequestMicrosoftSurfacePro3Task(
             level=level,
             item="Microsoft Surface Pro 3",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1034,7 +1034,7 @@ class DashboardRetrieveIncidentAndMedianRequestMicrosoftSurfacePro3Task(
             level=level,
             item="Microsoft Surface Pro 3",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1058,7 +1058,7 @@ class DashboardRetrieveIncidentAndModeRequestMicrosoftSurfacePro3Task(
             level=level,
             item="Microsoft Surface Pro 3",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1106,7 +1106,7 @@ class DashboardRetrieveIncidentAndMeanRequestPixel4aTask(
             level=level,
             item="Pixel 4a",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1130,7 +1130,7 @@ class DashboardRetrieveIncidentAndMedianRequestPixel4aTask(
             level=level,
             item="Pixel 4a",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1154,7 +1154,7 @@ class DashboardRetrieveIncidentAndModeRequestPixel4aTask(
             level=level,
             item="Pixel 4a",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1202,7 +1202,7 @@ class DashboardRetrieveIncidentAndMeanRequestWindowsSurfacePro4Task(
             level=level,
             item="Windows Surface Pro 4",
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1226,7 +1226,7 @@ class DashboardRetrieveIncidentAndMedianRequestWindowsSurfacePro4Task(
             level=level,
             item="Windows Surface Pro 4",
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -1250,7 +1250,7 @@ class DashboardRetrieveIncidentAndModeRequestWindowsSurfacePro4Task(
             level=level,
             item="Windows Surface Pro 4",
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
