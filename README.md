@@ -114,14 +114,13 @@ for task in ALL_WORKARENA_TASKS:
 
     # Instantiate a new environment
     env = BrowserEnv(task_entrypoint=task,
-                    headless=False, 
-                    slow_mo=1000)
+                    headless=False)
     env.reset()
 
     # Cheat functions use Playwright to automatically solve the task
     env.chat.add_message(role="assistant", msg="On it. Please wait...")
     cheat_messages = []
-    env.task.cheat(env.page, messages)
+    env.task.cheat(env.page, cheat_messages)
 
     # Send cheat messages to chat
     for cheat_msg in cheat_messages:
@@ -131,7 +130,7 @@ for task in ALL_WORKARENA_TASKS:
     env.chat.add_message(role="assistant", msg="I'm done!")
 
     # Validate the solution
-    reward, stop, message, info = env.task.validate(env.page, env.chat.messages)
+    reward, stop, message, info = env.task.validate(env.page, cheat_messages)
     if reward == 1:
         env.chat.add_message(role="user", msg="Yes, that works. Thanks!")
     else:
