@@ -1,3 +1,12 @@
+"""
+Human Evaluation - Create the curriculum for all humans
+
+Note: This script separates the tasks among 14 evaluators.
+      A 15th one was added subsequently to solve tasks that
+      had not been completed by the initial 14 (e.g., due
+      to some issues with the annotation UI).
+
+"""
 import random
 
 from browsergym.workarena import get_all_tasks_humans
@@ -14,7 +23,7 @@ annotators = [
     "parikh",
     "marchand",
     "paquet",
-    "nayal",
+    "nayak",
     "huang",
     "subbaraj",
     "williams",
