@@ -5,7 +5,7 @@ from typing import Tuple
 from .dash_do_base import DashboardRetrieveIncidentAndDoTask, DashDoFinalTask
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import ReportMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
 
 from ...api.utils import table_api_call, db_delete_from_table
 from ...instance import SNowInstance
@@ -314,7 +314,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleWatchTask(
             level=level,
             item="Apple Watch",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -410,7 +410,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleWatch2Task(
             level=level,
             item="Apple Watch Series 2",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -506,7 +506,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleIpad3Task(
             level=level,
             item="Apple iPad 3",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -602,7 +602,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleIphone13proTask(
             level=level,
             item="Apple iPhone 13 pro",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -698,7 +698,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleIphone13Task(
             level=level,
             item="Apple iPhone 13",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -794,7 +794,7 @@ class DashboardRetrieveIncidentAndMaxRequestGalaxyNote20Task(
             level=level,
             item="Galaxy Note 20",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -890,7 +890,7 @@ class DashboardRetrieveIncidentAndMaxRequestGoogleNexus7Task(
             level=level,
             item="Google Nexus 7",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -986,7 +986,7 @@ class DashboardRetrieveIncidentAndMaxRequestMicrosoftSurfacePro3Task(
             level=level,
             item="Microsoft Surface Pro 3",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -1082,7 +1082,7 @@ class DashboardRetrieveIncidentAndMaxRequestPixel4aTask(
             level=level,
             item="Pixel 4a",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -1178,7 +1178,7 @@ class DashboardRetrieveIncidentAndMaxRequestWindowsSurfacePro4Task(
             level=level,
             item="Windows Surface Pro 4",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 

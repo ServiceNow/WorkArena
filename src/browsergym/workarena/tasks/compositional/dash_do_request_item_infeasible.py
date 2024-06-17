@@ -6,7 +6,7 @@ from .dash_do_base import DashboardRetrieveIncidentAndDoInfeasibleTask, DashDoFi
 from .utils.infeasible_configs import get_infeasible_form_config
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import ReportMinMaxRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask
 
 from ...api.utils import table_api_call, db_delete_from_table
 from ...instance import SNowInstance
@@ -204,7 +204,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleWatchInfeasibleWithReasonTask(
             level=level,
             item="Apple Watch",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -229,7 +229,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleWatchInfeasibleTask(
             level=level,
             item="Apple Watch",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
@@ -254,7 +254,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleWatch2InfeasibleWithReasonTask(
             level=level,
             item="Apple Watch Series 2",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -279,7 +279,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleWatch2InfeasibleTask(
             level=level,
             item="Apple Watch Series 2",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
@@ -304,7 +304,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleIpad3InfeasibleWithReasonTask(
             level=level,
             item="Apple iPad 3",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -329,7 +329,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleIpad3InfeasibleTask(
             level=level,
             item="Apple iPad 3",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
@@ -354,7 +354,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleIphone13proInfeasibleWithReason
             level=level,
             item="Apple iPhone 13 pro",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -379,7 +379,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleIphone13proInfeasibleTask(
             level=level,
             item="Apple iPhone 13 pro",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
@@ -404,7 +404,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleIphone13InfeasibleWithReasonTas
             level=level,
             item="Apple iPhone 13",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -429,7 +429,7 @@ class DashboardRetrieveIncidentAndMaxRequestAppleIphone13InfeasibleTask(
             level=level,
             item="Apple iPhone 13",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
@@ -454,7 +454,7 @@ class DashboardRetrieveIncidentAndMaxRequestGalaxyNote20InfeasibleWithReasonTask
             level=level,
             item="Galaxy Note 20",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -479,7 +479,7 @@ class DashboardRetrieveIncidentAndMaxRequestGalaxyNote20InfeasibleTask(
             level=level,
             item="Galaxy Note 20",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
@@ -504,7 +504,7 @@ class DashboardRetrieveIncidentAndMaxRequestGoogleNexus7InfeasibleWithReasonTask
             level=level,
             item="Google Nexus 7",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -529,7 +529,7 @@ class DashboardRetrieveIncidentAndMaxRequestGoogleNexus7InfeasibleTask(
             level=level,
             item="Google Nexus 7",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
@@ -554,7 +554,7 @@ class DashboardRetrieveIncidentAndMaxRequestMicrosoftSurfacePro3InfeasibleWithRe
             level=level,
             item="Microsoft Surface Pro 3",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -579,7 +579,7 @@ class DashboardRetrieveIncidentAndMaxRequestMicrosoftSurfacePro3InfeasibleTask(
             level=level,
             item="Microsoft Surface Pro 3",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
@@ -604,7 +604,7 @@ class DashboardRetrieveIncidentAndMaxRequestPixel4aInfeasibleWithReasonTask(
             level=level,
             item="Pixel 4a",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -629,7 +629,7 @@ class DashboardRetrieveIncidentAndMaxRequestPixel4aInfeasibleTask(
             level=level,
             item="Pixel 4a",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
@@ -654,7 +654,7 @@ class DashboardRetrieveIncidentAndMaxRequestWindowsSurfacePro4InfeasibleWithReas
             level=level,
             item="Windows Surface Pro 4",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -679,7 +679,7 @@ class DashboardRetrieveIncidentAndMaxRequestWindowsSurfacePro4InfeasibleTask(
             level=level,
             item="Windows Surface Pro 4",
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 

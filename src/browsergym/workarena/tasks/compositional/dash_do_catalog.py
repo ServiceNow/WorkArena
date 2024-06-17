@@ -1,7 +1,7 @@
 from .dash_do_base import DashboardRetrieveCatalogAndDoTask, DashDoFinalTask
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import ReportMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
 
 from ...instance import SNowInstance
 
@@ -25,7 +25,7 @@ class DashboardRetrieveCatalogAndOrderDeveloperLaptopTask(DashboardRetrieveCatal
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -61,7 +61,7 @@ class DashboardRetrieveCatalogAndMaxOrderDeveloperLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -142,7 +142,7 @@ class DashboardRetrieveCatalogAndOrderiPadMiniTask(DashboardRetrieveCatalogAndDo
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -178,7 +178,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadMiniTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -259,7 +259,7 @@ class DashboardRetrieveCatalogAndOrderiPadProTask(DashboardRetrieveCatalogAndDoT
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -295,7 +295,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadProTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -376,7 +376,7 @@ class DashboardRetrieveCatalogAndOrderSalesLaptopTask(DashboardRetrieveCatalogAn
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -412,7 +412,7 @@ class DashboardRetrieveCatalogAndMaxOrderSalesLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -493,7 +493,7 @@ class DashboardRetrieveCatalogAndOrderStandardLaptopTask(DashboardRetrieveCatalo
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -529,7 +529,7 @@ class DashboardRetrieveCatalogAndMaxOrderStandardLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -610,7 +610,7 @@ class DashboardRetrieveCatalogAndOrderAppleWatchTask(DashboardRetrieveCatalogAnd
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -646,7 +646,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleWatchTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -727,7 +727,7 @@ class DashboardRetrieveCatalogAndOrderAppleMacbookPro15Task(DashboardRetrieveCat
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -763,7 +763,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleMacbookPro15Task(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -844,7 +844,7 @@ class DashboardRetrieveCatalogAndOrderDevelopmentLaptopPCTask(DashboardRetrieveC
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -880,7 +880,7 @@ class DashboardRetrieveCatalogAndMaxOrderDevelopmentLaptopPCTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -961,7 +961,7 @@ class DashboardRetrieveCatalogAndOrderLoanerLaptopTask(DashboardRetrieveCatalogA
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -997,7 +997,7 @@ class DashboardRetrieveCatalogAndMaxOrderLoanerLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 

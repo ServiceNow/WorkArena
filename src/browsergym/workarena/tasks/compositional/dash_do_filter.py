@@ -4,7 +4,7 @@ from playwright.sync_api._generated import Page
 from .dash_do_base import DashboardRetrieveIncidentAndDoTask, DashDoFinalTask
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import ReportMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
 
 from ...api.utils import table_api_call, db_delete_from_table
 from ...instance import SNowInstance
@@ -612,7 +612,7 @@ class DashboardRetrieveIncidentAndMaxFilterAssetListTask(
             fixed_config=fixed_config,
             level=level,
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -642,7 +642,7 @@ class DashboardRetrieveIncidentAndMinFilterAssetListTask(
             fixed_config=fixed_config,
             level=level,
             question="min",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -852,7 +852,7 @@ class DashboardRetrieveIncidentAndMaxFilterHardwareListTask(
             fixed_config=fixed_config,
             level=level,
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -882,7 +882,7 @@ class DashboardRetrieveIncidentAndMinFilterHardwareListTask(
             fixed_config=fixed_config,
             level=level,
             question="min",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -1092,7 +1092,7 @@ class DashboardRetrieveIncidentAndMaxFilterIncidentListTask(
             fixed_config=fixed_config,
             level=level,
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -1122,7 +1122,7 @@ class DashboardRetrieveIncidentAndMinFilterIncidentListTask(
             fixed_config=fixed_config,
             level=level,
             question="min",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -1332,7 +1332,7 @@ class DashboardRetrieveIncidentAndMaxFilterUserListTask(
             fixed_config=fixed_config,
             level=level,
             question="max",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -1362,7 +1362,7 @@ class DashboardRetrieveIncidentAndMinFilterUserListTask(
             fixed_config=fixed_config,
             level=level,
             question="min",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 

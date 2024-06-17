@@ -1,7 +1,7 @@
 from .dash_do_base import DashboardRetrieveCatalogAndDoInfeasibleTask, DashDoFinalTask
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import ReportMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
 
 from ...api.utils import table_api_call, db_delete_from_table
 from ...config import (
@@ -42,7 +42,7 @@ class DashboardRetrieveCatalogAndOrderDeveloperLaptopInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -80,7 +80,7 @@ class DashboardRetrieveCatalogAndMaxOrderDeveloperLaptopInfeasibleWithReasonTask
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -104,7 +104,7 @@ class DashboardRetrieveCatalogAndMaxOrderDeveloperLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -265,7 +265,7 @@ class DashboardRetrieveCatalogAndOrderiPadMiniInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -303,7 +303,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadMiniInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -327,7 +327,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadMiniInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -488,7 +488,7 @@ class DashboardRetrieveCatalogAndOrderiPadProInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -526,7 +526,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadProInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -550,7 +550,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadProInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -711,7 +711,7 @@ class DashboardRetrieveCatalogAndOrderSalesLaptopInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -749,7 +749,7 @@ class DashboardRetrieveCatalogAndMaxOrderSalesLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -773,7 +773,7 @@ class DashboardRetrieveCatalogAndMaxOrderSalesLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -934,7 +934,7 @@ class DashboardRetrieveCatalogAndOrderStandardLaptopInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -972,7 +972,7 @@ class DashboardRetrieveCatalogAndMaxOrderStandardLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -996,7 +996,7 @@ class DashboardRetrieveCatalogAndMaxOrderStandardLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -1157,7 +1157,7 @@ class DashboardRetrieveCatalogAndOrderAppleWatchInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -1195,7 +1195,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleWatchInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -1219,7 +1219,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleWatchInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -1380,7 +1380,7 @@ class DashboardRetrieveCatalogAndOrderAppleMacbookPro15InfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -1418,7 +1418,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleMacbookPro15InfeasibleWithReasonTa
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -1442,7 +1442,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleMacbookPro15InfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -1603,7 +1603,7 @@ class DashboardRetrieveCatalogAndOrderDevelopmentLaptopPCInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -1641,7 +1641,7 @@ class DashboardRetrieveCatalogAndMaxOrderDevelopmentLaptopPCInfeasibleWithReason
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -1665,7 +1665,7 @@ class DashboardRetrieveCatalogAndMaxOrderDevelopmentLaptopPCInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -1826,7 +1826,7 @@ class DashboardRetrieveCatalogAndOrderLoanerLaptopInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -1864,7 +1864,7 @@ class DashboardRetrieveCatalogAndMaxOrderLoanerLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -1888,7 +1888,7 @@ class DashboardRetrieveCatalogAndMaxOrderLoanerLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
