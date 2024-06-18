@@ -742,33 +742,35 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
             }
 
 
-class DashboardValueRetrievalTask(DashboardRetrievalTask):
+class MultiChartValueRetrievalTask(DashboardRetrievalTask):
     def all_configs(self):
         return json.load(open(DASHBOARD_RETRIEVAL_VALUE_CONFIG_PATH, "r"))
 
 
-class DashboardMinMaxRetrievalTask(DashboardRetrievalTask):
+class MultiChartMinMaxRetrievalTask(DashboardRetrievalTask):
     def all_configs(self):
         return json.load(open(DASHBOARD_RETRIEVAL_MINMAX_CONFIG_PATH, "r"))
 
 
-class ReportValueRetrievalTask(DashboardRetrievalTask):
+class SingleChartValueRetrievalTask(DashboardRetrievalTask):
     def all_configs(self):
         return json.load(open(REPORT_RETRIEVAL_VALUE_CONFIG_PATH, "r"))
 
 
-class ReportMinMaxRetrievalTask(DashboardRetrievalTask):
+class SingleChartMinMaxRetrievalTask(DashboardRetrievalTask):
     def all_configs(self):
         return json.load(open(REPORT_RETRIEVAL_MINMAX_CONFIG_PATH, "r"))
 
 
-class ReportMeanMedianModeRetrievalTask(DashboardRetrievalTask, CompositionalBuildingBlockTask):
+class SingleChartMeanMedianModeRetrievalTask(
+    DashboardRetrievalTask, CompositionalBuildingBlockTask
+):
     def all_configs(self):
         return json.load(open(REPORT_RETRIEVAL_MINMAX_CONFIG_PATH, "r"))
 
 
 class WorkLoadBalancingMinMaxRetrievalTask(
-    DashboardMinMaxRetrievalTask, CompositionalBuildingBlockTask
+    MultiChartMinMaxRetrievalTask, CompositionalBuildingBlockTask
 ):
     def all_configs(self):
         return json.load(open(REPORT_RETRIEVAL_MINMAX_CONFIG_PATH, "r"))

@@ -5,7 +5,7 @@ from typing import Tuple
 from .dash_do_base import DashboardRetrieveIncidentAndDoTask, DashDoFinalTask
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import ReportMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask, SingleChartMeanMedianModeRetrievalTask
 
 from ...api.utils import table_api_call, db_delete_from_table
 from ...instance import SNowInstance
@@ -294,7 +294,7 @@ class DashboardRetrieveIncidentAndMinCreateIncidentTask(
             fixed_config=fixed_config,
             level=level,
             question="min",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
         )
 
 
@@ -323,7 +323,7 @@ class DashboardRetrieveIncidentAndMeanCreateIncidentTask(
             fixed_config=fixed_config,
             level=level,
             question="mean",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -352,7 +352,7 @@ class DashboardRetrieveIncidentAndMedianCreateIncidentTask(
             fixed_config=fixed_config,
             level=level,
             question="median",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 
@@ -381,7 +381,7 @@ class DashboardRetrieveIncidentAndModeCreateIncidentTask(
             fixed_config=fixed_config,
             level=level,
             question="mode",
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
         )
 
 

@@ -1,7 +1,7 @@
 from .dash_do_base import DashboardRetrieveCatalogAndDoInfeasibleTask, DashDoFinalTask
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import ReportMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask, SingleChartMeanMedianModeRetrievalTask
 
 from ...api.utils import table_api_call, db_delete_from_table
 from ...config import (
@@ -42,7 +42,7 @@ class DashboardRetrieveCatalogAndOrderDeveloperLaptopInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -80,7 +80,7 @@ class DashboardRetrieveCatalogAndMaxOrderDeveloperLaptopInfeasibleWithReasonTask
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -104,7 +104,7 @@ class DashboardRetrieveCatalogAndMaxOrderDeveloperLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -128,7 +128,7 @@ class DashboardRetrieveCatalogAndMeanOrderDeveloperLaptopWithReasonInfeasibleTas
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=True,
         )
@@ -152,7 +152,7 @@ class DashboardRetrieveCatalogAndMeanOrderDeveloperLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=False,
         )
@@ -176,7 +176,7 @@ class DashboardRetrieveCatalogAndMedianOrderDeveloperLaptopInfeasibleWithReasonT
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=True,
         )
@@ -200,7 +200,7 @@ class DashboardRetrieveCatalogAndMedianOrderDeveloperLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=False,
         )
@@ -224,7 +224,7 @@ class DashboardRetrieveCatalogAndModeOrderDeveloperLaptopInfeasibleWithReasonTas
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=True,
         )
@@ -248,7 +248,7 @@ class DashboardRetrieveCatalogAndModeOrderDeveloperLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=False,
         )
@@ -265,7 +265,7 @@ class DashboardRetrieveCatalogAndOrderiPadMiniInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -303,7 +303,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadMiniInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -327,7 +327,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadMiniInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -351,7 +351,7 @@ class DashboardRetrieveCatalogAndMeanOrderiPadMiniInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=True,
         )
@@ -375,7 +375,7 @@ class DashboardRetrieveCatalogAndMeanOrderiPadMiniInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=False,
         )
@@ -399,7 +399,7 @@ class DashboardRetrieveCatalogAndMedianOrderiPadMiniInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=True,
         )
@@ -423,7 +423,7 @@ class DashboardRetrieveCatalogAndMedianOrderiPadMiniInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=False,
         )
@@ -447,7 +447,7 @@ class DashboardRetrieveCatalogAndModeOrderiPadMiniInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=True,
         )
@@ -471,7 +471,7 @@ class DashboardRetrieveCatalogAndModeOrderiPadMiniInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=False,
         )
@@ -488,7 +488,7 @@ class DashboardRetrieveCatalogAndOrderiPadProInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -526,7 +526,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadProInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -550,7 +550,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadProInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -574,7 +574,7 @@ class DashboardRetrieveCatalogAndMeanOrderiPadProInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=True,
         )
@@ -598,7 +598,7 @@ class DashboardRetrieveCatalogAndMeanOrderiPadProInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=False,
         )
@@ -622,7 +622,7 @@ class DashboardRetrieveCatalogAndMedianOrderiPadProInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=True,
         )
@@ -646,7 +646,7 @@ class DashboardRetrieveCatalogAndMedianOrderiPadProInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=False,
         )
@@ -670,7 +670,7 @@ class DashboardRetrieveCatalogAndModeOrderiPadProInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=True,
         )
@@ -694,7 +694,7 @@ class DashboardRetrieveCatalogAndModeOrderiPadProInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=False,
         )
@@ -711,7 +711,7 @@ class DashboardRetrieveCatalogAndOrderSalesLaptopInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -749,7 +749,7 @@ class DashboardRetrieveCatalogAndMaxOrderSalesLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -773,7 +773,7 @@ class DashboardRetrieveCatalogAndMaxOrderSalesLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -797,7 +797,7 @@ class DashboardRetrieveCatalogAndMeanOrderSalesLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=True,
         )
@@ -821,7 +821,7 @@ class DashboardRetrieveCatalogAndMeanOrderSalesLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=False,
         )
@@ -845,7 +845,7 @@ class DashboardRetrieveCatalogAndMedianOrderSalesLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=True,
         )
@@ -869,7 +869,7 @@ class DashboardRetrieveCatalogAndMedianOrderSalesLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=False,
         )
@@ -893,7 +893,7 @@ class DashboardRetrieveCatalogAndModeOrderSalesLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=True,
         )
@@ -917,7 +917,7 @@ class DashboardRetrieveCatalogAndModeOrderSalesLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=False,
         )
@@ -934,7 +934,7 @@ class DashboardRetrieveCatalogAndOrderStandardLaptopInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -972,7 +972,7 @@ class DashboardRetrieveCatalogAndMaxOrderStandardLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -996,7 +996,7 @@ class DashboardRetrieveCatalogAndMaxOrderStandardLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -1020,7 +1020,7 @@ class DashboardRetrieveCatalogAndMeanOrderStandardLaptopInfeasibleWithReasonTask
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=True,
         )
@@ -1044,7 +1044,7 @@ class DashboardRetrieveCatalogAndMeanOrderStandardLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=False,
         )
@@ -1068,7 +1068,7 @@ class DashboardRetrieveCatalogAndMedianOrderStandardLaptopInfeasibleWithReasonTa
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=True,
         )
@@ -1092,7 +1092,7 @@ class DashboardRetrieveCatalogAndMedianOrderStandardLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=False,
         )
@@ -1116,7 +1116,7 @@ class DashboardRetrieveCatalogAndModeOrderStandardLaptopInfeasibleWithReasonTask
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=True,
         )
@@ -1140,7 +1140,7 @@ class DashboardRetrieveCatalogAndModeOrderStandardLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=False,
         )
@@ -1157,7 +1157,7 @@ class DashboardRetrieveCatalogAndOrderAppleWatchInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -1195,7 +1195,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleWatchInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -1219,7 +1219,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleWatchInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -1243,7 +1243,7 @@ class DashboardRetrieveCatalogAndMeanOrderAppleWatchInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=True,
         )
@@ -1267,7 +1267,7 @@ class DashboardRetrieveCatalogAndMeanOrderAppleWatchInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=False,
         )
@@ -1291,7 +1291,7 @@ class DashboardRetrieveCatalogAndMedianOrderAppleWatchInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=True,
         )
@@ -1315,7 +1315,7 @@ class DashboardRetrieveCatalogAndMedianOrderAppleWatchInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=False,
         )
@@ -1339,7 +1339,7 @@ class DashboardRetrieveCatalogAndModeOrderAppleWatchInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=True,
         )
@@ -1363,7 +1363,7 @@ class DashboardRetrieveCatalogAndModeOrderAppleWatchInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=False,
         )
@@ -1380,7 +1380,7 @@ class DashboardRetrieveCatalogAndOrderAppleMacbookPro15InfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -1418,7 +1418,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleMacbookPro15InfeasibleWithReasonTa
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -1442,7 +1442,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleMacbookPro15InfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -1466,7 +1466,7 @@ class DashboardRetrieveCatalogAndMeanOrderAppleMacbookPro15InfeasibleWithReasonT
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=True,
         )
@@ -1490,7 +1490,7 @@ class DashboardRetrieveCatalogAndMeanOrderAppleMacbookPro15InfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=False,
         )
@@ -1514,7 +1514,7 @@ class DashboardRetrieveCatalogAndMedianOrderAppleMacbookPro15InfeasibleWithReaso
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=True,
         )
@@ -1538,7 +1538,7 @@ class DashboardRetrieveCatalogAndMedianOrderAppleMacbookPro15InfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=False,
         )
@@ -1562,7 +1562,7 @@ class DashboardRetrieveCatalogAndModeOrderAppleMacbookPro15InfeasibleWithReasonT
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=True,
         )
@@ -1586,7 +1586,7 @@ class DashboardRetrieveCatalogAndModeOrderAppleMacbookPro15InfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=False,
         )
@@ -1603,7 +1603,7 @@ class DashboardRetrieveCatalogAndOrderDevelopmentLaptopPCInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -1641,7 +1641,7 @@ class DashboardRetrieveCatalogAndMaxOrderDevelopmentLaptopPCInfeasibleWithReason
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -1665,7 +1665,7 @@ class DashboardRetrieveCatalogAndMaxOrderDevelopmentLaptopPCInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -1689,7 +1689,7 @@ class DashboardRetrieveCatalogAndMeanOrderDevelopmentLaptopPCInfeasibleWithReaso
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=True,
         )
@@ -1713,7 +1713,7 @@ class DashboardRetrieveCatalogAndMeanOrderDevelopmentLaptopPCInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=False,
         )
@@ -1737,7 +1737,7 @@ class DashboardRetrieveCatalogAndMedianOrderDevelopmentLaptopPCInfeasibleWithRea
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=True,
         )
@@ -1761,7 +1761,7 @@ class DashboardRetrieveCatalogAndMedianOrderDevelopmentLaptopPCInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=False,
         )
@@ -1785,7 +1785,7 @@ class DashboardRetrieveCatalogAndModeOrderDevelopmentLaptopPCInfeasibleWithReaso
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=True,
         )
@@ -1809,7 +1809,7 @@ class DashboardRetrieveCatalogAndModeOrderDevelopmentLaptopPCInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=False,
         )
@@ -1826,7 +1826,7 @@ class DashboardRetrieveCatalogAndOrderLoanerLaptopInfeasibleTask(
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
         provide_reason: bool = None,
     ) -> None:
@@ -1864,7 +1864,7 @@ class DashboardRetrieveCatalogAndMaxOrderLoanerLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=True,
         )
@@ -1888,7 +1888,7 @@ class DashboardRetrieveCatalogAndMaxOrderLoanerLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
             provide_reason=False,
         )
@@ -1912,7 +1912,7 @@ class DashboardRetrieveCatalogAndMeanOrderLoanerLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=True,
         )
@@ -1936,7 +1936,7 @@ class DashboardRetrieveCatalogAndMeanOrderLoanerLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
             provide_reason=False,
         )
@@ -1960,7 +1960,7 @@ class DashboardRetrieveCatalogAndMedianOrderLoanerLaptopInfeasibleWithReasonTask
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=True,
         )
@@ -1984,7 +1984,7 @@ class DashboardRetrieveCatalogAndMedianOrderLoanerLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
             provide_reason=False,
         )
@@ -2008,7 +2008,7 @@ class DashboardRetrieveCatalogAndModeOrderLoanerLaptopInfeasibleWithReasonTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=True,
         )
@@ -2032,7 +2032,7 @@ class DashboardRetrieveCatalogAndModeOrderLoanerLaptopInfeasibleTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
             provide_reason=False,
         )
