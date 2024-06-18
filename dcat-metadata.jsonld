@@ -1,0 +1,32 @@
+{
+    "@context": {
+      "dcat": "http://www.w3.org/ns/dcat#"
+  ,
+      "dct": "http://purl.org/dc/terms/"
+  ,
+      "foaf": "http://xmlns.com/foaf/0.1/"
+    },
+    "@type": "dcat:Dataset",
+    "dct:title": "WorkArena++",
+    "dct:description": "Benchmark to evaluate the reasoning, retrieval, planning, and decision making abilities of LLM and VLM-based agents",
+    "dct:identifier": "https://github.com/ServiceNow/WorkArena/tree/workarena-plus-plus"
+  ,
+    "dct:issued": "2024-06-12",
+    "dct:modified": "2024-06-12",
+    "dct:publisher": {
+      "@type": "foaf:Organization",
+      "foaf:name": "ServiceNow Research"
+    },
+    "dct:contactPoint": {
+      "@type": "vcard:Contact",
+      "vcard:fn": "Alexandre Drouin",
+      "vcard:hasEmail": "mailto:alexandre.drouin@servicenow.com"
+    },
+    "dcat:distribution": [
+      {
+        "@type": "dcat:Distribution",
+        "dct:format": "text/csv",
+        "dcat:accessURL": "https://github.com/ServiceNow/WorkArena/tree/workarena-plus-plus/src/browsergym/workarena/tasks/compositional"
+      }
+    ]
+  }
