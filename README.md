@@ -41,6 +41,8 @@ Your installation is now complete! 🎉
 
 Run this code to see WorkArena in action.
 
+Note: the following example executes WorkArena's oracle (cheat) function to solve each task. To evaluate an agent, calls to `env.step()` must be used instead.
+
 ```python
 import random
 
@@ -59,8 +61,7 @@ for (task, seed) in zip(AGENT_L2_SAMPLED_TASKS, AGENT_L2_SEEDS):
 
     # Instantiate a new environment
     env = BrowserEnv(task_entrypoint=task,
-                    headless=False, 
-                    slow_mo=1000)
+                    headless=False)
     env.reset()
 
     # Cheat functions use Playwright to automatically solve the task
@@ -75,7 +76,7 @@ for (task, seed) in zip(AGENT_L2_SAMPLED_TASKS, AGENT_L2_SEEDS):
     if reward == 1:
         env.chat.add_message(role="user", msg="Yes, that works. Thanks!")
     else:
-        env.chat.add_message(role="user", msg=f"No, that doesn't work. {message.get('message', '')}")
+        env.chat.add_message(role="user", msg=f"No, that doesn't work. {info.get('message', '')}")
 
     sleep(3)
     env.close()

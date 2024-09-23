@@ -1,4 +1,4 @@
-__version__ = "0.3.0dev"
+__version__ = "0.3.2"
 
 import inspect
 import numpy as np
@@ -24,6 +24,7 @@ from .tasks.compositional import (
 )
 from .tasks.compositional.base import HumanEvalTask
 from .tasks.service_catalog import __TASKS__ as SERVICE_CATALOG_TASKS
+from .tasks.compositional.base import CompositionalTask
 
 ALL_WORKARENA_TASKS = [
     *ALL_COMPOSITIONAL_TASKS_L2,

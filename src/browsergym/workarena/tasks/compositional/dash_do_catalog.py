@@ -1,7 +1,7 @@
 from .dash_do_base import DashboardRetrieveCatalogAndDoTask, DashDoFinalTask
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import ReportMinMaxRetrievalTask, ReportMeanMedianModeRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask, SingleChartMeanMedianModeRetrievalTask
 
 from ...instance import SNowInstance
 
@@ -25,7 +25,7 @@ class DashboardRetrieveCatalogAndOrderDeveloperLaptopTask(DashboardRetrieveCatal
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -61,7 +61,7 @@ class DashboardRetrieveCatalogAndMaxOrderDeveloperLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -84,7 +84,7 @@ class DashboardRetrieveCatalogAndMeanOrderDeveloperLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
         )
 
@@ -107,7 +107,7 @@ class DashboardRetrieveCatalogAndMedianOrderDeveloperLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
         )
 
@@ -130,7 +130,7 @@ class DashboardRetrieveCatalogAndModeOrderDeveloperLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
         )
 
@@ -142,7 +142,7 @@ class DashboardRetrieveCatalogAndOrderiPadMiniTask(DashboardRetrieveCatalogAndDo
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -178,7 +178,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadMiniTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -201,7 +201,7 @@ class DashboardRetrieveCatalogAndMeanOrderiPadMiniTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
         )
 
@@ -224,7 +224,7 @@ class DashboardRetrieveCatalogAndMedianOrderiPadMiniTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
         )
 
@@ -247,7 +247,7 @@ class DashboardRetrieveCatalogAndModeOrderiPadMiniTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
         )
 
@@ -259,7 +259,7 @@ class DashboardRetrieveCatalogAndOrderiPadProTask(DashboardRetrieveCatalogAndDoT
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -295,7 +295,7 @@ class DashboardRetrieveCatalogAndMaxOrderiPadProTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -318,7 +318,7 @@ class DashboardRetrieveCatalogAndMeanOrderiPadProTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
         )
 
@@ -341,7 +341,7 @@ class DashboardRetrieveCatalogAndMedianOrderiPadProTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
         )
 
@@ -364,7 +364,7 @@ class DashboardRetrieveCatalogAndModeOrderiPadProTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
         )
 
@@ -376,7 +376,7 @@ class DashboardRetrieveCatalogAndOrderSalesLaptopTask(DashboardRetrieveCatalogAn
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -412,7 +412,7 @@ class DashboardRetrieveCatalogAndMaxOrderSalesLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -435,7 +435,7 @@ class DashboardRetrieveCatalogAndMeanOrderSalesLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
         )
 
@@ -458,7 +458,7 @@ class DashboardRetrieveCatalogAndMedianOrderSalesLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
         )
 
@@ -481,7 +481,7 @@ class DashboardRetrieveCatalogAndModeOrderSalesLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
         )
 
@@ -493,7 +493,7 @@ class DashboardRetrieveCatalogAndOrderStandardLaptopTask(DashboardRetrieveCatalo
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -529,7 +529,7 @@ class DashboardRetrieveCatalogAndMaxOrderStandardLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -552,7 +552,7 @@ class DashboardRetrieveCatalogAndMeanOrderStandardLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
         )
 
@@ -575,7 +575,7 @@ class DashboardRetrieveCatalogAndMedianOrderStandardLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
         )
 
@@ -598,7 +598,7 @@ class DashboardRetrieveCatalogAndModeOrderStandardLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
         )
 
@@ -610,7 +610,7 @@ class DashboardRetrieveCatalogAndOrderAppleWatchTask(DashboardRetrieveCatalogAnd
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -646,7 +646,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleWatchTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -669,7 +669,7 @@ class DashboardRetrieveCatalogAndMeanOrderAppleWatchTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
         )
 
@@ -692,7 +692,7 @@ class DashboardRetrieveCatalogAndMedianOrderAppleWatchTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
         )
 
@@ -715,7 +715,7 @@ class DashboardRetrieveCatalogAndModeOrderAppleWatchTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
         )
 
@@ -727,7 +727,7 @@ class DashboardRetrieveCatalogAndOrderAppleMacbookPro15Task(DashboardRetrieveCat
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -763,7 +763,7 @@ class DashboardRetrieveCatalogAndMaxOrderAppleMacbookPro15Task(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -786,7 +786,7 @@ class DashboardRetrieveCatalogAndMeanOrderAppleMacbookPro15Task(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
         )
 
@@ -809,7 +809,7 @@ class DashboardRetrieveCatalogAndMedianOrderAppleMacbookPro15Task(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
         )
 
@@ -832,7 +832,7 @@ class DashboardRetrieveCatalogAndModeOrderAppleMacbookPro15Task(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
         )
 
@@ -844,7 +844,7 @@ class DashboardRetrieveCatalogAndOrderDevelopmentLaptopPCTask(DashboardRetrieveC
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -880,7 +880,7 @@ class DashboardRetrieveCatalogAndMaxOrderDevelopmentLaptopPCTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -903,7 +903,7 @@ class DashboardRetrieveCatalogAndMeanOrderDevelopmentLaptopPCTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
         )
 
@@ -926,7 +926,7 @@ class DashboardRetrieveCatalogAndMedianOrderDevelopmentLaptopPCTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
         )
 
@@ -949,7 +949,7 @@ class DashboardRetrieveCatalogAndModeOrderDevelopmentLaptopPCTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
         )
 
@@ -961,7 +961,7 @@ class DashboardRetrieveCatalogAndOrderLoanerLaptopTask(DashboardRetrieveCatalogA
         seed: int = None,
         fixed_config: list[AbstractServiceNowTask] = None,
         level: int = 2,
-        dashboard_class: AbstractServiceNowTask = ReportMinMaxRetrievalTask,
+        dashboard_class: AbstractServiceNowTask = SingleChartMinMaxRetrievalTask,
         question: str = None,
     ) -> None:
         """
@@ -997,7 +997,7 @@ class DashboardRetrieveCatalogAndMaxOrderLoanerLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             question="max",
         )
 
@@ -1020,7 +1020,7 @@ class DashboardRetrieveCatalogAndMeanOrderLoanerLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mean",
         )
 
@@ -1043,7 +1043,7 @@ class DashboardRetrieveCatalogAndMedianOrderLoanerLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="median",
         )
 
@@ -1066,7 +1066,7 @@ class DashboardRetrieveCatalogAndModeOrderLoanerLaptopTask(
             seed=seed,
             fixed_config=fixed_config,
             level=level,
-            dashboard_class=ReportMeanMedianModeRetrievalTask,
+            dashboard_class=SingleChartMeanMedianModeRetrievalTask,
             question="mode",
         )
 

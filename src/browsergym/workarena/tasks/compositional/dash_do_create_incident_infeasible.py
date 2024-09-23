@@ -6,7 +6,7 @@ from .dash_do_base import DashboardRetrieveIncidentAndDoInfeasibleTask, DashDoFi
 from .utils.infeasible_configs import get_infeasible_form_config
 
 from ..base import AbstractServiceNowTask
-from ..dashboard import ReportMinMaxRetrievalTask
+from ..dashboard import SingleChartMinMaxRetrievalTask
 
 from ...api.utils import table_api_call, db_delete_from_table
 from ...instance import SNowInstance
@@ -234,7 +234,7 @@ class DashboardRetrieveIncidentAndMinCreateIncidentInfeasibleWithReasonTask(
             fixed_config=fixed_config,
             level=level,
             question="min",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=True,
         )
 
@@ -264,7 +264,7 @@ class DashboardRetrieveIncidentAndMinCreateIncidentInfeasibleTask(
             fixed_config=fixed_config,
             level=level,
             question="min",
-            dashboard_class=ReportMinMaxRetrievalTask,
+            dashboard_class=SingleChartMinMaxRetrievalTask,
             provide_reason=False,
         )
 
