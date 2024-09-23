@@ -41,7 +41,6 @@ HUMAN_L3_SAMPLED_TASKS, HUMAN_L3_SEEDS = [sampled_set[0] for sampled_set in HUMA
 
 @retry(
     stop=stop_after_attempt(5),
-    retry=retry_if_exception_type(TimeoutError),
     reraise=True,
     before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
 )
