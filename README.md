@@ -24,16 +24,15 @@ Run the following command to install WorkArena in the [BrowswerGym](https://gith
 pip install browsergym-workarena
 ```
 
-Then, run this command in a terminal to upload the benchmark data to your ServiceNow instance:
-```
-workarena-install
-```
-
-Finally, install [Playwright](https://github.com/microsoft/playwright):
+Then, install [Playwright](https://github.com/microsoft/playwright):
 ```
 playwright install
 ```
 
+Finally, run this command in a terminal to upload the benchmark data to your ServiceNow instance:
+```
+workarena-install
+```
 Your installation is now complete! 🎉
 
 
