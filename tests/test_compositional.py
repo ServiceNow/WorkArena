@@ -48,8 +48,7 @@ HUMAN_L3_SAMPLED_TASKS, HUMAN_L3_SEEDS = [sampled_set[0] for sampled_set in HUMA
 @pytest.mark.parametrize("task_entrypoint", ALL_COMPOSITIONAL_TASKS)
 @pytest.mark.parametrize("random_seed", range(1))
 @pytest.mark.parametrize("level", range(2, 4))
-@pytest.mark.slow
-# @pytest.mark.skip(reason="Tests are too slow")
+@pytest.mark.pricy
 def test_cheat_compositional(task_entrypoint, random_seed, level, page: Page):
     task = task_entrypoint(seed=random_seed, level=level)
     goal, info = task.setup(page=page)
@@ -74,7 +73,8 @@ def test_cheat_compositional(task_entrypoint, random_seed, level, page: Page):
     before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
 )
 @pytest.mark.parametrize("task_entrypoint, seed", zip(AGENT_L2_SAMPLED_TASKS, AGENT_L2_SEEDS))
-@pytest.mark.pricy
+@pytest.mark.slow
+@pytest.mark.skip(reason="Tests are too slow")
 def test_cheat_compositional_sampled_agent_set_l2(task_entrypoint, seed, page: Page):
     task = task_entrypoint(seed=seed)
     goal, info = task.setup(page=page)
