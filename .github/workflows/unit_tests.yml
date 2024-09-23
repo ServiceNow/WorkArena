@@ -5,6 +5,8 @@ on:
     branches:
       - main
   pull_request:
+  schedule:
+    - cron: '0 0 * * 5'  # Runs at midnight on Friday
 
 jobs:
 
@@ -102,3 +104,31 @@ jobs:
           SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
           SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
         run: pytest -n 5 --durations=10 -m 'slow and not pricy' --slowmo 1000 -v tests
+  
+  end-to-end-tests:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run E2E Tests
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+        run: pytest -n 10 --durations=10 -m 'pricy' --slowmo 1800 -v tests
