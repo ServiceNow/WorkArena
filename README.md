@@ -53,7 +53,7 @@ Your installation is now complete! 🎉
 
 ## Benchmark Contents
 
-At the moment, WorkArena-L1 includes `19,912` unique instances drawn from `33` tasks that cover the main components of the ServiceNow user interface, otherwise referred to as "atomic" tasks. WorkArena++ contains 682 tasks, each one sampling among thousands of potential configurations. 
+At the moment, WorkArena-L1 includes `19,912` unique instances drawn from `33` tasks that cover the main components of the ServiceNow user interface, otherwise referred to as "atomic" tasks. WorkArena++ contains 682 tasks, each one sampling among thousands of potential configurations. WorkArena++ uses the atomic components presented in WorkArena, and composes them into real-world use cases evaluating planning, reasoning, and memorizing abilities of agents. 
 
 The following videos show an agent built on `GPT-4-vision` interacting with every atomic component of the benchmark. As emphasized by our results, this benchmark is not solved and thus, the performance of the agent is not always on point.
 
