@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
   schedule:
-    - cron: '0 0 * * 7'  # Runs at midnight on Sunday
+    - cron: '59 23 * * SUN'  # Runs at midnight on Sunday
 
 jobs:
 
