@@ -196,6 +196,7 @@ Note: the following example executes WorkArena's oracle (cheat) function to solv
 
 Please use the following BibTeX to cite our work:
 
+### WorkArena
 ```
 @misc{workarena2024,
       title={WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?}, 
@@ -206,7 +207,7 @@ Please use the following BibTeX to cite our work:
       primaryClass={cs.LG}
 }
 ```
-
+### WorkArena++
 ```
 @misc{boisvert2024workarenacompositionalplanningreasoningbased,
       title={WorkArena++: Towards Compositional Planning and Reasoning-based Common Knowledge Work Tasks}, 
