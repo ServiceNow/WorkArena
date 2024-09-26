@@ -7,17 +7,9 @@ on:
   pull_request:
   schedule:
     - cron: '59 23 * * SUN'  # Runs at midnight on Sunday
-  repository_dispatch:
-    types: [dependency-update]
-  workflow_call:
-    inputs:
-      run_fast_tests_only:
-        description: 'Run only fast tests'
-        required: false
-        type: boolean
-        default: false
 
 jobs:
+
   code-format:
     runs-on: ubuntu-latest
     defaults:
@@ -79,7 +71,6 @@ jobs:
         run: pytest -n 5 --durations=10 -m 'not slow and not pricy' --slowmo 1000 -v tests
 
   browsergym-workarena-slow:
-    if: ${{ !inputs.run_fast_tests_only }}
     runs-on: ubuntu-latest
 
     defaults:
@@ -115,9 +106,8 @@ jobs:
         run: pytest -n 5 --durations=10 -m 'slow and not pricy' --slowmo 1000 -v tests
   
   end-to-end-tests:
-    # Runs on the schedule (once a week on a Sunday) OR if browsergym has had a commit to main
-    if: ${{ !inputs.run_fast_tests_only && (github.event_name == 'schedule' || github.event_name == 'repository_dispatch') }}
     runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
     defaults:
       run:
         shell: bash -l {0}
