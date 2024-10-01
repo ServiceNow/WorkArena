@@ -69,7 +69,7 @@ To setup WorkArena, you will need to get your own ServiceNow instance, install o
 4. You should now see your URL and credentials. Based on this information, set the following environment variables:
     * `SNOW_INSTANCE_URL`: The URL of your ServiceNow developer instance
     * `SNOW_INSTANCE_UNAME`: The username, should be "admin"
-    * `SNOW_INSTANCE_PWD`: The password, make sure you place the value in quotes "" and be mindful of [escaping special shell characters](https://onlinelinuxtools.com/escape-shell-characters). Running `echo $SNOW_INSTANCE_PWD` should print the correct password.
+    * `SNOW_INSTANCE_PWD`: The password, make sure you place the value in single quotes '' and be mindful of [escaping special shell characters](https://onlinelinuxtools.com/escape-shell-characters). Running `echo $SNOW_INSTANCE_PWD` should print the correct password.
 6. Log into your instance via a browser using the admin credentials. Close any popup that appears on the main screen (e.g., agreeing to analytics).
 
 **Warning:** Feel free to look around the platform, but please make sure you revert any changes (e.g., changes to list views, pinning some menus, etc.) as these changes will be persistent and affect the benchmarking process.
