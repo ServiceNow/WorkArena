@@ -3,9 +3,9 @@ import logging
 import numpy as np
 import playwright.sync_api
 import re
-import tenacity
 
 from abc import ABC, abstractmethod
+from tenacity import retry, stop_after_attempt, wait_fixed
 from typing import List, Tuple
 from urllib import parse
 
@@ -179,6 +179,8 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
 
         return type, data
 
+    # retry because sometimes the page is not fully loaded
+    @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
     def _get_chart_by_title(
         self, page: playwright.sync_api.Page, title: str = None
     ) -> Tuple[str, dict]:
