@@ -1,4 +1,4 @@
-__version__ = "0.3.2"
+__version__ = "0.4.1"
 
 import inspect
 from logging import warning
