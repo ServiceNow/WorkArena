@@ -149,9 +149,10 @@ def get_all_tasks_agents(filter="l2", meta_seed=42, n_seed_l1=10, is_agent_curri
             ALL_COMPOSITIONAL_TASKS_CATEGORIES = HUMAN_CURRICULUM_L3
 
     for category, items in ALL_COMPOSITIONAL_TASKS_CATEGORIES.items():
+        category_seeds = rng.randint(0, 1000, items["num_seeds"])
         if filter_category and category != filter_category:
             continue
-        for curr_seed in rng.randint(0, 1000, items["num_seeds"]):
+        for curr_seed in category_seeds:
             random_gen = np.random.RandomState(curr_seed)
             for task_set, count in zip(items["buckets"], items["weights"]):
                 tasks = random_gen.choice(task_set, count, replace=False)
