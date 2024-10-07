@@ -86,10 +86,10 @@ TASK_CATEGORY_MAP = {
     "workarena.servicenow.sort-incident-list": "list-sort",
     "workarena.servicenow.sort-service-catalog-item-list": "list-sort",
     "workarena.servicenow.sort-user-list": "list-sort",
-    "workarena.servicenow.dashboard-min-max-retrieval": "dashboard",
-    "workarena.servicenow.dashboard-value-retrieval": "dashboard",
-    "workarena.servicenow.report-value-retrieval": "dashboard",
-    "workarena.servicenow.report-min-max-retrieval": "dashboard",
+    "workarena.servicenow.multi-chart-min-max-retrieval": "dashboard",
+    "workarena.servicenow.multi-chart-value-retrieval": "dashboard",
+    "workarena.servicenow.single-chart-value-retrieval": "dashboard",
+    "workarena.servicenow.single-chart-min-max-retrieval": "dashboard",
 }
 
 
