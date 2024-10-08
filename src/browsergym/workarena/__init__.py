@@ -112,7 +112,6 @@ def get_task_category(task_name):
 
 
 def get_all_tasks_agents(filter="l2", meta_seed=42, n_seed_l1=10, is_agent_curriculum=True):
-    OFFSET = 42
     all_task_tuples = []
     filter = filter.split(".")
     if len(filter) > 2:
