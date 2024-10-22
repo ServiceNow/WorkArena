@@ -1,0 +1,38 @@
+cff-version: 1.0.0
+message: "If you use WorkArena in your research, please cite it as follows:"
+title: "WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?"
+repository-code: "https://github.com/ServiceNow/WorkArena"
+url: "https://servicenow.github.io/WorkArena/"
+license: "Apache-2.0"
+keywords:
+  - large language model agents
+  - Agentic LLM benchmark
+  - ServiceNow platform
+  - Knowledge worker tasks
+  - Open source
+authors:
+  - family-names: "Drouin"
+    given-names: "Alexandre"
+  - family-names: "Gasse"
+    given-names: "Maxime"
+  - family-names: "Caccia"
+    given-names: "Massimo"
+  - family-names: "Laradji"
+    given-names: "Issam H."
+  - family-names: "Del Verme"
+    given-names: "Manuel"
+  - family-names: "Marty"
+    given-names: "Tom"
+  - family-names: "Boisvert"
+    given-names: "Léo"
+  - family-names: "Thakkar"
+    given-names: "Megh"
+  - family-names: "Cappart"
+    given-names: "Quentin"
+  - family-names: "Vazquez"
+    given-names: "David"
+  - family-names: "Chapados"
+    given-names: "Nicolas"
+  - family-names: "Lacoste"
+    given-names: "Alexandre"
+date-released: "2024-03-12"
