@@ -103,7 +103,7 @@ class SNowInstance:
         # XXX: Need to include the import here to avoid circular imports
         from .utils import ui_login
 
-        keys = ["build name", "build date", "build tag"]
+        keys = ["build name", "build date", "build tag", "connected to cluster node"]
 
         # We need to use playwright since the page is loaded dynamically
         # and its source doesn't contain the information we need

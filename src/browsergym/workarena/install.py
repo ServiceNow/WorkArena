@@ -788,6 +788,34 @@ def check_instance_release_support():
             f"You are running {version_info['build name']} {version_info}."
         )
         return False
+
+    # XXX: This piece of code is included temporarily while a data center problem
+    #      is being fixed. It will be removed once the problem is fixed. It serves
+    #      to raise an error if the instance is part of a pool of unhealthy instances.
+    if "ord191" in version_info["connected to cluster node"]:
+        logging.error(
+            """
+     _.-^^---....,,--
+ _--                  --_
+<                        >)
+|                         |
+ \._                   _./
+    ```--. . , ; .--'''
+          | |   |
+       .-=||  | |=-.
+       `-=#$%&%$#=-'
+          | ;  :|
+ _____.,-#%&$@%#&#~,._____ 
+
+Oops, it looks like you were assigned an unhealthy ServiceNow instance.
+Our data center team is hard at work trying to solve this issue. Meanwhile,
+the best course of action is to release your current instance and request
+a new one at https://developer.servicenow.com. Unfortunately, you might 
+have to repeat this process a few times. We apologize for the inconvenience.
+"""
+        )
+        return False
+
     return True
 
 
