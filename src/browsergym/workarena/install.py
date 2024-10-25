@@ -788,13 +788,13 @@ def check_instance_release_support():
             f"You are running {version_info['build name']} {version_info}."
         )
         return False
-    
+
     # XXX: This piece of code is included temporarily while a data center problem
     #      is being fixed. It will be removed once the problem is fixed. It serves
     #      to raise an error if the instance is part of a pool of unhealthy instances.
     if "ord191" in version_info["connected to cluster node"]:
         logging.error(
-"""
+            """
      _.-^^---....,,--
  _--                  --_
 <                        >)
