@@ -1,3 +1,7 @@
+<a href="./assets/WorkArena_Banner.png">
+  <img src="./assets/WorkArena_Banner.png" width="1000" />
+</a>
+
 # WorkArena: A Benchmark for Evaluating Agents on Knowledge Work Tasks 
 [[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[Live Demo]](#live-demo) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work)
 
