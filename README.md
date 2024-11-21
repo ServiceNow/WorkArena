@@ -1,5 +1,5 @@
-<a href="./assets/WorkArena_Banner.png">
-  <img src="./assets/WorkArena_Banner.png" width="1000" />
+<a href="./assets/WorkArena_banner.png">
+  <img src="./assets/WorkArena_banner.png" width="1000" />
 </a>
 
 # WorkArena: A Benchmark for Evaluating Agents on Knowledge Work Tasks 
