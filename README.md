@@ -14,8 +14,7 @@
 `WorkArena` is a suite of browser-based tasks tailored to gauge web agents' effectiveness in supporting routine tasks for knowledge workers. 
 By harnessing the ubiquitous [ServiceNow](https://www.servicenow.com/what-is-servicenow.html) platform, this benchmark will be instrumental in assessing the widespread state of such automations in modern knowledge work environments.
 
-WorkArena is included in [BrowserGym](https://github.com/ServiceNow/BrowserGym), a conversational gym environment for the evaluation of web agents.
-
+The preferred way to evaluate on WorkArena is with [AgentLab](https://github.com/ServiceNow/AgentLab/) which will conduct parallel experiments through [BrowserGym](https://github.com/ServiceNow/BrowserGym) and report on a [unified leaderboard](https://huggingface.co/spaces/ServiceNow/browsergym-leaderboard).
 
 https://github.com/ServiceNow/WorkArena/assets/2374980/68640f09-7d6f-4eb1-b556-c294a6afef70
 
