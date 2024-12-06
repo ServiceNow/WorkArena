@@ -8,7 +8,7 @@
 ### Papers
 *  [ICML 2024] WorkArena: How Capable are Web Agents at Solving Common Knowledge Work Tasks? [[Paper]](https://arxiv.org/abs/2403.07718)
  
-*  WorkArena++: Towards Compositional Planning and Reasoning-based Common Knowledge Work Tasks [[Paper]](https://arxiv.org/abs/2407.05291)
+*  [NeurIPS 2024] WorkArena++: Towards Compositional Planning and Reasoning-based Common Knowledge Work Tasks [[Paper]](https://arxiv.org/abs/2407.05291)
  
 
 `WorkArena` is a suite of browser-based tasks tailored to gauge web agents' effectiveness in supporting routine tasks for knowledge workers. 
