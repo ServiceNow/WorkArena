@@ -1,0 +1,125 @@
+name: Bug Report
+description: Report an issue with browsergym/Playwright setup
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue! Please fill out the information below to help us diagnose the problem.
+
+  - type: input
+    id: browsergym-version
+    attributes:
+      label: Browsergym Version
+      description: What version of browsergym are you using?
+      placeholder: "e.g., 1.2.0"
+    validations:
+      required: true
+
+  - type: input
+    id: playwright-version
+    attributes:
+      label: Playwright Version
+      description: What version of Playwright are you using?
+      placeholder: "e.g., 1.41.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os-type
+    attributes:
+      label: Operating System Type
+      description: What type of operating system are you using?
+      options:
+        - Ubuntu
+        - Debian
+        - macOS
+        - Windows
+        - Other Linux (specify version below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os-version
+    attributes:
+      label: Operating System Version
+      description: Select your OS version
+      options:
+        # Ubuntu LTS versions
+        - Ubuntu 24.04 LTS (Noble Numbat)
+        - Ubuntu 22.04 LTS (Jammy Jellyfish)
+        - Ubuntu 20.04 LTS (Focal Fossa)
+        # macOS versions
+        - macOS 14 (Sonoma)
+        - macOS 13 (Ventura)
+        - macOS 12 (Monterey)
+        - macOS 11 (Big Sur)
+        # Windows versions
+        - Windows 11 23H2 (Build 22631)
+        - Windows 11 22H2 (Build 22621)
+        - Windows 10 22H2 (Build 19045)
+        - Windows 10 21H2 (Build 19044)
+        # Other
+        - Other (specify in Additional Context)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Affected Browsers
+      description: Which browsers are you seeing this issue with?
+      multiple: true
+      options:
+        - Chromium
+        - Firefox
+        - WebKit
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Please describe what happened and what you expected to happen
+      placeholder: |
+        1. What did you do?
+        2. What happened?
+        3. What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Steps
+      description: Please provide minimal steps to reproduce the issue
+      placeholder: |
+        1. Install dependencies...
+        2. Run command...
+        3. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs
+      description: Please copy and paste any relevant logs. This will be automatically formatted into code.
+      render: shell
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: For "Other" OS versions, please specify here. Also add any other context about the problem.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our project's Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
