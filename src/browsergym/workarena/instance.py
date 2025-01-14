@@ -143,7 +143,7 @@ class SNowInstance:
         """
         property_name = "workarena.installation.date"
         try:
-            property_value = self._get_sys_property(property_name)
+            self._get_sys_property(property_name)
         except Exception as e:
             raise RuntimeError(
                 f"ServiceNow instance is not installed."
