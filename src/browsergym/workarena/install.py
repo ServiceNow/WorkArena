@@ -56,7 +56,7 @@ def _set_sys_property(property_name: str, value: str):
     Set a sys_property in the instance.
 
     """
-    instance = SNowInstance()
+    instance = SNowInstance(check_installed=False)
 
     property = table_api_call(
         instance=instance,
@@ -82,20 +82,7 @@ def _set_sys_property(property_name: str, value: str):
     assert property["result"]["value"] == value, f"Error setting {property_name}."
 
 
-def _get_sys_property(property_name: str) -> str:
-    """
-    Get a sys_property from the instance.
-
-    """
-    instance = SNowInstance()
-
-    property_value = table_api_call(
-        instance=instance,
-        table="sys_properties",
-        params={"sysparm_query": f"name={property_name}", "sysparm_fields": "value"},
-    )["result"][0]["value"]
-
-    return property_value
+# Remove the _get_sys_property function as it's now in instance.py
 
 
 def _install_update_set(path: str, name: str):
@@ -113,7 +100,7 @@ def _install_update_set(path: str, name: str):
 
     """
     with sync_playwright() as playwright:
-        instance = SNowInstance()
+        instance = SNowInstance(check_installed=False)
         browser = playwright.chromium.launch(headless=True, slow_mo=1000)
         page = browser.new_page()
         url_login(instance, page)
@@ -352,7 +339,7 @@ def setup_knowledge_bases():
 
     """
     # Get the ServiceNow instance
-    instance = SNowInstance()
+    instance = SNowInstance(check_installed=False)
     # Mapping between knowledge base name and filepath + whether or not to disable comments + whether or not to add article name
     knowledge_bases = {
         KB_NAME: (KB_FILEPATH, True, False),
@@ -419,7 +406,7 @@ def check_workflows_installed():
     """
     expected_workflow_names = [x["name"] for x in WORKFLOWS.values()]
     workflows = table_api_call(
-        instance=SNowInstance(),
+        instance=SNowInstance(check_installed=False),
         table="wf_workflow",
         params={
             "sysparm_query": "nameIN" + ",".join(expected_workflow_names),
@@ -611,7 +598,7 @@ def setup_list_columns():
     }
 
     logging.info("... Creating a new user account to validate list columns")
-    admin_instance = SNowInstance()
+    admin_instance = SNowInstance(check_installed=False)
     username, password, usysid = create_user(instance=admin_instance)
     user_instance = SNowInstance(snow_credentials=(username, password))
 
@@ -717,7 +704,7 @@ def setup_form_fields():
     }
 
     logging.info("... Creating a new user account to validate form fields")
-    admin_instance = SNowInstance()
+    admin_instance = SNowInstance(check_installed=False)
     username, password, usysid = create_user(instance=admin_instance)
     user_instance = SNowInstance(snow_credentials=(username, password))
 
@@ -779,7 +766,7 @@ def check_instance_release_support():
     bool: True if the version is supported, False otherwise.
 
     """
-    instance = SNowInstance()
+    instance = SNowInstance(check_installed=False)
     version_info = instance.release_version
     if version_info["build name"] not in SNOW_SUPPORTED_RELEASES:
         logging.error(
@@ -816,7 +803,11 @@ def disable_welcome_help_popup():
     Disable the welcome help popup
 
     """
-    set_user_preference(instance=SNowInstance(), key="overview_help.visited.navui", value="true")
+    set_user_preference(
+        instance=SNowInstance(check_installed=False),
+        key="overview_help.visited.navui",
+        value="true",
+    )
     logging.info("Welcome help popup disabled.")
 
 
@@ -841,24 +832,24 @@ def setup_ui_themes():
     logging.info("Setting default UI theme")
     _set_sys_property(
         property_name="glide.ui.polaris.theme.custom",
-        value=get_workarena_theme_variants(SNowInstance())[0]["theme.sys_id"],
+        value=get_workarena_theme_variants(SNowInstance(check_installed=False))[0]["theme.sys_id"],
     )
 
     # Set admin user's theme variant
     # ... get user's sysid
     admin_user = table_api_call(
-        instance=SNowInstance(),
+        instance=SNowInstance(check_installed=False),
         table="sys_user",
         params={"sysparm_query": "user_name=admin", "sysparm_fields": "sys_id"},
     )["result"][0]
     # ... set user preference
     set_user_preference(
-        instance=SNowInstance(),
+        instance=SNowInstance(check_installed=False),
         user=admin_user["sys_id"],
         key="glide.ui.polaris.theme.variant",
         value=[
             x["style.sys_id"]
-            for x in get_workarena_theme_variants(SNowInstance())
+            for x in get_workarena_theme_variants(SNowInstance(check_installed=False))
             if x["style.name"] == "Workarena"
         ][0],
     )
@@ -870,7 +861,7 @@ def check_ui_themes_installed():
 
     """
     expected_variants = set([v.lower() for v in UI_THEMES_UPDATE_SET["variants"]])
-    installed_themes = get_workarena_theme_variants(SNowInstance())
+    installed_themes = get_workarena_theme_variants(SNowInstance(check_installed=False))
     installed_themes = set([t["style.name"].lower() for t in installed_themes])
 
     assert (
@@ -893,7 +884,7 @@ def wipe_system_admin_preferences():
     """
     logging.info("Wiping all system admin preferences")
     sys_admin_prefs = table_api_call(
-        instance=SNowInstance(),
+        instance=SNowInstance(check_installed=False),
         table="sys_user_preference",
         params={"sysparm_query": "user.user_name=admin", "sysparm_fields": "sys_id,name"},
     )["result"]
@@ -903,7 +894,9 @@ def wipe_system_admin_preferences():
     for pref in sys_admin_prefs:
         logging.info(f"...... deleting {pref['name']}")
         table_api_call(
-            instance=SNowInstance(), table=f"sys_user_preference/{pref['sys_id']}", method="DELETE"
+            instance=SNowInstance(check_installed=False),
+            table=f"sys_user_preference/{pref['sys_id']}",
+            method="DELETE",
         )
 
 
@@ -926,7 +919,7 @@ def patch_report_filters():
     """
     logging.info("Patching reports with date filter...")
 
-    instance = SNowInstance()
+    instance = SNowInstance(check_installed=False)
 
     # Get all reports that are not already patched
     reports = table_api_call(
@@ -1054,7 +1047,8 @@ def main():
     logging.basicConfig(level=logging.INFO)
 
     try:
-        past_install_date = _get_sys_property("workarena.installation.date")
+        instance = SNowInstance(check_installed=False)
+        past_install_date = instance._get_sys_property("workarena.installation.date")
         logging.info(f"Detected previous installation on {past_install_date}. Reinstalling...")
     except:
         past_install_date = "never"
@@ -1068,7 +1062,7 @@ def main():
 ██ ███ ██ ██    ██ ██   ██ ██  ██  ██   ██ ██   ██ ██      ██  ██ ██ ██   ██
  ███ ███   ██████  ██   ██ ██   ██ ██   ██ ██   ██ ███████ ██   ████ ██   ██
 
-Instance: {SNowInstance().snow_url}
+Instance: {SNowInstance(check_installed=False).snow_url}
 Previous installation: {past_install_date}
 
 """

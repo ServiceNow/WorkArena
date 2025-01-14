@@ -1,11 +1,15 @@
 import os
 import requests
 import re
-
 from playwright.sync_api import sync_playwright
 from typing import Optional
+from requests.exceptions import HTTPError
+from time import sleep
 
 from .config import SNOW_BROWSER_TIMEOUT
+
+# ServiceNow API configuration
+SNOW_API_HEADERS = {"Content-Type": "application/json", "Accept": "application/json"}
 
 
 class SNowInstance:
@@ -18,6 +22,7 @@ class SNowInstance:
         self,
         snow_url: Optional[str] = None,
         snow_credentials: Optional[tuple[str, str]] = None,
+        check_installed: bool = True,
     ) -> None:
         """
         Set up a ServiceNow instance API
@@ -55,6 +60,96 @@ class SNowInstance:
         self.snow_url = snow_url.rstrip("/")
         self.snow_credentials = snow_credentials
         self.check_status()
+        if check_installed:
+            self.check_is_installed()
+
+    def table_api_call(
+        self,
+        table: str,
+        data: dict = {},
+        params: dict = {},
+        json: dict = {},
+        method: str = "GET",
+        wait_for_record: bool = False,
+        max_retries: int = 5,
+        raise_on_wait_expired: bool = True,
+    ) -> dict:
+        """
+        Make a call to the ServiceNow Table API
+        """
+        # Query API
+        response = requests.request(
+            method=method,
+            url=self.snow_url + f"/api/now/table/{table}",
+            auth=self.snow_credentials,
+            headers=SNOW_API_HEADERS,
+            data=data,
+            params=params,
+            json=json,
+        )
+        if method == "POST":
+            sys_id = response.json()["result"]["sys_id"]
+            data = {}
+            params = {"sysparm_query": f"sys_id={sys_id}"}
+
+        # Check for HTTP success code (fail otherwise)
+        response.raise_for_status()
+
+        record_exists = False
+        num_retries = 0
+        if method == "POST" or wait_for_record:
+            while not record_exists:
+                sleep(0.5)
+                get_response = self.table_api_call(
+                    table=table,
+                    params=params,
+                    json=json,
+                    data=data,
+                    method="GET",
+                )
+                record_exists = len(get_response["result"]) > 0
+                num_retries += 1
+                if num_retries > max_retries:
+                    if raise_on_wait_expired:
+                        raise HTTPError(f"Record not found after {max_retries} retries")
+                    else:
+                        return {"result": []}
+                if method == "GET":
+                    response = get_response
+
+        if method != "DELETE":
+            if type(response) == dict:
+                return response
+            else:
+                return response.json()
+        else:
+            return response
+
+    def _get_sys_property(self, property_name: str) -> str:
+        """
+        Get a sys_property from the instance.
+        """
+        property_value = self.table_api_call(
+            table="sys_properties",
+            params={"sysparm_query": f"name={property_name}", "sysparm_fields": "value"},
+        )["result"][0]["value"]
+
+        return property_value
+
+    def check_is_installed(self):
+        """
+        Check if the ServiceNow instance is installed.
+        Bascally, check if if the installation date is set.
+        """
+        property_name = "workarena.installation.date"
+        try:
+            property_value = self._get_sys_property(property_name)
+        except Exception as e:
+            raise RuntimeError(
+                f"ServiceNow instance is not installed."
+                "Please install the WorkArena plugin by running `workarena-install`.\n"
+                "Error: {e}"
+            )
 
     def check_status(self):
         """
