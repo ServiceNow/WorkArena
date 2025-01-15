@@ -144,11 +144,10 @@ class SNowInstance:
         property_name = "workarena.installation.date"
         try:
             self._get_sys_property(property_name)
-        except Exception as e:
+        except Exception:
             raise RuntimeError(
-                f"ServiceNow instance is not installed."
+                f"ServiceNow instance is most likey not installed. "
                 "Please install the WorkArena plugin by running `workarena-install`.\n"
-                "Error: {e}"
             )
 
     def check_status(self):

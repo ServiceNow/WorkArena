@@ -600,7 +600,7 @@ def setup_list_columns():
     logging.info("... Creating a new user account to validate list columns")
     admin_instance = SNowInstance(check_installed=False)
     username, password, usysid = create_user(instance=admin_instance)
-    user_instance = SNowInstance(snow_credentials=(username, password))
+    user_instance = SNowInstance(check_installed=False, snow_credentials=(username, password))
 
     for task, task_info in list_mappings.items():
         expected_columns_path = task_info["expected_columns_path"]
@@ -706,7 +706,7 @@ def setup_form_fields():
     logging.info("... Creating a new user account to validate form fields")
     admin_instance = SNowInstance(check_installed=False)
     username, password, usysid = create_user(instance=admin_instance)
-    user_instance = SNowInstance(snow_credentials=(username, password))
+    user_instance = SNowInstance(check_installed=False, snow_credentials=(username, password))
 
     for task, task_info in task_mapping.items():
         expected_fields_path = task_info["expected_fields_path"]
