@@ -148,6 +148,7 @@ class SNowInstance:
             raise RuntimeError(
                 f"ServiceNow instance is most likey not installed. "
                 "Please install the WorkArena plugin by running `workarena-install`.\n"
+                "Alternatively, your credentials might not be correct. Please check them."
             )
 
     def check_status(self):
