@@ -66,13 +66,11 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         self.instance = instance if instance is not None else SNowInstance()
 
         # Check if workarena-install is done correctly
-        property_name = "workarena.installation.date"
         try:
-            _ = get_instance_sys_property(self.instance, property_name)
+            _ = get_instance_sys_property(self.instance, "workarena.installation.date")
         except Exception:
             raise RuntimeError(
-                f"ServiceNow instance is most likey not installed. "
-                "Please install the WorkArena plugin by running `workarena-install`.\n"
+                f"WorkArena installation has not been detected in your instance. Please install WorkArena by running workarena-install"
             )
 
         self.start_url = self.instance.snow_url + start_rel_url

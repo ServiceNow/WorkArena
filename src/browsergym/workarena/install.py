@@ -12,7 +12,7 @@ from time import sleep
 
 from .api.ui_themes import get_workarena_theme_variants
 from .api.user import create_user
-from .api.utils import table_api_call, table_column_info
+from .api.utils import table_api_call, table_column_info, get_instance_sys_property
 from .config import (
     # for knowledge base setup
     KB_FILEPATH,
@@ -80,22 +80,6 @@ def _set_sys_property(property_name: str, value: str):
 
     # Verify that the property was updated
     assert property["result"]["value"] == value, f"Error setting {property_name}."
-
-
-def _get_sys_property(property_name: str) -> str:
-    """
-    Get a sys_property from the instance.
-
-    """
-    instance = SNowInstance()
-
-    property_value = table_api_call(
-        instance=instance,
-        table="sys_properties",
-        params={"sysparm_query": f"name={property_name}", "sysparm_fields": "value"},
-    )["result"][0]["value"]
-
-    return property_value
 
 
 def _install_update_set(path: str, name: str):
@@ -1054,7 +1038,10 @@ def main():
     logging.basicConfig(level=logging.INFO)
 
     try:
-        past_install_date = _get_sys_property("workarena.installation.date")
+        instance = SNowInstance()
+        past_install_date = get_instance_sys_property(
+            instance=instance, property_name="workarena.installation.date"
+        )
         logging.info(f"Detected previous installation on {past_install_date}. Reinstalling...")
     except:
         past_install_date = "never"
