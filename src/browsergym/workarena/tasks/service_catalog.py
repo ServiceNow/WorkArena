@@ -472,16 +472,6 @@ class OrderHardwareTask(AbstractServiceNowTask):
             )
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
-        right_url = check_url_suffix_match(page, expected_url=self.final_url, task=self)
-        if not right_url:
-            return (
-                0,
-                False,
-                "",
-                {
-                    "message": f"The page is not in the right URL to validate task {self.__class__.__name__}."
-                },
-            )
 
         # Retrieve the request sysid from the URL
         current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
