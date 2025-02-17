@@ -3,7 +3,7 @@
 </a>
 
 # WorkArena: A Benchmark for Evaluating Agents on Knowledge Work Tasks 
-[[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[Live Demo]](#live-demo) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work)
+[[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[Live Demo]](#live-demo) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work) ♦ [Join us on Discord!](https://discord.gg/rDkP69X7)
 
 ## Join Our Discord Community
 
