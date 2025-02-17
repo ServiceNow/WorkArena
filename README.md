@@ -3,7 +3,28 @@
 </a>
 
 # WorkArena: A Benchmark for Evaluating Agents on Knowledge Work Tasks 
-[[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[Live Demo]](#live-demo) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work)
+[[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[Live Demo]](#live-demo) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work) ♦ [Join us on Discord!](https://discord.gg/rDkP69X7)
+
+## Join Our Discord Community
+
+Want to brainstorm ideas, troubleshoot issues, or just geek out with fellow agent builders? Our official Discord server is the perfect place to connect and collaborate. Come hang out with us to:
+
+- Exchange tips, tricks, and success stories
+- Get real-time support and feedback
+- Stay updated on the latest features and announcements
+
+[Join us on Discord!](https://discord.gg/rDkP69X7)
+
+---
+
+### Explore the BrowserGym Ecosystem
+
+Looking for more tools and resources? Check out these open-source projects:
+
+- **[AgentLab](https://github.com/ServiceNow/AgentLab)**
+- **[BrowserGym](https://github.com/ServiceNow/BrowserGym)**
+
+Both are part of the broader [BrowserGym ecosystem](https://arxiv.org/abs/2412.05467)
 
 ### Papers
 *  [ICML 2024] WorkArena: How Capable are Web Agents at Solving Common Knowledge Work Tasks? [[Paper]](https://arxiv.org/abs/2403.07718)
