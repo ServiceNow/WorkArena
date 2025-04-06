@@ -231,7 +231,7 @@ class DashboardRetrieveIncidentAndFilterAssetListTask(DashboardRetrieveIncidentA
                 + f"\n2. Given the title of the report, search for it on this page. The report shows the number of 'incidents' assigned to an 'agent'.\n"
                 + step_3
                 + f"\n4. Navigate to Portfolios > All Assets. \n"
-                + f"\nUsing the field {self.attribute_name} for the agent/ agents that fit the critera above, filter the list.\n"
+                + f"\nUsing the field {self.attribute_name} for the agent/ agents that fit the criteria above, filter the list.\n"
             )
 
         return goal, info
@@ -379,7 +379,7 @@ class DashboardRetrieveIncidentAndFilterHardwareListTask(
                 + f"\n2. Given the title of the report, search for it on this page. The report shows the number of 'incidents' assigned to an 'agent'.\n"
                 + step_3
                 + f"\n4. Navigate to Portfolios > Hardware Assets. \n"
-                + f"\nUsing the field {self.attribute_name} for the agent/ agents that fit the critera above, filter the list.\n"
+                + f"\nUsing the field {self.attribute_name} for the agent/ agents that fit the criteria above, filter the list.\n"
             )
 
         return goal, info
@@ -486,7 +486,7 @@ class DashboardRetrieveIncidentAndFilterIncidentListTask(
                 + f"\n2. Given the title of the report, search for it on this page. The report shows the number of 'incidents' assigned to an 'agent'.\n"
                 + step_3
                 + f"\n4. Navigate to Service Desk > Incidents. \n"
-                + f"\nUsing the field {self.attribute_name} for the agent/ agents that fit the critera above, filter the list.\n"
+                + f"\nUsing the field {self.attribute_name} for the agent/ agents that fit the criteria above, filter the list.\n"
             )
 
         return goal, info
@@ -580,7 +580,7 @@ class DashboardRetrieveIncidentAndFilterUserListTask(DashboardRetrieveIncidentAn
                 + f"\n2. Given the title of the report, search for it on this page. The report shows the number of 'incidents' assigned to an 'agent'.\n"
                 + step_3
                 + f"\n4. Navigate to Organization > Users. \n"
-                + f"\nUsing the field {self.attribute_name} for the agent/ agents that fit the critera above, filter the list.\n"
+                + f"\nUsing the field {self.attribute_name} for the agent/ agents that fit the criteria above, filter the list.\n"
             )
 
         return goal, info
