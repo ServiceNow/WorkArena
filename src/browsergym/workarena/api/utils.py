@@ -172,3 +172,16 @@ def db_delete_from_table(instance: SNowInstance, sys_id: str, table: str) -> Non
 
     # Check for HTTP code 200 (fail otherwise)
     response.raise_for_status()
+
+
+def get_instance_sys_property(instance: SNowInstance, property_name: str) -> str:
+    """
+    Get a sys_property from the instance.
+    """
+    property_value = table_api_call(
+        instance=instance,
+        table="sys_properties",
+        params={"sysparm_query": f"name={property_name}", "sysparm_fields": "value"},
+    )["result"][0]["value"]
+
+    return property_value
