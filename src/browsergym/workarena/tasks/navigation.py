@@ -132,7 +132,7 @@ class AllMenuTask(AbstractServiceNowTask):
         )
         final_url = parse.urlunparse(parse.urlparse(parse.unquote(self.final_url)))
 
-        if final_url == current_url:
+        if final_url == current_url or final_url in current_url or current_url in final_url:
             return (
                 1,
                 True,
