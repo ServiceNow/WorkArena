@@ -134,12 +134,12 @@ Note: the following example executes WorkArena's oracle (cheat) function to solv
 import random
 
 from browsergym.core.env import BrowserEnv
-from browsergym.workarena import ALL_WORKARENA_TASKS
+from browsergym.workarena import ATOMIC_TASKS
 from time import sleep
 
 
-random.shuffle(ALL_WORKARENA_TASKS)
-for task in ALL_WORKARENA_TASKS:
+random.shuffle(ATOMIC_TASKS)
+for task in ATOMIC_TASKS:
     print("Task:", task)
 
     # Instantiate a new environment
