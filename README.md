@@ -48,7 +48,9 @@ To setup WorkArena, you will need to get your own ServiceNow instance, install o
 1. Go to https://developer.servicenow.com/ and create an account.
 2. Click on `Request an instance` and select the `Washington` release (initializing the instance will take a few minutes)
 3. Once the instance is ready, you should see your instance URL and credentials. If not, click _Return to the Developer Portal_, then navigate to _Manage instance password_ and click _Reset instance password_.
-4. You should now see your URL and credentials. Based on this information, set the following environment variables:
+4. Change the role of the user to admin in yoyr instance parameters ![image](https://github.com/user-attachments/assets/6f0fbf8e-f40f-411a-84cb-fead93d85f60)
+
+5. You should now see your URL and credentials. Based on this information, set the following environment variables:
     * `SNOW_INSTANCE_URL`: The URL of your ServiceNow developer instance
     * `SNOW_INSTANCE_UNAME`: The username, should be "admin"
     * `SNOW_INSTANCE_PWD`: The password, make sure you place the value in quotes "" and be mindful of [escaping special shell characters](https://onlinelinuxtools.com/escape-shell-characters). Running `echo $SNOW_INSTANCE_PWD` should print the correct password.
