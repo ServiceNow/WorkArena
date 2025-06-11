@@ -797,14 +797,24 @@ class FilterListTask(ServiceNowListTask):
             current_sep = "^"
 
         if current_kind != self.filter_kind:
-            return 0, False, "", {"message": f"The kind of filter used is incorrect: {current_query}."}
+            return (
+                0,
+                False,
+                "",
+                {"message": f"The kind of filter used is incorrect: {current_query}."},
+            )
 
         # Extract the query pieces for validation
         current_query = current_query.split(current_sep)
 
         # Validate query length is ok
         if len(current_query) != self.filter_len:
-            return 0, False, "", {"message": f"Incorrect number of filter conditions: {current_query}."}
+            return (
+                0,
+                False,
+                "",
+                {"message": f"Incorrect number of filter conditions: {current_query}."},
+            )
 
         # Parse column names, operators, and values
         current_columns, current_operators, current_values = [], [], []
@@ -819,18 +829,38 @@ class FilterListTask(ServiceNowListTask):
                 current_columns.append(predicate.replace(self.OPERATOR_ISEMPTY, "").strip())
                 current_operators.append("=")
                 current_values.append("")
-            elif any(unsupported_operator in predicate for unsupported_operator in [self.OPERATOR_NOT_EQUALS, self.OPERATOR_STARTSWITH]):
-                return 0, False, "", {"message": f"Unexpected operator in filter condition: {current_query}."}
+            elif any(
+                unsupported_operator in predicate
+                for unsupported_operator in [self.OPERATOR_NOT_EQUALS, self.OPERATOR_STARTSWITH]
+            ):
+                return (
+                    0,
+                    False,
+                    "",
+                    {"message": f"Unexpected operator in filter condition: {current_query}."},
+                )
             elif self.OPERATOR_EQUALS in predicate:
                 col, val = predicate.split(self.OPERATOR_EQUALS, 1)
                 current_columns.append(col.strip())
                 current_operators.append("=")
                 current_values.append(val.strip())
             else:
-                return 0, False, "", {"message": f"Unexpected operator in filter condition: {current_query}."}
+                return (
+                    0,
+                    False,
+                    "",
+                    {"message": f"Unexpected operator in filter condition: {current_query}."},
+                )
 
         if set(current_columns) != set(self.filter_columns):
-            return 0, False, "", {"message": f"Incorrect filter columns: {set(current_columns)}. Expected: {set(self.filter_columns)}."}
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"Incorrect filter columns: {set(current_columns)}. Expected: {set(self.filter_columns)}."
+                },
+            )
 
         # Validate query values are ok
         # This is the tricky part because we need to expand the values to their display values
@@ -884,9 +914,21 @@ class FilterListTask(ServiceNowListTask):
 
         # Validate the values
         if set(current_values) != set(self.filter_values):
-            return 0, False, "", {"message": f"Incorrect filter values {set(current_values)}. Expected: {set(self.filter_values)}."}
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"Incorrect filter values {set(current_values)}. Expected: {set(self.filter_values)}."
+                },
+            )
 
-        return 1, True, "Nice work, thank you!", {"message": f"Correct filter: {list_info["query"]}."}
+        return (
+            1,
+            True,
+            "Nice work, thank you!",
+            {"message": f"Correct filter: {list_info['query']}."},
+        )
 
 
 class ExtractListInfoTask(ServiceNowListTask):

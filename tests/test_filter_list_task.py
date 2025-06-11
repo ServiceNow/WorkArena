@@ -16,7 +16,7 @@ from browsergym.workarena.tasks.list import FilterIncidentListTask
 )
 @pytest.mark.slow
 def test_validate_filter_list_task(page: Page, query):
-    fixed_config = {         
+    fixed_config = {
         "filter_columns": [
             "short_description",
             "assigned_to",
@@ -47,7 +47,10 @@ def test_validate_filter_list_task(page: Page, query):
     [
         ("", "There are no filters yet"),
         ("assignment_groupEMPTYSTRING", "Incorrect number of filter conditions"),
-        ("assigned_toEMPTYSTRING^short_description!=Description", "Unexpected operator in filter condition"),
+        (
+            "assigned_toEMPTYSTRING^short_description!=Description",
+            "Unexpected operator in filter condition",
+        ),
         ("assigned_toEMPTYSTRING^short_description=Description", "Incorrect filter columns"),
         ("assigned_toISEMPTY^description=My Description", "Incorrect filter values"),
     ],
