@@ -101,6 +101,11 @@ EXTRACT_USER_LIST_INFO_CONFIG = [
 
 
 class ServiceNowListTask(AbstractServiceNowTask):
+    OPERATOR_EQUALS = "="
+    OPERATOR_NOT_EQUALS = "!="
+    OPERATOR_STARTSWITH = "STARTSWITH"
+    OPERATOR_ISEMPTY = "ISEMPTY"
+    OPERATOR_EMPTYSTRING = "EMPTYSTRING"
 
     @classmethod
     def all_configs(cls) -> List[dict]:
@@ -777,6 +782,9 @@ class FilterListTask(ServiceNowListTask):
         list_info = self._extract_list_info(page)
         current_query = list_info["query"]
 
+        if not current_query:
+            return 0, False, "", {"message": "There are no filters yet."}
+
         # Replace "new query" statements with the standard OR separator
         current_query = current_query.replace("^NQ", "^OR")
 
@@ -789,24 +797,74 @@ class FilterListTask(ServiceNowListTask):
             current_sep = "^"
 
         if current_kind != self.filter_kind:
-            return 0, False, "", {"message": "The kind of filter used is incorrect."}
+            return (
+                0,
+                False,
+                "",
+                {"message": f"The kind of filter used is incorrect: {current_query}."},
+            )
 
         # Extract the query pieces for validation
         current_query = current_query.split(current_sep)
 
         # Validate query length is ok
         if len(current_query) != self.filter_len:
-            return 0, False, "", {"message": "Incorrect number of filter conditions."}
+            return (
+                0,
+                False,
+                "",
+                {"message": f"Incorrect number of filter conditions: {current_query}."},
+            )
 
-        # Validate query columns are ok
-        current_columns = [x.split("=")[0] for x in current_query]
+        # Parse column names, operators, and values
+        current_columns, current_operators, current_values = [], [], []
+
+        # Note that this is not exhaustive. If/when other operators are added, this will have to be updated.
+        for predicate in current_query:
+            if self.OPERATOR_EMPTYSTRING in predicate:
+                current_columns.append(predicate.replace(self.OPERATOR_EMPTYSTRING, "").strip())
+                current_operators.append("=")
+                current_values.append("")
+            elif self.OPERATOR_ISEMPTY in predicate:
+                current_columns.append(predicate.replace(self.OPERATOR_ISEMPTY, "").strip())
+                current_operators.append("=")
+                current_values.append("")
+            elif any(
+                unsupported_operator in predicate
+                for unsupported_operator in [self.OPERATOR_NOT_EQUALS, self.OPERATOR_STARTSWITH]
+            ):
+                return (
+                    0,
+                    False,
+                    "",
+                    {"message": f"Unexpected operator in filter condition: {current_query}."},
+                )
+            elif self.OPERATOR_EQUALS in predicate:
+                col, val = predicate.split(self.OPERATOR_EQUALS, 1)
+                current_columns.append(col.strip())
+                current_operators.append("=")
+                current_values.append(val.strip())
+            else:
+                return (
+                    0,
+                    False,
+                    "",
+                    {"message": f"Unexpected operator in filter condition: {current_query}."},
+                )
+
         if set(current_columns) != set(self.filter_columns):
-            return 0, False, "", {"message": "Incorrect filter columns."}
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"Incorrect filter columns: {set(current_columns)}. Expected: {set(self.filter_columns)}."
+                },
+            )
 
         # Validate query values are ok
         # This is the tricky part because we need to expand the values to their display values
         # We also need to handle the case where the value is a reference
-        current_values = [x.split("=")[1] for x in current_query]
 
         # Handle filtering across multiple rows
         if len(set(current_columns)) < len(current_columns):
@@ -856,9 +914,21 @@ class FilterListTask(ServiceNowListTask):
 
         # Validate the values
         if set(current_values) != set(self.filter_values):
-            return 0, False, "", {"message": "Incorrect filter values."}
+            return (
+                0,
+                False,
+                "",
+                {
+                    "message": f"Incorrect filter values {set(current_values)}. Expected: {set(self.filter_values)}."
+                },
+            )
 
-        return 1, True, "Nice work, thank you!", {"message": "Correct filter."}
+        return (
+            1,
+            True,
+            "Nice work, thank you!",
+            {"message": f"Correct filter: {list_info['query']}."},
+        )
 
 
 class ExtractListInfoTask(ServiceNowListTask):
