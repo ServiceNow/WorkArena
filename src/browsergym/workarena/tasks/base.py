@@ -16,7 +16,7 @@ from urllib import parse
 
 from browsergym.core.task import AbstractBrowserTask
 from ..api.user import create_user
-from ..api.utils import table_api_call
+from ..api.utils import table_api_call, get_instance_sys_property
 from ..config import SNOW_BROWSER_TIMEOUT, SNOW_JS_UTILS_FILEPATH
 from ..utils import url_login
 from ..instance import SNowInstance
@@ -64,6 +64,15 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         self.timeout = 10000  # ms
 
         self.instance = instance if instance is not None else SNowInstance()
+
+        # Check if workarena-install is done correctly
+        try:
+            _ = get_instance_sys_property(self.instance, "workarena.installation.date")
+        except Exception:
+            raise RuntimeError(
+                f"WorkArena installation has not been detected in your instance. Please install WorkArena by running workarena-install"
+            )
+
         self.start_url = self.instance.snow_url + start_rel_url
 
         if final_rel_url is not None:
