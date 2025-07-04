@@ -801,6 +801,17 @@ def enable_url_login():
     logging.info("URL login enabled.")
 
 
+def disable_password_policies():
+    """
+    Disable password policies in the instance.
+
+    Notes: this is required to allow the creation of users with weak passwords.
+
+    """
+    _set_sys_property(property_name="glide.security.password.policy.enabled", value="false")
+    logging.info("Password policies disabled.")
+
+
 def disable_guided_tours():
     """
     Hide guided tour popups
@@ -1010,6 +1021,9 @@ def setup():
 
     # Enable URL login (XXX: Do this first since other functions can use URL login)
     enable_url_login()
+
+    # Disable password policies
+    disable_password_policies()
 
     # Set default landing page
     set_home_page()
