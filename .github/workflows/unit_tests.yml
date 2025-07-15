@@ -11,7 +11,7 @@ on:
 jobs:
 
   code-format:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Changed from ubuntu-latest
     defaults:
       run:
         shell: bash -l {0}
@@ -36,7 +36,7 @@ jobs:
         run: black . --check
 
   browsergym-workarena-fast:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Changed from ubuntu-latest
   
     defaults:
       run:
@@ -71,7 +71,7 @@ jobs:
         run: pytest -n 5 --durations=10 -m 'not slow and not pricy' --slowmo 1000 -v tests
 
   browsergym-workarena-slow:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Changed from ubuntu-latest
 
     defaults:
       run:
@@ -106,7 +106,7 @@ jobs:
         run: pytest -n 5 --durations=10 -m 'slow and not pricy' --slowmo 1000 -v tests
   
   end-to-end-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Changed from ubuntu-latest
     if: github.event_name == 'schedule'
     defaults:
       run:
