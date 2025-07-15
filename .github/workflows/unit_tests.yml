@@ -108,25 +108,10 @@ jobs:
           SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
           SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
         run: pytest -n 5 --durations=10 -m 'slow and not pricy' --slowmo 1000 -v tests
-
-  end-to-end-tests:
-    name: "E2E - ${{ matrix.test_category }}"
+  
+  end-to-end-tests-planning:
     runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - schedule: '59 23 * * 1'
-            test_category: 'planning_and_problem_solving'
-          - schedule: '59 23 * * 2'
-            test_category: 'information_retrieval'
-          - schedule: '59 23 * * 3'
-            test_category: 'data_driven_decision_making_and_reasoning'
-          - schedule: '59 23 * * 4'
-            test_category: 'sophisticated_memory'
-          - schedule: '59 23 * * 5'
-            test_category: 'contextual_understanding_infeasible_tasks'
-    if: github.event_name == 'schedule' && github.event.schedule == matrix.schedule
+    if: github.event_name == 'schedule' && github.event.schedule == '59 23 * * 1'
     defaults:
       run:
         shell: bash -l {0}
@@ -150,5 +135,121 @@ jobs:
           SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
           SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
           SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
-          TEST_CATEGORY: ${{ matrix.test_category }}
+          TEST_CATEGORY: planning_and_problem_solving
+        run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
+
+  end-to-end-tests-information-retrieval:
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'schedule' && github.event.schedule == '59 23 * * 2'
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run E2E Tests
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: information_retrieval
+        run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
+
+  end-to-end-tests-data-driven-decision-making:
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'schedule' && github.event.schedule == '59 23 * * 3'
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run E2E Tests
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: data_driven_decision_making_and_reasoning
+        run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
+
+  end-to-end-tests-sophisticated-memory:
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'schedule' && github.event.schedule == '59 23 * * 4'
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run E2E Tests
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: sophisticated_memory
+        run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
+
+  end-to-end-tests-contextual-understanding:
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'schedule' && github.event.schedule == '59 23 * * 5'
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run E2E Tests
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: contextual_understanding_infeasible_tasks
         run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
