@@ -4,6 +4,7 @@ Tests that are not specific to any particular kind of task.
 """
 
 import logging
+import os
 
 import pytest
 
@@ -12,7 +13,10 @@ from utils import setup_playwright
 
 from playwright.sync_api import Page, TimeoutError
 from tenacity import retry, stop_after_attempt, retry_if_exception_type
+
 from browsergym.workarena import ALL_COMPOSITIONAL_TASKS, get_all_tasks_agents
+from browsergym.workarena.tasks.compositional.utils.curriculum import AGENT_CURRICULUM
+
 
 AGENT_L2_SAMPLED_SET = get_all_tasks_agents(filter="l2")
 
@@ -38,13 +42,24 @@ HUMAN_L3_SAMPLED_TASKS, HUMAN_L3_SEEDS = [sampled_set[0] for sampled_set in HUMA
     sampled_set[1] for sampled_set in HUMAN_L3_SAMPLED_SET
 ]
 
+test_category = os.environ.get("TEST_CATEGORY")
+
+if test_category:
+    tasks_to_test = []
+    items = AGENT_CURRICULUM.get(test_category)
+    if items:
+        for bucket in items["buckets"]:
+            tasks_to_test.extend(bucket)
+else:
+    tasks_to_test = ALL_COMPOSITIONAL_TASKS
+
 
 @retry(
     stop=stop_after_attempt(5),
     reraise=True,
     before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
 )
-@pytest.mark.parametrize("task_entrypoint", ALL_COMPOSITIONAL_TASKS)
+@pytest.mark.parametrize("task_entrypoint", tasks_to_test)
 @pytest.mark.parametrize("random_seed", range(1))
 @pytest.mark.parametrize("level", range(2, 4))
 @pytest.mark.pricy

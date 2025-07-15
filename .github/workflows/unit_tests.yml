@@ -6,7 +6,11 @@ on:
       - main
   pull_request:
   schedule:
-    - cron: '59 23 * * SUN'  # Runs at midnight on Sunday
+    - cron: '59 23 * * 1'
+    - cron: '59 23 * * 2'
+    - cron: '59 23 * * 3'
+    - cron: '59 23 * * 4'
+    - cron: '59 23 * * 5'
 
 jobs:
 
@@ -104,10 +108,25 @@ jobs:
           SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
           SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
         run: pytest -n 5 --durations=10 -m 'slow and not pricy' --slowmo 1000 -v tests
-  
+
   end-to-end-tests:
-    runs-on: ubuntu-22.04  # Changed from ubuntu-latest
-    if: github.event_name == 'schedule'
+    name: "E2E - ${{ matrix.test_category }}"
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - day_of_week: '1'
+            test_category: 'planning_and_problem_solving'
+          - day_of_week: '2'
+            test_category: 'information_retrieval'
+          - day_of_week: '3'
+            test_category: 'data_driven_decision_making_and_reasoning'
+          - day_of_week: '4'
+            test_category: 'sophisticated_memory'
+          - day_of_week: '5'
+            test_category: 'contextual_understanding_infeasible_tasks'
+    if: github.event_name == 'schedule' && github.event.schedule == '59 23 * * ${{ matrix.day_of_week }}'
     defaults:
       run:
         shell: bash -l {0}
@@ -131,4 +150,5 @@ jobs:
           SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
           SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
           SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: ${{ matrix.test_category }}
         run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
