@@ -152,9 +152,6 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         # Install initialization scripts in existing pages, and register them
         # in the page context so that future pages will run them on creation.
         page.context.add_init_script(init_script_js)
-        page.evaluate(init_script_js)
-        for f in page.frames:
-            f.evaluate(init_script_js)
 
         # Start the task if requested
         if do_start:
