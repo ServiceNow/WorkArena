@@ -128,7 +128,7 @@ jobs:
   
   end-to-end-tests-planning:
     runs-on: ubuntu-22.04
-    if: (github.event_name == 'schedule' && github.event.schedule == '25 18 * * *') || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_category == 'planning_and_problem_solving')
+    if: (github.event_name == 'schedule' && github.event.schedule == '59 23 * * 1') || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_category == 'planning_and_problem_solving')
     defaults:
       run:
         shell: bash -l {0}
