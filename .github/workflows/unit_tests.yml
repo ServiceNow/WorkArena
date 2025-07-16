@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
   schedule:
-    - cron: '34 20 * * *' # Temporary schedule for testing
+    - cron: '59 23 * * 1' # Temporary schedule for testing
     - cron: '59 23 * * 2'
     - cron: '59 23 * * 3'
     - cron: '59 23 * * 4'
