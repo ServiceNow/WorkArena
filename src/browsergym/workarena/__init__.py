@@ -24,7 +24,6 @@ from .tasks.knowledge import __TASKS__ as KB_TASKS
 from .tasks.list import __TASKS__ as LIST_TASKS
 from .tasks.navigation import __TASKS__ as NAVIGATION_TASKS
 from .tasks.service_catalog import __TASKS__ as SERVICE_CATALOG_TASKS
-from .tasks.compositional.base import CompositionalTask
 
 ALL_WORKARENA_TASKS = [
     *ALL_COMPOSITIONAL_TASKS_L2,
