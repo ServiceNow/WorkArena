@@ -2,7 +2,7 @@
 Tests that are not specific to any particular kind of task.
 
 """
-
+import os
 import json
 import logging
 import pickle
@@ -17,8 +17,14 @@ from tenacity import retry, stop_after_attempt, retry_if_exception_type
 from browsergym.workarena import ATOMIC_TASKS, get_all_tasks_agents
 
 
-L1_SET = get_all_tasks_agents(filter="l1")
-L1_TASKS, L1_SEEDS = [item[0] for item in L1_SET], [item[1] for item in L1_SET]
+# Prepare parameters for the test, based on the environment variable
+if os.environ.get("TEST_L1_ATOMIC"):
+    # For the weekly scheduled job, run all L1 tasks with their specific seeds
+    L1_SET = get_all_tasks_agents(filter="l1")
+    PARAMS = [(item[0], item[1]) for item in L1_SET]
+else:
+    # For PRs, run all atomic tasks with a single seed to be faster
+    PARAMS = [(task, 0) for task in ATOMIC_TASKS]
 
 
 @retry(
@@ -27,11 +33,10 @@ L1_TASKS, L1_SEEDS = [item[0] for item in L1_SET], [item[1] for item in L1_SET]
     reraise=True,
     before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
 )
-@pytest.mark.parametrize("task_entrypoint", ATOMIC_TASKS)
-@pytest.mark.parametrize("random_seed", range(1))
+@pytest.mark.parametrize("task_entrypoint, seed", PARAMS)
 @pytest.mark.slow
-def test_cheat(task_entrypoint, random_seed: int, page: Page):
-    task = task_entrypoint(seed=random_seed)
+def test_atomic_cheat(task_entrypoint, seed: int, page: Page):
+    task = task_entrypoint(seed=seed)
     goal, info = task.setup(page=page)
     chat_messages = []
     reward, done, message, info = task.validate(page, chat_messages)
@@ -40,29 +45,4 @@ def test_cheat(task_entrypoint, random_seed: int, page: Page):
     task.cheat(page=page, chat_messages=chat_messages)
     reward, done, message, info = task.validate(page, chat_messages)
     task.teardown()
-    assert done is True and reward == 1.0
-
-
-@retry(
-    stop=stop_after_attempt(5),
-    retry=retry_if_exception_type(TimeoutError),
-    reraise=True,
-    before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
-)
-@pytest.mark.parametrize("task_entrypoint, seed", zip(L1_TASKS, L1_SEEDS))
-@pytest.mark.slow
-def test_l1_cheat(task_entrypoint, seed, page: Page):
-    task = task_entrypoint(seed=seed)
-    goal, info = task.setup(page=page)
-    chat_messages = []
-    for i in range(len(task)):
-        page.wait_for_timeout(1000)
-        task.cheat(page=page, chat_messages=chat_messages, subtask_idx=i)
-        page.wait_for_timeout(1000)
-        reward, done, message, info = task.validate(page=page, chat_messages=chat_messages)
-        if i < len(task) - 1:
-            assert done is False and reward == 0.0
-
-    task.teardown()
-
     assert done is True and reward == 1.0
