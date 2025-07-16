@@ -17,7 +17,7 @@ from tenacity import retry, stop_after_attempt, retry_if_exception_type
 from browsergym.workarena import ATOMIC_TASKS, get_all_tasks_agents
 
 
-L1_SET = get_all_tasks_agents(filter="l1", is_compositional=False)
+L1_SET = get_all_tasks_agents(filter="l1")
 L1_TASKS, L1_SEEDS = [item[0] for item in L1_SET], [item[1] for item in L1_SET]
 
 
@@ -51,15 +51,18 @@ def test_cheat(task_entrypoint, random_seed: int, page: Page):
 )
 @pytest.mark.parametrize("task_entrypoint, seed", zip(L1_TASKS, L1_SEEDS))
 @pytest.mark.slow
-def test_l1_atomic_cheat(task_entrypoint, seed, page: Page):
-    """L1 atomic tasks have a fixed seed"""
+def test_l1_cheat(task_entrypoint, seed, page: Page):
     task = task_entrypoint(seed=seed)
     goal, info = task.setup(page=page)
     chat_messages = []
-    reward, done, message, info = task.validate(page, chat_messages)
-    assert done is False and reward == 0.0
-    assert type(message) == str and type(info) == dict
-    task.cheat(page=page, chat_messages=chat_messages)
-    reward, done, message, info = task.validate(page, chat_messages)
+    for i in range(len(task)):
+        page.wait_for_timeout(1000)
+        task.cheat(page=page, chat_messages=chat_messages, subtask_idx=i)
+        page.wait_for_timeout(1000)
+        reward, done, message, info = task.validate(page=page, chat_messages=chat_messages)
+        if i < len(task) - 1:
+            assert done is False and reward == 0.0
+
     task.teardown()
+
     assert done is True and reward == 1.0
