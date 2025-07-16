@@ -17,6 +17,9 @@ from tenacity import retry, stop_after_attempt, retry_if_exception_type
 from browsergym.workarena import ATOMIC_TASKS
 
 
+L1_TASKS = [task for task in ATOMIC_TASKS if ".l1." in task.__name__]
+
+
 @retry(
     stop=stop_after_attempt(5),
     retry=retry_if_exception_type(TimeoutError),
@@ -28,6 +31,29 @@ from browsergym.workarena import ATOMIC_TASKS
 @pytest.mark.slow
 def test_cheat(task_entrypoint, random_seed: int, page: Page):
     task = task_entrypoint(seed=random_seed)
+    goal, info = task.setup(page=page)
+    chat_messages = []
+    reward, done, message, info = task.validate(page, chat_messages)
+    assert done is False and reward == 0.0
+    assert type(message) == str and type(info) == dict
+    task.cheat(page=page, chat_messages=chat_messages)
+    reward, done, message, info = task.validate(page, chat_messages)
+    task.teardown()
+    assert done is True and reward == 1.0
+
+
+
+@retry(
+    stop=stop_after_attempt(5),
+    retry=retry_if_exception_type(TimeoutError),
+    reraise=True,
+    before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
+)
+@pytest.mark.parametrize("task_entrypoint", L1_TASKS)
+@pytest.mark.slow
+def test_l1_atomic_cheat(task_entrypoint, page: Page):
+    """L1 atomic tasks have a fixed seed"""
+    task = task_entrypoint(seed=0)
     goal, info = task.setup(page=page)
     chat_messages = []
     reward, done, message, info = task.validate(page, chat_messages)
