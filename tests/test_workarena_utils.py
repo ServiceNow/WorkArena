@@ -1,6 +1,7 @@
 """
 Tests for workarena utility functions.
 """
+
 import pytest
 from browsergym.workarena import get_all_tasks_agents
 from browsergym.workarena.tasks.compositional import (
@@ -55,9 +56,7 @@ def test_get_all_tasks_agents():
 
     # Test category filtering
     category = "planning_and_problem_solving"
-    tasks_with_seeds_cat = get_all_tasks_agents(
-        filter=f"l3.{category}", is_agent_curriculum=True
-    )
+    tasks_with_seeds_cat = get_all_tasks_agents(filter=f"l3.{category}", is_agent_curriculum=True)
     assert len(tasks_with_seeds_cat) > 0
     # Expected tasks from the specified category's buckets
     expected_cat_tasks = set()
@@ -93,9 +92,7 @@ def test_get_all_tasks_agents():
     expected_task_base = BasicFilterProblemsAndMarkDuplicatesSmallTask
     # Find the specialized task in the bucket that corresponds to the base task
     expected_task_specialized = next(
-        task
-        for task in bucket_to_test
-        if expected_task_base in task.__mro__
+        task for task in bucket_to_test if expected_task_base in task.__mro__
     )
     assert expected_task_specialized in returned_tasks_from_bucket
 
@@ -111,4 +108,4 @@ def test_get_all_tasks_agents():
 
     # Test invalid category filter
     with pytest.raises(Exception):
-        get_all_tasks_agents(filter="l3.invalid_category") 
+        get_all_tasks_agents(filter="l3.invalid_category")
