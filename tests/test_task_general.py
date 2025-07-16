@@ -42,7 +42,6 @@ def test_cheat(task_entrypoint, random_seed: int, page: Page):
     assert done is True and reward == 1.0
 
 
-
 @retry(
     stop=stop_after_attempt(5),
     retry=retry_if_exception_type(TimeoutError),
