@@ -809,6 +809,10 @@ def disable_password_policies():
 
     """
     _set_sys_property(property_name="glide.security.password.policy.enabled", value="false")
+    _set_sys_property(property_name="glide.apply.password_policy.on_login", value="false")
+    _set_sys_property(
+        property_name="glide.authenticate.api.user.reset_password.mandatory", value="false"
+    )
     logging.info("Password policies disabled.")
 
 
