@@ -14,10 +14,11 @@ from utils import setup_playwright
 from playwright.sync_api import Page, TimeoutError
 from tenacity import retry, stop_after_attempt, retry_if_exception_type
 
-from browsergym.workarena import ATOMIC_TASKS
+from browsergym.workarena import ATOMIC_TASKS, get_all_tasks_agents
 
 
-L1_TASKS = [task for task in ATOMIC_TASKS if ".l1." in task.__name__]
+L1_SET = get_all_tasks_agents(filter="l1", is_compositional=False)
+L1_TASKS, L1_SEEDS = [item[0] for item in L1_SET], [item[1] for item in L1_SET]
 
 
 @retry(
@@ -48,11 +49,11 @@ def test_cheat(task_entrypoint, random_seed: int, page: Page):
     reraise=True,
     before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
 )
-@pytest.mark.parametrize("task_entrypoint", L1_TASKS)
+@pytest.mark.parametrize("task_entrypoint, seed", zip(L1_TASKS, L1_SEEDS))
 @pytest.mark.slow
-def test_l1_atomic_cheat(task_entrypoint, page: Page):
+def test_l1_atomic_cheat(task_entrypoint, seed, page: Page):
     """L1 atomic tasks have a fixed seed"""
-    task = task_entrypoint(seed=0)
+    task = task_entrypoint(seed=seed)
     goal, info = task.setup(page=page)
     chat_messages = []
     reward, done, message, info = task.validate(page, chat_messages)
