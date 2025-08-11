@@ -20,6 +20,7 @@ from ..config import (
     REPORT_RETRIEVAL_MINMAX_CONFIG_PATH,
     REPORT_RETRIEVAL_VALUE_CONFIG_PATH,
     REPORT_DATE_FILTER,
+    REPORT_TIME_FILTER,
     REPORT_PATCH_FLAG,
 )
 from ..instance import SNowInstance
@@ -305,7 +306,9 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
         )
         # ... set start URL based on config
         # ...... some of the reports have need a date filter to be applied so we do this by patching a placeholder in the URL
-        self.start_url = self.instance.snow_url + self.config["url"]
+        self.start_url = self.instance.snow_url + self.config["url"].replace(
+            "REPORT_DATE_FILTER", REPORT_DATE_FILTER
+        ).replace("REPORT_TIME_FILTER", REPORT_TIME_FILTER)
 
         # Produce goal string based on question type
         chart_locator = (
@@ -678,7 +681,7 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
             # On the fly generated report
             if not report.get("sys_id", None):
                 # ... these receive a filter that is added through the URL
-                url = f"/now/nav/ui/classic/params/target/sys_report_template.do%3Fsysparm_field%3D{report['field']}%26sysparm_type%3D{report['type']}%26sysparm_table%3D{report['table']}%26sysparm_from_list%3Dtrue%26sysparm_chart_size%3Dlarge%26sysparm_manual_labor%3Dtrue%26sysparm_query=sys_created_on<javascript:gs.dateGenerate('{REPORT_DATE_FILTER}','00:00:00')^EQ"
+                url = f"/now/nav/ui/classic/params/target/sys_report_template.do%3Fsysparm_field%3D{report['field']}%26sysparm_type%3D{report['type']}%26sysparm_table%3D{report['table']}%26sysparm_from_list%3Dtrue%26sysparm_chart_size%3Dlarge%26sysparm_manual_labor%3Dtrue%26sysparm_query=sys_created_on<javascript:gs.dateGenerate('{REPORT_DATE_FILTER}','{REPORT_TIME_FILTER}')^EQ"
             # Report from the database
             else:
                 url = f"/now/nav/ui/classic/params/target/sys_report_template.do%3Fjvar_report_id={report['sys_id']}"
