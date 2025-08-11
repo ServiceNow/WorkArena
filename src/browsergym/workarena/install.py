@@ -39,6 +39,8 @@ from .config import (
     # Patch flag for reports
     REPORT_PATCH_FLAG,
     REPORT_DATE_FILTER,
+    REPORT_TIME_FILTER,
+    REPORT_FILTER_CONFIG_PATH,
     # Supported ServiceNow releases
     SNOW_SUPPORTED_RELEASES,
     # For workflows setup
@@ -922,9 +924,9 @@ def wipe_system_admin_preferences():
         )
 
 
-def is_report_filter_using_time(filter):
+def is_report_filter_using_relative_time(filter):
     """
-    Heuristic to check if a report is filtering based on time
+    Heuristic to check if a report is filtering based on relative time
 
     This aims to detect the use of functions like "gs.endOfToday()". To avoid hardcoding all of them,
     we simply check for the use of keywords. Our filter is definitely too wide, but that's ok.
@@ -942,6 +944,24 @@ def patch_report_filters():
     logging.info("Patching reports with date filter...")
 
     instance = SNowInstance()
+
+    # If the report date filter is already set, we use the existing values (would be the case on reinstall)
+    global REPORT_DATE_FILTER
+    global REPORT_TIME_FILTER
+    if REPORT_DATE_FILTER is None or REPORT_TIME_FILTER is None:
+        # Set the report date filter to current date as YYYY-MM-DD and time filter to current time as HH:MM:SS
+        now = datetime.now()
+        REPORT_DATE_FILTER = now.strftime("%Y-%m-%d")
+        REPORT_TIME_FILTER = now.strftime("%H:%M:%S")
+        # ... save the filter config
+        with open(REPORT_FILTER_CONFIG_PATH, "w") as f:
+            json.dump(
+                {
+                    "report_date_filter": REPORT_DATE_FILTER,
+                    "report_time_filter": REPORT_TIME_FILTER,
+                },
+                f,
+            )
 
     # Get all reports that are not already patched
     reports = table_api_call(
@@ -963,27 +983,31 @@ def patch_report_filters():
                 logging.info(f"Discarding report {report['title']} {report['sys_id']}...")
                 raise NotImplementedError()  # Mark for deletion
 
-            if not is_report_filter_using_time(report["filter"]):
+            if not is_report_filter_using_relative_time(report["filter"]):
                 # That's a report we want to keep (use date cutoff filter)
                 filter_date = REPORT_DATE_FILTER
+                filter_time = REPORT_TIME_FILTER
                 logging.info(
                     f"Keeping report {report['title']} {report['sys_id']} (columns: {sys_created_on_cols})..."
                 )
             else:
-                # XXX: We do not support reports with filters that rely on time (e.g., last 10 days) because
+                # XXX: We do not support reports with filters that rely on relative time (e.g., last 10 days) because
                 #      there are not stable. In this case, we don't delete them but add a filter to make
                 #      them empty. They will be shown as "No data available".
                 logging.info(
                     f"Disabling report {report['title']} {report['sys_id']} because it uses time filters..."
                 )
                 filter_date = "1900-01-01"
+                filter_time = "00:00:00"
 
+            # Format the filter
             filter = "".join(
                 [
-                    f"^{col}<javascript:gs.dateGenerate('{filter_date}','00:00:00')"
+                    f"^{col}<javascript:gs.dateGenerate('{filter_date}','{filter_time}')"
                     for col in sys_created_on_cols
                 ]
             ) + ("^" if len(report["filter"]) > 0 and not report["filter"].startswith("^") else "")
+            # Patch the report with the new filter
             table_api_call(
                 instance=instance,
                 table=f"sys_report/{report['sys_id']}",
