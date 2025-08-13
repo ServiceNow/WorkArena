@@ -1,3 +1,4 @@
+import json
 import os
 import requests
 import re
@@ -5,7 +6,7 @@ import re
 from playwright.sync_api import sync_playwright
 from typing import Optional
 
-from .config import SNOW_BROWSER_TIMEOUT
+from .config import SNOW_BROWSER_TIMEOUT, REPORT_FILTER_PROPERTY
 
 
 class SNowInstance:
@@ -124,3 +125,25 @@ class SNowInstance:
             browser.close()
 
         return release_info
+
+    @property
+    def report_filter_config(self) -> dict:
+        """
+        Get the report filter configuration from the ServiceNow instance.
+
+        Returns:
+        --------
+        dict
+            The report filter configuration, or an empty dictionary if not found.
+
+        """
+        from .api.system_properties import (
+            get_sys_property,
+        )  # Import here to avoid circular import issues
+
+        try:
+            config = get_sys_property(self, REPORT_FILTER_PROPERTY)
+            config = json.loads(config)
+            return config
+        except Exception:
+            return None
