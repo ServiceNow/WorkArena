@@ -53,6 +53,24 @@ from .instance import SNowInstance
 from .utils import url_login
 
 
+def _is_dev_portal_instance() -> bool:
+    """
+    Check if the instance is a ServiceNow Developer Portal instance.
+
+    Returns:
+    --------
+    bool: True if the instance is a developer portal instance, False otherwise.
+
+    """
+    instance = SNowInstance()
+    # Check if the instance url has the for devXXXXXX.service-now.com format (where X is a digit)
+    if re.match(r"^https?://dev\d{6}\.service-now\.com", instance.snow_url):
+        logging.info("Detected a developer portal instance...")
+        return True
+    logging.info("Detected an internal instance...")
+    return False
+
+
 def _set_sys_property(property_name: str, value: str):
     """
     Set a sys_property in the instance.
@@ -812,9 +830,11 @@ def disable_password_policies():
     """
     _set_sys_property(property_name="glide.security.password.policy.enabled", value="false")
     _set_sys_property(property_name="glide.apply.password_policy.on_login", value="false")
-    _set_sys_property(
-        property_name="glide.authenticate.api.user.reset_password.mandatory", value="false"
-    )
+    # The following is not supported on developer portal instances
+    if not _is_dev_portal_instance():
+        _set_sys_property(
+            property_name="glide.authenticate.api.user.reset_password.mandatory", value="false"
+        )
     logging.info("Password policies disabled.")
 
 
