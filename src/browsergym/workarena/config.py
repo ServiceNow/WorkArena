@@ -1,4 +1,6 @@
 from importlib import resources
+from json import load as json_load
+from os.path import exists
 
 from ..workarena import data_files
 from ..workarena.tasks import utils
@@ -224,4 +226,4 @@ EXPECTED_REQUEST_ITEM_FORM_FIELDS_PATH = str(
 
 # Report date filter patch flag
 REPORT_PATCH_FLAG = "WORKARENA_DATE_FILTER_PATCH"
-REPORT_DATE_FILTER = "2025-07-15"
+REPORT_FILTER_PROPERTY = "workarena.report.filter.config"
