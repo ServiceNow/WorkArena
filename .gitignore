@@ -194,6 +194,3 @@ pyllmd_tune/
 
 # don't ignore the miniwob_tasks_all.csv file
 !miniwob_tasks_all.csv
-
-# ignore the report filter config file
-src/browsergym/workarena/data_files/task_configs/report_data_filter_config.json
