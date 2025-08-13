@@ -10,6 +10,7 @@ from tenacity import retry, stop_after_attempt, retry_if_exception_type
 from requests import HTTPError
 from time import sleep
 
+from .api.system_properties import get_sys_property, set_sys_property
 from .api.ui_themes import get_workarena_theme_variants
 from .api.user import create_user
 from .api.utils import table_api_call, table_column_info
@@ -38,9 +39,7 @@ from .config import (
     EXPECTED_USER_FORM_FIELDS_PATH,
     # Patch flag for reports
     REPORT_PATCH_FLAG,
-    REPORT_DATE_FILTER,
-    REPORT_TIME_FILTER,
-    REPORT_FILTER_CONFIG_PATH,
+    REPORT_FILTER_PROPERTY,
     # Supported ServiceNow releases
     SNOW_SUPPORTED_RELEASES,
     # For workflows setup
@@ -69,53 +68,6 @@ def _is_dev_portal_instance() -> bool:
         return True
     logging.info("Detected an internal instance...")
     return False
-
-
-def _set_sys_property(property_name: str, value: str):
-    """
-    Set a sys_property in the instance.
-
-    """
-    instance = SNowInstance()
-
-    property = table_api_call(
-        instance=instance,
-        table="sys_properties",
-        params={"sysparm_query": f"name={property_name}", "sysparm_fields": "sys_id"},
-    )["result"]
-
-    if not property:
-        property_sysid = ""
-        method = "POST"
-    else:
-        property_sysid = "/" + property[0]["sys_id"]
-        method = "PUT"
-
-    property = table_api_call(
-        instance=instance,
-        table=f"sys_properties{property_sysid}",
-        method=method,
-        json={"name": property_name, "value": value},
-    )
-
-    # Verify that the property was updated
-    assert property["result"]["value"] == value, f"Error setting {property_name}."
-
-
-def _get_sys_property(property_name: str) -> str:
-    """
-    Get a sys_property from the instance.
-
-    """
-    instance = SNowInstance()
-
-    property_value = table_api_call(
-        instance=instance,
-        table="sys_properties",
-        params={"sysparm_query": f"name={property_name}", "sysparm_fields": "value"},
-    )["result"][0]["value"]
-
-    return property_value
 
 
 def _install_update_set(path: str, name: str):
@@ -817,7 +769,9 @@ def enable_url_login():
     Configure the instance to allow login via URL.
 
     """
-    _set_sys_property(property_name="glide.security.restrict.get.login", value="false")
+    set_sys_property(
+        instance=SNowInstance(), property_name="glide.security.restrict.get.login", value="false"
+    )
     logging.info("URL login enabled.")
 
 
@@ -828,12 +782,20 @@ def disable_password_policies():
     Notes: this is required to allow the creation of users with weak passwords.
 
     """
-    _set_sys_property(property_name="glide.security.password.policy.enabled", value="false")
-    _set_sys_property(property_name="glide.apply.password_policy.on_login", value="false")
+    set_sys_property(
+        instance=SNowInstance(),
+        property_name="glide.security.password.policy.enabled",
+        value="false",
+    )
+    set_sys_property(
+        instance=SNowInstance(), property_name="glide.apply.password_policy.on_login", value="false"
+    )
     # The following is not supported on developer portal instances
     if not _is_dev_portal_instance():
-        _set_sys_property(
-            property_name="glide.authenticate.api.user.reset_password.mandatory", value="false"
+        set_sys_property(
+            instance=SNowInstance(),
+            property_name="glide.authenticate.api.user.reset_password.mandatory",
+            value="false",
         )
     logging.info("Password policies disabled.")
 
@@ -843,8 +805,14 @@ def disable_guided_tours():
     Hide guided tour popups
 
     """
-    _set_sys_property(property_name="com.snc.guided_tours.sp.enable", value="false")
-    _set_sys_property(property_name="com.snc.guided_tours.standard_ui.enable", value="false")
+    set_sys_property(
+        instance=SNowInstance(), property_name="com.snc.guided_tours.sp.enable", value="false"
+    )
+    set_sys_property(
+        instance=SNowInstance(),
+        property_name="com.snc.guided_tours.standard_ui.enable",
+        value="false",
+    )
     logging.info("Guided tours disabled.")
 
 
@@ -862,7 +830,9 @@ def disable_analytics_popups():
     Disable analytics popups (needs to be done through UI since Vancouver release)
 
     """
-    _set_sys_property(property_name="glide.analytics.enabled", value="false")
+    set_sys_property(
+        instance=SNowInstance(), property_name="glide.analytics.enabled", value="false"
+    )
     logging.info("Analytics popups disabled.")
 
 
@@ -876,7 +846,8 @@ def setup_ui_themes():
     check_ui_themes_installed()
 
     logging.info("Setting default UI theme")
-    _set_sys_property(
+    set_sys_property(
+        instance=SNowInstance(),
         property_name="glide.ui.polaris.theme.custom",
         value=get_workarena_theme_variants(SNowInstance())[0]["theme.sys_id"],
     )
@@ -920,7 +891,9 @@ def check_ui_themes_installed():
 
 def set_home_page():
     logging.info("Setting default home page")
-    _set_sys_property(property_name="glide.login.home", value="/now/nav/ui/home")
+    set_sys_property(
+        instance=SNowInstance(), property_name="glide.login.home", value="/now/nav/ui/home"
+    )
 
 
 def wipe_system_admin_preferences():
@@ -964,24 +937,32 @@ def patch_report_filters():
     logging.info("Patching reports with date filter...")
 
     instance = SNowInstance()
+    filter_config = instance.report_filter_config
 
     # If the report date filter is already set, we use the existing values (would be the case on reinstall)
-    global REPORT_DATE_FILTER
-    global REPORT_TIME_FILTER
-    if REPORT_DATE_FILTER is None or REPORT_TIME_FILTER is None:
+    if not filter_config:
         # Set the report date filter to current date as YYYY-MM-DD and time filter to current time as HH:MM:SS
         now = datetime.now()
-        REPORT_DATE_FILTER = now.strftime("%Y-%m-%d")
-        REPORT_TIME_FILTER = now.strftime("%H:%M:%S")
+        report_date_filter = now.strftime("%Y-%m-%d")
+        report_time_filter = now.strftime("%H:%M:%S")
         # ... save the filter config
-        with open(REPORT_FILTER_CONFIG_PATH, "w") as f:
-            json.dump(
-                {
-                    "report_date_filter": REPORT_DATE_FILTER,
-                    "report_time_filter": REPORT_TIME_FILTER,
-                },
-                f,
-            )
+        logging.info(
+            f"Setting report date filter to {report_date_filter} and time filter to {report_time_filter} via {REPORT_FILTER_PROPERTY}"
+        )
+        set_sys_property(
+            instance=instance,
+            property_name=REPORT_FILTER_PROPERTY,
+            value=json.dumps(
+                {"report_date_filter": report_date_filter, "report_time_filter": report_time_filter}
+            ),
+        )
+    else:
+        # Use the existing configuration
+        logging.info(
+            f"Using existing report date filter {filter_config['report_date_filter']} and time filter {filter_config['report_time_filter']}"
+        )
+        report_date_filter = filter_config["report_date_filter"]
+        report_time_filter = filter_config["report_time_filter"]
 
     # Get all reports that are not already patched
     reports = table_api_call(
@@ -1005,8 +986,8 @@ def patch_report_filters():
 
             if not is_report_filter_using_relative_time(report["filter"]):
                 # That's a report we want to keep (use date cutoff filter)
-                filter_date = REPORT_DATE_FILTER
-                filter_time = REPORT_TIME_FILTER
+                filter_date = report_date_filter
+                filter_time = report_time_filter
                 logging.info(
                     f"Keeping report {report['title']} {report['sys_id']} (columns: {sys_created_on_cols})..."
                 )
@@ -1103,7 +1084,11 @@ def setup():
 
     # Save installation date
     logging.info("Saving installation date")
-    _set_sys_property(property_name="workarena.installation.date", value=datetime.now().isoformat())
+    set_sys_property(
+        instance=SNowInstance(),
+        property_name="workarena.installation.date",
+        value=datetime.now().isoformat(),
+    )
 
     logging.info("WorkArena setup complete.")
 
@@ -1116,7 +1101,9 @@ def main():
     logging.basicConfig(level=logging.INFO)
 
     try:
-        past_install_date = _get_sys_property("workarena.installation.date")
+        past_install_date = get_sys_property(
+            instance=SNowInstance(), property_name="workarena.installation.date"
+        )
         logging.info(f"Detected previous installation on {past_install_date}. Reinstalling...")
     except:
         past_install_date = "never"
