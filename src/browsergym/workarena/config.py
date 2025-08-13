@@ -27,10 +27,6 @@ REPORT_RETRIEVAL_MINMAX_CONFIG_PATH = str(
 REPORT_RETRIEVAL_VALUE_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/report_retrieval_value_task.json")
 )
-# ... data filter for report tasks
-REPORT_FILTER_CONFIG_PATH = str(
-    resources.files(data_files).joinpath("task_configs/report_data_filter_config.json")
-)
 
 # Path to knowledge base task configurations
 KB_CONFIG_PATH = str(
@@ -230,11 +226,4 @@ EXPECTED_REQUEST_ITEM_FORM_FIELDS_PATH = str(
 
 # Report date filter patch flag
 REPORT_PATCH_FLAG = "WORKARENA_DATE_FILTER_PATCH"
-if exists(REPORT_FILTER_CONFIG_PATH):
-    with open(REPORT_FILTER_CONFIG_PATH, "r") as file:
-        report_filter_config = json_load(file)
-        REPORT_DATE_FILTER = report_filter_config.get("report_date_filter", None)
-        REPORT_TIME_FILTER = report_filter_config.get("report_time_filter", None)
-else:
-    REPORT_DATE_FILTER = None
-    REPORT_TIME_FILTER = None
+REPORT_FILTER_PROPERTY = "workarena.report.filter.config"
