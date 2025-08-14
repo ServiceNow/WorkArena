@@ -790,13 +790,20 @@ def disable_password_policies():
     set_sys_property(
         instance=SNowInstance(), property_name="glide.apply.password_policy.on_login", value="false"
     )
-    # The following is not supported on developer portal instances
-    if not _is_dev_portal_instance():
+    # Exception handling since this property is sometimes read-only on some instances
+    try:
         set_sys_property(
             instance=SNowInstance(),
             property_name="glide.authenticate.api.user.reset_password.mandatory",
             value="false",
         )
+    except Exception:
+        logging.warning(
+            "Warning: Failed to set sys property "
+            "'glide.authenticate.api.user.reset_password.mandatory'. Continuing.",
+            exc_info=True,
+        )
+
     logging.info("Password policies disabled.")
 
 
