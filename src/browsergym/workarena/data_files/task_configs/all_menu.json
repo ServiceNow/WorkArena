@@ -2630,212 +2630,212 @@
         "url": "/now/nav/ui/classic/params/target/pwd_verification_type_list.do%3Fsysparm_userpref_module%3D80cf1c3dbf120100710071a7bf0739d1"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Automation > Email Summaries",
         "url": "/now/nav/ui/classic/params/target/sysauto_indicator_notifications_list.do%3Fsysparm_userpref_module%3D8f54d07fbf01110032a0854b3f07393d"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Automation > Scheduled Indicators",
         "url": "/now/nav/ui/classic/params/target/sysauto_indicator_list.do%3Fsysparm_userpref_module%3Dcfd224e067333200a39f4d9e1585efa3"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Automation > Schedules",
         "url": "/now/nav/ui/classic/params/target/sys_trigger_list.do%3Fsysparm_query%3Djob_id.handler_classSTARTSWITHcom.snc.pa.%255EORsys_id%253Da51441d1d70022004cd2a3b20e61039a%255EORDERBYnext_action"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Automation > Scripts",
         "url": "/now/nav/ui/classic/params/target/pa_scripts_list.do%3Fsysparm_userpref_module%3D16f6c7b7d7320100ba986f14ce610383"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Breakdowns > Automated Breakdowns",
         "url": "/now/nav/ui/classic/params/target/pa_breakdowns_list.do%3Fsysparm_userpref_module%3D5bc586a3d73302004cd2a3b20e6103d8%26sysparm_view%3DAutomated%26sysparm_query%3Dtype%253D1%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Breakdowns > Breakdown Relations",
         "url": "/now/nav/ui/classic/params/target/pa_breakdown_relations_list.do%3Fsysparm_userpref_module%3D82a5b963d73302004cd2a3b20e610380"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Breakdowns > Bucket Groups",
         "url": "/now/nav/ui/classic/params/target/pa_bucket_groups_list.do%3Fsysparm_userpref_module%3Dbf178ff3d7320100ba986f14ce610343"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Breakdowns > Create New",
         "url": "/now/nav/ui/classic/params/target/%24pa_breakdown_wizard.do"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Breakdowns > Elements Filters",
         "url": "/now/nav/ui/classic/params/target/pa_filters_list.do%3Fsysparm_userpref_module%3Dd20ef701eb032100871aac6aa206fe1b"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Breakdowns > Manual Breakdowns",
         "url": "/now/nav/ui/classic/params/target/pa_breakdowns_list.do%3Fsysparm_userpref_module%3Db6f50aa3d73302004cd2a3b20e610319%26sysparm_view%3DManual%26sysparm_query%3Dtype%253D2%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Data Collector > Job Events",
         "url": "/now/nav/ui/classic/params/target/sysevent_list.do%3Fsysparm_userpref_module%3D2fd7bc40d7111100b96d45a3ce61038e%26sysparm_query%3DnameSTARTSWITHpa.job.dc.%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Data Collector > Job Logs",
         "url": "/now/nav/ui/classic/params/target/pa_job_logs_list.do%3Fsysparm_userpref_module%3Dcc8b5510d7230100fa6c0c12ce6103c4"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Data Collector > Jobs",
         "url": "/now/nav/ui/classic/params/target/sysauto_pa_list.do%3Fsysparm_query%3Drun_type!%253Donce%255EORDERBYrun_time"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "External Data > External Breakdowns",
         "url": "/now/nav/ui/classic/params/target/pa_breakdowns_list.do%3Fsysparm_userpref_module%3D86e58fcf673332007bec408bd485efd9%26sysparm_view%3DExternal%26sysparm_query%3Dtype%253D3%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "External Data > External Indicators",
         "url": "/now/nav/ui/classic/params/target/pa_indicators_list.do%3Fsysparm_userpref_module%3Da6df7a4f673332007bec408bd485ef3d%26sysparm_view%3DExternal%26sysparm_query%3Dtype%253D4%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Indicators > Automated Indicators",
         "url": "/now/nav/ui/classic/params/target/pa_indicators_list.do%3Fsysparm_userpref_module%3Da6001020c31301006568506adfba8ff2%26sysparm_view%3DAutomated%26sysparm_query%3Dtype%253D1%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Indicators > Create New",
         "url": "/now/nav/ui/classic/params/target/%24pa_indicator_wizard.do"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Indicators > Formula Indicators",
         "url": "/now/nav/ui/classic/params/target/pa_indicators_list.do%3Fsysparm_userpref_module%3D0f109420c31301006568506adfba8f70%26sysparm_view%3DFormula%26sysparm_query%3Dtype%253D2%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Indicators > Indicator Groups",
         "url": "/now/nav/ui/classic/params/target/pa_tags_list.do%3Fsysparm_userpref_module%3D425bc601bf001100b96dac808c073923"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Indicators > Manual Indicators",
         "url": "/now/nav/ui/classic/params/target/pa_indicators_list.do%3Fsysparm_userpref_module%3Dc5ef4420c31301006568506adfba8f38%26sysparm_view%3DManual%26sysparm_query%3Dtype%253D3%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Indicators > Targets",
         "url": "/now/nav/ui/classic/params/target/pa_targets_list.do%3Fsysparm_userpref_module%3Dc6d54f77d7320100ba986f14ce610319"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Indicators > Thresholds",
         "url": "/now/nav/ui/classic/params/target/pa_thresholds_list.do%3Fsysparm_userpref_module%3D54068f77d7320100ba986f14ce610329"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Sources > Breakdown Sources",
         "url": "/now/nav/ui/classic/params/target/pa_dimensions_list.do%3Fsysparm_userpref_module%3D18960f77d7320100ba986f14ce610312%26sysparm_query%3Dmanual_breakdownISEMPTY%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Sources > Indicator Sources",
         "url": "/now/nav/ui/classic/params/target/pa_cubes_list.do%3Fsysparm_userpref_module%3D3c848377d7320100ba986f14ce6103b4"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Chart Color Schemes",
         "url": "/now/nav/ui/classic/params/target/pa_chart_color_schemes_list.do%3Fsysparm_userpref_module%3D0b542d21d7021100ef2281537e610349"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Dashboard Administration",
         "url": "/now/nav/ui/classic/params/target/pa_dashboards_list.do%3Fsysparm_userpref_module%3Deab55400933202001aa8372e457ffbcb"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Event Registry",
         "url": "/now/nav/ui/classic/params/target/sysevent_register_list.do%3Fsysparm_query%3Devent_nameSTARTSWITHpa.job%255EORevent_nameSTARTSWITHpa.delete%255EORDERBYevent_name"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > In-Form Analytics",
         "url": "/now/nav/ui/classic/params/target/%24pa_inform_analytics.do"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Properties",
         "url": "/now/nav/ui/classic/params/target/system_properties_ui.do%3Fsysparm_title%3DPerformance%2520Analytics%2520Properties%26sysparm_category%3DPerformance%2520Analytics%2CPerformance%2520Analytics%2520Chart%2CPerformance%2520Analytics%2520Range%2520Selector%2CPerformance%2520Analytics%2520DC"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Scores Migration Monitor",
         "url": "/now/nav/ui/classic/params/target/%24pa_health.do"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Target Color Schemes",
         "url": "/now/nav/ui/classic/params/target/pa_target_color_schemes_list.do%3Fsysparm_userpref_module%3D51f426debf8021009661d64f6c0739b8"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Time Series Definitions",
         "url": "/now/nav/ui/classic/params/target/pa_aggregates_list.do%3Fsysparm_userpref_module%3Df7ba0c11d7001100ba986f14ce6103a8"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Toggle Design Mode",
         "url": "/now/nav/ui/classic/params/target/sys.scripts.do%3Faction%3Drun_module%26sys_id%3D69395243d7301100ba986f14ce6103fd"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Units",
         "url": "/now/nav/ui/classic/params/target/pa_units_list.do%3Fsysparm_userpref_module%3D5da325e2d7320100ba986f14ce610365"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "System > Widget Statistics",
         "url": "/now/nav/ui/classic/params/target/report_stats_list.do%3Fsysparm_userpref_module%3D4e17b022d7e012008a854251ce6103e5%26sysparm_view%3DWidgets%26sysparm_query%3Dwidget_sys_idISNOTEMPTY%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Text Analytics > Keywords",
         "url": "/now/nav/ui/classic/params/target/pa_text_keywords_list.do%3Fsysparm_userpref_module%3D23ecf6870b200300edf02bd237673a08"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Text Analytics > Phrases",
         "url": "/now/nav/ui/classic/params/target/pa_text_phrases_list.do%3Fsysparm_userpref_module%3Dafe28d0773330300edf0f93daff6a7f7"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Text Analytics > Setup",
         "url": "/now/nav/ui/classic/params/target/pa_text_index_configurations_list.do%3Fsysparm_userpref_module%3D260ac5b9d71332009522a3b20e6103c0"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Text Analytics > Stop Words",
         "url": "/now/nav/ui/classic/params/target/pa_text_stop_words_list.do%3Fsysparm_userpref_module%3D01c6a68a672003002bc845210585ef4f%26sysparm_query%3DownerISEMPTY%255EEQ"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Troubleshooting > Diagnostic Executions",
         "url": "/now/nav/ui/classic/params/target/pa_diagnostic_execution_list.do%3Fsysparm_userpref_module%3D53bb0ee5b31003003e5362ff86a8dc7c"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Troubleshooting > Diagnostic Results",
         "url": "/now/nav/ui/classic/params/target/pa_diagnostic_result_list.do%3Fsysparm_userpref_module%3D9bdd072567101300b733e12d1585ef9a"
     },
     {
-        "application": "Platform Analytics Administration",
+        "application": "Performance Analytics",
         "module": "Troubleshooting > Diagnostics",
         "url": "/now/nav/ui/classic/params/target/pa_diagnostic_list.do%3Fsysparm_userpref_module%3D45c942a5b31003003e5362ff86a8dc33"
     },
