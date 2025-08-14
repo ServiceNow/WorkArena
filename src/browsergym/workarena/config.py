@@ -9,7 +9,7 @@ from ..workarena.tasks import utils
 SNOW_DATA_LOOKBACK_MINUTES = 5
 SNOW_BROWSER_TIMEOUT = 30000  # Milliseconds
 SNOW_JS_UTILS_FILEPATH = str(resources.files(utils).joinpath("js_utils.js"))
-SNOW_SUPPORTED_RELEASES = ["washingtondc",]
+SNOW_SUPPORTED_RELEASES = ["washingtondc"]
 
 # Path to the Menu navigation task configuration
 ALL_MENU_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu.json"))
