@@ -790,7 +790,7 @@ def disable_password_policies():
     set_sys_property(
         instance=SNowInstance(), property_name="glide.apply.password_policy.on_login", value="false"
     )
-    # The following is not supported on developer portal instances
+    # Exception handling since this property is sometimes read-only on some instances
     try:
         set_sys_property(
             instance=SNowInstance(),
@@ -799,7 +799,7 @@ def disable_password_policies():
         )
     except Exception:
         logging.warning(
-            "Skipping: failed to set sys property "
+            "Warning: Failed to set sys property "
             "'glide.authenticate.api.user.reset_password.mandatory'. Continuing.",
             exc_info=True,
         )
