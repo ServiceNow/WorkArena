@@ -1,6 +1,7 @@
 from faker import Faker
 import numpy as np
 import time
+import secrets
 
 fake = Faker()
 
@@ -38,7 +39,7 @@ def create_user(
 
     """
     user_idx = str(random.randint(1000, 9999))
-    user_password = "aStrongPassword!"
+    user_password = secrets.token_urlsafe(16)
     first_name = fake.first_name() if not first_name else first_name
     last_name = fake.last_name() if not last_name else last_name
 

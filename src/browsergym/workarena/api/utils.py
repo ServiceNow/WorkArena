@@ -75,14 +75,17 @@ def table_api_call(
     if method == "POST" or wait_for_record:
         while not record_exists:
             sleep(0.5)
-            get_response = table_api_call(
-                instance=instance,
-                table=table,
+            get_response = requests.request(
+                method="GET",
+                url=instance.snow_url + f"/api/now/table/{table}",
+                auth=instance.snow_credentials,
+                headers=SNOW_API_HEADERS,
+                data=data,
                 params=params,
                 json=json,
-                data=data,
-                method="GET",
             )
+            get_response.raise_for_status()
+            get_response = get_response.json()
             record_exists = len(get_response["result"]) > 0
             num_retries += 1
             if num_retries > max_retries:
