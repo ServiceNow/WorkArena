@@ -101,11 +101,6 @@ EXTRACT_USER_LIST_INFO_CONFIG = [
 
 
 class ServiceNowListTask(AbstractServiceNowTask):
-    OPERATOR_EQUALS = "="
-    OPERATOR_NOT_EQUALS = "!="
-    OPERATOR_STARTSWITH = "STARTSWITH"
-    OPERATOR_ISEMPTY = "ISEMPTY"
-    OPERATOR_EMPTYSTRING = "EMPTYSTRING"
 
     @classmethod
     def all_configs(cls) -> List[dict]:
@@ -391,11 +386,10 @@ class SortListTask(ServiceNowListTask):
 
         # Add all sorting conditions
         for i, (field_txt, dir_txt) in enumerate(zip(sort_fields_txt, sort_dirs_txt)):
+            # TODO: Hack to solve bug where the sort condition has not yet appeared
+            page.wait_for_timeout(1500)
             logging.debug(f"Adding sort condition for column {repr(field_txt)} ({dir_txt}).")
             filter.get_by_role("button", name="Add Sort").click()
-
-            # TODO: Hack to solve bug where the sort condition has not yet appeared
-            page.wait_for_timeout(500)
 
             # newly added row should be the last one
             row_index = filter.locator(".filter_row").count() - 1
@@ -403,6 +397,7 @@ class SortListTask(ServiceNowListTask):
             # Refresh since new rows are added at each iteration
             row = iframe.locator(".filter_row").nth(row_index)
             row_selectors = row.locator("select.filerTableSelect")
+            page.wait_for_timeout(1500)
             field_selector = row_selectors.nth(0)
             dir_selector = row_selectors.nth(1)
 
@@ -540,12 +535,13 @@ class FilterListTask(ServiceNowListTask):
 
         # Get the task configuration
         config = self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
+        list_info = config.get("list_info")
+
         self.filter_columns = config["filter_columns"]
         self.filter_values = config["filter_values"]
         # Base filter configs do not have filter_operands, so we default to "is"
         self.filter_operators = config.get("filter_operators", ["is" for _ in self.filter_columns])
         self.filter_kind = config["filter_kind"]
-        list_info = config.get("list_info")
         if list_info is None:
             list_info = {"columns": table_column_info(self.instance, self.table_name)}
         self.list_info = list_info
@@ -691,16 +687,17 @@ class FilterListTask(ServiceNowListTask):
 
         # Add all filter conditions
         for i in range(len(self.filter_columns)):
+            filter_column = self.filter_columns[i]
+            filter_value = self.filter_values[i]
+            filter_operator = self.filter_operators[i]
+
             logging.debug(
-                "Adding filter condition for column "
-                + self.filter_columns[i]
-                + " with value "
-                + self.filter_values[i]
+                f"Adding filter condition for column {filter_column} with value {filter_value}"
             )
 
             # Add conditions in this loop so that it looks more dynamic
             if i > 0:
-                logging.debug("Need to create new filter condition of type " + self.filter_kind)
+                logging.debug(f"Need to create new filter condition of type {self.filter_kind}")
                 iframe.locator(
                     f'.filterToolbar .filerTableAction:text-is("{self.filter_kind}")'
                 ).click()
@@ -712,29 +709,28 @@ class FilterListTask(ServiceNowListTask):
             row = filter_rows.nth(i)
 
             # Choose field
-            logging.debug("Choosing field " + self.filter_columns[i])
+            logging.debug(f"Choosing field {filter_column}")
             field_selector = row.locator("select.filerTableSelect").first
-            field_selector.select_option(self.filter_columns[i])
+            field_selector.select_option(filter_column)
 
             # Select the right operator
-            operator = self.filter_operators[i]
             operator_symbol = (
                 row.locator("select.condOperator")
-                .get_by_text(operator, exact=True)
+                .get_by_text(filter_operator, exact=True)
                 .get_attribute("value")
             )
-            logging.debug(f"Choosing operator {operator}")
+            logging.debug(f"Choosing operator {filter_operator}")
             row.locator("select.condOperator").select_option(operator_symbol)
 
             # Fill in the value
-            logging.debug("Filling in value " + self.filter_values[i])
-            type_ = self.list_info["columns"][self.filter_columns[i]]["type"]
+            logging.debug(f"Filling in value {filter_value}")
+            type_ = self.list_info["columns"][filter_column]["type"]
             if type_ in ["string", "reference", "translated_text"]:
                 # expect a textbox
                 logging.debug("filling in textbox")
 
                 # If empty, don't do anything
-                if self.filter_values[i] == "":
+                if filter_value == "":
                     continue
 
                 # Find the value input field
@@ -746,14 +742,14 @@ class FilterListTask(ServiceNowListTask):
                     page=page,
                     iframe=iframe,
                     input_field=input_field,
-                    value=self.filter_values[i],
+                    value=filter_value,
                 )
             else:
                 # expect a selector
                 logging.debug("filling in selector")
                 # Find the value input field
                 input_field = row.locator("#value select")
-                input_field.select_option(self.filter_values[i])
+                input_field.select_option(filter_value)
 
         iframe.locator(".filterToolbar").get_by_text("Run").click()
 
@@ -782,9 +778,6 @@ class FilterListTask(ServiceNowListTask):
         list_info = self._extract_list_info(page)
         current_query = list_info["query"]
 
-        if not current_query:
-            return 0, False, "", {"message": "There are no filters yet."}
-
         # Replace "new query" statements with the standard OR separator
         current_query = current_query.replace("^NQ", "^OR")
 
@@ -797,74 +790,24 @@ class FilterListTask(ServiceNowListTask):
             current_sep = "^"
 
         if current_kind != self.filter_kind:
-            return (
-                0,
-                False,
-                "",
-                {"message": f"The kind of filter used is incorrect: {current_query}."},
-            )
+            return 0, False, "", {"message": "The kind of filter used is incorrect."}
 
         # Extract the query pieces for validation
         current_query = current_query.split(current_sep)
 
         # Validate query length is ok
         if len(current_query) != self.filter_len:
-            return (
-                0,
-                False,
-                "",
-                {"message": f"Incorrect number of filter conditions: {current_query}."},
-            )
+            return 0, False, "", {"message": "Incorrect number of filter conditions."}
 
-        # Parse column names, operators, and values
-        current_columns, current_operators, current_values = [], [], []
-
-        # Note that this is not exhaustive. If/when other operators are added, this will have to be updated.
-        for predicate in current_query:
-            if self.OPERATOR_EMPTYSTRING in predicate:
-                current_columns.append(predicate.replace(self.OPERATOR_EMPTYSTRING, "").strip())
-                current_operators.append("=")
-                current_values.append("")
-            elif self.OPERATOR_ISEMPTY in predicate:
-                current_columns.append(predicate.replace(self.OPERATOR_ISEMPTY, "").strip())
-                current_operators.append("=")
-                current_values.append("")
-            elif any(
-                unsupported_operator in predicate
-                for unsupported_operator in [self.OPERATOR_NOT_EQUALS, self.OPERATOR_STARTSWITH]
-            ):
-                return (
-                    0,
-                    False,
-                    "",
-                    {"message": f"Unexpected operator in filter condition: {current_query}."},
-                )
-            elif self.OPERATOR_EQUALS in predicate:
-                col, val = predicate.split(self.OPERATOR_EQUALS, 1)
-                current_columns.append(col.strip())
-                current_operators.append("=")
-                current_values.append(val.strip())
-            else:
-                return (
-                    0,
-                    False,
-                    "",
-                    {"message": f"Unexpected operator in filter condition: {current_query}."},
-                )
-
+        # Validate query columns are ok
+        current_columns = [x.split("=")[0] for x in current_query]
         if set(current_columns) != set(self.filter_columns):
-            return (
-                0,
-                False,
-                "",
-                {
-                    "message": f"Incorrect filter columns: {set(current_columns)}. Expected: {set(self.filter_columns)}."
-                },
-            )
+            return 0, False, "", {"message": "Incorrect filter columns."}
 
         # Validate query values are ok
         # This is the tricky part because we need to expand the values to their display values
         # We also need to handle the case where the value is a reference
+        current_values = [x.split("=")[1] for x in current_query]
 
         # Handle filtering across multiple rows
         if len(set(current_columns)) < len(current_columns):
@@ -914,21 +857,9 @@ class FilterListTask(ServiceNowListTask):
 
         # Validate the values
         if set(current_values) != set(self.filter_values):
-            return (
-                0,
-                False,
-                "",
-                {
-                    "message": f"Incorrect filter values {set(current_values)}. Expected: {set(self.filter_values)}."
-                },
-            )
+            return 0, False, "", {"message": "Incorrect filter values."}
 
-        return (
-            1,
-            True,
-            "Nice work, thank you!",
-            {"message": f"Correct filter: {list_info['query']}."},
-        )
+        return 1, True, "Nice work, thank you!", {"message": "Correct filter."}
 
 
 class ExtractListInfoTask(ServiceNowListTask):
