@@ -1,76 +1,38 @@
-import os
 
-
-os.environ["SNOW_INSTANCE_URL"] = "https://myarena18demo.service-now.com/"
-os.environ["SNOW_INSTANCE_UNAME"] = "admin"
-os.environ["SNOW_INSTANCE_PWD"] = r"Snow@456"
-
-from time import sleep
 from browsergym.core.env import BrowserEnv
-from browsergym.workarena.tasks.service_catalog import (
-    OrderDeveloperLaptopTask,
-    OrderIpadMiniTask,
-    OrderIpadProTask,
-    OrderSalesLaptopTask,
-    OrderStandardLaptopTask,
-    OrderAppleWatchTask,
-    OrderAppleMacBookPro15Task,
-    OrderDevelopmentLaptopPCTask,
-    OrderLoanerLaptopTask,
-)
+from browsergym.workarena import get_all_tasks_agents
 
-# Run just the Developer Laptop tasks by default (add others here if you want)
-TASK_CLASSES = [
-    OrderDeveloperLaptopTask,      # L1 atomic
-    OrderDevelopmentLaptopPCTask,  # L2 multi-step
-    # Example: to include others, uncomment:
-    # OrderIpadMiniTask,
-    # OrderIpadProTask,
-    # OrderSalesLaptopTask,
-    # OrderStandardLaptopTask,
-    # OrderAppleWatchTask,
-    # OrderAppleMacBookPro15Task,
-    # OrderLoanerLaptopTask,
+AGENT_L2_SAMPLED_SET = get_all_tasks_agents(filter="l2")
+
+AGENT_L2_SAMPLED_TASKS, AGENT_L2_SEEDS = [sampled_set[0] for sampled_set in AGENT_L2_SAMPLED_SET], [
+    sampled_set[1] for sampled_set in AGENT_L2_SAMPLED_SET
 ]
+from time import sleep
 
-for TaskCls in TASK_CLASSES:
-    # Build the entrypoint from the imported class (lets BrowserEnv instantiate it)
-    entrypoint = f"{TaskCls.__module__}.{TaskCls.__name__}"
-    print("Task:", entrypoint)
+for task, seed in zip(AGENT_L2_SAMPLED_TASKS, AGENT_L2_SEEDS):
+    print("Task:", task)
 
-    env = BrowserEnv(task_entrypoint=entrypoint, headless=False, slow_mo=1000)
+    # Instantiate a new environment
+    env = BrowserEnv(task_entrypoint=task, headless=False, slow_mo=1000)
     env.reset()
 
-    # Optional: say something in chat
+    # Cheat functions use Playwright to automatically solve the task
     env.chat.add_message(role="assistant", msg="On it. Please wait...")
 
-    try:
-        # Multi-step (L2/…): iterate subtasks; single-step (L1): one pass
-        n_subtasks = len(env.task) if hasattr(env.task, "__len__") else 1
+    for i in range(len(env.task)):
+        sleep(1)
+        env.task.cheat(page=env.page, chat_messages=env.chat.messages, subtask_idx=i)
+        sleep(1)
+        reward, done, message, info = env.task.validate(
+            page=env.page, chat_messages=env.chat.messages
+        )
 
-        if n_subtasks > 1:
-            for i in range(n_subtasks):
-                sleep(1)
-                env.task.cheat(page=env.page, chat_messages=env.chat.messages, subtask_idx=i)
-                sleep(1)
-                reward, done, message, info = env.task.validate(
-                    page=env.page, chat_messages=env.chat.messages
-                )
-        else:
-            cheat_messages = []
-            env.task.cheat(env.page, cheat_messages)
-            for m in cheat_messages:
-                env.chat.add_message(role=m["role"], msg=m["message"])
-            reward, done, message, info = env.task.validate(env.page, cheat_messages)
+    if reward == 1:
+        env.chat.add_message(role="user", msg="Yes, that works. Thanks!")
+    else:
+        env.chat.add_message(
+            role="user", msg=f"No, that doesn't work. {message.get('message', '')}"
+        )
 
-        # Simple feedback
-        if reward == 1:
-            env.chat.add_message(role="user", msg="Yes, that works. Thanks!")
-        else:
-            env.chat.add_message(
-                role="user", msg=f"No, that doesn't work. {info.get('message', '')}"
-            )
-
-        sleep(2)
-    finally:
-        env.close()
+    sleep(3)
+    env.close()
