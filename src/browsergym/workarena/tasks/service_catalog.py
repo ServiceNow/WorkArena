@@ -314,7 +314,9 @@ class OrderHardwareTask(AbstractServiceNowTask):
         element.click()
         self._wait_for_ready(page=page)
 
-        element = iframe.wait_for_selector(f"h2:has-text('{self.requested_item}')", strict=True)
+        element = iframe.wait_for_selector(
+            f":is(h2, h3.h2):has-text('{self.requested_item}')", strict=True
+        )
         element.click()
         self._wait_for_ready(page=page, wait_for_form_api=True)
 

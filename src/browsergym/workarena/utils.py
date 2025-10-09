@@ -27,7 +27,7 @@ def impersonate_user(username: str, page: playwright.sync_api.Page):
 
     """
     page.locator(".header-avatar-button").click()
-    page.get_by_role("menuitem", name="Impersonate user").click()
+    page.get_by_text("Impersonate user").click()
     page.locator("input.now-typeahead-native-input").click()
     page.locator("input.now-typeahead-native-input").fill(username)
     page.locator("seismic-hoist").get_by_role("option", name=username).first.click()
