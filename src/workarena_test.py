@@ -1,4 +1,3 @@
-
 from browsergym.core.env import BrowserEnv
 from browsergym.workarena import get_all_tasks_agents
 
