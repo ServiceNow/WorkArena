@@ -1404,7 +1404,6 @@ class ExtractUserListInfoTask(ExtractListInfoTask, CompositionalBuildingBlockTas
             **kwargs,
         )
 
-
 # Register all tasks
 __TASKS__ = (
     [
