@@ -29,16 +29,6 @@ from .utils.utils import check_url_suffix_match
 #      - We currently don't support maps because they are clickable and would require a more evolved cheat function
 SUPPORTED_PLOT_TYPES = ["area", "bar", "column", "line", "pie", "spline"]
 
-# Get report filter config
-config = SNowInstance().report_filter_config
-if config is None:
-    REPORT_DATE_FILTER = REPORT_TIME_FILTER = None
-else:
-    REPORT_DATE_FILTER = config["report_date_filter"]
-    REPORT_TIME_FILTER = config["report_time_filter"]
-del config
-
-
 class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
     """
     A task to retrieve information from a ServiceNow dashboard
@@ -52,6 +42,13 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
         self.iframe_id = "gsft_main"
         self.fixed_config = fixed_config
         self.__dict__.update(kwargs)
+
+        self.report_date_filter = None
+        self.report_time_filter = None
+        config = self.instance.report_filter_config
+        if config is not None:
+            self.report_date_filter = config["report_date_filter"]
+            self.report_time_filter = config["report_time_filter"]
 
     @abstractmethod
     def all_configs(self) -> List[dict]:
@@ -307,7 +304,7 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
         super().setup_goal(page=page)
 
         # Check that the report filters are properly setup
-        if REPORT_DATE_FILTER is None or REPORT_TIME_FILTER is None:
+        if self.report_date_filter is None or self.report_time_filter is None:
             raise RuntimeError(
                 "The report date and time filters are not set. Please run the install script to set them."
             )
@@ -320,8 +317,8 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
         # ... set start URL based on config
         # ...... some of the reports have need a date filter to be applied so we do this by patching a placeholder in the URL
         self.start_url = self.instance.snow_url + self.config["url"].replace(
-            "REPORT_DATE_FILTER", REPORT_DATE_FILTER
-        ).replace("REPORT_TIME_FILTER", REPORT_TIME_FILTER)
+            "REPORT_DATE_FILTER", self.report_date_filter
+        ).replace("REPORT_TIME_FILTER", self.report_time_filter)
 
         # Produce goal string based on question type
         chart_locator = (
@@ -633,7 +630,7 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
 
         """
         # Check that the report filters are properly setup
-        if REPORT_DATE_FILTER is None or REPORT_TIME_FILTER is None:
+        if self.report_date_filter is None or self.report_time_filter is None:
             raise RuntimeError(
                 "The report date and time filters are not set. Please run the install script to set them."
             )
@@ -700,7 +697,7 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
             # On the fly generated report
             if not report.get("sys_id", None):
                 # ... these receive a filter that is added through the URL
-                url = f"/now/nav/ui/classic/params/target/sys_report_template.do%3Fsysparm_field%3D{report['field']}%26sysparm_type%3D{report['type']}%26sysparm_table%3D{report['table']}%26sysparm_from_list%3Dtrue%26sysparm_chart_size%3Dlarge%26sysparm_manual_labor%3Dtrue%26sysparm_query=sys_created_on<javascript:gs.dateGenerate('{REPORT_DATE_FILTER}','{REPORT_TIME_FILTER}')^EQ"
+                url = f"/now/nav/ui/classic/params/target/sys_report_template.do%3Fsysparm_field%3D{report['field']}%26sysparm_type%3D{report['type']}%26sysparm_table%3D{report['table']}%26sysparm_from_list%3Dtrue%26sysparm_chart_size%3Dlarge%26sysparm_manual_labor%3Dtrue%26sysparm_query=sys_created_on<javascript:gs.dateGenerate('{self.report_date_filter}','{self.report_time_filter}')^EQ"
             # Report from the database
             else:
                 url = f"/now/nav/ui/classic/params/target/sys_report_template.do%3Fjvar_report_id={report['sys_id']}"
