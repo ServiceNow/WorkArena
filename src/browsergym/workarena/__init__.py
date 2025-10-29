@@ -111,18 +111,19 @@ def get_task_category(task_name):
     return benchmark, TASK_CATEGORY_MAP.get(task_name, None)
 
 
-def get_all_tasks_agents(filter="l2", meta_seed=42, n_seed_l1=10, is_agent_curriculum=True):
+def get_all_tasks_agents(
+    filter="l2", meta_seed=42, n_seed_l1=10, is_agent_curriculum=True, task_bucket=None
+):
     OFFSET = 42
     all_task_tuples = []
     filter = filter.split(".")
+    rng = np.random.RandomState(meta_seed)
     if len(filter) > 2:
         raise Exception("Unsupported filter used.")
     if len(filter) == 1:
         level = filter[0]
         if level not in ["l1", "l2", "l3"]:
             raise Exception("Unsupported category of tasks.")
-        else:
-            rng = np.random.RandomState(meta_seed)
         if level == "l1":
             for task in ATOMIC_TASKS:
                 for seed in rng.randint(0, 1000, n_seed_l1):
@@ -151,9 +152,16 @@ def get_all_tasks_agents(filter="l2", meta_seed=42, n_seed_l1=10, is_agent_curri
     for category, items in ALL_COMPOSITIONAL_TASKS_CATEGORIES.items():
         if filter_category and category != filter_category:
             continue
+        # If a task_bucket is specified, check if it exists in the current category
+        if task_bucket and task_bucket not in items["buckets"]:
+            continue
         for curr_seed in rng.randint(0, 1000, items["num_seeds"]):
             random_gen = np.random.RandomState(curr_seed)
-            for task_set, count in zip(items["buckets"], items["weights"]):
+            for i, task_set in enumerate(items["buckets"]):
+                # if a task_bucket is specified, only select tasks from that bucket
+                if task_bucket and task_set != task_bucket:
+                    continue
+                count = items["weights"][i]
                 tasks = random_gen.choice(task_set, count, replace=False)
                 for task in tasks:
                     all_task_tuples.append((task, int(curr_seed)))
