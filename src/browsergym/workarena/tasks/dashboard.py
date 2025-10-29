@@ -30,13 +30,18 @@ from .utils.utils import check_url_suffix_match
 SUPPORTED_PLOT_TYPES = ["area", "bar", "column", "line", "pie", "spline"]
 
 # Get report filter config
-config = SNowInstance().report_filter_config
-if config is None:
+try:
+    config = SNowInstance().report_filter_config
+except Exception as exc:
+    logging.warning("Failed to load report filter config: %s", exc)
     REPORT_DATE_FILTER = REPORT_TIME_FILTER = None
 else:
-    REPORT_DATE_FILTER = config["report_date_filter"]
-    REPORT_TIME_FILTER = config["report_time_filter"]
-del config
+    if config is None:
+        REPORT_DATE_FILTER = REPORT_TIME_FILTER = None
+    else:
+        REPORT_DATE_FILTER = config["report_date_filter"]
+        REPORT_TIME_FILTER = config["report_time_filter"]
+    del config
 
 
 class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
