@@ -1,12 +1,78 @@
+import base64
 import json
 import os
 import requests
-import re
+from itertools import cycle
 
+from huggingface_hub import hf_hub_download
+from huggingface_hub.utils import disable_progress_bars
 from playwright.sync_api import sync_playwright
 from typing import Optional
 
-from .config import SNOW_BROWSER_TIMEOUT, REPORT_FILTER_PROPERTY
+from .config import (
+    INSTANCE_REPO_FILENAME,
+    INSTANCE_REPO_ID,
+    INSTANCE_REPO_TYPE,
+    INSTANCE_XOR_SEED,
+    REPORT_FILTER_PROPERTY,
+    SNOW_BROWSER_TIMEOUT,
+)
+
+
+# Required to read the instance credentials
+if not INSTANCE_XOR_SEED:
+    raise ValueError("INSTANCE_XOR_SEED must be configured")
+
+
+def _xor_cipher(data: bytes, key: bytes) -> bytes:
+    return bytes(b ^ k for b, k in zip(data, cycle(key)))
+
+
+def decrypt_instance_password(encrypted_password: str) -> str:
+    """Decrypt a base64-encoded XOR-obfuscated password using the shared key."""
+
+    cipher_bytes = base64.b64decode(encrypted_password)
+    plain_bytes = _xor_cipher(cipher_bytes, INSTANCE_XOR_SEED.encode("utf-8"))
+    return plain_bytes.decode("utf-8")
+
+
+def encrypt_instance_password(password: str) -> str:
+    """Helper to produce encrypted passwords for populating the instance file."""
+
+    cipher_bytes = _xor_cipher(password.encode("utf-8"), INSTANCE_XOR_SEED.encode("utf-8"))
+    return base64.b64encode(cipher_bytes).decode("utf-8")
+
+
+def load_instances():
+    """
+    Loads the latest instances.json from the gated Hugging Face dataset repo.
+    Requires that the user is authenticated via huggingface-cli login
+    or by having HUGGING_FACE_HUB_TOKEN set.
+    """
+    try:
+        disable_progress_bars()
+        path = hf_hub_download(
+            repo_id=INSTANCE_REPO_ID,
+            filename=INSTANCE_REPO_FILENAME,
+            repo_type=INSTANCE_REPO_TYPE,
+        )
+    except Exception as e:
+        raise RuntimeError(
+            f"Could not access {INSTANCE_REPO_ID}/{INSTANCE_REPO_FILENAME}. "
+            "Make sure you have been granted access to the gated repo and that you are "
+            "authenticated (run `huggingface-cli login` or set HUGGING_FACE_HUB_TOKEN)."
+        ) from e
+
+    with open(path, "r", encoding="utf-8") as f:
+        entries = json.load(f)
+
+    for entry in entries:
+        entry["url"] = entry["u"]
+        entry["password"] = decrypt_instance_password(entry["p"])
+        del entry["u"]
+        del entry["p"]
+
+    return entries
 
 
 class SNowInstance:
@@ -33,24 +99,48 @@ class SNowInstance:
 
         """
         # try to get these values from environment variables if not provided
-        if snow_url is None:
-            if "SNOW_INSTANCE_URL" in os.environ:
-                snow_url = os.environ["SNOW_INSTANCE_URL"]
-            else:
-                raise ValueError(
-                    f"Please provide a ServiceNow instance URL (you can use the environment variable SNOW_INSTANCE_URL)"
-                )
+        if snow_url is None or snow_credentials is None:
 
-        if snow_credentials is None:
-            if "SNOW_INSTANCE_UNAME" in os.environ and "SNOW_INSTANCE_PWD" in os.environ:
+            # Check if all required environment variables are set and if yes, fetch url and credentials from there
+            if (
+                "SNOW_INSTANCE_URL" in os.environ
+                and "SNOW_INSTANCE_UNAME" in os.environ
+                and "SNOW_INSTANCE_PWD" in os.environ
+            ):
+                snow_url = os.environ["SNOW_INSTANCE_URL"]
                 snow_credentials = (
                     os.environ["SNOW_INSTANCE_UNAME"],
                     os.environ["SNOW_INSTANCE_PWD"],
                 )
+
+            # Otherwise, load all instances and select one randomly
             else:
-                raise ValueError(
-                    f"Please provide ServiceNow credentials (you can use the environment variables SNOW_INSTANCE_UNAME and SNOW_INSTANCE_PWD)"
-                )
+                instances = load_instances()
+                if not instances:
+                    raise ValueError(
+                        f"No instances found in the dataset {INSTANCE_REPO_ID}. Please provide instance details via parameters or environment variables."
+                    )
+                instance = instances[0]  # For now, just pick the first one
+                snow_url = instance["url"]
+                snow_credentials = ("admin", instance["password"])
+
+            # if "SNOW_INSTANCE_URL" in os.environ:
+            #     snow_url = os.environ["SNOW_INSTANCE_URL"]
+            # else:
+            #     raise ValueError(
+            #         f"Please provide a ServiceNow instance URL (you can use the environment variable SNOW_INSTANCE_URL)"
+            #     )
+
+        # if snow_credentials is None:
+        #     if "SNOW_INSTANCE_UNAME" in os.environ and "SNOW_INSTANCE_PWD" in os.environ:
+        #         snow_credentials = (
+        #             os.environ["SNOW_INSTANCE_UNAME"],
+        #             os.environ["SNOW_INSTANCE_PWD"],
+        #         )
+        #     else:
+        #         raise ValueError(
+        #             f"Please provide ServiceNow credentials (you can use the environment variables SNOW_INSTANCE_UNAME and SNOW_INSTANCE_PWD)"
+        #         )
 
         # remove trailing slashes in the URL, if any
         self.snow_url = snow_url.rstrip("/")
