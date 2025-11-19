@@ -47,7 +47,7 @@ To setup WorkArena, you will need to get your own ServiceNow instance, install o
 
 1. Go to https://developer.servicenow.com/ and create an account.
 2. Click on `Request an instance` and select the `Washington` release (initializing the instance will take a few minutes)
-   * **Important note:** ServiceNow will soon release the Zurich version, which will reduce the availability of Washington instances. If you run into an issue where none are available or you cannot select such an instance, please contact massimo.caccia1@servicenow.com.
+   * **Important note:** ServiceNow no longer provides Washington instances to the public. Please fill out [this form](forms.gle/6WLf6s9nkA5D8aue6) to request one.
 4. Once the instance is ready, you should see your instance URL and credentials. If not, click _Return to the Developer Portal_, then navigate to _Manage instance password_ and click _Reset instance password_.
 5. Change the role of the user to admin in yoyr instance parameters ![image](https://github.com/user-attachments/assets/6f0fbf8e-f40f-411a-84cb-fead93d85f60)
 
