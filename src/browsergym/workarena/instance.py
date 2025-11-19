@@ -43,7 +43,7 @@ def encrypt_instance_password(password: str) -> str:
     return base64.b64encode(cipher_bytes).decode("utf-8")
 
 
-def load_instances():
+def fetch_instances():
     """
     Loads the latest instances.json from the gated Hugging Face dataset repo.
     Requires that the user is authenticated via huggingface-cli login
@@ -115,7 +115,7 @@ class SNowInstance:
 
             # Otherwise, load all instances and select one randomly
             else:
-                instances = load_instances()
+                instances = fetch_instances()
                 if not instances:
                     raise ValueError(
                         f"No instances found in the dataset {INSTANCE_REPO_ID}. Please provide instance details via parameters or environment variables."
