@@ -1,3 +1,4 @@
+# TODO: Can we delete this file?
 import json
 import random
 
@@ -9,9 +10,8 @@ from tenacity import retry, stop_after_attempt
 from tqdm import tqdm
 
 
-def generate_all_kb_configs(instance=None, num_configs=1000) -> list[dict]:
+def generate_all_kb_configs(instance, num_configs=1000) -> list[dict]:
     """Generate all possible KB configs"""
-    instance = instance if instance is not None else SNowInstance()
     with open(KB_FILEPATH, "r") as f:
         kb_entries = json.load(f)
     all_configs = []
@@ -33,5 +33,7 @@ def generate_all_kb_configs(instance=None, num_configs=1000) -> list[dict]:
 
 
 if __name__ == "__main__":
-
-    validate_kb_configs()
+    raise NotImplementedError(
+        "Make sure to specific instance URL and credentials below, then comment this line."
+    )
+    generate_all_kb_configs(instance=SNowInstance(snow_url=None))
