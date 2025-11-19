@@ -124,24 +124,6 @@ class SNowInstance:
                 snow_url = instance["url"]
                 snow_credentials = ("admin", instance["password"])
 
-            # if "SNOW_INSTANCE_URL" in os.environ:
-            #     snow_url = os.environ["SNOW_INSTANCE_URL"]
-            # else:
-            #     raise ValueError(
-            #         f"Please provide a ServiceNow instance URL (you can use the environment variable SNOW_INSTANCE_URL)"
-            #     )
-
-        # if snow_credentials is None:
-        #     if "SNOW_INSTANCE_UNAME" in os.environ and "SNOW_INSTANCE_PWD" in os.environ:
-        #         snow_credentials = (
-        #             os.environ["SNOW_INSTANCE_UNAME"],
-        #             os.environ["SNOW_INSTANCE_PWD"],
-        #         )
-        #     else:
-        #         raise ValueError(
-        #             f"Please provide ServiceNow credentials (you can use the environment variables SNOW_INSTANCE_UNAME and SNOW_INSTANCE_PWD)"
-        #         )
-
         # remove trailing slashes in the URL, if any
         self.snow_url = snow_url.rstrip("/")
         self.snow_credentials = snow_credentials
