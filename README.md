@@ -41,29 +41,19 @@ https://github.com/ServiceNow/WorkArena/assets/2374980/68640f09-7d6f-4eb1-b556-c
 
 ## Getting Started
 
-To setup WorkArena, you will need to get your own ServiceNow instance, install our Python package, and upload some data to your instance. Follow the steps below to achieve this.
+To setup WorkArena, you will need to gain access to ServiceNow instances and install our Python package locally. Follow the steps below to achieve this.
 
-### a) Create a ServiceNow Developer Instance
+### a) Gain Access to ServiceNow Instances
 
-1. Go to https://developer.servicenow.com/ and create an account.
-2. Click on `Request an instance` and select the `Washington` release (initializing the instance will take a few minutes)
-   * **Important note:** ServiceNow will soon release the Zurich version, which will reduce the availability of Washington instances. If you run into an issue where none are available or you cannot select such an instance, please contact massimo.caccia1@servicenow.com.
-4. Once the instance is ready, you should see your instance URL and credentials. If not, click _Return to the Developer Portal_, then navigate to _Manage instance password_ and click _Reset instance password_.
-5. Change the role of the user to admin in yoyr instance parameters ![image](https://github.com/user-attachments/assets/6f0fbf8e-f40f-411a-84cb-fead93d85f60)
+1. Navigate to https://huggingface.co/datasets/ServiceNow/WorkArena-Instances.
+2. Fill the form and accept the terms to gain access to the gated repository.
+3. Ensure that the machine where you will run WorkArena is [authenticated with Hugging Face](https://huggingface.co/docs/hub/en/datasets-polars-auth) (e.g., via huggingface-cli login or the HUGGING_FACE_HUB_TOKEN environment variable).
 
-6. You should now see your URL and credentials. Based on this information, set the following environment variables:
-    * `SNOW_INSTANCE_URL`: The URL of your ServiceNow developer instance
-    * `SNOW_INSTANCE_UNAME`: The username, should be "admin"
-    * `SNOW_INSTANCE_PWD`: The password, make sure you place the value in quotes "" and be mindful of [escaping special shell characters](https://onlinelinuxtools.com/escape-shell-characters). Running `echo $SNOW_INSTANCE_PWD` should print the correct password.
-7. Log into your instance via a browser using the admin credentials. Close any popup that appears on the main screen (e.g., agreeing to analytics).
-
-**Warning:** Feel free to look around the platform, but please make sure you revert any changes (e.g., changes to list views, pinning some menus, etc.) as these changes will be persistent and affect the benchmarking process.
-
-### b) Install WorkArena and Initialize your Instance
+### b) Install WorkArena
 
 Run the following command to install WorkArena in the [BrowswerGym](https://github.com/servicenow/browsergym) environment:
 ```
-pip install browsergym
+pip install browsergym-workarena
 ```
 
 Then, install [Playwright](https://github.com/microsoft/playwright):
@@ -71,10 +61,6 @@ Then, install [Playwright](https://github.com/microsoft/playwright):
 playwright install
 ```
 
-Finally, run this command in a terminal to upload the benchmark data to your ServiceNow instance:
-```
-workarena-install
-```
 Your installation is now complete! 🎉
 
 
