@@ -1,6 +1,7 @@
 import base64
 import json
 import os
+import random
 import requests
 from itertools import cycle
 
@@ -120,7 +121,7 @@ class SNowInstance:
                     raise ValueError(
                         f"No instances found in the dataset {INSTANCE_REPO_ID}. Please provide instance details via parameters or environment variables."
                     )
-                instance = instances[0]  # For now, just pick the first one
+                instance = random.choice(instances)
                 snow_url = instance["url"]
                 snow_credentials = ("admin", instance["password"])
 
