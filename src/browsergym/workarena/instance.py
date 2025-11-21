@@ -1,5 +1,6 @@
 import base64
 import json
+import logging
 import os
 import random
 import requests
@@ -46,23 +47,31 @@ def encrypt_instance_password(password: str) -> str:
 
 def fetch_instances():
     """
-    Loads the latest instances.json from the gated Hugging Face dataset repo.
-    Requires that the user is authenticated via huggingface-cli login
-    or by having HUGGING_FACE_HUB_TOKEN set.
+    Load the latest instances from either a custom pool (SNOW_INSTANCE_POOL) or the gated HF dataset.
     """
-    try:
-        disable_progress_bars()
-        path = hf_hub_download(
-            repo_id=INSTANCE_REPO_ID,
-            filename=INSTANCE_REPO_FILENAME,
-            repo_type=INSTANCE_REPO_TYPE,
-        )
-    except Exception as e:
-        raise RuntimeError(
-            f"Could not access {INSTANCE_REPO_ID}/{INSTANCE_REPO_FILENAME}. "
-            "Make sure you have been granted access to the gated repo and that you are "
-            "authenticated (run `huggingface-cli login` or set HUGGING_FACE_HUB_TOKEN)."
-        ) from e
+    pool_path = os.getenv("SNOW_INSTANCE_POOL")
+    if pool_path:
+        path = os.path.expanduser(pool_path)
+        if not os.path.exists(path):
+            raise FileNotFoundError(
+                f"SNOW_INSTANCE_POOL points to '{pool_path}', but the file does not exist."
+            )
+        logging.info("Loading ServiceNow instances from custom pool: %s", path)
+    else:
+        try:
+            disable_progress_bars()
+            path = hf_hub_download(
+                repo_id=INSTANCE_REPO_ID,
+                filename=INSTANCE_REPO_FILENAME,
+                repo_type=INSTANCE_REPO_TYPE,
+            )
+            logging.info("Loaded ServiceNow instances from the default instance pool.")
+        except Exception as e:
+            raise RuntimeError(
+                f"Could not access {INSTANCE_REPO_ID}/{INSTANCE_REPO_FILENAME}. "
+                "Make sure you have been granted access to the gated repo and that you are "
+                "authenticated (run `huggingface-cli login` or set HUGGING_FACE_HUB_TOKEN)."
+            ) from e
 
     with open(path, "r", encoding="utf-8") as f:
         entries = json.load(f)
@@ -93,10 +102,12 @@ class SNowInstance:
         Parameters:
         -----------
         snow_url: str
-            The URL of a SNow instance. If None, will try to get the value from the environment variable SNOW_INSTANCE_URL.
+            The URL of a SNow instance. When omitted, the constructor first looks for SNOW_INSTANCE_URL and falls back
+            to a random instance from the benchmark's instance pool if the environment variable is not set.
         snow_credentials: (str, str)
-            The username and password used to access the SNow instance. If None, will try to get the values from the
-            environment variables SNOW_INSTANCE_UNAME and SNOW_INSTANCE_PWD.
+            The username and password used to access the SNow instance. When omitted, environment variables
+            SNOW_INSTANCE_UNAME/SNOW_INSTANCE_PWD are used if set; otherwise, a random instance from the benchmark's
+            instance pool is selected.
 
         """
         # try to get these values from environment variables if not provided
