@@ -47,7 +47,7 @@ def encrypt_instance_password(password: str) -> str:
 
 def fetch_instances():
     """
-    Load the latest instances from either a custom pool (SNOW_INSTANCE_POOL) or the gated HF dataset.
+    Load the latest instances from either a custom pool (SNOW_INSTANCE_POOL env var) or the gated HF dataset.
     """
     pool_path = os.getenv("SNOW_INSTANCE_POOL")
     if pool_path:
