@@ -64,9 +64,7 @@ def SNowInstance():
     Wrapper around the standard SNowInstance that always uses CLI-provided credentials.
     """
     if not _CLI_INSTANCE_URL or not _CLI_INSTANCE_PASSWORD:
-        raise RuntimeError(
-            "Installer requires --instance-url and --instance-password arguments."
-        )
+        raise RuntimeError("Installer requires --instance-url and --instance-password arguments.")
     return _BaseSNowInstance(
         snow_url=_CLI_INSTANCE_URL,
         snow_credentials=("admin", _CLI_INSTANCE_PASSWORD),
@@ -1126,8 +1124,12 @@ def main():
     Entrypoint for package CLI installation command
 
     """
-    parser = argparse.ArgumentParser(description="Install WorkArena artifacts on a ServiceNow instance.")
-    parser.add_argument("--instance-url", required=True, help="URL of the target ServiceNow instance.")
+    parser = argparse.ArgumentParser(
+        description="Install WorkArena artifacts on a ServiceNow instance."
+    )
+    parser.add_argument(
+        "--instance-url", required=True, help="URL of the target ServiceNow instance."
+    )
     parser.add_argument(
         "--instance-password",
         required=True,
