@@ -11,6 +11,12 @@ SNOW_BROWSER_TIMEOUT = 30000  # Milliseconds
 SNOW_JS_UTILS_FILEPATH = str(resources.files(utils).joinpath("js_utils.js"))
 SNOW_SUPPORTED_RELEASES = ["washingtondc"]
 
+# Hugging Face dataset containing available instances
+INSTANCE_REPO_ID = "ServiceNow/WorkArena-Instances"
+INSTANCE_REPO_FILENAME = "instances.json"
+INSTANCE_REPO_TYPE = "dataset"
+INSTANCE_XOR_SEED = "x3!+-9mi#nhlo%a02$9hna{]"
+
 # Path to the Menu navigation task configuration
 ALL_MENU_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu.json"))
 

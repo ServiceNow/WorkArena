@@ -15,7 +15,6 @@ from playwright.sync_api import sync_playwright
 
 from browsergym.workarena.api.utils import table_api_call, table_column_info
 from browsergym.workarena.config import (
-    REPORT_DATE_FILTER,
     REPORT_PATCH_FLAG,
     REPORT_RETRIEVAL_MINMAX_CONFIG_PATH,
     REPORT_RETRIEVAL_VALUE_CONFIG_PATH,
@@ -44,6 +43,10 @@ class DummyDashboard(DashboardRetrievalTask):
 
 
 def get_report_urls(instance):
+    # Get the instance report filter config
+    REPORT_DATE_FILTER, REPORT_TIME_FILTER = instance._get_filter_config()
+    raise NotImplementedError("TODO: Include the time filter as in dashboard.py")
+
     # Generate a bunch of reports on the fly based on valid table fields
     ON_THE_FLY_REPORTS = []
     for table in [
@@ -226,7 +229,13 @@ def get_all_configs_by_url(url, is_report):
 
 
 if __name__ == "__main__":
-    instance = SNowInstance()
+
+    # XXX: Make sure to specific the exact instance on which to generate configs (and not use a random one)
+    raise NotImplementedError(
+        "Make sure to specific instance URL and credentials below, then comment this line."
+    )
+    instance = SNowInstance(snow_url=None, snow_credentials=None)
+
     reports = get_report_urls(instance)
     gen_func = partial(get_all_configs_by_url, is_report=REPORT)
 
