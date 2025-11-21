@@ -231,7 +231,9 @@ def get_all_configs_by_url(url, is_report):
 if __name__ == "__main__":
 
     # XXX: Make sure to specific the exact instance on which to generate configs (and not use a random one)
-    raise NotImplementedError("Make sure to specific instance URL and credentials below, then comment this line.")
+    raise NotImplementedError(
+        "Make sure to specific instance URL and credentials below, then comment this line."
+    )
     instance = SNowInstance(snow_url=None, snow_credentials=None)
 
     reports = get_report_urls(instance)

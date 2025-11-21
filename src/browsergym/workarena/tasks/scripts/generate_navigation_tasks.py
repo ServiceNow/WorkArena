@@ -6,7 +6,9 @@ NUM_CONFIGS = 650  # number of impersonation tasks in the paper
 
 
 def get_all_impersonation_users():
-    raise NotImplementedError("Make sure to specific instance URL and credentials below, then comment this line.")
+    raise NotImplementedError(
+        "Make sure to specific instance URL and credentials below, then comment this line."
+    )
     instance = SNowInstance(snow_url=None, snow_credentials=None)
     candidate_users = [
         u["first_name"] + " " + u["last_name"]
