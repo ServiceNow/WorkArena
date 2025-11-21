@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+import argparse
 import html
 import json
 import logging
@@ -48,8 +51,26 @@ from .config import (
     UI_THEMES_UPDATE_SET,
 )
 from .api.user import set_user_preference
-from .instance import SNowInstance
+from .instance import SNowInstance as _BaseSNowInstance
 from .utils import url_login
+
+
+_CLI_INSTANCE_URL: str | None = None
+_CLI_INSTANCE_PASSWORD: str | None = None
+
+
+def SNowInstance():
+    """
+    Wrapper around the standard SNowInstance that always uses CLI-provided credentials.
+    """
+    if not _CLI_INSTANCE_URL or not _CLI_INSTANCE_PASSWORD:
+        raise RuntimeError(
+            "Installer requires --instance-url and --instance-password arguments."
+        )
+    return _BaseSNowInstance(
+        snow_url=_CLI_INSTANCE_URL,
+        snow_credentials=("admin", _CLI_INSTANCE_PASSWORD),
+    )
 
 
 def _is_dev_portal_instance() -> bool:
@@ -1105,6 +1126,19 @@ def main():
     Entrypoint for package CLI installation command
 
     """
+    parser = argparse.ArgumentParser(description="Install WorkArena artifacts on a ServiceNow instance.")
+    parser.add_argument("--instance-url", required=True, help="URL of the target ServiceNow instance.")
+    parser.add_argument(
+        "--instance-password",
+        required=True,
+        help="Password for the admin user on the target ServiceNow instance.",
+    )
+    args = parser.parse_args()
+
+    global _CLI_INSTANCE_URL, _CLI_INSTANCE_PASSWORD
+    _CLI_INSTANCE_URL = args.instance_url
+    _CLI_INSTANCE_PASSWORD = args.instance_password
+
     logging.basicConfig(level=logging.INFO)
 
     try:
