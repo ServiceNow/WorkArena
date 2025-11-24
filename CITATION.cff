@@ -1,38 +1,81 @@
-cff-version: 1.0.0
-message: "If you use WorkArena in your research, please cite it as follows:"
-title: "WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?"
-repository-code: "https://github.com/ServiceNow/WorkArena"
-url: "https://servicenow.github.io/WorkArena/"
+cff-version: 1.2.0
+message: "If you use WorkArena in your research, please cite both of the following papers."
+title: "WorkArena"
+date-released: 2024-03-12
+url: "https://github.com/ServiceNow/workarena"
 license: "Apache-2.0"
-keywords:
-  - large language model agents
-  - Agentic LLM benchmark
-  - ServiceNow platform
-  - Knowledge worker tasks
-  - Open source
+
 authors:
-  - family-names: "Drouin"
-    given-names: "Alexandre"
-  - family-names: "Gasse"
-    given-names: "Maxime"
-  - family-names: "Caccia"
-    given-names: "Massimo"
-  - family-names: "Laradji"
-    given-names: "Issam H."
-  - family-names: "Del Verme"
-    given-names: "Manuel"
-  - family-names: "Marty"
-    given-names: "Tom"
-  - family-names: "Boisvert"
-    given-names: "Léo"
-  - family-names: "Thakkar"
-    given-names: "Megh"
-  - family-names: "Cappart"
-    given-names: "Quentin"
-  - family-names: "Vazquez"
-    given-names: "David"
-  - family-names: "Chapados"
-    given-names: "Nicolas"
-  - family-names: "Lacoste"
-    given-names: "Alexandre"
-date-released: "2024-03-12"
+  - family-names: Drouin
+    given-names: Alexandre
+  - family-names: Gasse
+    given-names: Maxime
+  - family-names: Caccia
+    given-names: Massimo
+  - family-names: Laradji
+    given-names: Issam H.
+  - family-names: Del Verme
+    given-names: Manuel
+  - family-names: Marty
+    given-names: Tom
+  - family-names: Vazquez
+    given-names: David
+  - family-names: Chapados
+    given-names: Nicolas
+  - family-names: Lacoste
+    given-names: Alexandre
+
+preferred-citation:
+  - type: inproceedings
+    title: "WorkArena: How Capable are Web Agents at Solving Common Knowledge Work Tasks?"
+    authors:
+      - family-names: Drouin
+        given-names: Alexandre
+      - family-names: Gasse
+        given-names: Maxime
+      - family-names: Caccia
+        given-names: Massimo
+      - family-names: Laradji
+        given-names: Issam H.
+      - family-names: Del Verme
+        given-names: Manuel
+      - family-names: Marty
+        given-names: Tom
+      - family-names: Vazquez
+        given-names: David
+      - family-names: Chapados
+        given-names: Nicolas
+      - family-names: Lacoste
+        given-names: Alexandre
+    booktitle: "Proceedings of the 41st International Conference on Machine Learning (ICML)"
+    series: "Proceedings of Machine Learning Research"
+    volume: 235
+    pages: "11642–11662"
+    year: 2024
+    url: "https://proceedings.mlr.press/v235/drouin24a.html"
+
+  - type: inproceedings
+    title: "WorkArena++: Towards Compositional Planning and Reasoning-based Common Knowledge Work Tasks"
+    authors:
+      - family-names: Boisvert
+        given-names: Léo
+      - family-names: Thakkar
+        given-names: Megh
+      - family-names: Gasse
+        given-names: Maxime
+      - family-names: Caccia
+        given-names: Massimo
+      - family-names: Le Sellier De Chezelles
+        given-names: Thibault
+      - family-names: Cappart
+        given-names: Quentin
+      - family-names: Chapados
+        given-names: Nicolas
+      - family-names: Lacoste
+        given-names: Alexandre
+      - family-names: Drouin
+        given-names: Alexandre
+    booktitle: "Advances in Neural Information Processing Systems 37 (NeurIPS 2024), Datasets & Benchmarks Track"
+    year: 2024
+    url: "https://proceedings.neurips.cc/paper_files/paper/2024/hash/0b82662b6c32e887bb252a74d8cb2d5e-Paper-Datasets_and_Benchmarks_Track.pdf"
+    doi: "10.52202/079017-0195"
