@@ -59,15 +59,25 @@ _CLI_INSTANCE_URL: str | None = None
 _CLI_INSTANCE_PASSWORD: str | None = None
 
 
-def SNowInstance():
+def SNowInstance(snow_credentials: tuple[str, str] | None = None):
     """
-    Wrapper around the standard SNowInstance that always uses CLI-provided credentials.
+    Wrapper around the standard SNowInstance that uses CLI-provided instance URL and password if none are provided.
     """
-    if not _CLI_INSTANCE_URL or not _CLI_INSTANCE_PASSWORD:
-        raise RuntimeError("Installer requires --instance-url and --instance-password arguments.")
+    if not _CLI_INSTANCE_URL:
+        raise RuntimeError("Installer requires --instance-url to create a SNowInstance.")
+
+    resolved_creds = snow_credentials
+
+    if resolved_creds is None:
+        if not _CLI_INSTANCE_PASSWORD:
+            raise RuntimeError(
+                "Installer requires --instance-password (or explicit credentials) to create a SNowInstance."
+            )
+        resolved_creds = ("admin", _CLI_INSTANCE_PASSWORD)
+
     return _BaseSNowInstance(
         snow_url=_CLI_INSTANCE_URL,
-        snow_credentials=("admin", _CLI_INSTANCE_PASSWORD),
+        snow_credentials=resolved_creds,
     )
 
 
