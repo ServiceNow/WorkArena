@@ -6,12 +6,18 @@ on:
       - main
   pull_request:
   schedule:
-    - cron: '59 23 * * SUN'  # Runs at midnight on Sunday
+    - cron: '59 23 * * 1' # Temporary schedule for testing
+    - cron: '59 23 * * 2'
+    - cron: '59 23 * * 3'
+    - cron: '59 23 * * 4'
+    - cron: '59 23 * * 5'
+    - cron: '59 23 * * 6'
 
 jobs:
 
   code-format:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Changed from ubuntu-latest
+    if: github.event_name != 'schedule' && (github.event_name != 'workflow_dispatch' || github.event.inputs.test_category == 'none')
     defaults:
       run:
         shell: bash -l {0}
@@ -36,7 +42,8 @@ jobs:
         run: black . --check
 
   browsergym-workarena-fast:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Changed from ubuntu-latest
+    if: github.event_name != 'schedule' && (github.event_name != 'workflow_dispatch' || github.event.inputs.test_category == 'none')
   
     defaults:
       run:
@@ -71,7 +78,8 @@ jobs:
         run: pytest -n 5 --durations=10 -m 'not slow and not pricy' --slowmo 1000 -v tests
 
   browsergym-workarena-slow:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Changed from ubuntu-latest
+    if: github.event_name != 'schedule' && (github.event_name != 'workflow_dispatch' || github.event.inputs.test_category == 'none')
 
     defaults:
       run:
@@ -105,9 +113,9 @@ jobs:
           SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
         run: pytest -n 5 --durations=10 -m 'slow and not pricy' --slowmo 1000 -v tests
   
-  end-to-end-tests:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'schedule'
+  end-to-end-tests-planning:
+    runs-on: ubuntu-22.04
+    if: (github.event_name == 'schedule' && github.event.schedule == '34 20 * * *') || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_category == 'planning_and_problem_solving')
     defaults:
       run:
         shell: bash -l {0}
@@ -131,4 +139,150 @@ jobs:
           SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
           SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
           SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: planning_and_problem_solving
         run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
+
+  end-to-end-tests-information-retrieval:
+    runs-on: ubuntu-22.04
+    if: (github.event_name == 'schedule' && github.event.schedule == '59 23 * * 2') || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_category == 'information_retrieval')
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run E2E Tests
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: information_retrieval
+        run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
+
+  end-to-end-tests-data-driven-decision-making:
+    runs-on: ubuntu-22.04
+    if: (github.event_name == 'schedule' && github.event.schedule == '59 23 * * 3') || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_category == 'data_driven_decision_making_and_reasoning')
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run E2E Tests
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: data_driven_decision_making_and_reasoning
+        run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
+
+  end-to-end-tests-sophisticated-memory:
+    runs-on: ubuntu-22.04
+    if: (github.event_name == 'schedule' && github.event.schedule == '59 23 * * 4') || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_category == 'sophisticated_memory')
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run E2E Tests
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: sophisticated_memory
+        run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
+
+  end-to-end-tests-contextual-understanding:
+    runs-on: ubuntu-22.04
+    if: (github.event_name == 'schedule' && github.event.schedule == '59 23 * * 5') || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_category == 'contextual_understanding_infeasible_tasks')
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run E2E Tests
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_CATEGORY: contextual_understanding_infeasible_tasks
+        run: pytest -n 5 --durations=10 -m 'pricy' --slowmo 1800 -v tests
+
+  l1-atomic-weekly-test:
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'schedule' && github.event.schedule == '59 23 * * 6'
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: Pip install
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+      - name: Pip list
+        run: pip list
+      - name: Install Playwright
+        run: playwright install --with-deps
+      - name: Run L1 Atomic Cheat Test
+        env:
+          SNOW_INSTANCE_URL: ${{ secrets.SNOW_INSTANCE_URL }}
+          SNOW_INSTANCE_UNAME: ${{ secrets.SNOW_INSTANCE_UNAME }}
+          SNOW_INSTANCE_PWD: ${{ secrets.SNOW_INSTANCE_PWD }}
+          TEST_L1_ATOMIC: "true"
+        run: pytest -n 5 --durations=10 -m "slow" --slowmo 1000 -v tests/test_task_general.py
