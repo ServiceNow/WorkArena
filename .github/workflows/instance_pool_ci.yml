@@ -3,10 +3,12 @@ name: Monitor the pool of WorkArena instances
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 * * *"       # daily at 03:00 UTC (adjust if needed)
+    - cron: "0 3 * * *"       # daily at 03:00 UTC
 
 jobs:
-  browsergym-workarena-fast:
+
+  test-l1-tasks:
+    name: Test L1 tasks
     runs-on: ubuntu-22.04
 
     defaults:
@@ -38,5 +40,43 @@ jobs:
       - name: Install Playwright
         run: playwright install chromium --with-deps
 
-      - name: Run test_task_general.py
-        run: pytest -n 20 --durations=10 --slowmo 1000 -v tests/test_task_general.py
+      - name: Run L1 tests
+        run: pytest -n 10 --durations=10 --slowmo 1000 -v tests/test_task_general.py
+
+
+  test-snow-instance:
+    name: Test snow instance
+    runs-on: ubuntu-22.04
+    needs: test-l1-tasks   # remove this line if you want both jobs to run in parallel
+
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    env:
+      HUGGING_FACE_HUB_TOKEN: ${{ secrets.HUGGING_FACE_HUB_TOKEN }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        working-directory: ./dev
+        run: |
+          pip install -r requirements.txt
+          pip install huggingface_hub
+
+      - name: Pip list
+        run: pip list
+
+      - name: Install Playwright
+        run: playwright install chromium --with-deps
+
+      - name: Run snow instance tests
+        run: pytest -n 10 --durations=10 --slowmo 1000 -v tests/test_snow_instance.py
