@@ -39,4 +39,4 @@ jobs:
         run: playwright install chromium --with-deps
 
       - name: Run test_task_general.py
-        run: pytest -n 5 --durations=10 --slowmo 1000 -v tests/test_task_general.py
+        run: pytest -n 20 --durations=10 --slowmo 1000 -v tests/test_task_general.py
