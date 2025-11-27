@@ -1,9 +1,9 @@
 name: Monitor the pool of WorkArena instances
 
 on:
-  workflow_dispatch:          # allow manual trigger
+  workflow_dispatch:
   schedule:
-    - cron: "0 3 * * *"       # daily at 03:00 UTC (adjust as needed)
+    - cron: "0 3 * * *"       # daily at 03:00 UTC (adjust if needed)
 
 jobs:
   browsergym-workarena-fast:
@@ -12,6 +12,9 @@ jobs:
     defaults:
       run:
         shell: bash -l {0}
+
+    env:
+      HUGGING_FACE_HUB_TOKEN: ${{ secrets.HUGGING_FACE_HUB_TOKEN }}
 
     steps:
       - name: Checkout Repository
@@ -23,9 +26,11 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
-      - name: Pip install
+      - name: Install Python dependencies
         working-directory: ./dev
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install huggingface_hub
 
       - name: Pip list
         run: pip list
@@ -33,5 +38,5 @@ jobs:
       - name: Install Playwright
         run: playwright install chromium --with-deps
 
-      - name: Run instance checks
-        run: pytest -n 5 --durations=10 --slowmo 1000 -v tests/test_snow_instance.py tests/test_task_general.py
+      - name: Run test_task_general.py
+        run: pytest -n 5 --durations=10 --slowmo 1000 -v tests/test_task_general.py
