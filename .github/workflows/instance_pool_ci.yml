@@ -1,4 +1,4 @@
-name: BrowserGym WorkArena Fast Tests
+name: Monitor the pool of WorkArena instances
 
 on:
   workflow_dispatch:          # allow manual trigger
@@ -33,5 +33,5 @@ jobs:
       - name: Install Playwright
         run: playwright install chromium --with-deps
 
-      - name: Run test_task_general.py
-        run: pytest -n 5 --durations=10 --slowmo 1000 -v tests/test_task_general.py
+      - name: Run instance checks
+        run: pytest -n 5 --durations=10 --slowmo 1000 -v tests/test_snow_instance.py tests/test_task_general.py
