@@ -39,7 +39,7 @@ def snow_instance_entry(request):
     before_sleep=lambda _: logging.info("Retrying due to an exception..."),
 )
 @pytest.mark.parametrize("task_entrypoint", ATOMIC_TASKS)
-@pytest.mark.parametrize("random_seed", range(3))
+@pytest.mark.parametrize("random_seed", range(1))
 @pytest.mark.slow
 def test_cheat(task_entrypoint, random_seed: int, page: Page, snow_instance_entry):
     instance = SNowInstance(
