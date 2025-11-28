@@ -41,7 +41,7 @@ jobs:
         run: playwright install chromium --with-deps
 
       - name: Run L1 tests
-        run: pytest -n 10 --durations=10 --slowmo 1000 -v tests/test_task_general.py
+        run: pytest -n 20 --durations=10 --slowmo 1000 -v tests/test_task_general.py
 
 
   test-snow-instance:
@@ -79,4 +79,4 @@ jobs:
         run: playwright install chromium --with-deps
 
       - name: Run snow instance tests
-        run: pytest -n 10 --durations=10 --slowmo 1000 -v tests/test_snow_instance.py
+        run: pytest -n 20 --durations=10 --slowmo 1000 -v tests/test_snow_instance.py
