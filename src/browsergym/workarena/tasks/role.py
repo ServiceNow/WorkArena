@@ -9,6 +9,7 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
     """
 
     def __init__(self, seed: int, config: Dict[str, Any]) -> None:
+        super().__init__(seed)
         self.task_is_setup = False
         self.config = config
         self.timeout = 60000
@@ -27,9 +28,6 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
 
     def validate(self, page: playwright.sync_api.Page, chat_messages: List[str]) -> Tuple[float, bool, str, dict]:
 
-        # get instance info
-        instance_url = self.instance.snow_url
-        (snow_username, snow_password) = self.instance.snow_credentials
 
         # get relevant info from config
         user_full_name = self.config["user_full_name"]
