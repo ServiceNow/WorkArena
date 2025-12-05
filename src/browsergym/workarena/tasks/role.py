@@ -1,6 +1,6 @@
+from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
-from typing import Tuple, List, Dict, Any
 import requests
 
 class ServiceNowRoleTask(AbstractServiceNowTask):
@@ -72,5 +72,6 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
         return 1
 
     def teardown(self) -> None:
-        # TODO: implement this (delete role for users)
-        pass
+        
+        # go over all roles in sys_user_has_role and remove them for the given users
+        

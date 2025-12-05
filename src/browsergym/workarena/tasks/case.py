@@ -1,14 +1,15 @@
+from typing import Any, Dict, List, Tuple
+
 import playwright.sync_api
-from typing import Tuple, List, Dict, Any
 import requests
-from .base import AbstractServiceNowTask
 
 from ..api.utils import (
+    HTTPError,
     db_delete_from_table,
     table_api_call,
     table_column_info,
-    HTTPError,
 )
+from .base import AbstractServiceNowTask
 
 class ServiceNowCaseTask(AbstractServiceNowTask):
     
