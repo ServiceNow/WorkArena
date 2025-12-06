@@ -81,7 +81,7 @@ class KnowledgeBaseSearchTask(AbstractServiceNowTask):
             )
         else:
             _, requires_install, requires_delete = check_knowledge_base(
-                SNowInstance(),  # instance would be the non-admin instance here and this might break in case user does not have required permissions
+                self.instance,  # Use the instance passed to the task
                 kb_name=KB_NAME,
                 kb_data=self.kb_entries,  # Need admin permissions to check
             )
