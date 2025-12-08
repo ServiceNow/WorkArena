@@ -1,0 +1,42 @@
+_wandb:
+    value:
+        cli_version: 0.23.1
+        e:
+            691r8x95e3m81nuat0uynmio2vhjz5dd:
+                codePath: monitor_pool_usage.py
+                codePathLocal: monitor_pool_usage.py
+                email: alexandre.drouin1@gmail.com
+                executable: /Users/alexandre.drouin/.pyenv/versions/workarena-new-dispatch/bin/python
+                git:
+                    commit: 6d4194fcfe6bcd9dbfc55e88446ed367fa13c463
+                    remote: https://github.com/ServiceNow/workarena
+                host: MACKV69YQ3QPP
+                os: macOS-15.7.2-arm64-arm-64bit
+                program: /Users/alexandre.drouin/dev/git/workarena-new-dispatch/monitor_pool_usage.py
+                python: CPython 3.12.7
+                root: /Users/alexandre.drouin/dev/git/workarena-new-dispatch
+                startedAt: "2025-12-08T07:36:41.909469Z"
+                writerId: 691r8x95e3m81nuat0uynmio2vhjz5dd
+        m: []
+        python_version: 3.12.7
+        t:
+            "1":
+                - 49
+            "2":
+                - 49
+            "3":
+                - 2
+                - 5
+                - 13
+                - 14
+                - 16
+                - 61
+                - 62
+            "4": 3.12.7
+            "5": 0.23.1
+            "12": 0.23.1
+            "13": darwin-arm64
+hours:
+    value: 24
+instance:
+    value: workarenapublic4

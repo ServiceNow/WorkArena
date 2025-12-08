@@ -15,6 +15,8 @@ for task, seed in zip(AGENT_L2_SAMPLED_TASKS, AGENT_L2_SEEDS):
     env = BrowserEnv(task_entrypoint=task, headless=False, slow_mo=1000)
     env.reset()
 
+    print("Running on instance:", env.task.instance.snow_url)
+
     # Cheat functions use Playwright to automatically solve the task
     env.chat.add_message(role="assistant", msg="On it. Please wait...")
 

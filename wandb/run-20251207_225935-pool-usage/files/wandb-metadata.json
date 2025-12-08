@@ -1,0 +1,37 @@
+{
+  "os": "macOS-15.7.2-arm64-arm-64bit",
+  "python": "CPython 3.12.7",
+  "startedAt": "2025-12-08T06:59:35.195261Z",
+  "program": "/Users/alexandre.drouin/dev/git/workarena-new-dispatch/monitor_pool_usage.py",
+  "codePath": "monitor_pool_usage.py",
+  "codePathLocal": "monitor_pool_usage.py",
+  "git": {
+    "remote": "https://github.com/ServiceNow/workarena",
+    "commit": "6d4194fcfe6bcd9dbfc55e88446ed367fa13c463"
+  },
+  "email": "alexandre.drouin1@gmail.com",
+  "root": "/Users/alexandre.drouin/dev/git/workarena-new-dispatch",
+  "host": "MACKV69YQ3QPP",
+  "executable": "/Users/alexandre.drouin/.pyenv/versions/workarena-new-dispatch/bin/python",
+  "cpu_count": 12,
+  "cpu_count_logical": 12,
+  "disk": {
+    "/": {
+      "total": "994662584320",
+      "used": "739086831616"
+    }
+  },
+  "memory": {
+    "total": "38654705664"
+  },
+  "apple": {
+    "name": "Apple M3 Pro",
+    "ecpuCores": 6,
+    "pcpuCores": 6,
+    "gpuCores": 18,
+    "memoryGb": 36,
+    "swapTotalBytes": "2147483648",
+    "ramTotalBytes": "38654705664"
+  },
+  "writerId": "vyu89qi0pupbdqq0spwss9q59cu8y895"
+}
