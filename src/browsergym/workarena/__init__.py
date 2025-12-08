@@ -24,6 +24,8 @@ from .tasks.knowledge import __TASKS__ as KB_TASKS
 from .tasks.list import __TASKS__ as LIST_TASKS
 from .tasks.navigation import __TASKS__ as NAVIGATION_TASKS
 from .tasks.service_catalog import __TASKS__ as SERVICE_CATALOG_TASKS
+from .tasks.case import __TASKS__ as CASE_TASKS
+from .tasks.role import __TASKS__ as ROLE_TASKS
 from .tasks.compositional.base import CompositionalTask
 
 ALL_WORKARENA_TASKS = [
@@ -43,6 +45,12 @@ ATOMIC_TASKS = [
     if inspect.isclass(task)
     and not issubclass(task, CompositionalTask)
     and not issubclass(task, CompositionalBuildingBlockTask)
+]
+
+ALL_WORKARENA_DYNAMIC_GUIDANCE_TASKS = [
+    *SERVICE_CATALOG_TASKS,
+    *CASE_TASKS,
+    *ROLE_TASKS,
 ]
 
 

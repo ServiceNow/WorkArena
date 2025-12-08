@@ -662,3 +662,9 @@ __TASKS__ = [
     for var in locals().values()
     if isinstance(var, type) and issubclass(var, OrderHardwareTask) and var is not OrderHardwareTask
 ]
+
+__DYNAMIC_GUIDANCE_TASKS__ = [
+    OrderAppleWatchTask,
+    OrderDeveloperLaptopTask,
+    OrderIpadProTask,
+]

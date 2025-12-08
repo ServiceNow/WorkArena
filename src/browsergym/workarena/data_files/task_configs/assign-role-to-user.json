@@ -1,0 +1,17 @@
+[
+    {
+        "user_full_name": "Allie Pumphrey",
+        "roles": "admin",
+        "goal": "Assign Allie Pumphrey the admin role"
+    },
+    {
+        "user_full_name": "Bridget Bottella",
+        "roles": "admin",
+        "goal": "Assign Bridget Bottella the admin role"
+    },
+    {
+        "user_full_name": "Roger Seid",
+        "roles": "admin",
+        "goal": "Assign Roger Seid the admin role"
+    }
+]
