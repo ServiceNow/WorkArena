@@ -12,7 +12,7 @@ from typing import Dict, List, Tuple
 
 WAND_ENTITY = "alexdrouin"
 WAND_PROJECT = "workarena-monitoring"
-RUN_VERSION = "v2"  # Increment if you need to recreate runs after deletion
+RUN_VERSION = "v3"  # Increment if you need to recreate runs after deletion
 
 from browsergym.workarena.api.utils import table_api_call
 from browsergym.workarena.instance import SNowInstance, fetch_instances
