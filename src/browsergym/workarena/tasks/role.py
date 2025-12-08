@@ -2,6 +2,9 @@ from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
 import requests
+from .base import AbstractServiceNowTask
+
+
 
 class ServiceNowRoleTask(AbstractServiceNowTask):
     """
