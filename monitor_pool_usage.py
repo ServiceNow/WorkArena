@@ -46,7 +46,9 @@ def _fetch_user_creations(
             if not doc:
                 continue
             # Keep the earliest audit entry per user record.
-            if doc not in seen or audit.get("sys_created_on", "") < seen[doc].get("sys_created_on", ""):
+            if doc not in seen or audit.get("sys_created_on", "") < seen[doc].get(
+                "sys_created_on", ""
+            ):
                 seen[doc] = audit
         if len(batch) < page_size:
             break
@@ -103,7 +105,9 @@ def _init_wandb(instance_name: str | None = None):
     try:
         import wandb
     except ImportError as exc:
-        raise SystemExit("wandb is required for logging; install it to enable W&B logging.") from exc
+        raise SystemExit(
+            "wandb is required for logging; install it to enable W&B logging."
+        ) from exc
 
     # Use instance name or "total" as the display name
     display_name = instance_name or "total"
@@ -158,11 +162,13 @@ def _log_time_series_to_wandb(
 
     # Log in chronological order with human-readable date
     for bucket, metric_name, count in all_data:
-        run.log({
-            "timestamp": int(bucket.timestamp()),
-            metric_name: count,
-            "date": bucket,  # Pass datetime object directly for W&B to format
-        })
+        run.log(
+            {
+                "timestamp": int(bucket.timestamp()),
+                metric_name: count,
+                "date": bucket,  # Pass datetime object directly for W&B to format
+            }
+        )
 
     run.finish()
 
@@ -188,12 +194,8 @@ def main():
         url = entry["url"]
         logging.info("Querying %s", url)
         try:
-            instance = SNowInstance(
-                snow_url=url, snow_credentials=("admin", entry["password"])
-            )
-            creations = _fetch_user_creations(
-                instance=instance, start_ts=start_ts, end_ts=end_ts
-            )
+            instance = SNowInstance(snow_url=url, snow_credentials=("admin", entry["password"]))
+            creations = _fetch_user_creations(instance=instance, start_ts=start_ts, end_ts=end_ts)
             summaries.append((url, len(creations)))
             hourly = _hourly_counts(creations)
             for bucket, count in hourly.items():
