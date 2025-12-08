@@ -128,11 +128,17 @@ def get_all_tasks_agents(filter="l2", meta_seed=42, n_seed_l1=10, is_agent_curri
         raise Exception("Unsupported filter used.")
     if len(filter) == 1:
         level = filter[0]
-        if level not in ["l1", "l2", "l3"]:
+        if level not in ["l1", "l2", "l3", "dg"]:
             raise Exception("Unsupported category of tasks.")
         else:
             rng = np.random.RandomState(meta_seed)
         if level == "l1":
+            for task in ATOMIC_TASKS:
+                for seed in rng.randint(0, 1000, n_seed_l1):
+                    all_task_tuples.append((task, int(seed)))
+
+            return all_task_tuples
+        elif level == "dg":
             for task in ATOMIC_TASKS:
                 for seed in rng.randint(0, 1000, n_seed_l1):
                     all_task_tuples.append((task, int(seed)))
