@@ -220,3 +220,10 @@ class FindAssetUnderAccountCreateCaseTask(ServiceNowCaseTask):
                 sys_id=self.record_sys_id,
                 table="sn_customerservice_case",
             )
+
+__TASKS__ = [
+    GetCaseStatusTask,
+    CloseCaseTask,
+    GetCaseResolutionNotesTask,
+    FindAssetUnderAccountCreateCaseTask,
+]
