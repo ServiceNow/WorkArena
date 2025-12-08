@@ -6,3 +6,4 @@ requests>=2.31
 tenacity>=8.2.3  # only used in cheat() -> move to tests?
 tqdm>=4.66.2
 huggingface_hub>=0.23
+wandb>=0.16

@@ -1,0 +1,30 @@
+name: Monitor Pool Usage
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run monitoring script
+        env:
+          WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+        run: |
+          python monitor_pool_usage.py
