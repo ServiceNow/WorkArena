@@ -74,4 +74,7 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
     def teardown(self) -> None:
         
         # go over all roles in sys_user_has_role and remove them for the given users
-        
+        pass
+
+
+__TASKS__ = [ServiceNowRoleTask]

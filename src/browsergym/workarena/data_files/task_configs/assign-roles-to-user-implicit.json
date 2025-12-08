@@ -1,0 +1,20 @@
+[
+    {
+        "user_full_name": "Lucien Iurato",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lucien Iurato all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Josephine Sotlar",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Josephine Sotlar all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kerry Evertt",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kerry Evertt all of the \"sn_incident\" roles"
+    }
+]

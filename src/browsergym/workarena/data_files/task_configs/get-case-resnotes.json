@@ -1,0 +1,17 @@
+[
+    {
+        "case_number": "CS0000872",
+        "close_notes": "Closed automatically due to closure of child cases",
+        "goal": "Get the resolution notes for CS0000872"
+    },
+    {
+        "case_number": "CS0002001",
+        "close_notes": "Related Change Request CHG0030001 fixed.",
+        "goal": "Get the resolution notes for CS0002001"
+    },
+    {
+        "case_number": "CS0001004",
+        "close_notes": "The team has applied a fix to pick all type of reports and you should no longer face this issue going forward.",
+        "goal": "Get the resolution notes for CS0001004"
+    }
+]
