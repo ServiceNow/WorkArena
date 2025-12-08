@@ -22,6 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+          pip install wandb>=0.16
 
       - name: Run monitoring script
         env:
