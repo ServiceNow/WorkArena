@@ -14,6 +14,9 @@ jobs:
       run:
         shell: bash -l {0}
 
+    env:
+      HUGGING_FACE_HUB_TOKEN: ${{ secrets.HUGGING_FACE_HUB_TOKEN }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,6 +31,7 @@ jobs:
         working-directory: ./dev
         run: |
           pip install -r requirements.txt
+          pip install huggingface_hub
           pip install wandb>=0.16
 
       - name: Run telemetry script
