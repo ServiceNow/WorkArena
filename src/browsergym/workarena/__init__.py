@@ -62,6 +62,13 @@ for task in ALL_WORKARENA_TASKS:
         task,
     )
 
+# register dynamic guidance tasks
+for task in ALL_WORKARENA_DYNAMIC_GUIDANCE_TASKS:
+    register_task(
+        task.get_task_id(),
+        task,
+    )
+
 workarena_tasks_all = [task_class.get_task_id() for task_class in ALL_WORKARENA_TASKS]
 workarena_tasks_atomic = [task_class.get_task_id() for task_class in ATOMIC_TASKS]
 
@@ -139,7 +146,7 @@ def get_all_tasks_agents(filter="l2", meta_seed=42, n_seed_l1=10, is_agent_curri
 
             return all_task_tuples
         elif level == "dg":
-            for task in ATOMIC_TASKS:
+            for task in ALL_WORKARENA_DYNAMIC_GUIDANCE_TASKS:
                 for seed in rng.randint(0, 1000, n_seed_l1):
                     all_task_tuples.append((task, int(seed)))
 
