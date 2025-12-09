@@ -1,0 +1,119 @@
+[
+    {
+        "fields": {
+            "business_impact": "Business impact",
+            "caller_id": "Caller",
+            "category": "Category",
+            "caused_by": "Caused by Change",
+            "close_code": "Resolution code",
+            "close_notes": "Resolution notes",
+            "cmdb_ci": "Configuration item",
+            "contact_type": "Channel",
+            "description": "Description",
+            "impact": "Impact",
+            "knowledge": "Knowledge",
+            "number": "Number",
+            "parent_incident": "Parent Incident",
+            "short_description": "Short description",
+            "urgency": "Urgency",
+            "work_notes": "Work notes"
+        },
+        "task_fields": [
+            "caller_id",
+            "description",
+            "impact",
+            "short_description",
+            "business_impact"
+        ],
+        "template_record": {
+            "caller_id": "Rick Berzle",
+            "category": "Hardware",
+            "description": "Hard drive has been making a loud grinding noise for the last two days.",
+            "impact": "2 - Medium",
+            "severity": "3 - Low",
+            "short_description": "Seem to have an issue with my hard drive...",
+            "urgency": "3 - Low",
+            "business_impact": "Something is wrong"
+        }
+    },
+    {
+        "fields": {
+            "business_impact": "Business impact",
+            "assignment_group": "Assignment group",
+            "business_service": "Service",
+            "caller_id": "Caller",
+            "category": "Category",
+            "caused_by": "Caused by Change",
+            "close_code": "Resolution code",
+            "close_notes": "Resolution notes",
+            "cmdb_ci": "Configuration item",
+            "contact_type": "Channel",
+            "description": "Description",
+            "impact": "Impact",
+            "knowledge": "Knowledge",
+            "number": "Number",
+            "parent_incident": "Parent Incident",
+            "problem_id": "Problem",
+            "resolved_by": "Resolved by",
+            "rfc": "Change Request",
+            "service_offering": "Service offering",
+            "short_description": "Short description",
+            "urgency": "Urgency",
+            "work_notes": "Work notes"
+        },
+        "task_fields": [
+            "caller_id",
+            "description",
+            "impact",
+            "short_description",
+            "business_impact"
+        ],
+        "template_record": {
+            "caller_id": "Fred Luddy",
+            "description": "The hotfix was installed on my PC and now some of my applications have stopped working. Can I roll back to the previous version?",
+            "impact": "1 - High",
+            "short_description": "Please remove the latest hotfix from my PC",
+            "business_impact": "We are working on it"
+        }
+    },
+    {
+        "fields": {
+            "assignment_group": "Assignment group",
+            "business_impact": "Business impact",
+            "business_service": "Service",
+            "caller_id": "Caller",
+            "category": "Category",
+            "caused_by": "Caused by Change",
+            "close_code": "Resolution code",
+            "close_notes": "Resolution notes",
+            "cmdb_ci": "Configuration item",
+            "contact_type": "Channel",
+            "description": "Description",
+            "impact": "Impact",
+            "knowledge": "Knowledge",
+            "number": "Number",
+            "parent_incident": "Parent Incident",
+            "problem_id": "Problem",
+            "resolved_by": "Resolved by",
+            "rfc": "Change Request",
+            "service_offering": "Service offering",
+            "short_description": "Short description",
+            "urgency": "Urgency",
+            "work_notes": "Work notes"
+        },
+        "task_fields": [
+            "caller_id",
+            "description",
+            "impact",
+            "short_description",
+            "business_impact"
+        ],
+        "template_record": {
+            "caller_id": "Abel Tuter",
+            "description": "Forgot password and unable to log in. Can you reset or resend my password?",
+            "impact": "3 - Low",
+            "short_description": "Reset my password",
+            "business_impact": "trivial reset password"
+        }
+    }
+]
