@@ -233,3 +233,29 @@ EXPECTED_REQUEST_ITEM_FORM_FIELDS_PATH = str(
 # Report date filter patch flag
 REPORT_PATCH_FLAG = "WORKARENA_DATE_FILTER_PATCH"
 REPORT_FILTER_PROPERTY = "workarena.report.filter.config"
+
+
+# Case tasks
+GET_CASE_STATUS_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/get_case_status.json")
+)
+GET_CASE_RESOLUTION_NOTES_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/get_case_resnotes.json")
+)
+CLOSE_CASE_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/close_case.json")
+)
+FIND_ASSET_UNDER_ACCOUNT_CREATE_CASE_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/find_asset_under_account_create_case.json")
+)
+
+# Role tasks
+ASSIGN_ROLE_TO_USER_ADMIN_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/assign_role_to_user_admin.json")
+)
+ASSIGN_ROLES_TO_USER_EXPLICIT_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/assign_roles_to_user_explicit.json")
+)
+ASSIGN_ROLES_TO_USER_IMPLICIT_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/assign_roles_to_user_implicit.json")
+)

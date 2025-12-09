@@ -1,3 +1,4 @@
+import json
 from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
@@ -9,15 +10,21 @@ from ..api.utils import (
     table_api_call,
     table_column_info,
 )
+from ..config import (
+    CLOSE_CASE_CONFIG_PATH,
+    FIND_ASSET_UNDER_ACCOUNT_CREATE_CASE_CONFIG_PATH,
+    GET_CASE_RESOLUTION_NOTES_CONFIG_PATH,
+    GET_CASE_STATUS_CONFIG_PATH,
+)
 from .base import AbstractServiceNowTask
 
-class ServiceNowCaseTask(AbstractServiceNowTask):
-    
 
-    def __init__(self, seed: int, config: Dict[str, Any]) -> None:
-        super().__init__(seed)
+class ServiceNowCaseTask(AbstractServiceNowTask):
+
+    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home") -> None:
+        super().__init__(seed, start_rel_url=start_rel_url)
         self.task_is_setup = False
-        self.config = config
+        self.config = fixed_config if fixed_config else self.random.choice(self.all_configs())
         self.timeout = 60000
 
     def setup_goal(self, page: playwright.sync_api.Page) -> Tuple[str, dict]:
@@ -25,12 +32,15 @@ class ServiceNowCaseTask(AbstractServiceNowTask):
         info = self.config
         return goal, info
 
+    def all_configs(self):
+        raise NotImplementedError
+
 
 class GetCaseStatusTask(ServiceNowCaseTask):
 
     def validate(self, page: playwright.sync_api.Page, chat_messages: List[str]) -> Tuple[float, bool, str, dict]:
         state = self.config["state"]
-        if state.lower() in chat_messages[-1]["content"].lower():
+        if state.lower() in chat_messages[-1]["message"].lower():
             return (
                 1,
                 True,
@@ -44,11 +54,14 @@ class GetCaseStatusTask(ServiceNowCaseTask):
             {"message": "The state does not match."},
         )
 
+    def all_configs(self):
+        return json.load(open(GET_CASE_STATUS_CONFIG_PATH))
+
 
 class CloseCaseTask(ServiceNowCaseTask):
-    
-    def __init__(self, seed: int, config: Dict[str, Any]) -> None:
-        super().__init__(seed, config)
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
 
         self.initial_state = table_api_call(
             instance=self.instance,
@@ -61,12 +74,12 @@ class CloseCaseTask(ServiceNowCaseTask):
         )["result"][0]["state"]
 
     def validate(self, page: playwright.sync_api.Page, chat_messages: List[str]) -> Tuple[float, bool, str, dict]:
-        
+
         # gather info from config
         case_number = self.config["case_number"]
         resolution_code = self.config["resolution_code"]
         close_notes = self.config["close_notes"]
-        
+
         # Query sn_customerservice_case in ServiceNow
         record = table_api_call(
             instance=self.instance,
@@ -103,7 +116,7 @@ class CloseCaseTask(ServiceNowCaseTask):
         )
 
     def teardown(self) -> None:
-        
+
         # revert the state to initial_state
         table_api_call(
             instance=self.instance,
@@ -119,14 +132,17 @@ class CloseCaseTask(ServiceNowCaseTask):
             },
         )
 
+    def all_configs(self):
+        return json.load(open(CLOSE_CASE_CONFIG_PATH))
+
 
 class GetCaseResolutionNotesTask(ServiceNowCaseTask):
-    
+
     def validate(self, page: playwright.sync_api.Page, chat_messages: List[str]) -> Tuple[float, bool, str, dict]:
         close_notes = self.config["close_notes"]
 
         # check for close_notes
-        if close_notes.lower() in chat_messages[-1]["content"].lower():
+        if close_notes.lower() in chat_messages[-1]["message"].lower():
             return (
                 1,
                 True,
@@ -138,17 +154,21 @@ class GetCaseResolutionNotesTask(ServiceNowCaseTask):
             False,
             "",
             {"message": "The close notes do not match."},
-        )    
+        )
+
+    def all_configs(self):
+        return json.load(open(GET_CASE_RESOLUTION_NOTES_CONFIG_PATH))
+
 
 class FindAssetUnderAccountCreateCaseTask(ServiceNowCaseTask):
-    
-    def __init__(self, seed: int, config: Dict[str, Any]) -> None:
-        super().__init__(seed, config)
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.record_sys_id = None
 
     def validate(self, page: playwright.sync_api.Page, chat_messages: List[str]) -> Tuple[float, bool, str, dict]:
 
-        customer_account = self.config["customer_account"]    
+        customer_account = self.config["customer_account"]
         assets = [elem.strip() for elem in self.config.get("assets", "").split(",")]
 
         # find customer account sys id
@@ -197,7 +217,6 @@ class FindAssetUnderAccountCreateCaseTask(ServiceNowCaseTask):
         # check for assets
         # TODO: this is not the best way to do it
         for short_description in short_descriptions:
-            print(short_description)
             if all(asset.lower() in short_description.lower() for asset in assets):
                 return (
                     1,
@@ -220,6 +239,10 @@ class FindAssetUnderAccountCreateCaseTask(ServiceNowCaseTask):
                 sys_id=self.record_sys_id,
                 table="sn_customerservice_case",
             )
+
+    def all_configs(self):
+        return json.load(open(FIND_ASSET_UNDER_ACCOUNT_CREATE_CASE_CONFIG_PATH))
+
 
 __TASKS__ = [
     GetCaseStatusTask,
