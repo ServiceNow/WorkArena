@@ -115,5 +115,260 @@
             "short_description": "Reset my password",
             "business_impact": "trivial reset password"
         }
+    },
+    {
+        "goal": "In the Service Operations workspace, create a {urgency} urgency child incident under {parent_incident}. The incident should be opened for {caller_id} under the {category} category and the short description should say that {short_description}",
+        "fields": {
+            "assignment_group": "Assignment group",
+            "business_impact": "Business impact",
+            "business_service": "Service",
+            "caller_id": "Caller",
+            "category": "Category",
+            "caused_by": "Caused by Change",
+            "close_code": "Resolution code",
+            "close_notes": "Resolution notes",
+            "cmdb_ci": "Configuration item",
+            "contact_type": "Channel",
+            "description": "Description",
+            "impact": "Impact",
+            "knowledge": "Knowledge",
+            "number": "Number",
+            "parent_incident": "Parent Incident",
+            "problem_id": "Problem",
+            "resolved_by": "Resolved by",
+            "rfc": "Change Request",
+            "service_offering": "Service offering",
+            "short_description": "Short description",
+            "urgency": "Urgency",
+            "work_notes": "Work notes"
+        },
+        "task_fields": [
+            "caller_id",
+            "urgency",
+            "category",
+            "short_description",
+            "parent_incident"
+        ],
+        "template_record": {
+            "caller_id": "Owen Sparacino",
+            "urgency": "3 - Low",
+            "category": "Inquiry / Help",
+            "short_description": "he can't locate the Weather Bug icon on his desktop",
+            "parent_incident": "INC0000029"
+        }
+    },
+    {
+        "goal": "In the Service Operations workspace, create a {urgency} urgency child incident under {parent_incident}. The incident should be opened for {caller_id} under the {category} category and the short description should say that {short_description}",
+        "fields": {
+            "assignment_group": "Assignment group",
+            "business_impact": "Business impact",
+            "business_service": "Service",
+            "caller_id": "Caller",
+            "category": "Category",
+            "caused_by": "Caused by Change",
+            "close_code": "Resolution code",
+            "close_notes": "Resolution notes",
+            "cmdb_ci": "Configuration item",
+            "contact_type": "Channel",
+            "description": "Description",
+            "impact": "Impact",
+            "knowledge": "Knowledge",
+            "number": "Number",
+            "parent_incident": "Parent Incident",
+            "problem_id": "Problem",
+            "resolved_by": "Resolved by",
+            "rfc": "Change Request",
+            "service_offering": "Service offering",
+            "short_description": "Short description",
+            "urgency": "Urgency",
+            "work_notes": "Work notes"
+        },
+        "task_fields": [
+            "caller_id",
+            "urgency",
+            "category",
+            "short_description",
+            "parent_incident"
+        ],
+        "template_record": {
+            "caller_id": "Genevieve Kekiwi",
+            "urgency": "2 - Medium",
+            "category": "Inquiry / Help",
+            "short_description": "she is unable to send and receive emails",
+            "parent_incident": "INC0000049"
+        }
+    },
+    {
+        "goal": "In the Service Operations workspace, create a {urgency} urgency child incident under {parent_incident}. The incident should be opened for {caller_id} under the {category} category and the short description should say that {short_description}",
+        "fields": {
+            "assignment_group": "Assignment group",
+            "business_impact": "Business impact",
+            "business_service": "Service",
+            "caller_id": "Caller",
+            "category": "Category",
+            "caused_by": "Caused by Change",
+            "close_code": "Resolution code",
+            "close_notes": "Resolution notes",
+            "cmdb_ci": "Configuration item",
+            "contact_type": "Channel",
+            "description": "Description",
+            "impact": "Impact",
+            "knowledge": "Knowledge",
+            "number": "Number",
+            "parent_incident": "Parent Incident",
+            "problem_id": "Problem",
+            "resolved_by": "Resolved by",
+            "rfc": "Change Request",
+            "service_offering": "Service offering",
+            "short_description": "Short description",
+            "urgency": "Urgency",
+            "work_notes": "Work notes"
+        },
+        "task_fields": [
+            "caller_id",
+            "urgency",
+            "category",
+            "short_description",
+            "parent_incident"
+        ],
+        "template_record": {
+            "caller_id": "Margot Arenburg",
+            "urgency": "1 - High",
+            "category": "Inquiry / Help",
+            "short_description": "she can't connect to Exchange",
+            "parent_incident": "INC0000037"
+        }
+    },
+    {
+        "goal": "In the Service Operations workspace, create an incident for a {category} issue called in by {caller_id}: {short_description}. Set impact and urgency as {impact} and add {watch_list} to the watchlist",
+        "fields": {
+            "assignment_group": "Assignment group",
+            "business_impact": "Business impact",
+            "business_service": "Service",
+            "caller_id": "Caller",
+            "category": "Category",
+            "caused_by": "Caused by Change",
+            "close_code": "Resolution code",
+            "close_notes": "Resolution notes",
+            "cmdb_ci": "Configuration item",
+            "contact_type": "Channel",
+            "description": "Description",
+            "impact": "Impact",
+            "knowledge": "Knowledge",
+            "number": "Number",
+            "parent_incident": "Parent Incident",
+            "problem_id": "Problem",
+            "resolved_by": "Resolved by",
+            "rfc": "Change Request",
+            "service_offering": "Service offering",
+            "short_description": "Short description",
+            "urgency": "Urgency",
+            "watch_list": "Watch list",
+            "work_notes": "Work notes"
+        },
+        "task_fields": [
+            "caller_id",
+            "category",
+            "impact",
+            "urgency",            
+            "short_description",
+            "watch_list"
+        ],
+        "template_record": {
+            "caller_id": "Evan Pyfrom",
+            "category": "Hardware",
+            "impact": "3 - Low",
+            "urgency": "3 - Low",
+            "short_description": "His mouse is stuttering",
+            "watch_list": "Sharlene Circelli"
+        }
+    },
+    {
+        "goal": "In the Service Operations workspace, create an incident for a {category} issue called in by {caller_id}: {short_description}. Set impact and urgency as {impact} and add {watch_list} to the watchlist",
+        "fields": {
+            "assignment_group": "Assignment group",
+            "business_impact": "Business impact",
+            "business_service": "Service",
+            "caller_id": "Caller",
+            "category": "Category",
+            "caused_by": "Caused by Change",
+            "close_code": "Resolution code",
+            "close_notes": "Resolution notes",
+            "cmdb_ci": "Configuration item",
+            "contact_type": "Channel",
+            "description": "Description",
+            "impact": "Impact",
+            "knowledge": "Knowledge",
+            "number": "Number",
+            "parent_incident": "Parent Incident",
+            "problem_id": "Problem",
+            "resolved_by": "Resolved by",
+            "rfc": "Change Request",
+            "service_offering": "Service offering",
+            "short_description": "Short description",
+            "urgency": "Urgency",
+            "watch_list": "Watch list",
+            "work_notes": "Work notes"
+        },
+        "task_fields": [
+            "caller_id",
+            "category",
+            "impact",
+            "urgency",            
+            "short_description",
+            "watch_list"
+        ],
+        "template_record": {
+            "caller_id": "Kennith Peto",
+            "category": "Network",
+            "impact": "2 - Medium",
+            "urgency": "2 - Medium",
+            "short_description": "The system is not accepting his new password",
+            "watch_list": "Nathanial Phoenix"
+        }
+    },
+    {
+        "goal": "In the Service Operations workspace, create an incident for a {category} issue called in by {caller_id}: {short_description}. Set impact and urgency as {impact} and add {watch_list} to the watchlist",
+        "fields": {
+            "assignment_group": "Assignment group",
+            "business_impact": "Business impact",
+            "business_service": "Service",
+            "caller_id": "Caller",
+            "category": "Category",
+            "caused_by": "Caused by Change",
+            "close_code": "Resolution code",
+            "close_notes": "Resolution notes",
+            "cmdb_ci": "Configuration item",
+            "contact_type": "Channel",
+            "description": "Description",
+            "impact": "Impact",
+            "knowledge": "Knowledge",
+            "number": "Number",
+            "parent_incident": "Parent Incident",
+            "problem_id": "Problem",
+            "resolved_by": "Resolved by",
+            "rfc": "Change Request",
+            "service_offering": "Service offering",
+            "short_description": "Short description",
+            "urgency": "Urgency",
+            "watch_list": "Watch list",
+            "work_notes": "Work notes"
+        },
+        "task_fields": [
+            "caller_id",
+            "category",
+            "impact",
+            "urgency",            
+            "short_description",
+            "watch_list"
+        ],
+        "template_record": {
+            "caller_id": "Mara Rineheart",
+            "category": "Software",
+            "impact": "1 - High",
+            "urgency": "1 - High",
+            "short_description": "All employee laptops in the New York office have been infected with malware",
+            "watch_list": "Dude Lewbowskie"
+        }
     }
 ]
