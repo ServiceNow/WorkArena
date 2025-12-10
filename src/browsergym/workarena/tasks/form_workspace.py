@@ -22,18 +22,23 @@ class GenericCreateWorkspaceTask(GenericNewRecordTask):
         if self.fixed_config is None:
             self._set_required_config_attributes(config)
         self.protected_fields = self.task_fields
-        # Generate the goal
-        goal = (
-            f"In the Service Operations workspace, create a new {self.table_label} with "
-            + prettyprint_enum(
-                [
-                    f'a value of "{self.template_record[f]}"'
+
+        if "goal" in self.config:
+            goal = self.config["goal"]
+            # replace placeholders
+            goal = goal.format(**self.template_record)
+        else:
+            goal = (
+                f"In the Service Operations workspace, create a new {self.table_label} with "
+                + prettyprint_enum(
+                    [
+                        f'a value of "{self.template_record[f]}"'
                     + f' for field "{self.config["fields"][f]}"'
                     for f in self.task_fields
                 ]
             )
-            + "."
-        )
+                + "."
+            )
         info = {}
 
         return goal, info
@@ -108,7 +113,7 @@ class GenericCreateWorkspaceTask(GenericNewRecordTask):
                     logging.info(error_msg)
                     return (
                         0,
-                        True,
+                        False, # False because we should let the agent continue trying
                         error_msg,
                         {"message": error_msg},
                     )
