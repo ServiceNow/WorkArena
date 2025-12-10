@@ -48,6 +48,7 @@ To setup WorkArena, you will need to gain access to ServiceNow instances and ins
 1. Navigate to https://huggingface.co/datasets/ServiceNow/WorkArena-Instances.
 2. Fill the form, accept the terms to gain access to the gated repository and wait for approval.
 3. Ensure that the machine where you will run WorkArena is [authenticated with Hugging Face](https://huggingface.co/docs/hub/en/datasets-polars-auth) (e.g., via huggingface-cli login or the HUGGING_FACE_HUB_TOKEN environment variable).
+4. Unset any previous WorkArena environment variables if you are upgrading from a previous install (`SNOW_INSTANCE_URL`, etc.)
 
 ### b) Install WorkArena
 
