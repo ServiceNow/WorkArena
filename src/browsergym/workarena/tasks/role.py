@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Tuple
 import playwright.sync_api
 import requests
 
+from ..api.utils import HTTPError, db_delete_from_table
 from ..config import (
     ASSIGN_ROLE_TO_USER_ADMIN_CONFIG_PATH,
     ASSIGN_ROLES_TO_USER_EXPLICIT_CONFIG_PATH,
@@ -22,6 +23,7 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
         self.task_is_setup = False
         self.config = fixed_config if fixed_config else self.random.choice(self.all_configs())
         self.timeout = 60000
+        self.created_sysids = []
 
     def setup_goal(self, page: playwright.sync_api.Page) -> Tuple[str, dict]:
         """Setup the task configuration and produce the goal."""
@@ -41,14 +43,10 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
         user_roles = self.config.get("roles", "admin")
         user_roles = [role.strip() for role in user_roles.split(",")]
 
-        # get instance url and credentials
-        instance_url = self.instance.snow_url
-        snow_username, snow_password = self.instance.snow_credentials
-
         # query instance to get user sys id
         response = requests.get(
-            f"{instance_url}/api/now/table/sys_user",
-            auth=(snow_username, snow_password),
+            f"{self.instance.snow_url}/api/now/table/sys_user",
+            auth=self.instance.snow_credentials,
             headers={"Accept": "application/json"},
             params={
                 "sysparm_query": f"name={user_full_name}",
@@ -90,6 +88,10 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
                     "",
                     {"message": "The role does not match."},
                 )
+            else:
+                # find which row from result is associated with that role, get sys_id, and save
+                sys_id = next((elem["sys_id"] for elem in result if elem["role"]["display_value"] == role), None)
+                self.created_sysids.append(sys_id)
         return (
             1,
             True,
@@ -99,8 +101,15 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
 
     def teardown(self) -> None:
 
-        # go over all roles in sys_user_has_role and remove them for the given users
-        pass
+        # go over all created sysids and delete that record in the sys_user_has_role table
+        for sys_id in self.created_sysids:
+            if sys_id is not None:
+                try:
+                    db_delete_from_table(instance=self.instance, sys_id=sys_id, table="sys_user_has_role")
+                except HTTPError:
+                    # sys_id was stored in local storage (for submitted)
+                    # but the record is absent from the database (probably invalid form)
+                    pass
 
     def all_configs(self):
         raise NotImplementedError
