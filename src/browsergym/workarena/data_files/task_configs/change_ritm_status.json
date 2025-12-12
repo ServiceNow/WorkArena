@@ -13,5 +13,15 @@
         "ritm_number": "RITM0010003",
         "approval": "requested",
         "goal": "Change RITM0010003 approval status to requested"
+    },
+    {
+        "ritm_number": "RITM0010263",
+        "approval": "requested",
+        "goal": "Change RITM0010263 approval status to requested"
+    },
+    {
+        "ritm_number": "RITM0010373",
+        "approval": "approved",
+        "goal": "Change RITM0010373 approval status to approved"
     }
 ]
