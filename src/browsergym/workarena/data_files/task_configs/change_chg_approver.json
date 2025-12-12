@@ -13,5 +13,15 @@
         "change_number": "CHG0000086",
         "approver": "David Dan",
         "goal": "Update change request CHG0000086 to get David Dan's approval"
+    },
+    {
+        "change_number": "CHG0000040",
+        "approver": "Beth Anglin",
+        "goal": "Update change request CHG0000040 to get Beth Anglin's approval"
+    },
+    {
+        "change_number": "CHG0000044",
+        "approver": "Don Goodliffe",
+        "goal": "Update change request CHG0000044 to get Don Goodliffe's approval"
     }
 ]
