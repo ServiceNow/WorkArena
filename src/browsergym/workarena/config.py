@@ -19,6 +19,7 @@ INSTANCE_XOR_SEED = "x3!+-9mi#nhlo%a02$9hna{]"
 
 # Path to the Menu navigation task configuration
 ALL_MENU_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu.json"))
+ALL_MENU_CUSTOM_GOAL_PATH = str(resources.files(data_files).joinpath("task_configs/go_to_page.json"))
 
 # Path to the dashboard/report retrieval task configurations
 DASHBOARD_RETRIEVAL_MINMAX_CONFIG_PATH = str(
@@ -258,4 +259,77 @@ ASSIGN_ROLES_TO_USER_EXPLICIT_CONFIG_PATH = str(
 )
 ASSIGN_ROLES_TO_USER_IMPLICIT_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/assign_roles_to_user_implicit.json")
+)
+
+## License tasks
+GET_NUMBER_LICENSES_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/get_number_licenses.json")
+)
+
+## Change Request tasks
+CHANGE_CHANGE_REQUEST_APPROVER_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/change_chg_approver.json")
+)
+
+## Incident tasks
+ADD_ADDITIONAL_ASSIGNEE_TO_INCIDENT_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/add_additional_assignee_to_incident.json")
+)
+RESOLVE_INCIDENT_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/resolve_incident.json")
+)
+UPDATE_INCIDENT_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/update_incident.json")
+)
+
+## Request Item tasks
+CHANGE_RITM_STATUS_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/change_ritm_status.json")
+)
+UPDATE_RITM_QUANTITY_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/update_ritm_quantity.json")
+)
+
+## Interaction tasks
+CREATE_INTERACTION_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/create_interaction.json")
+)
+
+## Customer account tasks
+FIND_CUSTOMER_ACCOUNT_MANAGER_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/find_customer_account_manager.json")
+)
+
+## User group tasks
+DEACTIVATE_USER_GROUP_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/deactivate_user_group.json")
+)
+
+# service catalog tasks (dynamic guidance)
+ORDER_IPHONE_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_iphone.json")
+)
+ORDER_MOBILE_PHONE_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_mobile_phone.json")
+)
+ORDER_MISC_HARDWARE_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_misc_hardware.json")
+)
+ORDER_MISC_HARDWARE_WITH_BUSINESS_JUSTIFICATION_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_misc_hardware_with_business_justification.json")
+)
+ORDER_PACKAGING_AND_SHIPPING_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_packaging_and_shipping.json")
+)
+ORDER_RESET_PASSWORD_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_reset_password.json")
+)
+ORDER_PAPER_SUPPLIES_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_paper_and_supplies.json")
+)
+ORDER_SOFTWARE_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_software.json")
+)
+ORDER_SOFTWARE_ACCESS_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_software_access.json")
 )

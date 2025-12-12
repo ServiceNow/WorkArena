@@ -23,10 +23,17 @@ from .tasks.form import __TASKS__ as FORM_TASKS
 from .tasks.knowledge import __TASKS__ as KB_TASKS
 from .tasks.list import __TASKS__ as LIST_TASKS
 from .tasks.navigation import __TASKS__ as NAVIGATION_TASKS
+from .tasks.navigation import __DYNAMIC_GUIDANCE_TASKS__ as NAVIGATION_DYNAMIC_GUIDANCE_TASKS
 from .tasks.service_catalog import __TASKS__ as SERVICE_CATALOG_TASKS
 from .tasks.service_catalog import __DYNAMIC_GUIDANCE_TASKS__ as SERVICE_CATALOG_DYNAMIC_GUIDANCE_TASKS
 from .tasks.case import __TASKS__ as CASE_TASKS
 from .tasks.role import __TASKS__ as ROLE_TASKS
+from .tasks.interaction import __TASKS__ as INTERACTION_TASKS
+from .tasks.change_request import __TASKS__ as CHANGE_REQUEST_TASKS
+from .tasks.customer_account import __TASKS__ as CUSTOMER_ACCOUNT_TASKS
+from .tasks.incident import __TASKS__ as INCIDENT_TASKS
+from .tasks.license import __TASKS__ as LICENSE_TASKS
+from .tasks.ritm import __TASKS__ as RITM_TASKS
 from .tasks.compositional.base import CompositionalTask
 
 ALL_WORKARENA_TASKS = [
@@ -50,8 +57,15 @@ ATOMIC_TASKS = [
 
 ALL_WORKARENA_DYNAMIC_GUIDANCE_TASKS = [
     *SERVICE_CATALOG_DYNAMIC_GUIDANCE_TASKS,
+    *NAVIGATION_DYNAMIC_GUIDANCE_TASKS,
     *CASE_TASKS,
     *ROLE_TASKS,
+    *INTERACTION_TASKS,
+    *CHANGE_REQUEST_TASKS,
+    *CUSTOMER_ACCOUNT_TASKS,
+    *INCIDENT_TASKS,
+    *LICENSE_TASKS,
+    *RITM_TASKS,
 ]
 
 
@@ -106,6 +120,17 @@ TASK_CATEGORY_MAP = {
     "workarena.servicenow.multi-chart-value-retrieval": "dashboard",
     "workarena.servicenow.single-chart-value-retrieval": "dashboard",
     "workarena.servicenow.single-chart-min-max-retrieval": "dashboard",
+    # dynamic guidance tasks
+    "workarena.servicenow.order-iphone": "service catalog",
+    "workarena.servicenow.order-mobile-phone": "service catalog",
+    "workarena.servicenow.order-software": "service catalog",
+    "workarena.servicenow.order-software-access": "service catalog",
+    "workarena.servicenow.order-reset-password": "service catalog",
+    "workarena.servicenow.order-packaging-and-shipping": "service catalog",
+    "workarena.servicenow.order-paper-supplies": "service catalog",
+    "workarena.servicenow.order-misc-hardware": "service catalog",
+    "workarena.servicenow.order-misc-hardware-with-business-justification": "service catalog",
+    "workarena.servicenow.order-reset-password": "service catalog",
 }
 
 

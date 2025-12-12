@@ -14,7 +14,7 @@ from typing import List, Tuple
 
 from ..api.utils import table_api_call
 from .base import AbstractServiceNowTask
-from ..config import ALL_MENU_PATH, IMPERSONATION_CONFIG_PATH
+from ..config import ALL_MENU_PATH, ALL_MENU_CUSTOM_GOAL_PATH, IMPERSONATION_CONFIG_PATH
 from ..instance import SNowInstance
 from ..utils import impersonate_user
 
@@ -145,6 +145,42 @@ class AllMenuTask(AbstractServiceNowTask):
     def teardown(self) -> None:
         pass
 
+class AllMenuCustomGoalTask(AllMenuTask):
+
+    def __init__(
+        self, *args, **kwargs
+    ) -> None:
+        super().__init__(*args, **kwargs)
+        with open(ALL_MENU_CUSTOM_GOAL_PATH, "r") as f:
+            self.all_configs = json.load(f)
+
+    def setup_goal(self, page: Page) -> tuple[str, dict]:
+
+        # Get task configuration
+        self.module = (
+            self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
+        )
+
+        # When menu tasks do not need to be validated, the URL can be omitted from their config
+        self.final_url = self.instance.snow_url + self.module.get("url", "")
+
+        # Generate goal
+        goal = self.module["goal"]
+        info = {}
+
+        return goal, info
+
+    def get_pretty_printed_description(self) -> str:
+        """
+        Get the task info for this task when used in a private task; Used in L3 compositional tasks.
+        called by subclasses
+        """
+        task_info = self.module["goal"]
+
+        return task_info
+
+    def cheat(self, page: Page, chat_messages: list[str]) -> None:
+        pass
 
 class ImpersonationTask(AbstractServiceNowTask):
     """
@@ -237,3 +273,5 @@ class ImpersonationTask(AbstractServiceNowTask):
 
 
 __TASKS__ = [AllMenuTask, ImpersonationTask]
+
+__DYNAMIC_GUIDANCE_TASKS__ = [AllMenuCustomGoalTask]
