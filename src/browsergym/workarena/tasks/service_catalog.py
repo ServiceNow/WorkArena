@@ -713,11 +713,11 @@ class OrderIphoneTask(OrderFromServiceCatalogTask):
     config_path = ORDER_IPHONE_TASK_CONFIG_PATH
 
     FIELD_NAME_MAPPING = {
-        "Is this a replacement for a lost or broken iPhone?": "replacement",
-        "What was the original phone number?": "original_phone_number",
-        "Choose the colour": "color",
-        "Choose the storage": "storage",
-        "Monthly data allowance": "monthly_data_allowance",
+        "replacement": "Is this a replacement for a lost or broken iPhone?",
+        "original_phone_number": "What was the original phone number?",
+        "color": "Choose the colour",
+        "storage": "Choose the storage",
+        "monthly_data_allowance": "Monthly data allowance",
     }
 
     COLOR_MAPPING = {
@@ -744,18 +744,18 @@ class OrderIphoneTask(OrderFromServiceCatalogTask):
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
-        if not requested_item["quantity"] == self.config["quantity"]:
+        if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         # go over values
-        if requested_item["options"][self.FIELD_NAME_MAPPING["Monthly data allowance"]] != self.config["monthly_data_allowance"]:
+        if requested_item["options"][self.FIELD_NAME_MAPPING["monthly_data_allowance"]] != self.config["monthly_data_allowance"]:
             return 0, False, "", {"message": "The requested monthly data allowance is incorrect."}
 
-        if requested_item["options"][self.FIELD_NAME_MAPPING["Is this a replacement for a lost or broken iPhone?"]] != self.config["replacement"]:
+        if requested_item["options"][self.FIELD_NAME_MAPPING["replacement"]] != self.config["replacement"]:
             return 0, False, "", {"message": "The requested replacement status is incorrect."}
 
         # TODO: add replacement phone number in data
-        if requested_item["options"][self.FIELD_NAME_MAPPING["What was the original phone number?"]] != self.config["original_phone_number"]:
+        if requested_item["options"][self.FIELD_NAME_MAPPING["original_phone_number"]] != self.config["original_phone_number"]:
             return 0, False, "", {"message": "The requested original phone number is incorrect."}
 
         if requested_item["options"][self.FIELD_NAME_MAPPING["color"]] != self.COLOR_MAPPING[self.config["color"]]:
@@ -772,8 +772,8 @@ class OrderMobilePhoneTask(OrderFromServiceCatalogTask):
     config_path = ORDER_MOBILE_PHONE_TASK_CONFIG_PATH
 
     FIELD_NAME_MAPPING = {
-        "Choose the colour": "color",
-        "Choose the storage": "storage",
+        "color": "Choose the colour",
+        "storage": "Choose the storage",
     }
 
     COLOR_MAPPING = {
@@ -792,7 +792,7 @@ class OrderMobilePhoneTask(OrderFromServiceCatalogTask):
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
-        if not requested_item["quantity"] == self.config["quantity"]:
+        if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         # go over values
@@ -817,7 +817,7 @@ class OrderMiscHardwareTask(OrderFromServiceCatalogTask):
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
-        if not requested_item["quantity"] == self.config["quantity"]:
+        if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
@@ -833,7 +833,7 @@ class OrderMiscHardwareWithBusinessJustificationTask(OrderFromServiceCatalogTask
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
-        if not requested_item["quantity"] == self.config["quantity"]:
+        if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         # NOTE: we don't check for `requested for` field.
@@ -849,9 +849,9 @@ class OrderPaperSuppliesTask(OrderFromServiceCatalogTask):
     config_path = ORDER_PAPER_SUPPLIES_TASK_CONFIG_PATH
 
     ITEM_NAME_MAPPING = {
-        "Pens (box of 10)": "boxes of pens",
-        "Copier paper (reams)": "reams of paper",
-        "Screen wipes (tube of 20)": "tubes of screen wipes",
+        "boxes of pens": "Pens (box of 10)",
+        "reams of paper": "Copier paper (reams)",
+        "tubes of screen wipes": "Screen wipes (tube of 20)",
     }
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
@@ -862,13 +862,13 @@ class OrderPaperSuppliesTask(OrderFromServiceCatalogTask):
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
-        if not requested_item["quantity"] == self.config["quantity"]:
+        if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         # check values
         # we check only for 1 value.
         # TODO: expand to multiple items at once
-        if str(requested_item["options"][self.ITEM_NAME_MAPPING[self.config["item"]]]) != str(self.config["number"]):
+        if str(requested_item["options"][self.ITEM_NAME_MAPPING[self.config["supplies"]]]) != str(self.config["number"]):
             return 0, False, "", {"message": "The requested item and number is incorrect."}
 
         # NOTE: we don't look at `Additional requirements` field.
@@ -956,9 +956,9 @@ class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
     config_path = ORDER_PACKAGING_AND_SHIPPING_TASK_CONFIG_PATH
 
     FIELD_NAME_MAPPING = {
-        "Parcel details": "parcel_details",
-        "Shipping type": "shipping_type",
-        "Destination": "destination",
+        "parcel_details": "Parcel details",
+        "shipping_type": "Shipping type",
+        "destination": "Destination",
     }
 
     SHIPPING_TYPE_MAPPING = {
@@ -983,13 +983,14 @@ class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
+        print(requested_item)
         if requested_item is None:
             return 0, False, "", {"message": "The requested item is incorrect."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
-        if not requested_item["quantity"] == self.config["quantity"]:
+        if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         # validate values
@@ -1019,7 +1020,7 @@ class OrderSoftwareTask(OrderFromServiceCatalogTask):
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
-        if not requested_item["quantity"] == self.config["quantity"]:
+        if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
@@ -1029,13 +1030,14 @@ class OrderSoftwareAccessTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
+        print(requested_item)
         if requested_item is None:
             return 0, False, "", {"message": "The requested item is incorrect."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
-        if not requested_item["quantity"] == self.config["quantity"]:
+        if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         # NOTE: we don't check for `requested for` field.
