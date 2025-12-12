@@ -1,35 +1,35 @@
 [
     {
+        "item": "Galaxy Note 20",
         "color": "Mystic Blue",
-        "model": "Galaxy Note 20",
         "storage": "128 GB",
         "quantity": 1,
         "goal": "I need a new phone. Order a Galaxy Note 20 in Mystic Blue with 128 GB of disk space."
     },
     {
+        "item": "Galaxy Note 20",
         "color": "Mystic Bronze",
-        "model": "Galaxy Note 20",
         "storage": "256 GB",
         "quantity": 1,
         "goal": "I need a new phone. Order a Galaxy Note 20 in Mystic Bronze with 256 GB of disk space."
     },
     {
+        "item": "Galaxy Note 20",
         "color": "Mystic Green",
-        "model": "Galaxy Note 20",
         "storage": "128 GB",
         "quantity": 1,
         "goal": "I need a new phone. Order a Galaxy Note 20 in Mystic Green with 128 GB of disk space."
     },
     {
+        "item": "Pixel 4a",
         "color": "White",
-        "model": "Pixel 4a",
         "storage": "512 GB",
         "quantity": 1,
         "goal": "I need a new phone. Order a Pixel 4a in White with 512 GB of disk space."
     },
     {
+        "item": "Pixel 4a",
         "color": "Just Black",
-        "model": "Pixel 4a",
         "storage": "256 GB",
         "quantity": 1,
         "goal": "I need a new phone. Order a Pixel 4a in Just Black with 256 GB of disk space."
