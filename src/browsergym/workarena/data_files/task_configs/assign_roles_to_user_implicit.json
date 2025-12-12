@@ -16,5 +16,17 @@
         "role_family": "sn_incident",
         "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
         "goal": "Assign Kerry Evertt all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Miquel Demicco",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Miquel Demicco all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "William Mahmud",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign William Mahmud all of the \"sn_incident\" roles"
     }
 ]
