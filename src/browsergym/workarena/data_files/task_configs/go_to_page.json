@@ -1,0 +1,17 @@
+[
+    {
+        "page": "the Contracts table",
+        "url": "/now/nav/ui/classic/params/target/ast_contract_list.do",
+        "goal": "Go to the Contracts table"
+    },
+    {
+        "page": "the page that lists all SLA definitions",
+        "url": "/now/nav/ui/classic/params/target/contract_sla_list.do",
+        "goal": "Go to the page that lists all SLA definitions"
+    },
+    {
+        "page": "where installed plugins and applications are listed",
+        "url": "/now/app-manager/home/tab/installed/sort/install_date",
+        "goal": "Go to where installed plugins and applications are listed"
+    }
+]

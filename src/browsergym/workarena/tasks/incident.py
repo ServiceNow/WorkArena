@@ -6,7 +6,9 @@ import requests
 
 from ..api.utils import HTTPError, db_delete_from_table, table_api_call
 from ..config import (
-    CREATE_INTERACTION_CONFIG_PATH,
+    ADD_ADDITIONAL_ASSIGNEE_TO_INCIDENT_CONFIG_PATH,
+    UPDATE_INCIDENT_CONFIG_PATH,
+    RESOLVE_INCIDENT_CONFIG_PATH,
 )
 from .base import AbstractServiceNowTask
 

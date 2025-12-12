@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Tuple
 import playwright.sync_api
 import requests
 
-from ..api.utils import HTTPError, db_delete_from_table, table_api_call
+from ..api.utils import HTTPError, table_api_call
 from ..config import (
     DEACTIVATE_USER_GROUP_CONFIG_PATH,
 )

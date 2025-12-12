@@ -7,7 +7,7 @@ import requests
 
 from ..api.utils import HTTPError, table_api_call
 from ..config import (
-    CREATE_INTERACTION_CONFIG_PATH,
+    CHANGE_CHANGE_REQUEST_APPROVER_CONFIG_PATH,
 )
 from .base import AbstractServiceNowTask
 

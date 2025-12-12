@@ -1,0 +1,20 @@
+[
+    {
+        "hardware": "laptop",
+        "hardware_issue": "The laptop screen won't turn on",
+        "assigned_to": "Kurtis Asberry",
+        "goal": "A customer called in about his laptop. The laptop screen won't turn on. Create an interaction based on the phone call and assign it to Kurtis Asberry"
+    },
+    {
+        "hardware": "router",
+        "hardware_issue": "The router light is on but there is no Wifi",
+        "assigned_to": "Manifah Masood",
+        "goal": "A customer called in about his router. The router light is on but there is no Wifi. Create an interaction based on the phone call and assign it to Manifah Masood"
+    },
+    {
+        "hardware": "keyboard",
+        "hardware_issue": "The keyboard's vowel keys are stuck",
+        "assigned_to": "Lacy Belmont",
+        "goal": "A customer called in about his keyboard. The keyboard's vowel keys are stuck. Create an interaction based on the phone call and assign it to Lacy Belmont"
+    }
+]

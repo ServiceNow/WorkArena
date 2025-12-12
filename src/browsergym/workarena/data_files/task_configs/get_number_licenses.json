@@ -1,0 +1,17 @@
+[
+    {
+        "model": "Adobe Acrobat",
+        "number_of_licenses": 600,
+        "goal": "Get the number of licenses available for Adobe Acrobat"
+    },
+    {
+        "model": "Skype",
+        "number_of_licenses": 550,
+        "goal": "Get the number of licenses available for Skype"
+    },
+    {
+        "model": "Microsoft Office Home and Business 2010",
+        "number_of_licenses": 71,
+        "goal": "Get the number of licenses available for Microsoft Office Home and Business 2010"
+    }
+]
