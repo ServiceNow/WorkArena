@@ -91,3 +91,8 @@ class CreateInteractionTask(ServiceNowInteractionTask):
     def all_configs(self):
         return json.load(open(CREATE_INTERACTION_CONFIG_PATH))
         
+
+__TASKS__ = [
+    CreateInteractionTask,
+]
+    

@@ -48,3 +48,7 @@ class GetNumberLicensesTask(ServiceNowLicenseTask):
 
     def teardown(self) -> None:
         pass
+
+__TASKS__ = [
+    GetNumberLicensesTask,
+]

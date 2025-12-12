@@ -232,3 +232,8 @@ class UpdateRitmQuantityTask(ServiceNowRitmTask):
                 # sys_id was stored in local storage (for submitted)
                 # but the record is absent from the database (probably invalid form)
                 pass
+
+__TASKS__ = [
+    ChangeRitmStatusTask,
+    UpdateRitmQuantityTask,
+]
