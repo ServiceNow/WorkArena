@@ -136,3 +136,7 @@ class ChangeChangeRequestApproverTask(ServiceNowChangeRequestTask):
             except HTTPError:
                 pass
             
+
+__TASKS__ = [
+    ChangeChangeRequestApproverTask,
+]

@@ -1,4 +1,3 @@
-
 import json
 from typing import Any, Dict, List, Tuple
 
@@ -6,9 +5,7 @@ import playwright.sync_api
 import requests
 
 from ..api.utils import HTTPError, table_api_call
-from ..config import (
-    DEACTIVATE_USER_GROUP_CONFIG_PATH,
-)
+from ..config import DEACTIVATE_USER_GROUP_CONFIG_PATH
 from .base import AbstractServiceNowTask
 
 
@@ -35,6 +32,7 @@ class ServiceNowUserGroupTask(AbstractServiceNowTask):
     def all_configs(self):
         raise NotImplementedError
 
+
 class CreateUserGroupTask(ServiceNowUserGroupTask):
     pass
 
@@ -43,9 +41,9 @@ class DeactivateUserGroupTask(ServiceNowUserGroupTask):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         self.user_group_sys_id = None
-    
+
     def all_configs(self):
         return json.load(open(DEACTIVATE_USER_GROUP_CONFIG_PATH))
 
@@ -90,7 +88,6 @@ class DeactivateUserGroupTask(ServiceNowUserGroupTask):
             {"message": "The user group was not deactivated."},
         )
 
-
     def teardown(self) -> None:
         try:
             table_api_call(
@@ -105,4 +102,8 @@ class DeactivateUserGroupTask(ServiceNowUserGroupTask):
             )
         except HTTPError:
             pass
-        
+
+
+__TASKS__ = [
+    DeactivateUserGroupTask,
+]
