@@ -1,0 +1,52 @@
+[
+    {
+        "color": "Starlight",
+        "model": "Apple iPhone 13",
+        "storage": "128 GB",
+        "replacement_reason": "I need it to replace my broken phone",
+        "replacement": true,
+        "quantity": 1,
+        "monthly_data_allowance": "500MB",
+        "goal": "Order a Starlight Apple iPhone 13 with 128 GB storage. I need it to replace my broken phone. Set the monthly data allowance to 500MB."
+    },
+    {
+        "color": "Graphite",
+        "model": "Apple iPhone 13 Pro",
+        "storage": "256 GB",
+        "replacement_reason": "I broke my old phone",
+        "replacement": true,
+        "quantity": 1,
+        "monthly_data_allowance": "Unlimited",
+        "goal": "Order a Graphite Apple iPhone 13 Pro with 256 GB storage. I broke my old phone. Set the monthly data allowance to Unlimited."
+    },
+    {
+        "color": "Midnight",
+        "model": "Apple iPhone 13",
+        "storage": "512 GB",
+        "replacement_reason": "I want a second phone",
+        "replacement": false,
+        "quantity": 1,
+        "monthly_data_allowance": "Unlimited",
+        "goal": "Order a Midnight Apple iPhone 13 with 512 GB storage. I want a second phone. Set the monthly data allowance to Unlimited."
+    },
+    {
+        "color": "Sierra Blue",
+        "model": "Apple iPhone 13 Pro",
+        "storage": "128 GB",
+        "replacement_reason": "My old iphone is working, but I'm tired of it",
+        "replacement": false,
+        "quantity": 1,
+        "monthly_data_allowance": "500MB",
+        "goal": "Order a Sierra Blue Apple iPhone 13 Pro with 128 GB storage. My old iphone is working, but I'm tired of it. Set the monthly data allowance to 500MB."
+    },
+    {
+        "color": "Alpine Green",
+        "model": "Apple iPhone 13 Pro",
+        "storage": "256 GB",
+        "replacement_reason": "I dropped my phone and it stopped working",
+        "replacement": true,
+        "quantity": 1,
+        "monthly_data_allowance": "500MB",
+        "goal": "Order a Alpine Green Apple iPhone 13 Pro with 256 GB storage. I dropped my phone and it stopped working. Set the monthly data allowance to 500MB."
+    }
+]
