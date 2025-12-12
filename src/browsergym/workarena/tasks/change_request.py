@@ -42,7 +42,7 @@ class ChangeChangeRequestApproverTask(ServiceNowChangeRequestTask):
 
         self.change_request_sys_id = self._get_change_request_sys_id(self.config["change_number"])
         self.change_request_approver_sys_id = None
-        self.initial_change_request_approver_state = self._get_initial_change_request_approver_state(self.change_request_sys_id)
+        self.initial_change_request_approver_state = self._get_initial_change_request_approver_state()
 
     def _get_initial_change_request_approver_state(self) -> str:
         approvers = self._get_change_request_approvers_list(self.change_request_sys_id)
