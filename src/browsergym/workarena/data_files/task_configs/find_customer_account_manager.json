@@ -1,0 +1,17 @@
+[
+    {
+        "customer_account": "Tom Tom Networks",
+        "contact": "Tommy Gore",
+        "goal": "Find out who the contact for Tom Tom Networks is"
+    },
+    {
+        "customer_account": "Spark Technologies",
+        "contact": "Amy Pascal",
+        "goal": "Find out who the contact for Spark Technologies is"
+    },
+    {
+        "customer_account": "Diagonal Inc.",
+        "contact": "Denis Koch",
+        "goal": "Find out who the contact for Diagonal Inc. is"
+    }
+]

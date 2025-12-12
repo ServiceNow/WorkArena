@@ -1,0 +1,26 @@
+[
+    {
+        "incident_number": "INC0000015",
+        "incident_caller": "Fred Luddy",
+        "issue": "being unable to launch his VPN client since the last software update",
+        "close_code": "Resolved by caller",
+        "close_notes": "Caller restarted laptop and was able to successfully launch the client",
+        "goal": "Resolve Fred Luddy's incident about being unable to launch his VPN client since the last software update. Choose \"Resolved by caller\" for the resolution code and put \"Caller restarted laptop and was able to successfully launch the client\" in the resolution notes"
+    },
+    {
+        "incident_number": "INC0000025",
+        "incident_caller": "Don Goodliffe",
+        "issue": "adding more memory to his laptop",
+        "close_code": "Solution provided",
+        "close_notes": "Additional memory installed on caller's laptop during a walk-in appointment",
+        "goal": "Resolve Don Goodliffe's incident about adding more memory to his laptop. Choose \"Solution provided\" for the resolution code and put \"Additional memory installed on caller's laptop during a walk-in appointment\" in the resolution notes"
+    },
+    {
+        "incident_number": "INC0000057",
+        "incident_caller": "Bertie Luby",
+        "issue": "performance problems with wifi",
+        "close_code": "User error",
+        "close_notes": "User was connected to a neighbor's wifi network",
+        "goal": "Resolve Bertie Luby's incident about performance problems with wifi. Choose \"User error\" for the resolution code and put \"User was connected to a neighbor's wifi network\" in the resolution notes"
+    }
+]

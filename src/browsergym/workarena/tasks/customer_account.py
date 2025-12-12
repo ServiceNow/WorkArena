@@ -2,11 +2,9 @@ import json
 from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
-import requests
 
-from ..api.utils import HTTPError, db_delete_from_table
 from ..config import (
-    CREATE_INTERACTION_CONFIG_PATH,
+    FIND_CUSTOMER_ACCOUNT_MANAGER_CONFIG_PATH,
 )
 from .base import AbstractServiceNowTask
 
@@ -58,3 +56,6 @@ class FindCustomerAccountManagerTask(ServiceNowCustomerAccountTask):
 
     def teardown(self) -> None:
         pass
+
+    def all_configs(self):
+        return json.load(open(FIND_CUSTOMER_ACCOUNT_MANAGER_CONFIG_PATH))
