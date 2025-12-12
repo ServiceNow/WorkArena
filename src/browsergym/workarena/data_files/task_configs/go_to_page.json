@@ -13,5 +13,15 @@
         "page": "where installed plugins and applications are listed",
         "url": "/now/app-manager/home/tab/installed/sort/install_date",
         "goal": "Go to where installed plugins and applications are listed"
+    },
+    {
+        "page": "Flow Designer",
+        "url": "/now/workflow-studio/home/flow",
+        "goal": "Go to Flow Designer"
+    },
+    {
+        "page": "the page that tells you which skills different users have",
+        "url": "/now/nav/ui/classic/params/target/sys_user_has_skill_list.do",
+        "goal": "Go to the page that tells you which skills different users have"
     }
 ]
