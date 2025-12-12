@@ -8,7 +8,7 @@ import logging
 from typing import List
 import numpy as np
 import playwright.sync_api
-
+import requests
 from playwright.sync_api import Page
 import re
 from time import sleep
@@ -16,7 +16,6 @@ from urllib import parse
 
 from .base import AbstractServiceNowTask
 from .utils.form import fill_text
-
 from ..api.requests import (
     get_request_by_id,
     db_delete_from_table,
@@ -31,6 +30,16 @@ from ..config import (
     ORDER_APPLE_MAC_BOOK_PRO15_TASK_CONFIG_PATH,
     ORDER_DEVELOPMENT_LAPTOP_PC_TASK_CONFIG_PATH,
     ORDER_LOANER_LAPTOP_TASK_CONFIG_PATH,
+    # dynamic guidance tasks
+    ORDER_IPHONE_TASK_CONFIG_PATH,
+    ORDER_MOBILE_PHONE_TASK_CONFIG_PATH,
+    ORDER_MISC_HARDWARE_TASK_CONFIG_PATH,
+    ORDER_MISC_HARDWARE_WITH_BUSINESS_JUSTIFICATION_TASK_CONFIG_PATH,
+    ORDER_PACKAGING_AND_SHIPPING_TASK_CONFIG_PATH,
+    ORDER_RESET_PASSWORD_TASK_CONFIG_PATH,
+    ORDER_PAPER_SUPPLIES_TASK_CONFIG_PATH,
+    ORDER_SOFTWARE_TASK_CONFIG_PATH,
+    ORDER_SOFTWARE_ACCESS_TASK_CONFIG_PATH,
 )
 from ..instance import SNowInstance
 from .utils.utils import check_url_suffix_match
@@ -657,6 +666,358 @@ class OrderLoanerLaptopTask(OrderHardwareTask):
         )
 
 
+class OrderFromServiceCatalogTask(OrderHardwareTask):
+    """These tasks are organized slightly differently from the OrderHardwareTask tasks since we also sample the catalog item."""
+
+    def setup_goal(self, page: Page) -> tuple[str, dict]:
+        super().setup_goal(page=page)
+
+        # Get the task configuration
+        assert self.all_configs is not None, "No configuration available for the task."
+        self.config = (
+            self.fixed_config if self.fixed_config else self.random.choice(self.all_configs)
+        )
+
+        # Get goal from config
+        goal = self.config["goal"]
+        info = {}
+
+        # Used to keep track of the sysid of the request for validation
+        self.request_sysid = None
+
+        return goal, info
+
+    def _get_requested_item(self, page: Page) -> dict | None:
+
+        # Retrieve the request sysid from the URL
+        current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
+        (self.request_sysid,) = parse.parse_qs(current_url.query).get("sysparm_sys_id", [None])
+        if self.request_sysid is None:
+            return None
+
+        # Short sleep to make sure the data is saved in the DB
+        # TODO: improve this (noted in issue 291)
+        sleep(3)
+        r = get_request_by_id(instance=self.instance, sysid=self.request_sysid)
+        if r is None:
+            return None
+
+        if len(r["items"]) != 1:
+            return None
+        (first_item,) = r["items"]
+
+        return first_item
+
+
+class OrderIphoneTask(OrderFromServiceCatalogTask):
+    config_path = ORDER_IPHONE_TASK_CONFIG_PATH
+
+    FIELD_NAME_MAPPING = {
+        "Is this a replacement for a lost or broken iPhone?": "replacement",
+        "What was the original phone number?": "original_phone_number",
+        "Choose the colour": "color",
+        "Choose the storage": "storage",
+        "Monthly data allowance": "monthly_data_allowance",
+    }
+
+    COLOR_MAPPING = {
+        # iphone 13 pro
+        "Alpine Green": "green",
+        "Silver": "silver",
+        "Gold": "gold",
+        "Graphite": "graphite",
+        "Sierra Blue": "sierra_blue",
+        # iphone 13
+        "Green": "green",
+        "Pink": "pink",
+        "Blue": "blue",
+        "Midnight": "midnight",
+        "Starlight": "starlight",
+        "Red": "red",
+    }
+
+    def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
+        requested_item = self._get_requested_item(page)
+        
+        if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
+            return 0, False, "", {"message": "The requested item is incorrect."}
+
+        if not requested_item["quantity"] == self.config["quantity"]:
+            return 0, False, "", {"message": "The requested quantity is incorrect."}
+
+        # go over values
+        if requested_item["options"][self.FIELD_NAME_MAPPING["Monthly data allowance"]] != self.config["monthly_data_allowance"]:
+            return 0, False, "", {"message": "The requested monthly data allowance is incorrect."}
+
+        if requested_item["options"][self.FIELD_NAME_MAPPING["Is this a replacement for a lost or broken iPhone?"]] != self.config["replacement"]:
+            return 0, False, "", {"message": "The requested replacement status is incorrect."}
+
+        # TODO: add replacement phone number in data
+        if requested_item["options"][self.FIELD_NAME_MAPPING["What was the original phone number?"]] != self.config["original_phone_number"]:
+            return 0, False, "", {"message": "The requested original phone number is incorrect."}
+
+        if requested_item["options"][self.FIELD_NAME_MAPPING["color"]] != self.COLOR_MAPPING[self.config["color"]]:
+            # TODO: display color and config color is not the same
+            return 0, False, "", {"message": "The requested color is incorrect."}
+
+        if requested_item["options"][self.FIELD_NAME_MAPPING["storage"]] != self.config["storage"].removesuffix(" GB"):
+            return 0, False, "", {"message": "The requested storage is incorrect."}
+
+        return 1, True, "", {"message": "Task completed successfully."}
+        
+    
+class OrderMobilePhoneTask(OrderFromServiceCatalogTask):
+    config_path = ORDER_MOBILE_PHONE_TASK_CONFIG_PATH
+
+    FIELD_NAME_MAPPING = {
+        "Choose the colour": "color",
+        "Choose the storage": "storage",
+    }
+
+    COLOR_MAPPING = {
+        "Just Black": "black",
+        "White": "white",
+        "Mystic Green": "green",
+        "Mystic Blue": "blue",
+        "Mystic Bronze": "bronze",
+    }
+
+    def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
+        requested_item = self._get_requested_item(page)
+
+        if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
+            return 0, False, "", {"message": "The requested item is incorrect."}
+
+        if not requested_item["quantity"] == self.config["quantity"]:
+            return 0, False, "", {"message": "The requested quantity is incorrect."}
+
+        # go over values
+
+        if requested_item["options"][self.FIELD_NAME_MAPPING["color"]] != self.COLOR_MAPPING[self.config["color"]]:
+            return 0, False, "", {"message": "The requested color is incorrect."}
+
+        if requested_item["options"][self.FIELD_NAME_MAPPING["storage"]] != self.config["storage"].removesuffix(" GB"):
+            return 0, False, "", {"message": "The requested storage is incorrect."}
+
+        return 1, True, "", {"message": "Task completed successfully."}
+
+
+class OrderMiscHardwareTask(OrderFromServiceCatalogTask):
+    config_path = ORDER_MISC_HARDWARE_TASK_CONFIG_PATH
+
+    def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
+        requested_item = self._get_requested_item(page)
+
+        if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
+            return 0, False, "", {"message": "The requested item is incorrect."}
+
+        if not requested_item["quantity"] == self.config["quantity"]:
+            return 0, False, "", {"message": "The requested quantity is incorrect."}
+
+        return 1, True, "", {"message": "Task completed successfully."}
+
+class OrderMiscHardwareWithBusinessJustificationTask(OrderFromServiceCatalogTask):
+    config_path = ORDER_MISC_HARDWARE_WITH_BUSINESS_JUSTIFICATION_TASK_CONFIG_PATH
+
+    def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
+        requested_item = self._get_requested_item(page)
+
+        if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
+            return 0, False, "", {"message": "The requested item is incorrect."}
+
+        if not requested_item["quantity"] == self.config["quantity"]:
+            return 0, False, "", {"message": "The requested quantity is incorrect."}
+
+        # NOTE: we don't check for `requested for` field.
+
+        # business justification
+        if requested_item["options"]["Business justification"] != self.config["business_justification"]:
+            return 0, False, "", {"message": "The requested business justification is incorrect."}
+
+        return 1, True, "", {"message": "Task completed successfully."}
+
+
+class OrderPaperSuppliesTask(OrderFromServiceCatalogTask):
+    config_path = ORDER_PAPER_SUPPLIES_TASK_CONFIG_PATH
+
+    ITEM_NAME_MAPPING = {
+        "Pens (box of 10)": "boxes of pens",
+        "Copier paper (reams)": "reams of paper",
+        "Screen wipes (tube of 20)": "tubes of screen wipes",
+    }
+
+    def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
+        requested_item = self._get_requested_item(page)
+
+        if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
+            return 0, False, "", {"message": "The requested item is incorrect."}
+
+        if not requested_item["quantity"] == self.config["quantity"]:
+            return 0, False, "", {"message": "The requested quantity is incorrect."}
+
+        # check values
+        # we check only for 1 value.
+        # TODO: expand to multiple items at once
+        if str(requested_item["options"][self.ITEM_NAME_MAPPING[self.config["item"]]]) != str(self.config["number"]):
+            return 0, False, "", {"message": "The requested item and number is incorrect."}
+
+        # NOTE: we don't look at `Additional requirements` field.
+
+        return 1, True, "", {"message": "Task completed successfully."}
+
+class OrderResetPasswordTask(OrderFromServiceCatalogTask):
+    config_path = ORDER_RESET_PASSWORD_TASK_CONFIG_PATH
+
+    def _get_incident_sys_id(self, page: Page) -> str | None:
+        # Retrieve the incident sysid from the URL
+        current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
+        (self.incident_sysid,) = parse.parse_qs(current_url.query).get("sys_id", [None])
+        sleep(3)
+
+    def _get_incident_short_description(self) -> str | None:
+        # get incident short description
+        response = requests.get(
+            f"{self.instance.snow_url}/api/now/table/incident",
+            auth=self.instance.snow_credentials,
+            headers={"Accept": "application/json"},
+            params={
+                "sysparm_query": f"sys_id={self.incident_sysid}",
+                "sysparm_fields": "short_description",
+            },
+        )
+        response.raise_for_status()
+        result = response.json().get("result", {})
+        return result.get("short_description")
+
+    def _get_incident_work_notes(self) -> dict | None:
+        # get incident work notes
+        response = requests.get(
+            f"{self.instance.snow_url}/api/now/table/sys_journal_field",
+            auth=self.instance.snow_credentials,
+            headers={"Accept": "application/json"},
+            params={
+                "sysparm_query": f"element_id={self.incident_sysid}^element=work_notes",
+                "sysparm_fields": "sys_id,value",
+            },
+        )
+        response.raise_for_status()
+        result = response.json().get("result", [])
+        if len(result) != 1:
+            return None
+
+        return result[0]["value"]
+
+    def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
+        self._get_incident_sys_id(page)
+        if self.incident_sysid is None:
+            return 0, False, "", {"message": "The incident sysid is not found."}
+
+        incident_short_description = self._get_incident_short_description()
+        incident_work_notes = self._get_incident_work_notes()
+
+        # sanity check short description
+        if not incident_short_description.startswith("Reset the password"):
+            return 0, False, "", {"message": "The incident short description should start with 'Reset the password'."}
+        if not incident_short_description.endswith(self.config["item"]):
+            return 0, False, "", {"message": "The incident short description should end with the item name."}
+        
+        # sanity check work notes
+        if not f"System : {self.config["item"]}" in incident_work_notes:
+            return 0, False, "", {"message": "The incident work notes should contain the item name."}
+        if not f"Contact: {self.config["contact"]}" in incident_work_notes:
+            return 0, False, "", {"message": "The incident work notes should contain the contact method."}
+
+        return 1, True, "", {"message": "Task completed successfully."}
+
+class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
+    config_path = ORDER_PACKAGING_AND_SHIPPING_TASK_CONFIG_PATH
+
+    FIELD_NAME_MAPPING = {
+        "Parcel details": "parcel_details",
+        "Shipping type": "shipping_type",
+        "Destination": "destination",
+    }
+
+    SHIPPING_TYPE_MAPPING = {
+        "Inter-office": "internal",
+        "External Address": "external",
+    }
+
+    def _get_location(self, location_sys_id: str):
+
+        response = requests.get(
+            f"{self.instance.snow_url}/api/now/table/cmn_location",
+            auth=self.instance.snow_credentials,
+            headers={"Accept": "application/json"},
+            params={
+                "sysparm_query": f"sys_id={location_sys_id}",
+                "sysparm_fields": "sys_id,name",
+            },
+        )
+        response.raise_for_status()
+        result = response.json().get("result", [])
+        return result[0]["name"]
+
+    def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
+        requested_item = self._get_requested_item(page)
+
+        if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
+            return 0, False, "", {"message": "The requested item is incorrect."}
+
+        if not requested_item["quantity"] == self.config["quantity"]:
+            return 0, False, "", {"message": "The requested quantity is incorrect."}
+
+        # validate values
+        if not requested_item[self.FIELD_NAME_MAPPING["shipping_type"]].lower() == self.SHIPPING_TYPE_MAPPING[self.config["shipping_type"]].lower():
+            return 0, False, "", {"message": "The requested shipping type is incorrect."}
+
+        # for destination, we need to do a lookup
+        # TODO: for now we only look at the destination field, but we could also setup the postcode, city, address line 1/2, etc.
+        destination = self._get_location(requested_item[self.FIELD_NAME_MAPPING["destination"]])
+        if not destination.lower() == self.config["destination"].lower():
+            return 0, False, "", {"message": "The requested destination is incorrect."}
+
+        for keyword in self.config["keywords"].split(" "):
+            if not keyword.lower() in requested_item[self.FIELD_NAME_MAPPING["parcel_details"]].lower():
+                return 0, False, "", {"message": "The requested parcel details does not contain the expected keyword."}
+
+        return 1, True, "", {"message": "Task completed successfully."}
+
+class OrderSoftwareTask(OrderFromServiceCatalogTask):
+    config_path = ORDER_SOFTWARE_TASK_CONFIG_PATH
+
+    def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
+        requested_item = self._get_requested_item(page)
+
+        if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
+            return 0, False, "", {"message": "The requested item is incorrect."}
+
+        if not requested_item["quantity"] == self.config["quantity"]:
+            return 0, False, "", {"message": "The requested quantity is incorrect."}
+
+        return 1, True, "", {"message": "Task completed successfully."}
+
+class OrderSoftwareAccessTask(OrderFromServiceCatalogTask):
+    config_path = ORDER_SOFTWARE_ACCESS_TASK_CONFIG_PATH
+
+    def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
+        requested_item = self._get_requested_item(page)
+
+        if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
+            return 0, False, "", {"message": "The requested item is incorrect."}
+
+        if not requested_item["quantity"] == self.config["quantity"]:
+            return 0, False, "", {"message": "The requested quantity is incorrect."}
+
+        # NOTE: we don't check for `requested for` field.
+
+        # business justification
+        if requested_item["options"]["Business justification"] != self.config["business_justification"]:
+            return 0, False, "", {"message": "The requested business justification is incorrect."}
+
+        return 1, True, "", {"message": "Task completed successfully."}
+
+
 __TASKS__ = [
     var
     for var in locals().values()
@@ -667,4 +1028,13 @@ __DYNAMIC_GUIDANCE_TASKS__ = [
     OrderAppleWatchTask,
     OrderDeveloperLaptopTask,
     OrderIpadProTask,
+    OrderIphoneTask,
+    OrderMobilePhoneTask,
+    OrderSoftwareAccessTask,
+    OrderSoftwareTask,
+    OrderResetPasswordTask,
+    OrderPackagingAndShippingTask,
+    OrderPaperSuppliesTask,
+    OrderMiscHardwareTask,
+    OrderMiscHardwareWithBusinessJustificationTask,
 ]

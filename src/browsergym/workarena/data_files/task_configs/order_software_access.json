@@ -1,0 +1,32 @@
+[
+    {
+        "software": "Miro",
+        "quantity": 1,
+        "business_justification": "I need access to Miro to plan my next team meeting.",
+        "goal": "I need access to Miro. Give the following business justification: I need access to Miro to plan my next team meeting."
+    },
+    {
+        "software": "DocuSign",
+        "quantity": 1,
+        "business_justification": "Give me access to DocuSign please!",
+        "goal": "I need access to DocuSign. Give the following business justification: Give me access to DocuSign please!"
+    },
+    {
+        "software": "Dropbox",
+        "quantity": 1,
+        "business_justification": "Need to put files in the cloud.",
+        "goal": "I need access to Dropbox. Give the following business justification: Need to put files in the cloud."
+    },
+    {
+        "software": "DocuSign",
+        "quantity": 1,
+        "business_justification": "Need to share contracts with customers for signatures.",
+        "goal": "I need access to DocuSign. Give the following business justification: Need to share contracts with customers for signatures."
+    },
+    {
+        "software": "Dropbox",
+        "quantity": 1,
+        "business_justification": "I need to share files with my coworkers to collaborate.",
+        "goal": "I need access to Dropbox. Give the following business justification: I need to share files with my coworkers to collaborate."
+    }
+]

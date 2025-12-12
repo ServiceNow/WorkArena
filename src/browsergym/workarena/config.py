@@ -304,3 +304,32 @@ FIND_CUSTOMER_ACCOUNT_MANAGER_CONFIG_PATH = str(
 DEACTIVATE_USER_GROUP_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/deactivate_user_group.json")
 )
+
+# service catalog tasks (dynamic guidance)
+ORDER_IPHONE_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_iphone.json")
+)
+ORDER_MOBILE_PHONE_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_mobile_phone.json")
+)
+ORDER_MISC_HARDWARE_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_misc_hardware.json")
+)
+ORDER_MISC_HARDWARE_WITH_BUSINESS_JUSTIFICATION_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_misc_hardware_with_business_justification.json")
+)
+ORDER_PACKAGING_AND_SHIPPING_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_packaging_and_shipping.json")
+)
+ORDER_RESET_PASSWORD_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_reset_password.json")
+)
+ORDER_PAPER_SUPPLIES_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_paper_supplies.json")
+)
+ORDER_SOFTWARE_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_software.json")
+)
+ORDER_SOFTWARE_ACCESS_TASK_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/order_software_access.json")
+)
