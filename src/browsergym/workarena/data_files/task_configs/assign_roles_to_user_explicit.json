@@ -13,5 +13,15 @@
         "user_full_name": "Yvette Kokoska",
         "roles": "canvas_admin, canvas_user",
         "goal": "Assign Yvette Kokoska the following roles: canvas_admin, canvas_user"
+    },
+    {
+        "user_full_name": "Don Mestler",
+        "roles": "canvas_admin, canvas_user",
+        "goal": "Assign Don Mestler the following roles: canvas_admin, canvas_user"
+    },
+    {
+        "user_full_name": "Ella Pahnke",
+        "roles": "canvas_admin, canvas_user",
+        "goal": "Assign Ella Pahnke the following roles: canvas_admin, canvas_user"
     }
 ]

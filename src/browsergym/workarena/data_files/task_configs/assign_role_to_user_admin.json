@@ -13,5 +13,15 @@
         "user_full_name": "Roger Seid",
         "roles": "admin",
         "goal": "Assign Roger Seid the admin role"
+    },
+    {
+        "user_full_name": "Alisa Chinoy",
+        "roles": "admin",
+        "goal": "Assign Alisa Chinoy the admin role"
+    },
+    {
+        "user_full_name": "Chi Greenlaw",
+        "roles": "admin",
+        "goal": "Assign Chi Greenlaw the admin role"
     }
 ]
