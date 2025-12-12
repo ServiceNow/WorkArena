@@ -924,6 +924,8 @@ class OrderResetPasswordTask(OrderFromServiceCatalogTask):
 
         incident_short_description = self._get_incident_short_description()
         incident_work_notes = self._get_incident_work_notes()
+        if incident_short_description is None or incident_work_notes is None:
+            return 0, False, "", {"message": "The incident short description or work notes is not found."}
 
         # sanity check short description
         if not incident_short_description.startswith("Reset the password"):
@@ -1048,7 +1050,7 @@ class OrderSoftwareAccessTask(OrderFromServiceCatalogTask):
 __TASKS__ = [
     var
     for var in locals().values()
-    if isinstance(var, type) and issubclass(var, OrderHardwareTask) and var is not OrderHardwareTask
+    if isinstance(var, type) and issubclass(var, OrderHardwareTask) and var is not OrderHardwareTask and not issubclass(var, OrderFromServiceCatalogTask)
 ]
 
 __DYNAMIC_GUIDANCE_TASKS__ = [
