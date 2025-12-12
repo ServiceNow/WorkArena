@@ -1,0 +1,27 @@
+[
+    {
+        "software": "Adobe Acrobat Pro",
+        "quantity": 1,
+        "goal": "Order Adobe Acrobat Pro in the Service Catalog."
+    },
+    {
+        "software": "SnagIt",
+        "quantity": 1,
+        "goal": "Order SnagIt in the Service Catalog."
+    },
+    {
+        "software": "QuickTime Pro",
+        "quantity": 1,
+        "goal": "Order QuickTime Pro in the Service Catalog."
+    },
+    {
+        "software": "Visio Pro for Office 365",
+        "quantity": 1,
+        "goal": "Order Visio Pro for Office 365 in the Service Catalog."
+    },
+    {
+        "software": "VMWare Fusion",
+        "quantity": 1,
+        "goal": "Order VMWare Fusion in the Service Catalog."
+    }
+]
