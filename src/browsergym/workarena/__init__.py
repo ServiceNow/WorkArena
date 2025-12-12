@@ -120,6 +120,17 @@ TASK_CATEGORY_MAP = {
     "workarena.servicenow.multi-chart-value-retrieval": "dashboard",
     "workarena.servicenow.single-chart-value-retrieval": "dashboard",
     "workarena.servicenow.single-chart-min-max-retrieval": "dashboard",
+    # dynamic guidance tasks
+    "workarena.servicenow.order-iphone": "service catalog",
+    "workarena.servicenow.order-mobile-phone": "service catalog",
+    "workarena.servicenow.order-software": "service catalog",
+    "workarena.servicenow.order-software-access": "service catalog",
+    "workarena.servicenow.order-reset-password": "service catalog",
+    "workarena.servicenow.order-packaging-and-shipping": "service catalog",
+    "workarena.servicenow.order-paper-supplies": "service catalog",
+    "workarena.servicenow.order-misc-hardware": "service catalog",
+    "workarena.servicenow.order-misc-hardware-with-business-justification": "service catalog",
+    "workarena.servicenow.order-reset-password": "service catalog",
 }
 
 
