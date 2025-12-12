@@ -13,5 +13,15 @@
         "model": "Microsoft Office Home and Business 2010",
         "number_of_licenses": 71,
         "goal": "Get the number of licenses available for Microsoft Office Home and Business 2010"
+    },
+    {
+        "model": "Eclipse 3.7.1",
+        "number_of_licenses": 1000,
+        "goal": "Get the number of licenses available for Eclipse 3.7.1"
+    },
+    {
+        "model": "IBM Lotus Notes",
+        "number_of_licenses": 100000,
+        "goal": "Get the number of licenses available for IBM Lotus Notes"
     }
 ]
