@@ -1,240 +1,210 @@
 [
     {
-        "goal": "Create a transfer order to deliver {quantity_requested} {model} from the {from_stockroom} to the {to_stockroom}.",
+        "goal": "Create a transfer order to deliver {quantity_requested} {model} from the {transfer_order[from_stockroom]} to the {transfer_order[to_stockroom]}.",
         "fields": {
-            "from_stockroom": "From stockroom",
-            "to_stockroom": "To stockroom",
+            "transfer_order.from_stockroom": "From stockroom",
+            "transfer_order.to_stockroom": "To stockroom",
             "model": "Model",
             "quantity_requested": "Quantity requested"
         },
         "task_fields": [
-            "from_stockroom",
-            "to_stockroom",
+            "transfer_order.from_stockroom",
+            "transfer_order.to_stockroom",
             "model",
             "quantity_requested"
-        ],
-        "task_fields_transfer_order": [
-            "from_stockroom",
-            "to_stockroom"
-        ],
-        "task_fields_transfer_order_line": [
-            "model",
-            "quantity_requested"
-        ],            
-        "template_record": {
-            "from_stockroom": "Southern California Warehouse",
-            "to_stockroom": "San Diego South Warehouse",
+        ],  
+        "template_record": {                        
+            "transfer_order": {
+                "from_stockroom": "Southern California Warehouse",
+                "to_stockroom": "San Diego South Warehouse"
+            },
+            "transfer_order.from_stockroom": "Southern California Warehouse",
+            "transfer_order.to_stockroom": "San Diego South Warehouse",
             "model": "3Com Cat 5 Cable (10ft)",
             "quantity_requested": "100"
         }
     },
     {
-        "goal": "Create a transfer order to deliver {quantity_requested} {model} from the {from_stockroom} to the {to_stockroom}.",
+        "goal": "Create a transfer order to deliver {quantity_requested} {model} from the {transfer_order[from_stockroom]} to the {transfer_order[to_stockroom]}.",
         "fields": {
-            "from_stockroom": "From stockroom",
-            "to_stockroom": "To stockroom",
+            "transfer_order.from_stockroom": "From stockroom",
+            "transfer_order.to_stockroom": "To stockroom",
             "model": "Model",
             "quantity_requested": "Quantity requested"
         },
         "task_fields": [
-            "from_stockroom",
-            "to_stockroom",
+            "transfer_order.from_stockroom",
+            "transfer_order.to_stockroom",
             "model",
             "quantity_requested"
-        ],
-        "task_fields_transfer_order": [
-            "from_stockroom",
-            "to_stockroom"
-        ],
-        "task_fields_transfer_order_line": [
-            "model",
-            "quantity_requested"
-        ],            
+        ],    
         "template_record": {
-            "from_stockroom": "Southern California Warehouse",
-            "to_stockroom": "San Diego South Warehouse",
+            "transfer_order": {
+                "from_stockroom": "Southern California Warehouse",
+                "to_stockroom": "San Diego South Warehouse"
+            },
+            "transfer_order.from_stockroom": "Southern California Warehouse",
+            "transfer_order.to_stockroom": "San Diego South Warehouse",
             "model": "Fujitsu 1TB Hybrid Solid State Drive",
             "quantity_requested": "5"
         }
     },
     {
-        "goal": "Create a transfer order to deliver {quantity_requested} {model} from the {from_stockroom} to the {to_stockroom}.",
+        "goal": "Create a transfer order to deliver {quantity_requested} {model} from the {transfer_order[from_stockroom]} to the {transfer_order[to_stockroom]}.",
         "fields": {
-            "from_stockroom": "From stockroom",
-            "to_stockroom": "To stockroom",
+            "transfer_order.from_stockroom": "From stockroom",
+            "transfer_order.to_stockroom": "To stockroom",
             "model": "Model",
             "quantity_requested": "Quantity requested"
         },
         "task_fields": [
-            "from_stockroom",
-            "to_stockroom",
+            "transfer_order.from_stockroom",
+            "transfer_order.to_stockroom",
             "model",
             "quantity_requested"
-        ],
-        "task_fields_transfer_order": [
-            "from_stockroom",
-            "to_stockroom"
-        ],
-        "task_fields_transfer_order_line": [
-            "model",
-            "quantity_requested"
-        ],            
+        ],    
         "template_record": {
-            "from_stockroom": "Southern California Warehouse",
-            "to_stockroom": "San Diego South Warehouse",
+            "transfer_order": {
+                "from_stockroom": "Southern California Warehouse",
+                "to_stockroom": "San Diego South Warehouse"
+            },
+            "transfer_order.from_stockroom": "Southern California Warehouse",
+            "transfer_order.to_stockroom": "San Diego South Warehouse",
             "model": "Apple iPhone 5",
             "quantity_requested": "20"
         }
     },    
     {
-        "goal": "Create a transfer order to deliver a {model} from the {from_stockroom} to the {to_stockroom}.",
+        "goal": "Create a transfer order to deliver a {model} from the {transfer_order[from_stockroom]} to the {transfer_order[to_stockroom]}.",
         "fields": {
-            "from_stockroom": "From stockroom",
-            "to_stockroom": "To stockroom",
+            "transfer_order.from_stockroom": "From stockroom",
+            "transfer_order.to_stockroom": "To stockroom",
             "model": "Model"          
         },
         "task_fields": [
-            "from_stockroom",
-            "to_stockroom",
+            "transfer_order.from_stockroom",
+            "transfer_order.to_stockroom",
             "model"
-        ],
-        "task_fields_transfer_order": [
-            "from_stockroom",
-            "to_stockroom"
-        ],
-        "task_fields_transfer_order_line": [
-            "model"
-        ],            
+        ],     
         "template_record": {
-            "from_stockroom": "Southern California Warehouse",
-            "to_stockroom": "San Diego South Warehouse",
+            "transfer_order": {
+                "from_stockroom": "Southern California Warehouse",
+                "to_stockroom": "San Diego South Warehouse"
+            },
+            "transfer_order.from_stockroom": "Southern California Warehouse",
+            "transfer_order.to_stockroom": "San Diego South Warehouse",
             "model": "Philips Ingenuity TF PET/CT"
         }
     },
     {
-        "goal": "Create a transfer order to deliver a {model} from the {from_stockroom} to the {to_stockroom}.",
+        "goal": "Create a transfer order to deliver a {model} from the {transfer_order[from_stockroom]} to the {transfer_order[to_stockroom]}.",
         "fields": {
-            "from_stockroom": "From stockroom",
-            "to_stockroom": "To stockroom",
+            "transfer_order.from_stockroom": "From stockroom",
+            "transfer_order.to_stockroom": "To stockroom",
             "model": "Model"          
         },
         "task_fields": [
-            "from_stockroom",
-            "to_stockroom",
+            "transfer_order.from_stockroom",
+            "transfer_order.to_stockroom",
             "model"
-        ],
-        "task_fields_transfer_order": [
-            "from_stockroom",
-            "to_stockroom"
-        ],
-        "task_fields_transfer_order_line": [
-            "model"
-        ],            
+        ],     
         "template_record": {
-            "from_stockroom": "Southern California Warehouse",
-            "to_stockroom": "San Diego South Warehouse",
+            "transfer_order": {
+                "from_stockroom": "Southern California Warehouse",
+                "to_stockroom": "San Diego South Warehouse"
+            },
+            "transfer_order.from_stockroom": "Southern California Warehouse",
+            "transfer_order.to_stockroom": "San Diego South Warehouse",
             "model": "Philips IntelliVue MP50"
         }
     },
     {
-        "goal": "Create a transfer order to deliver a {model} from the {from_stockroom} to the {to_stockroom}.",
+        "goal": "Create a transfer order to deliver a {model} from the {transfer_order[from_stockroom]} to the {transfer_order[to_stockroom]}.",
         "fields": {
-            "from_stockroom": "From stockroom",
-            "to_stockroom": "To stockroom",
+            "transfer_order.from_stockroom": "From stockroom",
+            "transfer_order.to_stockroom": "To stockroom",
             "model": "Model"          
         },
         "task_fields": [
-            "from_stockroom",
-            "to_stockroom",
+            "transfer_order.from_stockroom",
+            "transfer_order.to_stockroom",
             "model"
-        ],
-        "task_fields_transfer_order": [
-            "from_stockroom",
-            "to_stockroom"
-        ],
-        "task_fields_transfer_order_line": [
-            "model"
-        ],            
+        ],     
         "template_record": {
-            "from_stockroom": "Southern California Warehouse",
-            "to_stockroom": "San Diego South Warehouse",
+            "transfer_order": {
+                "from_stockroom": "Southern California Warehouse",
+                "to_stockroom": "San Diego South Warehouse"
+            },
+            "transfer_order.from_stockroom": "Southern California Warehouse",
+            "transfer_order.to_stockroom": "San Diego South Warehouse",
             "model": "Philips MRC Ice X-Ray Tube"
         }
     },
     {
-        "goal": "Create a transfer order to deliver all of the {model} in the {from_stockroom} to the {to_stockroom}",
+        "goal": "Create a transfer order to deliver all of the {model} in the {transfer_order[from_stockroom]} to the {transfer_order[to_stockroom]}",
         "fields": {
-            "from_stockroom": "From stockroom",
-            "to_stockroom": "To stockroom",
+            "transfer_order.from_stockroom": "From stockroom",
+            "transfer_order.to_stockroom": "To stockroom",
             "model": "Model"          
         },
         "task_fields": [
-            "from_stockroom",
-            "to_stockroom",
+            "transfer_order.from_stockroom",
+            "transfer_order.to_stockroom",
             "model"
-        ],
-        "task_fields_transfer_order": [
-            "from_stockroom",
-            "to_stockroom"
-        ],
-        "task_fields_transfer_order_line": [
-            "model"
-        ],            
+        ],     
         "template_record": {
-            "from_stockroom": "Southern California Warehouse",
-            "to_stockroom": "San Diego South Warehouse",
+            "transfer_order": {
+                "from_stockroom": "Southern California Warehouse",
+                "to_stockroom": "San Diego South Warehouse"
+            },
+            "transfer_order.from_stockroom": "Southern California Warehouse",
+            "transfer_order.to_stockroom": "San Diego South Warehouse",
             "model": "Philips Respironics BiPAP Vision"
         },
         "num_expected_transfer_order_lines": 3
     },
     {
-        "goal": "Create a transfer order to deliver all of the {model} in the {from_stockroom} to the {to_stockroom}",
+        "goal": "Create a transfer order to deliver all of the {model} in the {transfer_order[from_stockroom]} to the {transfer_order[to_stockroom]}",
         "fields": {
-            "from_stockroom": "From stockroom",
-            "to_stockroom": "To stockroom",
+            "transfer_order.from_stockroom": "From stockroom",
+            "transfer_order.to_stockroom": "To stockroom",
             "model": "Model"          
         },
         "task_fields": [
-            "from_stockroom",
-            "to_stockroom",
+            "transfer_order.from_stockroom",
+            "transfer_order.to_stockroom",
             "model"
-        ],
-        "task_fields_transfer_order": [
-            "from_stockroom",
-            "to_stockroom"
-        ],
-        "task_fields_transfer_order_line": [
-            "model"
-        ],            
+        ],     
         "template_record": {
-            "from_stockroom": "Southern California Warehouse",
-            "to_stockroom": "San Diego South Warehouse",
+            "transfer_order": {
+                "from_stockroom": "Southern California Warehouse",
+                "to_stockroom": "San Diego South Warehouse"
+            },
+            "transfer_order.from_stockroom": "Southern California Warehouse",
+            "transfer_order.to_stockroom": "San Diego South Warehouse",
             "model": "ACME Corporation ESG736"
         },
         "num_expected_transfer_order_lines": 2
     },
     {
-        "goal": "Create a transfer order to deliver all of the {model} in the {from_stockroom} to the {to_stockroom}",
+        "goal": "Create a transfer order to deliver all of the {model} in the {transfer_order[from_stockroom]} to the {transfer_order[to_stockroom]}",
         "fields": {
-            "from_stockroom": "From stockroom",
-            "to_stockroom": "To stockroom",
+            "transfer_order.from_stockroom": "From stockroom",
+            "transfer_order.to_stockroom": "To stockroom",
             "model": "Model"          
         },
         "task_fields": [
-            "from_stockroom",
-            "to_stockroom",
+            "transfer_order.from_stockroom",
+            "transfer_order.to_stockroom",
             "model"
-        ],
-        "task_fields_transfer_order": [
-            "from_stockroom",
-            "to_stockroom"
-        ],
-        "task_fields_transfer_order_line": [
-            "model"
-        ],            
+        ],     
         "template_record": {
-            "from_stockroom": "Southern California Warehouse",
-            "to_stockroom": "San Diego South Warehouse",
+            "transfer_order": {
+                "from_stockroom": "Southern California Warehouse",
+                "to_stockroom": "San Diego South Warehouse"
+            },
+            "transfer_order.from_stockroom": "Southern California Warehouse",
+            "transfer_order.to_stockroom": "San Diego South Warehouse",
             "model": "GE Healthcare iVent201"
         },
         "num_expected_transfer_order_lines": 1
