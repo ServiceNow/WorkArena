@@ -670,7 +670,7 @@ class OrderFromServiceCatalogTask(OrderHardwareTask):
     """These tasks are organized slightly differently from the OrderHardwareTask tasks since we also sample the catalog item."""
 
     def setup_goal(self, page: Page) -> tuple[str, dict]:
-        super().setup_goal(page=page)
+        AbstractServiceNowTask.setup_goal(self, page=page)
 
         # Get the task configuration
         assert self.all_configs is not None, "No configuration available for the task."
@@ -738,6 +738,8 @@ class OrderIphoneTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
+        if requested_item is None:
+            return 0, False, "", {"message": "The requested item is incorrect."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
@@ -784,7 +786,9 @@ class OrderMobilePhoneTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
-
+        if requested_item is None:
+            return 0, False, "", {"message": "The requested item is incorrect."}
+        
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
@@ -807,7 +811,9 @@ class OrderMiscHardwareTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
-
+        if requested_item is None:
+            return 0, False, "", {"message": "The requested item is incorrect."}
+        
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
@@ -821,7 +827,9 @@ class OrderMiscHardwareWithBusinessJustificationTask(OrderFromServiceCatalogTask
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
-
+        if requested_item is None:
+            return 0, False, "", {"message": "The requested item is incorrect."}
+        
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
@@ -848,7 +856,9 @@ class OrderPaperSuppliesTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
-
+        if requested_item is None:
+            return 0, False, "", {"message": "The requested item is incorrect."}
+        
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
@@ -971,7 +981,9 @@ class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
-
+        if requested_item is None:
+            return 0, False, "", {"message": "The requested item is incorrect."}
+        
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
@@ -999,7 +1011,9 @@ class OrderSoftwareTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
-
+        if requested_item is None:
+            return 0, False, "", {"message": "The requested item is incorrect."}
+        
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
@@ -1013,7 +1027,9 @@ class OrderSoftwareAccessTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
-
+        if requested_item is None:
+            return 0, False, "", {"message": "The requested item is incorrect."}
+        
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
