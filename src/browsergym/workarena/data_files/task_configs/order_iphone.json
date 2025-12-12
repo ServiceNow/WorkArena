@@ -1,52 +1,57 @@
 [
     {
+        "item": "Apple iPhone 13",
         "color": "Starlight",
-        "model": "Apple iPhone 13",
+        "original_phone_number": "123-456-7890",
         "storage": "128 GB",
         "replacement_reason": "I need it to replace my broken phone",
-        "replacement": true,
-        "quantity": 1,
+        "replacement": "yes",
         "monthly_data_allowance": "500MB",
-        "goal": "Order a Starlight Apple iPhone 13 with 128 GB storage. I need it to replace my broken phone. Set the monthly data allowance to 500MB."
+        "quantity": 1,
+        "goal": "Order a Starlight Apple iPhone 13 with 128 GB storage. I need it to replace my broken phone. The old number was 123-456-7890. Set the monthly data allowance to 500MB."
     },
     {
+        "item": "Apple iPhone 13 Pro",
         "color": "Graphite",
-        "model": "Apple iPhone 13 Pro",
+        "original_phone_number": "514-654-3210",
         "storage": "256 GB",
         "replacement_reason": "I broke my old phone",
-        "replacement": true,
-        "quantity": 1,
+        "replacement": "yes",
         "monthly_data_allowance": "Unlimited",
-        "goal": "Order a Graphite Apple iPhone 13 Pro with 256 GB storage. I broke my old phone. Set the monthly data allowance to Unlimited."
+        "quantity": 1,
+        "goal": "Order a Graphite Apple iPhone 13 Pro with 256 GB storage. I broke my old phone. The old number was 514-654-3210. Set the monthly data allowance to Unlimited."
     },
     {
+        "item": "Apple iPhone 13",
         "color": "Midnight",
-        "model": "Apple iPhone 13",
+        "original_phone_number": "819-555-1212",
         "storage": "512 GB",
         "replacement_reason": "I want a second phone",
-        "replacement": false,
-        "quantity": 1,
+        "replacement": "no",
         "monthly_data_allowance": "Unlimited",
-        "goal": "Order a Midnight Apple iPhone 13 with 512 GB storage. I want a second phone. Set the monthly data allowance to Unlimited."
+        "quantity": 1,
+        "goal": "Order a Midnight Apple iPhone 13 with 512 GB storage. I want a second phone. The old number was 819-555-1212. Set the monthly data allowance to Unlimited."
     },
     {
+        "item": "Apple iPhone 13 Pro",
         "color": "Sierra Blue",
-        "model": "Apple iPhone 13 Pro",
+        "original_phone_number": "613-321-4567",
         "storage": "128 GB",
         "replacement_reason": "My old iphone is working, but I'm tired of it",
-        "replacement": false,
-        "quantity": 1,
+        "replacement": "no",
         "monthly_data_allowance": "500MB",
-        "goal": "Order a Sierra Blue Apple iPhone 13 Pro with 128 GB storage. My old iphone is working, but I'm tired of it. Set the monthly data allowance to 500MB."
+        "quantity": 1,
+        "goal": "Order a Sierra Blue Apple iPhone 13 Pro with 128 GB storage. My old iphone is working, but I'm tired of it. The old number was 613-321-4567. Set the monthly data allowance to 500MB."
     },
     {
+        "item": "Apple iPhone 13 Pro",
         "color": "Alpine Green",
-        "model": "Apple iPhone 13 Pro",
+        "original_phone_number": "905-555-6789",
         "storage": "256 GB",
         "replacement_reason": "I dropped my phone and it stopped working",
-        "replacement": true,
-        "quantity": 1,
+        "replacement": "yes",
         "monthly_data_allowance": "500MB",
-        "goal": "Order a Alpine Green Apple iPhone 13 Pro with 256 GB storage. I dropped my phone and it stopped working. Set the monthly data allowance to 500MB."
+        "quantity": 1,
+        "goal": "Order a Alpine Green Apple iPhone 13 Pro with 256 GB storage. I dropped my phone and it stopped working. The old number was 905-555-6789. Set the monthly data allowance to 500MB."
     }
 ]

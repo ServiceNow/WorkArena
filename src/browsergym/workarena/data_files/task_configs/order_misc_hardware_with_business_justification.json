@@ -1,32 +1,32 @@
 [
     {
         "item": "Apple USB-C charge cable",
-        "quantity": 1,
         "business_justification": "I need a charge cable to charge my phone",
+        "quantity": 1,
         "goal": "Order a Apple USB-C charge cable from the Service Catalog. Set the business justification to \"I need a charge cable to charge my phone\"."
     },
     {
         "item": "USB-C power adapter",
-        "quantity": 1,
         "business_justification": "I need a power adapter to charge my phone",
+        "quantity": 1,
         "goal": "Order a USB-C power adapter from the Service Catalog. Set the business justification to \"I need a power adapter to charge my phone\"."
     },
     {
         "item": "Cisco jabber softphone",
-        "quantity": 1,
         "business_justification": "I need a softphone to make phone calls",
+        "quantity": 1,
         "goal": "Order a Cisco jabber softphone from the Service Catalog. Set the business justification to \"I need a softphone to make phone calls\"."
     },
     {
         "item": "Multiport AV adapter",
-        "quantity": 1,
         "business_justification": "Needing a multiport AV adapter to connect my computer to a projector",
+        "quantity": 1,
         "goal": "Order a Multiport AV adapter from the Service Catalog. Set the business justification to \"Needing a multiport AV adapter to connect my computer to a projector\"."
     },
     {
         "item": "Wireless keyboard and mouse",
-        "quantity": 1,
         "business_justification": "Can't find my keyboard and mouse",
+        "quantity": 1,
         "goal": "Order a Wireless keyboard and mouse from the Service Catalog. Set the business justification to \"Can't find my keyboard and mouse\"."
     }
 ]
