@@ -19,6 +19,7 @@ INSTANCE_XOR_SEED = "x3!+-9mi#nhlo%a02$9hna{]"
 
 # Path to the Menu navigation task configuration
 ALL_MENU_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu.json"))
+ALL_MENU_CUSTOM_GOAL_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu_custom_goal.json"))
 
 # Path to the dashboard/report retrieval task configurations
 DASHBOARD_RETRIEVAL_MINMAX_CONFIG_PATH = str(
@@ -258,4 +259,48 @@ ASSIGN_ROLES_TO_USER_EXPLICIT_CONFIG_PATH = str(
 )
 ASSIGN_ROLES_TO_USER_IMPLICIT_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/assign_roles_to_user_implicit.json")
+)
+
+## License tasks
+GET_NUMBER_LICENSES_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/get_number_licenses.json")
+)
+
+## Change Request tasks
+CHANGE_CHANGE_REQUEST_APPROVER_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/change_change_request_approver.json")
+)
+
+## Incident tasks
+ADD_ADDITIONAL_ASSIGNEE_TO_INCIDENT_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/add_additional_assignee_to_incident.json")
+)
+RESOLVE_INCIDENT_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/resolve_incident.json")
+)
+UPDATE_INCIDENT_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/update_incident.json")
+)
+
+## Request Item tasks
+CHANGE_RITM_STATUS_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/change_ritm_status.json")
+)
+UPDATE_RITM_QUANTITY_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/update_ritm_quantity.json")
+)
+
+## Interaction tasks
+CREATE_INTERACTION_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/create_interaction.json")
+)
+
+## Customer account tasks
+FIND_CUSTOMER_ACCOUNT_MANAGER_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/find_customer_account_manager.json")
+)
+
+## User group tasks
+DEACTIVATE_USER_GROUP_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/deactivate_user_group.json")
 )
