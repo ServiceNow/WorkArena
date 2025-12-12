@@ -67,8 +67,8 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
 
         # query sys_user_has_role to find user roles
         response = requests.get(
-            f"{instance_url}/api/now/table/sys_user_has_role",
-            auth=(snow_username, snow_password),
+            f"{self.instance.snow_url}/api/now/table/sys_user_has_role",
+            auth=self.instance.snow_credentials,
             headers={"Accept": "application/json"},
             params={
                 "sysparm_query": f"user={user_sys_id}",
