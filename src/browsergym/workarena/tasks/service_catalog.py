@@ -929,6 +929,17 @@ class OrderResetPasswordTask(OrderFromServiceCatalogTask):
 
         return 1, True, "", {"message": "Task completed successfully."}
 
+    def teardown(self) -> None:
+        """
+        Deletes the incident
+        """
+        self._wait_for_ready(self.page)
+
+        if hasattr(self, "incident_sysid") and self.incident_sysid is not None:
+            db_delete_from_table(
+                instance=self.instance, sys_id=self.incident_sysid, table="incident"
+            )
+
 class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
     config_path = ORDER_PACKAGING_AND_SHIPPING_TASK_CONFIG_PATH
 

@@ -372,3 +372,8 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
 
 class CreateIncidentTasksTask(ServiceNowIncidentTask):
     pass
+
+__TASKS__ = [
+    ResolveIncidentTask,
+    AddAdditionalAssigneeToIncidentTask,
+]

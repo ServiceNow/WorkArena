@@ -273,3 +273,5 @@ class ImpersonationTask(AbstractServiceNowTask):
 
 
 __TASKS__ = [AllMenuTask, ImpersonationTask]
+
+__DYNAMIC_GUIDANCE_TASKS__ = [AllMenuCustomGoalTask]

@@ -59,3 +59,7 @@ class FindCustomerAccountManagerTask(ServiceNowCustomerAccountTask):
 
     def all_configs(self):
         return json.load(open(FIND_CUSTOMER_ACCOUNT_MANAGER_CONFIG_PATH))
+
+__TASKS__ = [
+    FindCustomerAccountManagerTask,
+]
