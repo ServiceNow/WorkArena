@@ -19,7 +19,7 @@ INSTANCE_XOR_SEED = "x3!+-9mi#nhlo%a02$9hna{]"
 
 # Path to the Menu navigation task configuration
 ALL_MENU_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu.json"))
-ALL_MENU_CUSTOM_GOAL_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu_custom_goal.json"))
+ALL_MENU_CUSTOM_GOAL_PATH = str(resources.files(data_files).joinpath("task_configs/go_to_page.json"))
 
 # Path to the dashboard/report retrieval task configurations
 DASHBOARD_RETRIEVAL_MINMAX_CONFIG_PATH = str(
@@ -268,7 +268,7 @@ GET_NUMBER_LICENSES_CONFIG_PATH = str(
 
 ## Change Request tasks
 CHANGE_CHANGE_REQUEST_APPROVER_CONFIG_PATH = str(
-    resources.files(data_files).joinpath("task_configs/change_change_request_approver.json")
+    resources.files(data_files).joinpath("task_configs/change_chg_approver.json")
 )
 
 ## Incident tasks
@@ -325,7 +325,7 @@ ORDER_RESET_PASSWORD_TASK_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/order_reset_password.json")
 )
 ORDER_PAPER_SUPPLIES_TASK_CONFIG_PATH = str(
-    resources.files(data_files).joinpath("task_configs/order_paper_supplies.json")
+    resources.files(data_files).joinpath("task_configs/order_paper_and_supplies.json")
 )
 ORDER_SOFTWARE_TASK_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/order_software.json")

@@ -39,7 +39,7 @@ class CreateInteractionTask(ServiceNowInteractionTask):
     def validate(self, page: playwright.sync_api.Page, chat_messages: List[str]) -> Tuple[float, bool, str, dict]:
 
         # get customer problem from config
-        customer_problem = self.config["customer_problem"]
+        customer_problem = self.config["hardware_issue"]
 
         # Query interaction table using LIKE operator
         # TODO: difficult to verify and test
