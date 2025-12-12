@@ -13,5 +13,15 @@
         "case_number": "CS0001004",
         "close_notes": "The team has applied a fix to pick all type of reports and you should no longer face this issue going forward.",
         "goal": "Get the resolution notes for CS0001004"
+    },
+    {
+        "case_number": "CS0000002",
+        "close_notes": "all good now",
+        "goal": "Get the resolution notes for CS0000002"
+    },
+    {
+        "case_number": "CS0001404",
+        "close_notes": "Resolved",
+        "goal": "Get the resolution notes for CS0001404"
     }
 ]
