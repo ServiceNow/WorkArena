@@ -13,5 +13,15 @@
         "customer_account": "Advanced Routing Components",
         "assets": "231W-PS-RTF - Iris 5875, 390-99IH - APC 42U 3100 SP1 NetShelter Rack",
         "goal": "An employee from Advanced Routing Components emailed to report an issue with the assets on their account. Create a case for them with the names of the assets listed in the short description"
+    },
+    {
+        "customer_account": "Vector Solutions",
+        "assets": "34-IUG-HHH - Dell Inc. Alienware M14x, 320-HT-982 - Asus A53 Series",
+        "goal": "An employee from Vector Solutions emailed to report an issue with the assets on their account. Create a case for them with the names of the assets listed in the short description"
+    },
+    {
+        "customer_account": "Diagonal Inc.",
+        "assets": "983-23872456 - ACME KNOWLYTICS, 487-2344 - ACME KX Series - KX1000",
+        "goal": "An employee from Diagonal Inc. emailed to report an issue with the assets on their account. Create a case for them with the names of the assets listed in the short description"
     }
 ]
