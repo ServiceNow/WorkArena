@@ -49,7 +49,7 @@ class ChangeChangeRequestApproverTask(ServiceNowChangeRequestTask):
         for approver in approvers:
             if approver["approver"]["display_value"] == self.config["approver"]:
                 return approver["state"]
-        raise ValueError(f"Approver {self.config["approver"]} not found for change request {self.config["change_number"]}")
+        raise ValueError(f"Approver {self.config['approver']} not found for change request {self.config['change_number']}")
 
     def _get_change_request_sys_id(self, change_number: str) -> str:
         response = requests.get(

@@ -922,9 +922,9 @@ class OrderResetPasswordTask(OrderFromServiceCatalogTask):
             return 0, False, "", {"message": "The incident short description should end with the item name."}
         
         # sanity check work notes
-        if not f"System : {self.config["item"]}" in incident_work_notes:
+        if not f"System : {self.config['item']}" in incident_work_notes:
             return 0, False, "", {"message": "The incident work notes should contain the item name."}
-        if not f"Contact: {self.config["contact"]}" in incident_work_notes:
+        if not f"Contact: {self.config['contact']}" in incident_work_notes:
             return 0, False, "", {"message": "The incident work notes should contain the contact method."}
 
         return 1, True, "", {"message": "Task completed successfully."}
