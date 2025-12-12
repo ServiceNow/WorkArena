@@ -19,5 +19,19 @@
         "stage": "department head approval",
         "quantity": 10,
         "goal": "Find the RITM for a standard laptop that's pending department head approval. Update the request to include 10 of the item instead of 1"
+    },
+    {
+        "ritm_number": "RITM0010784",
+        "item_name": "Galaxy Note 20",
+        "stage": "fulfillment",
+        "quantity": 20,
+        "goal": "Find the RITM for a Galaxy Note 20 that's pending fulfillment. Update the request to include 20 of the item instead of 1"
+    },
+    {
+        "ritm_number": "RITM0010003",
+        "item_name": "Adobe Acrobat Pro",
+        "stage": "approval",
+        "quantity": 2,
+        "goal": "Find the RITM for an Adobe Acrobat Pro that's pending approval. Update the request to include 2 of the item instead of 1"
     }
 ]
