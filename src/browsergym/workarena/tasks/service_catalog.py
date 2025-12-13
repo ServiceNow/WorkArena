@@ -896,8 +896,10 @@ class OrderResetPasswordTask(OrderFromServiceCatalogTask):
             },
         )
         response.raise_for_status()
-        result = response.json().get("result", {})
-        return result.get("short_description")
+        result = response.json().get("result", [])
+        if len(result) != 1:
+            return None
+        return result[0].get("short_description")
 
     def _get_incident_work_notes(self) -> dict | None:
         # get incident work notes
@@ -914,7 +916,6 @@ class OrderResetPasswordTask(OrderFromServiceCatalogTask):
         result = response.json().get("result", [])
         if len(result) != 1:
             return None
-
         return result[0]["value"]
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
@@ -979,11 +980,12 @@ class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
         )
         response.raise_for_status()
         result = response.json().get("result", [])
+        if len(result) != 1:
+            return None
         return result[0]["name"]
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
-        print(requested_item)
         if requested_item is None:
             return 0, False, "", {"message": "The requested item is incorrect."}
         
@@ -994,17 +996,22 @@ class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         # validate values
-        if not requested_item[self.FIELD_NAME_MAPPING["shipping_type"]].lower() == self.SHIPPING_TYPE_MAPPING[self.config["shipping_type"]].lower():
+        if not requested_item["options"].get(self.FIELD_NAME_MAPPING["shipping_type"]).lower() == self.SHIPPING_TYPE_MAPPING[self.config["shipping_type"]].lower():
             return 0, False, "", {"message": "The requested shipping type is incorrect."}
 
         # for destination, we need to do a lookup
         # TODO: for now we only look at the destination field, but we could also setup the postcode, city, address line 1/2, etc.
-        destination = self._get_location(requested_item[self.FIELD_NAME_MAPPING["destination"]])
+        destination = self._get_location(requested_item["options"].get(self.FIELD_NAME_MAPPING["destination"]))
+        if destination is None:
+            return 0, False, "", {"message": "The requested destination is incorrect."}
         if not destination.lower() == self.config["destination"].lower():
             return 0, False, "", {"message": "The requested destination is incorrect."}
 
-        for keyword in self.config["keywords"].split(" "):
-            if not keyword.lower() in requested_item[self.FIELD_NAME_MAPPING["parcel_details"]].lower():
+        parcel_details = requested_item["options"].get(self.FIELD_NAME_MAPPING["parcel_details"])
+        if parcel_details is None:
+            return 0, False, "", {"message": "The requested parcel details is incorrect."}
+        for keyword in self.config["parcel_keywords"].split(" "):
+            if not keyword.lower() in parcel_details.lower():
                 return 0, False, "", {"message": "The requested parcel details does not contain the expected keyword."}
 
         return 1, True, "", {"message": "Task completed successfully."}
@@ -1030,11 +1037,11 @@ class OrderSoftwareAccessTask(OrderFromServiceCatalogTask):
 
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
-        print(requested_item)
         if requested_item is None:
             return 0, False, "", {"message": "The requested item is incorrect."}
         
-        if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
+        # here the `item` field is the software name, but the catalog item contains more info (e.g. `Request Dropbox account`)
+        if not self.config["item"].lower() in requested_item["cat_item"]["display_value"].lower():
             return 0, False, "", {"message": "The requested item is incorrect."}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
@@ -1043,7 +1050,7 @@ class OrderSoftwareAccessTask(OrderFromServiceCatalogTask):
         # NOTE: we don't check for `requested for` field.
 
         # business justification
-        if requested_item["options"]["Business justification"] != self.config["business_justification"]:
+        if requested_item["options"].get("Business justification", "") != self.config["business_justification"]:
             return 0, False, "", {"message": "The requested business justification is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
