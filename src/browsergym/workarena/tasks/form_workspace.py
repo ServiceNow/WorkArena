@@ -416,7 +416,7 @@ class CreateWorkspaceUserGroupTask(GenericCreateWorkspaceTask):
         )["result"]
 
         if len(child_records) == 0:
-            error_msg = f"The {self.config["child_table"]} records were not found in the database. We are missing some fields."
+            error_msg = f"The {self.config['child_table']} records were not found in the database. We are missing some fields."
             logging.info(error_msg)
             return (
                 0,
@@ -428,7 +428,7 @@ class CreateWorkspaceUserGroupTask(GenericCreateWorkspaceTask):
         num_expected_child_records = self.config.get("num_expected_child_records", 1)
 
         if len(child_records) != num_expected_child_records:
-            error_msg = f"Found {len(child_records)} {self.config["child_table"]} records, expected {num_expected_child_records}."
+            error_msg = f"Found {len(child_records)} {self.config['child_table']} records, expected {num_expected_child_records}."
             logging.info(error_msg)
             return (
                     0,
