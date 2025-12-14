@@ -20,6 +20,7 @@ from .tasks.compositional.base import CompositionalTask, HumanEvalTask
 from .tasks.compositional.update_task import __TASKS__ as UPDATE_TASKS
 from .tasks.dashboard import __TASKS__ as DASHBOARD_TASKS
 from .tasks.form import __TASKS__ as FORM_TASKS
+from .tasks.form_workspace import __TASKS__ as FORM_WORKSPACE_TASKS
 from .tasks.knowledge import __TASKS__ as KB_TASKS
 from .tasks.list import __TASKS__ as LIST_TASKS
 from .tasks.navigation import __TASKS__ as NAVIGATION_TASKS
@@ -66,6 +67,7 @@ ALL_WORKARENA_DYNAMIC_GUIDANCE_TASKS = [
     *INCIDENT_TASKS,
     *LICENSE_TASKS,
     *RITM_TASKS,
+    *FORM_WORKSPACE_TASKS,
 ]
 
 

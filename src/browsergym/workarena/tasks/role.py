@@ -73,7 +73,7 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
             params={
                 "sysparm_query": f"user={user_sys_id}",
                 "sysparm_display_value": "all",
-                "sysparm_fields": "role",
+                "sysparm_fields": "sys_id,role",
                 "sysparm_limit": 200,
             },
         )
