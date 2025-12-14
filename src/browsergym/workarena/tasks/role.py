@@ -79,9 +79,9 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
         )
         response.raise_for_status()
         result = response.json().get("result", [])
-        roles = [elem["role"]["display_value"] for elem in result]
+        role_to_sys_id_mapping = {elem["role"]["display_value"]: elem["sys_id"] for elem in result}
         for role in user_roles:
-            if not role in roles:
+            if not role in role_to_sys_id_mapping:
                 return (
                     0,
                     False,
@@ -89,9 +89,7 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
                     {"message": "The role does not match."},
                 )
             else:
-                # find which row from result is associated with that role, get sys_id, and save
-                sys_id = next((elem["sys_id"] for elem in result if elem["role"]["display_value"] == role), None)
-                self.created_sysids.append(sys_id)
+                self.created_sysids.append(role_to_sys_id_mapping[role])
         return (
             1,
             True,
