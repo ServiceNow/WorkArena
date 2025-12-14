@@ -210,7 +210,7 @@ class CreateWorkspaceProblemTask(CreateProblemTask, GenericCreateWorkspaceTask):
         self.start_url = self.instance.snow_url
 
 
-class CreateTransferOrderTask(GenericCreateWorkspaceTask):
+class CreateWorkspaceTransferOrderTask(GenericCreateWorkspaceTask):
     config_path = str(
         resources.files(data_files).joinpath("task_configs/create_transfer_order_task.json")
     )
@@ -336,7 +336,7 @@ class CreateTransferOrderTask(GenericCreateWorkspaceTask):
         )
 
 
-class CreateUserGroupTask(GenericCreateWorkspaceTask):
+class CreateWorkspaceUserGroupTask(GenericCreateWorkspaceTask):
     config_path = str(
         resources.files(data_files).joinpath("task_configs/create_user_group_task.json")
     )
@@ -484,4 +484,4 @@ class CreateUserGroupTask(GenericCreateWorkspaceTask):
 
 
             
-__TASKS__ = [CreateWorkspaceIncidentTask, CreateWorkspaceProblemTask, CreateTransferOrderTask, CreateUserGroupTask]
+__TASKS__ = [CreateWorkspaceIncidentTask, CreateWorkspaceProblemTask, CreateWorkspaceTransferOrderTask, CreateWorkspaceUserGroupTask]
