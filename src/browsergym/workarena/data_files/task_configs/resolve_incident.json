@@ -22,5 +22,21 @@
         "close_code": "User error",
         "close_notes": "User was connected to a neighbor's wifi network",
         "goal": "Resolve Bertie Luby's incident about performance problems with wifi. Choose \"User error\" for the resolution code and put \"User was connected to a neighbor's wifi network\" in the resolution notes"
+    },
+    {
+        "incident_number": "INC0009005",
+        "incident_caller": "David Miller",
+        "issue": "email server being down",
+        "close_code": "Known error",
+        "close_notes": "Already under investigation, team is working on a fix",
+        "goal": "Resolve David Miller's incident about email server being down. Choose \"Known error\" for the resolution code and put \"Already under investigation, team is working on a fix\" in the resolution notes"
+    },
+    {
+        "incident_number": "INC0000055",
+        "incident_caller": "Carol Coughlin",
+        "issue": "SAP sales app being unaccessible",
+        "close_code": "Resolved by change",
+        "close_notes": "Resolved this morning by change request",
+        "goal": "Resolve Carol Coughlin's incident about SAP sales app being unaccessible. Choose \"Resolved by change\" for the resolution code and put \"Resolved this morning by change request\" in the resolution notes"
     }
 ]
