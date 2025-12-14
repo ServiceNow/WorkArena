@@ -1,15 +1,333 @@
 [
     {
-        "user_full_name": "Lucien Iurato",
+        "user_full_name": "WM Qualifier",
         "role_family": "sn_incident",
         "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
-        "goal": "Assign Lucien Iurato all of the \"sn_incident\" roles"
+        "goal": "Assign WM Qualifier all of the \"sn_incident\" roles"
     },
     {
-        "user_full_name": "Josephine Sotlar",
+        "user_full_name": "Amy Pascal",
         "role_family": "sn_incident",
         "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
-        "goal": "Assign Josephine Sotlar all of the \"sn_incident\" roles"
+        "goal": "Assign Amy Pascal all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Becky Chan",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Becky Chan all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bob Redford",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bob Redford all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lee Javens",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lee Javens all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Haley Rocheford",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Haley Rocheford all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "ECMDB Admin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign ECMDB Admin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jake Throgmorton",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jake Throgmorton all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alisa Chinoy",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alisa Chinoy all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jade Erlebach",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jade Erlebach all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kelli Varrato",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kelli Varrato all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Robert Turner",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Robert Turner all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marlene Hammeren",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marlene Hammeren all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Nanette Turansky",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Nanette Turansky all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Helga Windle",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Helga Windle all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Beverley Bunche",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Beverley Bunche all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mack Jurasin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mack Jurasin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Floyd Veazey",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Floyd Veazey all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sam Collins",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sam Collins all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Model Manager",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Model Manager all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Crissy Stark",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Crissy Stark all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bert Schadle",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bert Schadle all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bae Kim",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bae Kim all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rosalyn Daulton",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rosalyn Daulton all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Walton Schwallie",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Walton Schwallie all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Enrique Oroark",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Enrique Oroark all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Paul Shafer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Paul Shafer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sybil Marmerchant",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sybil Marmerchant all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ricky John",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ricky John all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ella Pahnke",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ella Pahnke all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Carmella Wishman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Carmella Wishman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "survey user",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign survey user all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Malissa Ziesemer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Malissa Ziesemer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tami Trybus",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tami Trybus all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Delmer Delucas",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Delmer Delucas all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Valerie Pou",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Valerie Pou all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jimmie Kertzman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jimmie Kertzman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ezekiel Mildon",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ezekiel Mildon all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Misty Ericksen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Misty Ericksen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Nirali Patel",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Nirali Patel all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Password Admin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Password Admin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Stacey Blow",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Stacey Blow all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Danette Fostervold",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Danette Fostervold all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Robt Braithwaite",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Robt Braithwaite all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jacinto Gawron",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jacinto Gawron all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Joey Bolick",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Joey Bolick all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kory Wooldridge",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kory Wooldridge all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sean Bonnet",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sean Bonnet all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lashawn Hasty",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lashawn Hasty all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Janice Twiet",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Janice Twiet all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Joey Sedore",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Joey Sedore all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tiffany Knust",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tiffany Knust all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Janet Rathrock",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Janet Rathrock all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Diann Burigsay",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Diann Burigsay all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Son Marschke",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Son Marschke all of the \"sn_incident\" roles"
     },
     {
         "user_full_name": "Kerry Evertt",
@@ -18,15 +336,3645 @@
         "goal": "Assign Kerry Evertt all of the \"sn_incident\" roles"
     },
     {
+        "user_full_name": "Darrel Tork",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Darrel Tork all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Davin Czukowski",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Davin Czukowski all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lora Lendor",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lora Lendor all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kira Papen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kira Papen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rick Berzle",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rick Berzle all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lynda Youtsey",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lynda Youtsey all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Martin Carley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Martin Carley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Florine Willardson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Florine Willardson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Randall Kluemper",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Randall Kluemper all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Zane Sulikowski",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Zane Sulikowski all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Janet Schaffter",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Janet Schaffter all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Gil Scarpa",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Gil Scarpa all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bridget Bottella",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bridget Bottella all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sofia Taylor",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sofia Taylor all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lottie Voll",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lottie Voll all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "James Smith",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign James Smith all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Pierre Salera",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Pierre Salera all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rubin Crotts",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rubin Crotts all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kennith Peto",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kennith Peto all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Baker Huges",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Baker Huges all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Antony Thierauf",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Antony Thierauf all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Samantha Bordwell",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Samantha Bordwell all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Wilfredo Gidley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Wilfredo Gidley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kyle Lindauer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kyle Lindauer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jewel Agresta",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jewel Agresta all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Charity Dyckman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Charity Dyckman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Petra Mcnichol",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Petra Mcnichol all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sarah White",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sarah White all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rich Gleave",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rich Gleave all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jessie Barkle",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jessie Barkle all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mellissa Sule",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mellissa Sule all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Conrad Lanfear",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Conrad Lanfear all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Corinne Cowan",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Corinne Cowan all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kira Staffon",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kira Staffon all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Daniel Smith",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Daniel Smith all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Doug Matrisciano",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Doug Matrisciano all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Laurie Bigg",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Laurie Bigg all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Melinda Carleton",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Melinda Carleton all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mayme Staub",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mayme Staub all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jimmie Zarzycki",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jimmie Zarzycki all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sandra Graen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sandra Graen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Chad Miklas",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Chad Miklas all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jess Assad",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jess Assad all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Isiah Phernetton",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Isiah Phernetton all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Germaine Bruski",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Germaine Bruski all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lisa Ray",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lisa Ray all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Abel Tuter",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Abel Tuter all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Armando Kolm",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Armando Kolm all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Reyna Bangle",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Reyna Bangle all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Beverly Cambel",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Beverly Cambel all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Devon Samrah",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Devon Samrah all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Evan Pyfrom",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Evan Pyfrom all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jane Contact",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jane Contact all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Chuck Farley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Chuck Farley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Leif Arguin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Leif Arguin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Owen Sparacino",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Owen Sparacino all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lynn Saulsberry",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lynn Saulsberry all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Erica Eyrich",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Erica Eyrich all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brice Hedglin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brice Hedglin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Socorro Balandran",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Socorro Balandran all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mac Marksberry",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mac Marksberry all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Danny Dales",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Danny Dales all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Naomi Greenly",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Naomi Greenly all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Vernon Engelman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Vernon Engelman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Inventory Admin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Inventory Admin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marcie Shulz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marcie Shulz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tyree Courrege",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tyree Courrege all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tricia Kruss",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tricia Kruss all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cristopher Wiget",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cristopher Wiget all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Teodoro Gaboury",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Teodoro Gaboury all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Vernice Resendes",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Vernice Resendes all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Adela Cervantsz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Adela Cervantsz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "WM InitiatorQualifier",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign WM InitiatorQualifier all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bryant Bouliouris",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bryant Bouliouris all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Forest Orea",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Forest Orea all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marta Hoch",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marta Hoch all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Madonna Cosby",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Madonna Cosby all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alyssa Biasotti",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alyssa Biasotti all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marscha Gilles-Piecukonis",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marscha Gilles-Piecukonis all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Reggie Streu",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Reggie Streu all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rebekah Lindboe",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rebekah Lindboe all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dollie Pillitteri",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dollie Pillitteri all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Praveen Vootkuri",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Praveen Vootkuri all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ashley Leonesio",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ashley Leonesio all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Barton Friesner",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Barton Friesner all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Thomas Pfeifer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Thomas Pfeifer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Carol Coughlin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Carol Coughlin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tommie Reuland",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tommie Reuland all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Suresh Yekollu",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Suresh Yekollu all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Henrietta Cintora",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Henrietta Cintora all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Latisha Bahls",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Latisha Bahls all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alejandra Prenatt",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alejandra Prenatt all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alejandro Mascall",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alejandro Mascall all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alex Ray",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alex Ray all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Leslie Cackowski",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Leslie Cackowski all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Peter Partner",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Peter Partner all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Avery Parbol",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Avery Parbol all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dwayne Maddalena",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dwayne Maddalena all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bart Hachey",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bart Hachey all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Donald Sherretts",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Donald Sherretts all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bruno Nancy",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bruno Nancy all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ricky Tom",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ricky Tom all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lucien Iurato",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lucien Iurato all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Allie Pumphrey",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Allie Pumphrey all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Eddie Gauer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Eddie Gauer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "WM Approver",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign WM Approver all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "ESC Admin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign ESC Admin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Isaac Zackery",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Isaac Zackery all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ted Keppel",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ted Keppel all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rita Center",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rita Center all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Helena Suermann",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Helena Suermann all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Fannie Steese",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Fannie Steese all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Laurie Bibbs",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Laurie Bibbs all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Gaston Cieloszyk",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Gaston Cieloszyk all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lamar Mckibben",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lamar Mckibben all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Roman Simone",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Roman Simone all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Joel Nardo",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Joel Nardo all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sadie Rowlett",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sadie Rowlett all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lane Brantz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lane Brantz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Benchmark Scheduler",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Benchmark Scheduler all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lona Scronce",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lona Scronce all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Keisha Ransonet",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Keisha Ransonet all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Annabelle Coger",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Annabelle Coger all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Annette Frietas",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Annette Frietas all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ruthie Zortman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ruthie Zortman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ed Gompf",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ed Gompf all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Gayla Geimer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Gayla Geimer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Asaf Ary",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Asaf Ary all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Amos Linnan",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Amos Linnan all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bradly Hasselvander",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bradly Hasselvander all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Essie Vaill",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Essie Vaill all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Angelique Schermerhorn",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Angelique Schermerhorn all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Virtual Agent",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Virtual Agent all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Guest",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Guest all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Vivian Brzostowski",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Vivian Brzostowski all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Karyn Jinks",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Karyn Jinks all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Asset Manager",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Asset Manager all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Clarice Knower",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Clarice Knower all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Warren Speach",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Warren Speach all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Reva Bayer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Reva Bayer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Karen Zombo",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Karen Zombo all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Allyson Gillispie",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Allyson Gillispie all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Harding Asher",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Harding Asher all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Elisa Gracely",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Elisa Gracely all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Claudio Loose",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Claudio Loose all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Guillermo Tsang",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Guillermo Tsang all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Charlie  White",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Charlie  White all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Caitlin Reiniger",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Caitlin Reiniger all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lyndon Bellerdine",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lyndon Bellerdine all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kurtis Asberry",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kurtis Asberry all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marshall Hutch",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marshall Hutch all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Justina Dragaj",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Justina Dragaj all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Reginald Lunan",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Reginald Lunan all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Robin Grotz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Robin Grotz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Andrew Chen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Andrew Chen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brandon Beckman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brandon Beckman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Denice Nordlinger",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Denice Nordlinger all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marta Warran",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marta Warran all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Eli Bettner",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Eli Bettner all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Luella Pliner",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Luella Pliner all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Maynard Kaewprasert",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Maynard Kaewprasert all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Maryann Garnette",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Maryann Garnette all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Merle Wyrosdick",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Merle Wyrosdick all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Andrew Jackson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Andrew Jackson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brian Kiely",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brian Kiely all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tia Neumaier",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tia Neumaier all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "John Bohnhamn",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign John Bohnhamn all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "George Warren",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign George Warren all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Garfield Lijewski",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Garfield Lijewski all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mari Hwang",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mari Hwang all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sam Sorokin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sam Sorokin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mike Rogers",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mike Rogers all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bridget Knightly",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bridget Knightly all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dionne Borycz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dionne Borycz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bertie Luby",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bertie Luby all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Delphine Helmich",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Delphine Helmich all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Judy Gartenmayer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Judy Gartenmayer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Chad Araiza",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Chad Araiza all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ramon Amaral",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ramon Amaral all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mariano Maury",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mariano Maury all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Robin Schartz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Robin Schartz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lacy Hyten",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lacy Hyten all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tia Lino",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tia Lino all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Hilario Cassa",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Hilario Cassa all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Emily Jason",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Emily Jason all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Gracie Ehn",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Gracie Ehn all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Denise Speegle",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Denise Speegle all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kevin Edd",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kevin Edd all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Natasha Ingram",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Natasha Ingram all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Deshawn Inafuku",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Deshawn Inafuku all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Colin Altonen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Colin Altonen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marcelo Arostegui",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marcelo Arostegui all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Abraham Lincoln",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Abraham Lincoln all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Miranda Hammitt",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Miranda Hammitt all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Antione Mccleary",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Antione Mccleary all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Winnie Reich",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Winnie Reich all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Vanessa Lewallen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Vanessa Lewallen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Wilmer Constantineau",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Wilmer Constantineau all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Heath Vanalphen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Heath Vanalphen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Michelle Semmler",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Michelle Semmler all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Thomas Jefferson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Thomas Jefferson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Nathanial Phoenix",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Nathanial Phoenix all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Morton Crummell",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Morton Crummell all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Credential Admin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Credential Admin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rena Griffeth",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rena Griffeth all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sharlene Circelli",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sharlene Circelli all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Savannah Loffier",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Savannah Loffier all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Hans Fischer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Hans Fischer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "James Vittolo",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign James Vittolo all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Don Mestler",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Don Mestler all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "SOAP Guest",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign SOAP Guest all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cindy Lisa",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cindy Lisa all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cyril Behen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cyril Behen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dennis Millar",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dennis Millar all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ronald Hawes",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ronald Hawes all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ingrid Blake",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ingrid Blake all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Vince Ettel",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Vince Ettel all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Christian Marnell",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Christian Marnell all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lashonda Derouen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lashonda Derouen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cathryn Nicolaus",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cathryn Nicolaus all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Waldo Edberg",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Waldo Edberg all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kurtis Mcbay",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kurtis Mcbay all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Saundra Mcaulay",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Saundra Mcaulay all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jonathon Waldall",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jonathon Waldall all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Margarito Kornbau",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Margarito Kornbau all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ross Spurger",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ross Spurger all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Chase Furler",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Chase Furler all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Billie Cowley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Billie Cowley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jimmy Hrobsky",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jimmy Hrobsky all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marianne Earman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marianne Earman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lacy Belmont",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lacy Belmont all of the \"sn_incident\" roles"
+    },
+    {
         "user_full_name": "Miquel Demicco",
         "role_family": "sn_incident",
         "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
         "goal": "Assign Miquel Demicco all of the \"sn_incident\" roles"
     },
     {
+        "user_full_name": "Willard Roughen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Willard Roughen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Darrel Ruffins",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Darrel Ruffins all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Annie Approver",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Annie Approver all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Pilar Suddeth",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Pilar Suddeth all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Davis Heideman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Davis Heideman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sheila Holloran",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sheila Holloran all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Fran Zanders",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Fran Zanders all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Darren Merlin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Darren Merlin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Edgardo Prudente",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Edgardo Prudente all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Garth Skiffington",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Garth Skiffington all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Deepa Shah",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Deepa Shah all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Van Leanen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Van Leanen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tyron Quillman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tyron Quillman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Josephine Sotlar",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Josephine Sotlar all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tisha Gorder",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tisha Gorder all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bridgett Retort",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bridgett Retort all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Katina Ramano",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Katina Ramano all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marta Horner",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marta Horner all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Peggy Hohlstein",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Peggy Hohlstein all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jodi Seals",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jodi Seals all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Derek Kreutzbender",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Derek Kreutzbender all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kay Ganguli",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kay Ganguli all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cameron Richard",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cameron Richard all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Reva Lecates",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Reva Lecates all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Denis Koch",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Denis Koch all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Service Desk",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Service Desk all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Charles Beckley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Charles Beckley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Gregg Guevarra",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Gregg Guevarra all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jim Matthews",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jim Matthews all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jarrett Kenzie",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jarrett Kenzie all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Veronica Radman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Veronica Radman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Amelia Caputo",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Amelia Caputo all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Titus Rodreguez",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Titus Rodreguez all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kris Persson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kris Persson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tamara Declue",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tamara Declue all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marquita Bousman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marquita Bousman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Meredith Ivrin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Meredith Ivrin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bruno Smith",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bruno Smith all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Hans Carlan",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Hans Carlan all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Oma Duffy",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Oma Duffy all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jason Roy",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jason Roy all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Armando Papik",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Armando Papik all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Robert Thomson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Robert Thomson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Shelley Groden",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Shelley Groden all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "ml_report.user ",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign ml_report.user  all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bette Barcelona",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bette Barcelona all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Isabell Armout",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Isabell Armout all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Romeo Lisac",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Romeo Lisac all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sue Haakinson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sue Haakinson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alene Rabeck",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alene Rabeck all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Benjamin Schkade",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Benjamin Schkade all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jasmin Gum",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jasmin Gum all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mara Rineheart",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mara Rineheart all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Emilia Oxley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Emilia Oxley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ray William",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ray William all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Wayne Webb",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Wayne Webb all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Maurine Monroy",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Maurine Monroy all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mandy Mcdonnell",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mandy Mcdonnell all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Simone Lundie",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Simone Lundie all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brian White",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brian White all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Margaret Grey",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Margaret Grey all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Curt Menedez",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Curt Menedez all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Linda Cox",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Linda Cox all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Johnie Minaai",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Johnie Minaai all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Problem Task Analyst B",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Problem Task Analyst B all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sabrina Deppert",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sabrina Deppert all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brenda Thomson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brenda Thomson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Devon Teston",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Devon Teston all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Callie Leboeuf",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Callie Leboeuf all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Barbara Hindley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Barbara Hindley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "John Kennedy",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign John Kennedy all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Henry Carter",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Henry Carter all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Luciano Truiolo",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Luciano Truiolo all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jimmie Barninger",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jimmie Barninger all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mike  Hussey",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mike  Hussey all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Boris Catino",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Boris Catino all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "John Jason",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign John Jason all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rosanna Sandrock",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rosanna Sandrock all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mitchel Harnar",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mitchel Harnar all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kennith Kirklin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kennith Kirklin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kasey Nguyen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kasey Nguyen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Berta Karczewski",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Berta Karczewski all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Claire Moyerman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Claire Moyerman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lana Garrigus",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lana Garrigus all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Leif Bachta",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Leif Bachta all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cherie Fuhri",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cherie Fuhri all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alissa Mountjoy",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alissa Mountjoy all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Felecia Riedl",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Felecia Riedl all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Antonius Bullach",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Antonius Bullach all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jude Haza",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jude Haza all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Daniel Kraig",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Daniel Kraig all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Joe Martin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Joe Martin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Georgette Bandyk",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Georgette Bandyk all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ike Benthin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ike Benthin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Carol Krisman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Carol Krisman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "WM Agent",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign WM Agent all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "George Tukis",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign George Tukis all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Megan Burke",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Megan Burke all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Judi Kivel",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Judi Kivel all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lucius Winchester",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lucius Winchester all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dorothea Sweem",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dorothea Sweem all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lana Keels",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lana Keels all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Maryanne Whyman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Maryanne Whyman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ofelia Sheffler",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ofelia Sheffler all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mara Vanderzwaag",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mara Vanderzwaag all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mamie Mcintee",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mamie Mcintee all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Terrance Nimmer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Terrance Nimmer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Taylor Fogerty",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Taylor Fogerty all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Michael Hoefer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Michael Hoefer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Taylor Vreeland",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Taylor Vreeland all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Valentine Granberry",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Valentine Granberry all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Melvin Auteri",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Melvin Auteri all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Prince Kauk",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Prince Kauk all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Candice Bruckman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Candice Bruckman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kenya Bruni",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kenya Bruni all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Julie Lewis",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Julie Lewis all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "John Adams",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign John Adams all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kris Stanzak",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kris Stanzak all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ted Bozelle",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ted Bozelle all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Elmo Dagenais",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Elmo Dagenais all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Waldo Sisk",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Waldo Sisk all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Val Oborne",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Val Oborne all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Damion Matkin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Damion Matkin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Shanna Neundorfer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Shanna Neundorfer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cruz Roudabush",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cruz Roudabush all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Melody Saddat",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Melody Saddat all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Carmel Overfelt",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Carmel Overfelt all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Gale Nolau",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Gale Nolau all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Stephen Seiters",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Stephen Seiters all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sheryl Sisofo",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sheryl Sisofo all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Olga Yarovenko",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Olga Yarovenko all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lynda Caraway",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lynda Caraway all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Warren Hacher",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Warren Hacher all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Timothy Janski",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Timothy Janski all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Karla Ken",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Karla Ken all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lucas Santellana",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lucas Santellana all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kathleen Beresnyak",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kathleen Beresnyak all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sherwood Detillier",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sherwood Detillier all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Katina Survant",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Katina Survant all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Coleman Cuneo",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Coleman Cuneo all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Trey Tout",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Trey Tout all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Frankie Morein",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Frankie Morein all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Diana Temple",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Diana Temple all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Veronica Achorn",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Veronica Achorn all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Modesto Scroggie",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Modesto Scroggie all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Junior Wadlinger",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Junior Wadlinger all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Willa Dutt",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Willa Dutt all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Burton Brining",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Burton Brining all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Renae Eldrige",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Renae Eldrige all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ray Srock",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ray Srock all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alva Pennigton",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alva Pennigton all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Denver Topete",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Denver Topete all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rene Dummermuth",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rene Dummermuth all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Reina Reisenauer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Reina Reisenauer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kathie Argenti",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kathie Argenti all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Daniel Zill",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Daniel Zill all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Audra Cantu",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Audra Cantu all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rebeca Brumet",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rebeca Brumet all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Heath Vazquez",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Heath Vazquez all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Nickolas Khosravi",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Nickolas Khosravi all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lina Hybarger",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lina Hybarger all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Francis Soo",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Francis Soo all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Roxie Varenhorst",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Roxie Varenhorst all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jarvis Galas",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jarvis Galas all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Carla Sirbaugh",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Carla Sirbaugh all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Millicent Ekstrom",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Millicent Ekstrom all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Approver User",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Approver User all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Elvira Blumenthal",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Elvira Blumenthal all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Terrell Rodda",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Terrell Rodda all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Edward Smith",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Edward Smith all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Maryjane Arata",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Maryjane Arata all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Nadia Wilshire",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Nadia Wilshire all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Naomi Caetano",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Naomi Caetano all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Wes Fontanella",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Wes Fontanella all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Gilly Parker",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Gilly Parker all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Theron Hambright",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Theron Hambright all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rebekah Padley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rebekah Padley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marietta Bjornberg",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marietta Bjornberg all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Fred Kunde",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Fred Kunde all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mary Cruse",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mary Cruse all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Anthony Roy",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Anthony Roy all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lashonda Enote",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lashonda Enote all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "George Washington",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign George Washington all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dwain Agricola",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dwain Agricola all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Reina Wolchesky",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Reina Wolchesky all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Robecca William",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Robecca William all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Fabian Mcshaw",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Fabian Mcshaw all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Hanna Cinkan",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Hanna Cinkan all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Steve Schorr",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Steve Schorr all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Paul Ryan",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Paul Ryan all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Virgil Chinni",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Virgil Chinni all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Chi Greenlaw",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Chi Greenlaw all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Logan Muhl",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Logan Muhl all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Neil Backus",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Neil Backus all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ned Stark",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ned Stark all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Efren Baucher",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Efren Baucher all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Valeria Lingbeek",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Valeria Lingbeek all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Isaac Davensizer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Isaac Davensizer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Suzette Devaughan",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Suzette Devaughan all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "boaz shamami",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign boaz shamami all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sal Pindell",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sal Pindell all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Yvette Kokoska",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Yvette Kokoska all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cristina Sharper",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cristina Sharper all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Manuel Dienhart",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Manuel Dienhart all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lacy Woodfin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lacy Woodfin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mabel Weeden",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mabel Weeden all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jacklyn Emayo",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jacklyn Emayo all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Hillary Holmes",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Hillary Holmes all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kylie Bridgeman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kylie Bridgeman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Pamala Brodtmann",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Pamala Brodtmann all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marisa Smiler",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marisa Smiler all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "John Retak",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign John Retak all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Heriberto Tivis",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Heriberto Tivis all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Carla Humble",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Carla Humble all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cindy Contact",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cindy Contact all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Password User",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Password User all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Traci Toomey",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Traci Toomey all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alexlongnamealexlongnamealexlongname Raylongnameraylongnameraylongnameraylongname",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alexlongnamealexlongnamealexlongname Raylongnameraylongnameraylongnameraylongname all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marc Wanger",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marc Wanger all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lyman Whittley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lyman Whittley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cary Mccamey",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cary Mccamey all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jerrod Bennett",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jerrod Bennett all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Roseann Jerko",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Roseann Jerko all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rosalia Kennemur",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rosalia Kennemur all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Fausto Marks",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Fausto Marks all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mark Johnson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mark Johnson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rodrigo Wildrick",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rodrigo Wildrick all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Craig Parker",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Craig Parker all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Security Center Data Collection User",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Security Center Data Collection User all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Deanna Gerbi",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Deanna Gerbi all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alex McGibbon",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alex McGibbon all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mildred Gallegas",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mildred Gallegas all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Cherie Schronce",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Cherie Schronce all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Petra Clemmens",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Petra Clemmens all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dwain Cuttitta",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dwain Cuttitta all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Freida Michelfelder",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Freida Michelfelder all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rosalie Krigger",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rosalie Krigger all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Felipe Mahone",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Felipe Mahone all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Nelly Jakuboski",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Nelly Jakuboski all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Norman Betance",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Norman Betance all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jamie Erwin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jamie Erwin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Travis Brockert",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Travis Brockert all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Phil Hendrie",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Phil Hendrie all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Eldon Sutch",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Eldon Sutch all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Emery Reek",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Emery Reek all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Athena Fontanilla",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Athena Fontanilla all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kristine Paker",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kristine Paker all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lucius Bagnoli",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lucius Bagnoli all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lesa Chantry",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lesa Chantry all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Doreen Sakurai",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Doreen Sakurai all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ashley Parker",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ashley Parker all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dollie Daquino",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dollie Daquino all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Edwin Forman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Edwin Forman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Concetta Sarchett",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Concetta Sarchett all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Billie Tinnes",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Billie Tinnes all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Eliseo Wice",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Eliseo Wice all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Borris Becker",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Borris Becker all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Raphael Bickel",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Raphael Bickel all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Gisela Kosicki",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Gisela Kosicki all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Elmo Gabouer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Elmo Gabouer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jeanie Dalen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jeanie Dalen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Caleb Hall",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Caleb Hall all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lizzie Torregrossa",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lizzie Torregrossa all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Patty Bernasconi",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Patty Bernasconi all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Quintin Isacson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Quintin Isacson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Joe Employee",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Joe Employee all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jeremy Lampi",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jeremy Lampi all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Teddy Taylor",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Teddy Taylor all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mitzi Ihenyen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mitzi Ihenyen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Shanna Numkena",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Shanna Numkena all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Pat Hoshaw",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Pat Hoshaw all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brendan Qin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brendan Qin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brian Duke",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brian Duke all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Naomi Mcraven",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Naomi Mcraven all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Chris Harris",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Chris Harris all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "John Chipley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign John Chipley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jannie Bowditch",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jannie Bowditch all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Eva Seahorn",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Eva Seahorn all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ike Zeolla",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ike Zeolla all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Minh Leclare",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Minh Leclare all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Neva Marsell",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Neva Marsell all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Elaine Renzi",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Elaine Renzi all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bess Marso",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bess Marso all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Deandre Resendiz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Deandre Resendiz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Terra Plagge",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Terra Plagge all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Julius Reyes",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Julius Reyes all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Trudy Worlds",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Trudy Worlds all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rosemarie Fifield",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rosemarie Fifield all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jimmie Hardgrove",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jimmie Hardgrove all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Hannah Facio",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Hannah Facio all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Courtney Shishido",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Courtney Shishido all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tommy Gore",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tommy Gore all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rosalind Krenzke",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rosalind Krenzke all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Viola Mcsorley",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Viola Mcsorley all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Davis Brevard",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Davis Brevard all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Angelo Ferentz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Angelo Ferentz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rob Phillips",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rob Phillips all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Karen Flierl",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Karen Flierl all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Miles Dyson",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Miles Dyson all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mitch Schattner",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mitch Schattner all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brian Samul",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brian Samul all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Celia Slavin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Celia Slavin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bryan Rovell",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bryan Rovell all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Faiza Ramos",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Faiza Ramos all of the \"sn_incident\" roles"
+    },
+    {
         "user_full_name": "William Mahmud",
         "role_family": "sn_incident",
         "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
         "goal": "Assign William Mahmud all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Problem Task Analyst A",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Problem Task Analyst A all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tori Villaescusa",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tori Villaescusa all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "User 1",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign User 1 all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Amy Chen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Amy Chen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mona Lisa",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mona Lisa all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marcelino Maggs",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marcelino Maggs all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dorthy Alexy",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dorthy Alexy all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Milton Kuhlman",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Milton Kuhlman all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Antonio Bencum",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Antonio Bencum all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Roger Rasmussen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Roger Rasmussen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Zackary Mockus",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Zackary Mockus all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Allan Schwantd",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Allan Schwantd all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Reginald Humes",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Reginald Humes all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Felipe Gould",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Felipe Gould all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alex Linde",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alex Linde all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Geri Forness",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Geri Forness all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Roger Seid",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Roger Seid all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Darrell Amrich",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Darrell Amrich all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marion Gaulden",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marion Gaulden all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Melissa Pena",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Melissa Pena all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Eduardo Bellendir",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Eduardo Bellendir all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Edwin Lavelli",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Edwin Lavelli all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Johnnie Rheaves",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Johnnie Rheaves all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Tammie Schwartzwalde",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Tammie Schwartzwalde all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Teri Erlewine",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Teri Erlewine all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Genevieve Kekiwi",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Genevieve Kekiwi all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "WM Dispatcher",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign WM Dispatcher all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Ione Kucera",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Ione Kucera all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marla Folz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marla Folz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Helene Iberg",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Helene Iberg all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Scott Seixas",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Scott Seixas all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Buster Wubbel",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Buster Wubbel all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rudy Kuhle",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rudy Kuhle all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bob Leno",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bob Leno all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "ml.admin ",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign ml.admin  all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Robbie Deshay",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Robbie Deshay all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Carolina Kinlaw",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Carolina Kinlaw all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Mary Maurizio",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Mary Maurizio all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "George Grey",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign George Grey all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Freeman Soula",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Freeman Soula all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Lynette Setlock",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Lynette Setlock all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rolando Baumann",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rolando Baumann all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "WM InitiatorQualifierDispatcher",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign WM InitiatorQualifierDispatcher all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brant Darnel",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brant Darnel all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Darrin Neiss",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Darrin Neiss all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Margot Arenburg",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Margot Arenburg all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Christa Bodenschatz",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Christa Bodenschatz all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Marisa Woldridge",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Marisa Woldridge all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "David Miller",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign David Miller all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Rachel Larrison",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Rachel Larrison all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Jeri Farstvedt",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Jeri Farstvedt all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sophie Langner",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sophie Langner all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Randal Gansen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Randal Gansen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Kyle Ferri",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Kyle Ferri all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Byron Fortuna",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Byron Fortuna all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Emilio Lampkin",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Emilio Lampkin all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Dude Lewbowskie",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Dude Lewbowskie all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Brent Vaidya",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Brent Vaidya all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Sitemap Scheduler User ",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Sitemap Scheduler User  all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Carl Customer",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Carl Customer all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Robyn Christophel",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Robyn Christophel all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Aileen Mottern",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Aileen Mottern all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Amy Arquette",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Amy Arquette all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Software Manager",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Software Manager all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Alfonso Griglen",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Alfonso Griglen all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Edward Hack",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Edward Hack all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Krystle Stika",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Krystle Stika all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "System Administrator",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign System Administrator all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Bertram Quertermous",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Bertram Quertermous all of the \"sn_incident\" roles"
+    },
+    {
+        "user_full_name": "Charlie Brown",
+        "role_family": "sn_incident",
+        "roles": "sn_incident_read, sn_incident_write, sn_incident_task_assigned_user, sn_incident_comments_write",
+        "goal": "Assign Charlie Brown all of the \"sn_incident\" roles"
     }
 ]
