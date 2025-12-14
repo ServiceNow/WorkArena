@@ -754,9 +754,11 @@ class OrderIphoneTask(OrderFromServiceCatalogTask):
         if requested_item["options"][self.FIELD_NAME_MAPPING["replacement"]] != self.config["replacement"]:
             return 0, False, "", {"message": "The requested replacement status is incorrect."}
 
-        # TODO: add replacement phone number in data
-        if requested_item["options"][self.FIELD_NAME_MAPPING["original_phone_number"]] != self.config["original_phone_number"]:
-            return 0, False, "", {"message": "The requested original phone number is incorrect."}
+        if self.config["replacement"].lower() == "yes":
+            entered_phone_number = ''.join(filter(str.isdigit, requested_item["options"][self.FIELD_NAME_MAPPING["original_phone_number"]]))
+            ground_truth_phone_number = ''.join(filter(str.isdigit, self.config["original_phone_number"]))
+            if entered_phone_number != ground_truth_phone_number:
+                return 0, False, "", {"message": "The requested original phone number is incorrect."}
 
         if requested_item["options"][self.FIELD_NAME_MAPPING["color"]] != self.COLOR_MAPPING[self.config["color"]]:
             # TODO: display color and config color is not the same
