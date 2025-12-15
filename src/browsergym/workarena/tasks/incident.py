@@ -270,9 +270,9 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.initial_incident_close_code = self._get_initial_incident_close_code()
+        self._get_initial_incident_info()
     
-    def _get_initial_incident_close_code(self):
+    def _get_initial_incident_info(self):
         
         incident_number = self.config["incident_number"]
 
@@ -291,8 +291,8 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
         if not result:
             raise ValueError(f"Incident {incident_number} not found")
 
-        return result[0]["close_code"]
-        
+        self.incident_sys_id = result[0]["sys_id"]
+        self.initial_incident_close_code = result[0]["close_code"]        
     
     def all_configs(self):
         return json.load(open(RESOLVE_INCIDENT_CONFIG_PATH))
@@ -352,17 +352,14 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
         # reset the close code to the initial value
         if self.initial_incident_close_code is not None and self.config["close_code"] != self.initial_incident_close_code:
             try:
-                table_api_call(
-                    instance=self.instance,
-                    table="incident",
-                    params={
-                        "sysparm_query": f"number={self.config['incident_number']}",
-                    },
-                    data={
+                requests.patch(
+                    f"{self.instance.snow_url}/api/now/table/incident/{self.incident_sys_id}",
+                    auth=self.instance.snow_credentials,
+                    headers={"Accept": "application/json"},
+                    json={
                         "close_code": self.initial_incident_close_code,
-                        "close_notes": "", # empty close notes
+                        "close_notes": "",
                     },
-                    method="PUT",
                 )
             except HTTPError:
                 # sys_id was stored in local storage (for submitted)
