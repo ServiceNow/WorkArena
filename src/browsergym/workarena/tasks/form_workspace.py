@@ -63,6 +63,20 @@ class GenericCreateWorkspaceTask(GenericNewRecordTask):
 
         return goal, info
 
+    def start(self, page: Page) -> None:
+        # Overriding start because calling self._get_form(page) in the parent class gives an error
+        logging.debug("Navigating to task start page")
+
+        # Authenticate
+        url_login(
+            instance=self.instance,
+            page=page,
+        )
+
+        # Navigate to the task's url
+        page.goto(self.start_url)
+        self._wait_for_ready(page)
+
     def validate(
         self, page: Page, chat_messages: list[str]
     ) -> Tuple[float, bool, str, dict]:
@@ -236,20 +250,6 @@ class CreateWorkspaceTransferOrderTask(GenericCreateWorkspaceTask):
         # Force starting at the homepage
         self.start_url = self.instance.snow_url
         self.created_sys_id = None
-
-    def start(self, page: Page) -> None:
-        # Overriding start because calling self._get_form(page) in the parent class gives an error
-        logging.debug("Navigating to task start page")
-
-        # Authenticate
-        url_login(
-            instance=self.instance,
-            page=page,
-        )
-
-        # Navigate to the task's url
-        page.goto(self.start_url)
-        self._wait_for_ready(page)
 
     def get_init_scripts(self) -> List[str]:
        # Override this to avoid changing functionality of submit button
