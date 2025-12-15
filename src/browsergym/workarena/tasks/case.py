@@ -118,17 +118,13 @@ class CloseCaseTask(ServiceNowCaseTask):
     def teardown(self) -> None:
 
         # revert the state to initial_state
-        table_api_call(
-            instance=self.instance,
-            table="sn_customerservice_case",
-            method="POST",
-            data={
-                "state": self.initial_state,
-            },
-            params={
-                "sysparm_query": f"number={self.config['case_number']}",
-                "sysparm_fields": "state",
-                "sysparm_limit": 1,
+        requests.patch(
+            f"{self.instance.snow_url}/api/now/table/sn_customerservice_case/{self.record_sys_id}",
+            auth=self.instance.snow_credentials,
+            headers={"Accept": "application/json"},
+            json={
+                "resolution_code": self.initial_state,
+                "close_notes": "",
             },
         )
 
