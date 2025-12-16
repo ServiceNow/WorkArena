@@ -1,0 +1,23 @@
+[
+    {
+        "name": "ITIL User Group",
+        "manager": "Pierre Salera",
+        "type": "itil",
+        "roles": "itil",
+        "goal": "Create an active user group named \"ITIL User Group\". Its manager is Pierre Salera, type is itil, and roles include itil"
+    },
+    {
+        "name": "Survey Admins",
+        "manager": "Alene Rabeck",
+        "type": "survey",
+        "roles": "survey_admin",
+        "goal": "Create an active user group named \"Survey Admins\". Its manager is Alene Rabeck, type is survey, and roles include survey_admin"
+    },
+    {
+        "name": "Catalog Managers",
+        "manager": "Zachary Mockus",
+        "type": "catalog",
+        "roles": "catalog_manager",
+        "goal": "Create an active user group named \"Catalog Managers\". Its manager is Zachary Mockus, type is catalog, and roles include catalog_manager"
+    }
+]

@@ -35,6 +35,7 @@ from .tasks.customer_account import __TASKS__ as CUSTOMER_ACCOUNT_TASKS
 from .tasks.incident import __TASKS__ as INCIDENT_TASKS
 from .tasks.license import __TASKS__ as LICENSE_TASKS
 from .tasks.ritm import __TASKS__ as RITM_TASKS
+from .tasks.user_group import __TASKS__ as USER_GROUP_TASKS
 from .tasks.compositional.base import CompositionalTask
 
 ALL_WORKARENA_TASKS = [
@@ -68,6 +69,7 @@ ALL_WORKARENA_DYNAMIC_GUIDANCE_TASKS = [
     *LICENSE_TASKS,
     *RITM_TASKS,
     *FORM_WORKSPACE_TASKS,
+    *USER_GROUP_TASKS,
 ]
 
 

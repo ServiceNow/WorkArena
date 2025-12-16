@@ -304,6 +304,12 @@ FIND_CUSTOMER_ACCOUNT_MANAGER_CONFIG_PATH = str(
 DEACTIVATE_USER_GROUP_CONFIG_PATH = str(
     resources.files(data_files).joinpath("task_configs/deactivate_user_group.json")
 )
+CREATE_USER_GROUP_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/create_user_group.json")
+)
+CREATE_USER_GROUP_ADD_USERS_CONFIG_PATH = str(
+    resources.files(data_files).joinpath("task_configs/create_user_group_add_users.json")
+)
 
 # service catalog tasks (dynamic guidance)
 ORDER_IPHONE_TASK_CONFIG_PATH = str(

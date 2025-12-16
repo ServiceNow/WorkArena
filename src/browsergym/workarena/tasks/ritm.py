@@ -124,24 +124,18 @@ class ChangeRitmStatusTask(ServiceNowRitmTask):
         # revert to previous state
         if self.initial_approval and self.initial_approval != self.config["approval"]:
             try:
-                table_api_call(
-                    instance=self.instance,
-                    table="sc_req_item",
-                    params={
-                        "sysparm_query": f"number={self.config['ritm_number']}",
-                        "sysparm_fields": "sys_id,number,approval",
-                        "sysparm_limit": 1,
-                    },
-                    data={
+                requests.patch(
+                    f"{self.instance.snow_url}/api/now/table/sc_req_item/{self.record_sys_id}",
+                    auth=self.instance.snow_credentials,
+                    headers={"Accept": "application/json"},
+                    json={
                         "approval": self.initial_approval,
                     },
-                    method="PUT",
                 )
             except HTTPError:
                 # sys_id was stored in local storage (for submitted)
                 # but the record is absent from the database (probably invalid form)
-                pass
-            
+                pass            
 
 class UpdateRitmQuantityTask(ServiceNowRitmTask):
 
@@ -215,24 +209,19 @@ class UpdateRitmQuantityTask(ServiceNowRitmTask):
     def teardown(self) -> None:
         if self.initial_quantity and self.initial_quantity != self.config["quantity"]:
             try:
-                table_api_call(
-                    instance=self.instance,
-                    table="sc_req_item",
-                    params={
-                        "sysparm_query": f"number={self.config['ritm_number']}",
-                        "sysparm_fields": "sys_id,number,quantity",
-                        "sysparm_limit": 1,
-                    },
-                    data={
+                requests.patch(
+                    f"{self.instance.snow_url}/api/now/table/sc_req_item/{self.record_sys_id}",
+                    auth=self.instance.snow_credentials,
+                    headers={"Accept": "application/json"},
+                    json={
                         "quantity": self.initial_quantity,
                     },
-                    method="PUT",
                 )
             except HTTPError:
                 # sys_id was stored in local storage (for submitted)
                 # but the record is absent from the database (probably invalid form)
                 pass
-
+    
 __TASKS__ = [
     ChangeRitmStatusTask,
     UpdateRitmQuantityTask,
