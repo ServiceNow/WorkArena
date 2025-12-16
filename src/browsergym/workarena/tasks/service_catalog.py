@@ -739,10 +739,10 @@ class OrderIphoneTask(OrderFromServiceCatalogTask):
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
         if requested_item is None:
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
@@ -789,10 +789,10 @@ class OrderMobilePhoneTask(OrderFromServiceCatalogTask):
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
         if requested_item is None:
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
@@ -814,10 +814,10 @@ class OrderMiscHardwareTask(OrderFromServiceCatalogTask):
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
         if requested_item is None:
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
@@ -830,10 +830,10 @@ class OrderMiscHardwareWithBusinessJustificationTask(OrderFromServiceCatalogTask
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
         if requested_item is None:
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
@@ -859,10 +859,10 @@ class OrderPaperSuppliesTask(OrderFromServiceCatalogTask):
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
         if requested_item is None:
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
@@ -883,7 +883,7 @@ class OrderResetPasswordTask(OrderFromServiceCatalogTask):
     def _get_incident_sys_id(self, page: Page) -> str | None:
         # Retrieve the incident sysid from the URL
         current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
-        (self.incident_sysid,) = parse.parse_qs(current_url.query).get("sys_id", [None])
+        self.incident_sysid = parse.parse_qs(current_url.query).get("sys_id", [None])[0]
         sleep(3)
 
     def _get_incident_short_description(self) -> str | None:
@@ -937,9 +937,9 @@ class OrderResetPasswordTask(OrderFromServiceCatalogTask):
             return 0, False, "", {"message": "The incident short description should end with the item name."}
         
         # sanity check work notes
-        if not f"System : {self.config['item']}" in incident_work_notes:
+        if not f"System : {self.config['item']}".lower() in incident_work_notes.lower():
             return 0, False, "", {"message": "The incident work notes should contain the item name."}
-        if not f"Contact: {self.config['contact']}" in incident_work_notes:
+        if not f"Contact : {self.config['contact']}".lower() in incident_work_notes.lower():
             return 0, False, "", {"message": "The incident work notes should contain the contact method."}
 
         return 1, True, "", {"message": "Task completed successfully."}
@@ -989,10 +989,10 @@ class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
         if requested_item is None:
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
@@ -1024,10 +1024,10 @@ class OrderSoftwareTask(OrderFromServiceCatalogTask):
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
         if requested_item is None:
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
@@ -1040,11 +1040,11 @@ class OrderSoftwareAccessTask(OrderFromServiceCatalogTask):
     def validate(self, page: Page, chat_messages: list[str]) -> tuple[int, bool, str, dict]:
         requested_item = self._get_requested_item(page)
         if requested_item is None:
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": "The requested item is not found."}
         
         # here the `item` field is the software name, but the catalog item contains more info (e.g. `Request Dropbox account`)
         if not self.config["item"].lower() in requested_item["cat_item"]["display_value"].lower():
-            return 0, False, "", {"message": "The requested item is incorrect."}
+            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
             return 0, False, "", {"message": "The requested quantity is incorrect."}

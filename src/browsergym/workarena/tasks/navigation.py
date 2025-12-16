@@ -182,6 +182,29 @@ class AllMenuCustomGoalTask(AllMenuTask):
     def cheat(self, page: Page, chat_messages: list[str]) -> None:
         pass
 
+    def validate(
+        self, page: playwright.sync_api.Page, chat_messages: list[str]
+    ) -> Tuple[float, bool, str, dict]:
+        # we're less strict on the validation here.
+        page.wait_for_load_state("domcontentloaded")
+
+        # Get the current URL and the final URL
+        current_url = parse.urlunparse(
+            parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
+        )
+        final_url_tmp = self.module.get("url", "INVALID")
+        final_url = parse.urlunparse(parse.urlparse(parse.unquote(final_url_tmp)))
+
+        if final_url in current_url:
+            return (
+                1,
+                True,
+                "Nice work, thank you!",
+                {"message": "Correct module reached."},
+            )
+
+        return 0, False, "", {"message": "Not at expected URL."}
+
 class ImpersonationTask(AbstractServiceNowTask):
     """
     Task to impersonate a user.

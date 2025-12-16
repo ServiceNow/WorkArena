@@ -113,16 +113,13 @@ class AddAdditionalAssigneeToIncidentTask(ServiceNowIncidentTask):
         # revert the additional_assignee_list to the initial value
         if self.initial_incident_additional_assignee_list is not None and self.config["additional_assignee_list"] != self.initial_incident_additional_assignee_list:
             try:
-                table_api_call(
-                    instance=self.instance,
-                    table="incident",
-                    params={
-                        "sysparm_query": f"number={self.config['incident_number']}",
-                    },
-                    data={
+                requests.patch(
+                    f"{self.instance.snow_url}/api/now/table/incident/{self.config['incident_number']}",
+                    auth=self.instance.snow_credentials,
+                    headers={"Accept": "application/json"},
+                    json={
                         "additional_assignee_list": self.initial_incident_additional_assignee_list,
                     },
-                    method="PUT",
                 )
             except HTTPError:
                 pass
@@ -282,7 +279,7 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
             headers={"Accept": "application/json"},
             params={
                 "sysparm_query": f"number={incident_number}",
-                "sysparm_fields": "sys_id,number,close_code,close_notes",
+                "sysparm_fields": "sys_id,number,close_code,close_notes,state",
                 "sysparm_limit": 1,
             },
         )
@@ -292,6 +289,7 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
             raise ValueError(f"Incident {incident_number} not found")
 
         self.incident_sys_id = result[0]["sys_id"]
+        self.initial_incident_state = result[0]["state"]
         self.initial_incident_close_code = result[0]["close_code"]        
     
     def all_configs(self):
@@ -359,6 +357,7 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
                     json={
                         "close_code": self.initial_incident_close_code,
                         "close_notes": "",
+                        "state": self.initial_incident_state,
                     },
                 )
             except HTTPError:
