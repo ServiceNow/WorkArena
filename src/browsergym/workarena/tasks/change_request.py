@@ -123,15 +123,13 @@ class ChangeChangeRequestApproverTask(ServiceNowChangeRequestTask):
         # revert the change request approver state to the initial state
         if self.change_request_approver_sys_id is not None:
             try:
-                table_api_call(
-                    instance=self.instance,
-                    table="sysapproval_approver",
-                    params={
-                        "sysparm_query": f"sys_id={self.change_request_approver_sys_id}",
-                        "sysparm_limit": 1,
+                requests.patch(
+                    f"{self.instance.snow_url}/api/now/table/sysapproval_approver/{self.change_request_approver_sys_id}",
+                    auth=self.instance.snow_credentials,
+                    headers={"Accept": "application/json"},
+                    json={
+                        "state": self.initial_change_request_approver_state,
                     },
-                    method="PUT",
-                    data={"state": self.initial_change_request_approver_state},
                 )
             except HTTPError:
                 pass
