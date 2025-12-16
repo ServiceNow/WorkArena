@@ -1065,9 +1065,6 @@ __TASKS__ = [
 ]
 
 __DYNAMIC_GUIDANCE_TASKS__ = [
-    OrderAppleWatchTask,
-    OrderDeveloperLaptopTask,
-    OrderIpadProTask,
     OrderIphoneTask,
     OrderMobilePhoneTask,
     OrderSoftwareAccessTask,
