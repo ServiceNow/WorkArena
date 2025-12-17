@@ -748,7 +748,7 @@ class OrderIphoneTask(OrderFromServiceCatalogTask):
             return 0, False, "", {"message": "The requested quantity is incorrect."}
 
         # go over values
-        if requested_item["options"][self.FIELD_NAME_MAPPING["monthly_data_allowance"]] != self.config["monthly_data_allowance"]:
+        if requested_item["options"][self.FIELD_NAME_MAPPING["monthly_data_allowance"]].lower() != self.config["monthly_data_allowance"].lower():
             return 0, False, "", {"message": "The requested monthly data allowance is incorrect."}
 
         if requested_item["options"][self.FIELD_NAME_MAPPING["replacement"]] != self.config["replacement"]:
