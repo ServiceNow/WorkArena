@@ -1,9 +1,9 @@
 import json
 from typing import Any, Dict, List, Tuple
-
+import re
 import playwright.sync_api
 import requests
-
+from urllib import parse
 from ..api.utils import HTTPError, db_delete_from_table
 from ..config import (
     ASSIGN_ROLE_TO_USER_ADMIN_CONFIG_PATH,
@@ -34,7 +34,13 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
         return goal, info
 
     def cheat(self, page: playwright.sync_api.Page, chat_messages: List[str]) -> None:
-        pass
+        super().cheat(page=page, chat_messages=chat_messages)
+        self._url_login(page)
+        self._navigate_to_page(page, "sys_user.list")
+        self._search_for_user(page, self.config["user_full_name"])
+        self._open_user_page(page, self.config["user_full_name"])
+        self._open_user_roles_page(page)
+        self._assign_roles(page, self.config.get("roles", "admin"))
 
     def validate(self, page: playwright.sync_api.Page, chat_messages: List[str]) -> Tuple[float, bool, str, dict]:
 
@@ -112,6 +118,94 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
     def all_configs(self):
         raise NotImplementedError
 
+    def _url_login(self, page):
+        (snow_username, snow_password) = self.instance.snow_credentials
+
+        # Encode special characters
+        snow_username = parse.quote(snow_username)
+        snow_password = parse.quote(snow_password)
+
+        # Log in via URL
+        page.goto(f"{self.instance.snow_url}/login.do?user_name={snow_username}&user_password={snow_password}&sys_action=sysverb_login")
+
+        # Check if we have been returned to the login page
+        current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
+        if "login.do" in current_url.path:
+            raise RuntimeError("Login failed. Check credentials and make sure to have run installer.")
+
+    def _navigate_to_page(self, page, page_name: str = "sys_user.list"):
+        # gsft_main remains undefined on the landing page; we have to wait for the network to be idle instead.
+        page.wait_for_load_state("networkidle")
+        menu_button = page.locator('div[aria-label="All"]')
+        if (menu_button.get_attribute("aria-expanded")).lower() != "true":
+            menu_button.click()
+
+        # Select the menu's main div
+        menu = page.locator('div[aria-label="All menu"]')
+
+        # Filter the menu using the application's name
+        menu.get_by_placeholder("Filter").fill(page_name)
+        page.keyboard.press("Enter")
+
+        # Avoids issues due to list not being fully filtered yet
+        # We could certainly do something more fancy, but it's not
+        # worth spending time on right now.
+        page.wait_for_timeout(5_000)
+        page.wait_for_load_state("networkidle")
+
+    def _search_for_user(self, page, user_name: str):
+        # focus on iframe
+        iframe = page.frame("gsft_main")
+
+        # select "Name" on the dropdown to filter users
+        select = iframe.get_by_role("listbox", name="Search a specific field of the Users list")
+        select.wait_for(state="visible")
+        select.select_option(value="name")
+
+        # enter name in input
+        search_field = iframe.locator('input[aria-label="Search"]')
+        search_field.fill(user_name)
+        search_field.press("Enter")
+
+        # wait for the user to be loaded
+        page.wait_for_load_state("networkidle")
+
+    def _open_user_page(self, page, user_name: str):
+        iframe = page.frame("gsft_main")
+
+        pattern = re.compile(rf"Open record:\s*{re.escape(user_name)}", re.IGNORECASE)
+
+        # find element with aria label containing "Open record: {user_name}"
+        record_link = iframe.get_by_role("link", name=pattern)
+        record_link.click()
+
+    def _open_user_roles_page(self, page):
+        iframe = page.frame("gsft_main")
+
+        # find tab with name "Roles"
+        pattern = re.compile(rf"Roles*", re.IGNORECASE)
+        tab_button = iframe.get_by_role("tab", name=pattern)
+        tab_button.click()
+
+        # click on "Edit... "
+        edit_button = iframe.get_by_role("button", name="Edit...")
+        edit_button.click()
+
+    def _assign_roles(self, page, roles: List[str]):
+        iframe = page.frame("gsft_main")
+        for role in roles:
+
+            # click on option with name "role"
+            option = iframe.get_by_role("option", name=role, exact=True)
+            option.click()
+
+            # click on arrow pointing right
+            add_button = iframe.get_by_role("button", name="Add selected options")
+            add_button.dblclick()
+
+        # click on submit button
+        save_button = iframe.locator('button[type="submit"]').filter(has_text="Save").first
+        save_button.click()
 
 class AssignRoleToUserAdminTask(ServiceNowRoleTask):
     def all_configs(self):
