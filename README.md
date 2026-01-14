@@ -5,16 +5,6 @@
 # WorkArena: A Benchmark for Evaluating Agents on Knowledge Work Tasks 
 [[Benchmark Contents]](#benchmark-contents) ♦ [[Getting Started]](#getting-started) ♦ [[Live Demo]](#live-demo) ♦ [[BrowserGym]](https://github.com/ServiceNow/BrowserGym) ♦ [[Citing This Work]](#citing-this-work) ♦ [Join us on Discord!](https://discord.gg/rDkP69X7)
 
-## Join Our Discord Community
-
-Want to brainstorm ideas, troubleshoot issues, or just geek out with fellow agent builders? Our official Discord server is the perfect place to connect and collaborate. Come hang out with us to:
-
-- Exchange tips, tricks, and success stories
-- Get real-time support and feedback
-- Stay updated on the latest features and announcements
-
-[Join us on Discord!](https://discord.gg/rDkP69X7)
-
 ---
 
 ### Explore the BrowserGym Ecosystem
