@@ -1,0 +1,27 @@
+[
+    {
+        "change_number": "CHG0000077",
+        "approver": "Fred Luddy",
+        "goal": "Update change request CHG0000077 to get Fred Luddy's approval"
+    },
+    {
+        "change_number": "CHG0000039",
+        "approver": "Bow Ruggeri",
+        "goal": "Update change request CHG0000039 to get Bow Ruggeri's approval"
+    },
+    {
+        "change_number": "CHG0000086",
+        "approver": "David Dan",
+        "goal": "Update change request CHG0000086 to get David Dan's approval"
+    },
+    {
+        "change_number": "CHG0000040",
+        "approver": "Beth Anglin",
+        "goal": "Update change request CHG0000040 to get Beth Anglin's approval"
+    },
+    {
+        "change_number": "CHG0000044",
+        "approver": "Don Goodliffe",
+        "goal": "Update change request CHG0000044 to get Don Goodliffe's approval"
+    }
+]

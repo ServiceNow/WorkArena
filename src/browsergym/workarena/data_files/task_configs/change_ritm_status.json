@@ -1,0 +1,27 @@
+[
+    {
+        "ritm_number": "RITM0000002",
+        "approval": "approved",
+        "goal": "Change RITM0000002 approval status to approved"
+    },
+    {
+        "ritm_number": "RITM0010002",
+        "approval": "rejected",
+        "goal": "Change RITM0010002 approval status to rejected"
+    },
+    {
+        "ritm_number": "RITM0010003",
+        "approval": "requested",
+        "goal": "Change RITM0010003 approval status to requested"
+    },
+    {
+        "ritm_number": "RITM0010263",
+        "approval": "requested",
+        "goal": "Change RITM0010263 approval status to requested"
+    },
+    {
+        "ritm_number": "RITM0010373",
+        "approval": "approved",
+        "goal": "Change RITM0010373 approval status to approved"
+    }
+]

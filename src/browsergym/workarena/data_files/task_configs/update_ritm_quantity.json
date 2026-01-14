@@ -1,0 +1,37 @@
+[
+    {
+        "ritm_number": "RITM0010004",
+        "item_name": "privacy filter",
+        "stage": "approval",
+        "quantity": 500,
+        "goal": "Find the RITM for a privacy filter that's pending approval. Update the request to include 500 of the item instead of 1"
+    },
+    {
+        "ritm_number": "RITM0000001",
+        "item_name": "Apple iPad 3",
+        "stage": "fulfillment",
+        "quantity": 5,
+        "goal": "Find the RITM for a Apple iPad 3 that's pending fulfillment. Update the request to include 5 of the item instead of 1"
+    },
+    {
+        "ritm_number": "RITM0000005",
+        "item_name": "standard laptop",
+        "stage": "department head approval",
+        "quantity": 10,
+        "goal": "Find the RITM for a standard laptop that's pending department head approval. Update the request to include 10 of the item instead of 1"
+    },
+    {
+        "ritm_number": "RITM0010784",
+        "item_name": "Galaxy Note 20",
+        "stage": "fulfillment",
+        "quantity": 20,
+        "goal": "Find the RITM for a Galaxy Note 20 that's pending fulfillment. Update the request to include 20 of the item instead of 1"
+    },
+    {
+        "ritm_number": "RITM0010003",
+        "item_name": "Adobe Acrobat Pro",
+        "stage": "approval",
+        "quantity": 2,
+        "goal": "Find the RITM for an Adobe Acrobat Pro that's pending approval. Update the request to include 2 of the item instead of 1"
+    }
+]

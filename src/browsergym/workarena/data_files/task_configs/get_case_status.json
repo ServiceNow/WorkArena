@@ -1,0 +1,26 @@
+[
+    {
+        "consumer_name": "Sam Collins",
+        "issue": "a failed SmartCool software update",
+        "state": "New",
+        "goal": "Get the status of Sam Collins's case regarding a failed SmartCool software update"
+    },
+    {
+        "consumer_name": "Gilly Parker",
+        "issue": "washer not starting",
+        "state": "New",
+        "goal": "Get the status of Gilly Parker's case regarding washer not starting"
+    },
+    {
+        "consumer_name": "Linda Cox",
+        "issue": "wireless router not working",
+        "state": "Awaiting Info",
+        "goal": "Get the status of Linda Cox's case regarding wireless router not working"
+    },
+    {
+        "consumer_name": "Amy Chen",
+        "issue": "dashboard missing custom reports",
+        "state": "Resolved",
+        "goal": "Get the status of Amy Chen's case regarding dashboard missing custom reports"
+    }
+]
