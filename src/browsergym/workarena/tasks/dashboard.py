@@ -597,9 +597,26 @@ class DashboardRetrievalTask(AbstractServiceNowTask, ABC):
             elif self.config["question"] == "median":
                 target_count = np.median(counts)
             elif self.config["question"] == "mode":
-                _vals, _counts = np.unique(counts, return_counts=True)
-                max_frequency_index = np.argmax(_counts)
-                target_count = -_vals[max_frequency_index]
+                # We select the maximum value if there are two or more modes
+                frequencies = {}
+                for count in counts:
+                    if count not in frequencies:
+                        frequencies[count] = 1
+                    else:
+                        frequencies[count] += 1
+                sorted_frequencies = {
+                    count: frequency
+                    for count, frequency in sorted(
+                        frequencies.items(), key=lambda item: item[1], reverse=True
+                    )
+                }
+                max_frequency = list(sorted_frequencies.values())[0]
+                max_frequencies = [
+                    count
+                    for count, frequency in sorted_frequencies.items()
+                    if frequency == max_frequency
+                ]
+                target_count = max(max_frequencies)
 
             # if more than one number is in the prompt, there is necessarily a false positive
             if len(response_floats) > 1:
