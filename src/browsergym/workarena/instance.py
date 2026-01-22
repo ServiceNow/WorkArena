@@ -45,10 +45,18 @@ def encrypt_instance_password(password: str) -> str:
     return base64.b64encode(cipher_bytes).decode("utf-8")
 
 
-def fetch_instances():
+def fetch_instances(filename: str = None):
     """
     Load the latest instances from either a custom pool (SNOW_INSTANCE_POOL env var) or the gated HF dataset.
+
+    Parameters:
+    -----------
+    filename: str
+        Optional filename to fetch from the HF dataset. Defaults to INSTANCE_REPO_FILENAME.
     """
+    if filename is None:
+        filename = INSTANCE_REPO_FILENAME
+
     pool_path = os.getenv("SNOW_INSTANCE_POOL")
     if pool_path:
         path = os.path.expanduser(pool_path)
@@ -62,13 +70,13 @@ def fetch_instances():
             disable_progress_bars()
             path = hf_hub_download(
                 repo_id=INSTANCE_REPO_ID,
-                filename=INSTANCE_REPO_FILENAME,
+                filename=filename,
                 repo_type=INSTANCE_REPO_TYPE,
             )
             logging.info("Loaded ServiceNow instances from the default instance pool.")
         except Exception as e:
             raise RuntimeError(
-                f"Could not access {INSTANCE_REPO_ID}/{INSTANCE_REPO_FILENAME}. "
+                f"Could not access {INSTANCE_REPO_ID}/{filename}. "
                 "Make sure you have been granted access to the gated repo and that you are "
                 "authenticated (run `huggingface-cli login` or set HUGGING_FACE_HUB_TOKEN)."
             ) from e
@@ -77,6 +85,8 @@ def fetch_instances():
         entries = json.load(f)
 
     for entry in entries:
+        if entry.get("error"):
+            raise RuntimeError(entry.get("message", "Unknown error from instance pool"))
         entry["url"] = entry["u"]
         entry["password"] = decrypt_instance_password(entry["p"])
         del entry["u"]

@@ -113,7 +113,28 @@ class ServiceNowListTask(AbstractServiceNowTask):
             return json.load(f)
 
     def get_init_scripts(self) -> List[str]:
-        return super().get_init_scripts() + ["registerGsftMainLoaded();"]
+        return super().get_init_scripts() + [
+            "registerGsftMainLoaded();",
+            self._get_remove_personalize_list_button_script(),
+        ]
+
+    def _get_remove_personalize_list_button_script(self):
+        """
+        Removes the 'Personalize List' button on list pages.
+        """
+        script = """
+            function removePersonalizeListButton() {
+                waLog('Searching for Personalize List buttons...', 'removePersonalizeListButton');
+                let buttons = document.querySelectorAll('i[data-type="list_mechanic2_open"]');
+                buttons.forEach((button) => {
+                    button.remove();
+                });
+                waLog('Removed ' + buttons.length + ' Personalize List buttons', 'removePersonalizeListButton');
+            }
+
+            runInGsftMainOnlyAndProtectByURL(removePersonalizeListButton, '_list.do');
+        """
+        return script
 
     def _get_visible_list(self, page: Page):
         self._wait_for_ready(page)

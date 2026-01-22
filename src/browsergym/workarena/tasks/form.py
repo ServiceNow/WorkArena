@@ -371,6 +371,30 @@ class ServiceNowFormTask(AbstractServiceNowTask):
 
                 runInGsftMainOnlyAndProtectByURL(monitorChangeOnFields, '{url_suffix}');
             """,
+            f"""
+                function removePersonalizeFormButton() {{
+                    waLog('Searching for Personalize Form button...', 'removePersonalizeFormButton');
+                    let button = document.querySelector('#togglePersonalizeForm');
+                    if (button) {{
+                        button.remove();
+                        waLog('Removed Personalize Form button', 'removePersonalizeFormButton');
+                    }}
+                }}
+
+                runInGsftMainOnlyAndProtectByURL(removePersonalizeFormButton, '{url_suffix}');
+            """,
+            f"""
+                function removeAdditionalActionsButton() {{
+                    waLog('Searching for Additional Actions button...', 'removeAdditionalActionsButton');
+                    let button = document.querySelector('button.additional-actions-context-menu-button');
+                    if (button) {{
+                        button.remove();
+                        waLog('Removed Additional Actions button', 'removeAdditionalActionsButton');
+                    }}
+                }}
+
+                runInGsftMainOnlyAndProtectByURL(removeAdditionalActionsButton, '{url_suffix}');
+            """,
         ]
 
     def start(self, page: Page) -> None:
