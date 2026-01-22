@@ -1,5 +1,15 @@
 __version__ = "0.5.1"
 
+# Check playwright version early to avoid cryptic errors
+import importlib.metadata
+
+_playwright_version = importlib.metadata.version("playwright")
+if _playwright_version != "1.44.0":
+    raise RuntimeError(
+        f"browsergym-workarena requires playwright==1.44.0, but found {_playwright_version}. "
+        f"Please install the correct version: pip install playwright==1.44.0"
+    )
+
 import inspect
 from logging import warning
 
