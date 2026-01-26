@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Survey Creators",
+        "goal": "Deactivate the Survey Creators group"
+    },
+    {
+        "name": "Wyoming Dispatchers",
+        "goal": "Deactivate the Wyoming Dispatchers group"
+    },
+    {
+        "name": "EMEA Escalation Approvers",
+        "goal": "Deactivate the EMEA Escalation Approvers group"
+    },
+    {
+        "name": "East Qualifiers",
+        "goal": "Deactivate the East Qualifiers group"
+    },
+    {
+        "name": "Project Mgmt",
+        "goal": "Deactivate the Project Mgmt group"
+    }
+]

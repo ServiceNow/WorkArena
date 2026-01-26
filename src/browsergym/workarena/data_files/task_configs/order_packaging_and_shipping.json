@@ -1,0 +1,47 @@
+[
+    {
+        "item": "Packaging and Shipping",
+        "shipping_type": "Inter-office",
+        "destination": "10369 Democracy Lane, Fairfax,VA",
+        "parcel_details": "a box of office supplies",
+        "parcel_keywords": "office supplies",
+        "quantity": 1,
+        "goal": "I need to do a Inter-office shipment. The package ships to 10369 Democracy Lane, Fairfax,VA. The parcel contains a box of office supplies."
+    },
+    {
+        "item": "Packaging and Shipping",
+        "shipping_type": "Inter-office",
+        "destination": "Hyderabad",
+        "parcel_details": "a set of high performance laptops for the team to use",
+        "parcel_keywords": "laptop",
+        "quantity": 1,
+        "goal": "I need to do a Inter-office shipment. The package ships to Hyderabad. The parcel contains a set of high performance laptops for the team to use."
+    },
+    {
+        "item": "Packaging and Shipping",
+        "shipping_type": "External Address",
+        "destination": "7972 Pines Boulevard, Pembroke Pines,FL",
+        "parcel_details": "a bottle of wine",
+        "parcel_keywords": "bottle wine",
+        "quantity": 1,
+        "goal": "I need to do a External Address shipment. The package ships to 7972 Pines Boulevard, Pembroke Pines,FL. The parcel contains a bottle of wine."
+    },
+    {
+        "item": "Packaging and Shipping",
+        "shipping_type": "External Address",
+        "destination": "SHS quadra 5, Bloco E., Brasilia",
+        "parcel_details": "a couple of Brother printers",
+        "parcel_keywords": "Brother printer",
+        "quantity": 1,
+        "goal": "I need to do a External Address shipment. The package ships to SHS quadra 5, Bloco E., Brasilia. The parcel contains a couple of Brother printers."
+    },
+    {
+        "item": "Packaging and Shipping",
+        "shipping_type": "External Address",
+        "destination": "Seybold, 36 Northeast 1st Street #407, Miami,FL",
+        "parcel_details": "a thank you note",
+        "parcel_keywords": "thank you",
+        "quantity": 1,
+        "goal": "I need to do a External Address shipment. The package ships to Seybold, 36 Northeast 1st Street #407, Miami,FL. The parcel contains a thank you note."
+    }
+]

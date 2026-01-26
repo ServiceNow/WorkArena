@@ -30,10 +30,22 @@ from .tasks.compositional.base import CompositionalTask, HumanEvalTask
 from .tasks.compositional.update_task import __TASKS__ as UPDATE_TASKS
 from .tasks.dashboard import __TASKS__ as DASHBOARD_TASKS
 from .tasks.form import __TASKS__ as FORM_TASKS
+from .tasks.form_workspace import __TASKS__ as FORM_WORKSPACE_TASKS
 from .tasks.knowledge import __TASKS__ as KB_TASKS
 from .tasks.list import __TASKS__ as LIST_TASKS
 from .tasks.navigation import __TASKS__ as NAVIGATION_TASKS
+from .tasks.navigation import __DYNAMIC_GUIDANCE_TASKS__ as NAVIGATION_DYNAMIC_GUIDANCE_TASKS
 from .tasks.service_catalog import __TASKS__ as SERVICE_CATALOG_TASKS
+from .tasks.service_catalog import __DYNAMIC_GUIDANCE_TASKS__ as SERVICE_CATALOG_DYNAMIC_GUIDANCE_TASKS
+from .tasks.case import __TASKS__ as CASE_TASKS
+from .tasks.role import __TASKS__ as ROLE_TASKS
+from .tasks.interaction import __TASKS__ as INTERACTION_TASKS
+from .tasks.change_request import __TASKS__ as CHANGE_REQUEST_TASKS
+from .tasks.customer_account import __TASKS__ as CUSTOMER_ACCOUNT_TASKS
+from .tasks.incident import __TASKS__ as INCIDENT_TASKS
+from .tasks.license import __TASKS__ as LICENSE_TASKS
+from .tasks.ritm import __TASKS__ as RITM_TASKS
+from .tasks.user_group import __TASKS__ as USER_GROUP_TASKS
 from .tasks.compositional.base import CompositionalTask
 
 ALL_WORKARENA_TASKS = [
@@ -55,9 +67,31 @@ ATOMIC_TASKS = [
     and not issubclass(task, CompositionalBuildingBlockTask)
 ]
 
+ALL_WORKARENA_DYNAMIC_GUIDANCE_TASKS = [
+    *SERVICE_CATALOG_DYNAMIC_GUIDANCE_TASKS,
+    *NAVIGATION_DYNAMIC_GUIDANCE_TASKS,
+    *CASE_TASKS,
+    *ROLE_TASKS,
+    *INTERACTION_TASKS,
+    *CHANGE_REQUEST_TASKS,
+    *CUSTOMER_ACCOUNT_TASKS,
+    *INCIDENT_TASKS,
+    *LICENSE_TASKS,
+    *RITM_TASKS,
+    *FORM_WORKSPACE_TASKS,
+    *USER_GROUP_TASKS,
+]
+
 
 # register the WorkArena benchmark
 for task in ALL_WORKARENA_TASKS:
+    register_task(
+        task.get_task_id(),
+        task,
+    )
+
+# register dynamic guidance tasks
+for task in ALL_WORKARENA_DYNAMIC_GUIDANCE_TASKS:
     register_task(
         task.get_task_id(),
         task,
@@ -100,6 +134,17 @@ TASK_CATEGORY_MAP = {
     "workarena.servicenow.multi-chart-value-retrieval": "dashboard",
     "workarena.servicenow.single-chart-value-retrieval": "dashboard",
     "workarena.servicenow.single-chart-min-max-retrieval": "dashboard",
+    # dynamic guidance tasks
+    "workarena.servicenow.order-iphone": "service catalog",
+    "workarena.servicenow.order-mobile-phone": "service catalog",
+    "workarena.servicenow.order-software": "service catalog",
+    "workarena.servicenow.order-software-access": "service catalog",
+    "workarena.servicenow.order-reset-password": "service catalog",
+    "workarena.servicenow.order-packaging-and-shipping": "service catalog",
+    "workarena.servicenow.order-paper-supplies": "service catalog",
+    "workarena.servicenow.order-misc-hardware": "service catalog",
+    "workarena.servicenow.order-misc-hardware-with-business-justification": "service catalog",
+    "workarena.servicenow.order-reset-password": "service catalog",
 }
 
 
@@ -129,12 +174,18 @@ def get_all_tasks_agents(filter="l2", meta_seed=42, n_seed_l1=10, is_agent_curri
         raise Exception("Unsupported filter used.")
     if len(filter) == 1:
         level = filter[0]
-        if level not in ["l1", "l2", "l3"]:
+        if level not in ["l1", "l2", "l3", "dg"]:
             raise Exception("Unsupported category of tasks.")
         else:
             rng = np.random.RandomState(meta_seed)
         if level == "l1":
             for task in ATOMIC_TASKS:
+                for seed in rng.randint(0, 1000, n_seed_l1):
+                    all_task_tuples.append((task, int(seed)))
+
+            return all_task_tuples
+        elif level == "dg":
+            for task in ALL_WORKARENA_DYNAMIC_GUIDANCE_TASKS:
                 for seed in rng.randint(0, 1000, n_seed_l1):
                     all_task_tuples.append((task, int(seed)))
 

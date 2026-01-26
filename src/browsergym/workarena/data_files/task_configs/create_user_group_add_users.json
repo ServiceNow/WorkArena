@@ -1,0 +1,20 @@
+[
+    {
+        "name": "NYC Coed Soccer",
+        "description": "We play at the Parade Grounds on Saturdays at 10",
+        "members": "Chad Araiza, Eva Seahorn, Floyd Veazey",
+        "goal": "Create an active user group with the name \"NYC Coed Soccer\" and description \"We play at the Parade Grounds on Saturdays at 10\". Add Chad Araiza, Eva Seahorn, Floyd Veazey to the group"
+    },
+    {
+        "name": "NYC Run Club",
+        "description": "We run Monday mornings at 7",
+        "members": "Chad Araiza, Eva Seahorn, Floyd Veazey",
+        "goal": "Create an active user group with the name \"NYC Run Club\" and description \"We run Monday mornings at 7\". Add Chad Araiza, Eva Seahorn, Floyd Veazey to the group"
+    },
+    {
+        "name": "NYC Happy Hour Group",
+        "description": "We get together for happy hour on Thursdays at 4",
+        "members": "Chad Araiza, Eva Seahorn, Floyd Veazey",
+        "goal": "Create an active user group with the name \"NYC Happy Hour Group\" and description \"We get together for happy hour on Thursdays at 4\". Add Chad Araiza, Eva Seahorn, Floyd Veazey to the group"
+    }
+]
