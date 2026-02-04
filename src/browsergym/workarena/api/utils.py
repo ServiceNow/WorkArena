@@ -1,12 +1,15 @@
 import requests
-
+import json
 from ..instance import SNowInstance
-
+import os
 from requests.exceptions import HTTPError
 from time import sleep
 
 # ServiceNow API configuration
 SNOW_API_HEADERS = {"Content-Type": "application/json", "Accept": "application/json"}
+
+if os.environ.get("EXTRA_HTTP_HEADERS"):
+    SNOW_API_HEADERS.update(json.loads(os.environ.get("EXTRA_HTTP_HEADERS")))
 
 
 def table_api_call(

@@ -18,7 +18,7 @@ from browsergym.core.task import AbstractBrowserTask
 from ..api.user import create_user
 from ..api.utils import table_api_call
 from ..config import SNOW_BROWSER_TIMEOUT, SNOW_JS_UTILS_FILEPATH
-from ..utils import url_login
+from ..utils import url_login, goto_with_retry
 from ..instance import SNowInstance
 
 
@@ -36,6 +36,7 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         final_rel_url: Optional[str] = None,
         user_roles: List[str] = ["admin"],
         has_description: bool = False,
+        create_user_on_setup: bool = True,
     ) -> None:
         """
         Initialize the task
@@ -54,7 +55,8 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
             The roles to assign to the user (default: ["admin"])
         has_description: bool
             Whether the task has a description in L3 compositional tasks
-
+        create_user_on_setup: bool
+            Whether to create a user on setup (default: True)
         """
         super().__init__(seed)
 
@@ -77,6 +79,7 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         # Flag to ensure the task is setup only once
         self.task_is_setup = False
         self.delete_user_on_teardown = False
+        self.create_user_on_setup = create_user_on_setup
         self.user_roles = user_roles
         self.has_description = (
             has_description  # Whether the task has a description in L3 compositional tasks
@@ -127,7 +130,7 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         page.set_default_timeout(SNOW_BROWSER_TIMEOUT)
 
         # Create a new user to run the task if this is the starting task
-        if do_start:
+        if do_start and self.create_user_on_setup:
             self._base_initial_instance = self.instance
             self._base_user_name, self._base_user_password, self._base_user_sysid = create_user(
                 instance=self.instance, user_roles=self.user_roles, random=self.random
@@ -179,8 +182,8 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
             page=page,
         )
 
-        # Navigate to the task's url
-        page.goto(self.start_url)
+        # Navigate to the task's url with retry logic
+        goto_with_retry(page, self.start_url)
 
     def teardown(self) -> None:
         """

@@ -172,13 +172,13 @@ class SNowInstance:
                 f"ServiceNow instance is hibernating. Please navigate to {self.snow_url} wake it up."
             )
 
-    def _check_is_reachable(self):
+    def _check_is_reachable(self, headers: Optional[dict] = None):
         """
         Test that the ServiceNow instance is reachable
 
         """
         try:
-            requests.get(self.snow_url, timeout=SNOW_BROWSER_TIMEOUT)
+            requests.get(self.snow_url, timeout=SNOW_BROWSER_TIMEOUT, headers=headers)
         except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
             raise RuntimeError(
                 f"ServiceNow instance at {self.snow_url} is not reachable. Please check the URL."
