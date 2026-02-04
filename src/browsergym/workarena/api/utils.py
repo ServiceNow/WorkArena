@@ -11,6 +11,7 @@ SNOW_API_HEADERS = {"Content-Type": "application/json", "Accept": "application/j
 if os.environ.get("EXTRA_HTTP_HEADERS"):
     SNOW_API_HEADERS.update(json.loads(os.environ.get("EXTRA_HTTP_HEADERS")))
 
+
 def table_api_call(
     instance: SNowInstance,
     table: str,
