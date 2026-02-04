@@ -50,7 +50,9 @@ def goto_with_retry(
         except Exception as e:
             last_error = e
             if attempt < max_retries - 1:
-                logging.warning(f"Navigation to {url} attempt {attempt + 1} failed: {e}. Retrying...")
+                logging.warning(
+                    f"Navigation to {url} attempt {attempt + 1} failed: {e}. Retrying..."
+                )
 
     raise RuntimeError(f"Failed to load {url} after {max_retries} attempts: {last_error}")
 
