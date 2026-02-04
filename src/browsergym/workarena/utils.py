@@ -3,11 +3,56 @@ General utiilty functions
 
 """
 
+import logging
 import playwright.sync_api
 
 from browsergym.workarena.instance import SNowInstance
 
 from urllib import parse
+
+
+def goto_with_retry(
+    page: playwright.sync_api.Page,
+    url: str,
+    max_retries: int = 3,
+    validation_selector: str = None,
+    wait_for_state: str = "domcontentloaded",
+) -> None:
+    """
+    Navigate to URL with retry logic and optional element validation.
+
+    Parameters:
+    -----------
+    page: playwright.sync_api.Page
+        The Playwright page object
+    url: str
+        The URL to navigate to
+    max_retries: int
+        Maximum number of retry attempts (default: 3)
+    validation_selector: str
+        Optional CSS selector to wait for after page load
+    wait_for_state: str
+        Playwright load state to wait for (default: "domcontentloaded")
+
+    Raises:
+    -------
+    RuntimeError
+        If navigation fails after all retry attempts
+    """
+    last_error = None
+    for attempt in range(max_retries):
+        try:
+            page.goto(url)
+            page.wait_for_load_state(wait_for_state)
+            if validation_selector:
+                page.wait_for_selector(validation_selector, timeout=10000)
+            return
+        except Exception as e:
+            last_error = e
+            if attempt < max_retries - 1:
+                logging.warning(f"Navigation to {url} attempt {attempt + 1} failed: {e}. Retrying...")
+
+    raise RuntimeError(f"Failed to load {url} after {max_retries} attempts: {last_error}")
 
 
 def impersonate_user(username: str, page: playwright.sync_api.Page):
@@ -54,8 +99,8 @@ def ui_login(instance: SNowInstance, page: playwright.sync_api.Page):
     """
     (snow_username, snow_password) = instance.snow_credentials
 
-    # Navigate to instance
-    page.goto(instance.snow_url)
+    # Navigate to instance with retry logic
+    goto_with_retry(page, instance.snow_url)
 
     # If login is required, we'll be redirected to the login page
     if "log in | servicenow" in page.title().lower():
@@ -88,10 +133,9 @@ def url_login(instance: SNowInstance, page: playwright.sync_api.Page):
     snow_username = parse.quote(snow_username)
     snow_password = parse.quote(snow_password)
 
-    # Log in via URL
-    page.goto(
-        f"{instance.snow_url}/login.do?user_name={snow_username}&user_password={snow_password}&sys_action=sysverb_login"
-    )
+    # Log in via URL with retry logic
+    login_url = f"{instance.snow_url}/login.do?user_name={snow_username}&user_password={snow_password}&sys_action=sysverb_login"
+    goto_with_retry(page, login_url)
 
     # Check if we have been returned to the login page
     current_url = parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
