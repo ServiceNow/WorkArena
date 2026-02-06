@@ -23,5 +23,30 @@
         "model": "IBM Lotus Notes",
         "number_of_licenses": 100000,
         "goal": "Get the number of licenses available for IBM Lotus Notes"
-    }
+    },
+    {
+        "model": "Symantec Norton 360 5.0",
+        "number_of_licenses": 550,
+        "goal": "Get the number of licenses available for Symantec Norton 360 5.0"
+    },
+    {
+        "model": "Microsoft SQL Server 6.5",
+        "number_of_licenses": 465,
+        "goal": "Get the number of licenses available for Microsoft SQL Server 6.5"
+    },
+    {
+        "model": "Microsoft MSDN 2010",
+        "number_of_licenses": 600,
+        "goal": "Get the number of licenses available for Microsoft MSDN 2010"
+    }, 
+    {
+        "model": "Seagate Crystal Reports 9.0",
+        "number_of_licenses": 630,
+        "goal": "Get the number of licenses available for Seagate Crystal Reports 9.0"
+    },
+    {
+        "model": "Citrix Systems GoToMeeting 4.8",
+        "number_of_licenses": 630,
+        "goal": "Get the number of licenses available for Citrix Systems GoToMeeting 4.8"
+    } 
 ]

@@ -23,5 +23,30 @@
         "additional_assignee_list": "Olivia Jenkins",
         "incident_number": "INC0000047",
         "goal": "Add Olivia Jenkins as an additional assignee on INC0000047"
+    },
+    {
+        "additional_assignee_list": "Allison Quinn",
+        "incident_number": "INC0000018",
+        "goal": "Add Allison Quinn as an additional assignee on INC0000018"
+    },
+    {
+        "additional_assignee_list": "Alisha Brown",
+        "incident_number": "INC0000039",
+        "goal": "Add Alisha Brown as an additional assignee on INC0000039"
+    },
+    {
+        "additional_assignee_list": "Alicia Miller",
+        "incident_number": "INC0000040",
+        "goal": "Add Alicia Miller as an additional assignee on INC0000040"
+    },
+    {
+        "additional_assignee_list": "Allison Hood",
+        "incident_number": "INC0000044",
+        "goal": "Add Allison Hood as an additional assignee on INC0000044"
+    },
+    {
+        "additional_assignee_list": "Alyssa Brown",
+        "incident_number": "INC0000046",
+        "goal": "Add Alyssa Brown as an additional assignee on INC0000046"
     }
 ]

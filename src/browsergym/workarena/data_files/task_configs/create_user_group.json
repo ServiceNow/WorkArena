@@ -19,5 +19,26 @@
         "type": "catalog",
         "roles": "catalog_manager",
         "goal": "Create an active user group named \"Catalog Managers\". Its manager is Zachary Mockus, type is catalog, and roles include catalog_manager"
+    },
+    {
+        "name": "Catalog Managers",
+        "manager": "Jason Lynn",
+        "type": "catalog",
+        "roles": "catalog_manager",
+        "goal": "Create an active user group named \"Catalog Managers\". Its manager is Jason Lynn, type is catalog, and roles include catalog_manager"
+    },
+    {
+        "name": "Survey Admins",
+        "manager": "Karen Boyd",
+        "type": "survey",
+        "roles": "survey_admin",
+        "goal": "Create an active user group named \"Survey Admins\". Its manager is Karen Boyd, type is survey, and roles include survey_admin"
+    },
+    {
+        "name": "ITIL User Group",
+        "manager": "Ian Hooper",
+        "type": "itil",
+        "roles": "itil",
+        "goal": "Create an active user group named \"ITIL User Group\". Its manager is Ian Hooper, type is itil, and roles include itil"
     }
 ]

@@ -18,5 +18,37 @@
     {
         "name": "Project Mgmt",
         "goal": "Deactivate the Project Mgmt group"
+    },
+    {
+        "name": "Indiana Dispatchers",
+        "goal": "Deactivate the Indiana Dispatchers group"
+    },
+    {
+        "name": "Network CAB Managers",
+        "goal": "Deactivate the Network CAB Managers group"
+    },
+    {
+        "name": "Procurement",
+        "goal": "Deactivate the Procurement group"
+    },
+    {
+        "name": "San Diego Border",
+        "goal": "Deactivate the San Diego Border group"
+    },
+    {
+        "name": "South East",
+        "goal": "Deactivate the South East group"
+    },
+    {
+        "name": "Studio Users",
+        "goal": "Deactivate the Studio Users group"
+    },
+    {
+        "name": "US Presidents Group 3",
+        "goal": "Deactivate the US Presidents Group 3 group"
+    },
+    {
+        "name": "South",
+        "goal": "Deactivate the South group"
     }
 ]

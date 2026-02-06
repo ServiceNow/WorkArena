@@ -16,5 +16,35 @@
         "description": "We get together for happy hour on Thursdays at 4",
         "members": "Chad Araiza, Eva Seahorn, Floyd Veazey",
         "goal": "Create an active user group with the name \"NYC Happy Hour Group\" and description \"We get together for happy hour on Thursdays at 4\". Add Chad Araiza, Eva Seahorn, Floyd Veazey to the group"
+    },
+    {
+        "name": "NYC D&D Group",
+        "description": "We get together to play Dungeons and Dragons on Fridays at 6",
+        "members": "Abel Tuter, Abraham Lincoln, Floyd Veazey",
+        "goal": "Create an active user group with the name \"NYC D&D Group\" and description \"We get together to play Dungeons and Dragons on Fridays at 6\". Add Abel Tuter, Abraham Lincoln, Floyd Veazey to the group"
+    },
+    {
+        "name": "Tomatillo Club",
+        "description": "We get together to eat tomatillos on Tuesdays at 6",
+        "members": "Abigail Deleon, Adam Escobar, Adrian Clay",
+        "goal": "Create an active user group with the name \"Tomatillo Club\" and description \"We get together to eat tomatillos on Tuesdays at 6\". Add Abigail Deleon, Adam Escobar, Adrian Clay to the group"
+    },
+    {
+        "name": "Marvel club",
+        "description": "We get together and talk about comic books",
+        "members": "Adam Todd, Eva Seahorn, Floyd Veazey",
+        "goal": "Create an active user group with the name \"Marvel club\" and description \"We get together and talk about comic books\". Add Adam Todd, Eva Seahorn, Floyd Veazey to the group"
+    },
+    {
+        "name": "NYC Book Club",
+        "description": "We get together to read books on Fridays at 6",
+        "members": "Chad Araiza, Eva Seahorn, Adam White",
+        "goal": "Create an active user group with the name \"NYC Book Club\" and description \"We get together to read books on Fridays at 6\". Add Chad Araiza, Eva Seahorn, Adam White to the group"
+    },
+    {
+        "name": "Football Fan Club",
+        "description": "We get together to watch football games",
+        "members": "Chad Araiza, Eva Seahorn, Adrian Haley",
+        "goal": "Create an active user group with the name \"Football Fan Club\" and description \"We get together to watch football games\". Add Chad Araiza, Eva Seahorn, Adrian Haley to the group"
     }
 ]

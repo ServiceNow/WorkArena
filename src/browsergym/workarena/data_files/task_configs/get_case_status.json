@@ -22,5 +22,17 @@
         "issue": "dashboard missing custom reports",
         "state": "Resolved",
         "goal": "Get the status of Amy Chen's case regarding dashboard missing custom reports"
+    },
+    {
+        "consumer_name": "Heath Vazquez",
+        "issue": "software update failed",
+        "state": "New",
+        "goal": "Get the status of Heath Vazquez's case regarding software update failed"
+    },
+    {
+        "consumer_name": "Faiza Ramos",
+        "issue": "dryer makes a lot of noise",
+        "state": "Closed",
+        "goal": "Get the status of Faiza Ramos's case regarding dryer makes a lot of noise"
     }
 ]
