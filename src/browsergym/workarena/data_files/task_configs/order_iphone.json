@@ -53,5 +53,27 @@
         "monthly_data_allowance": "500MB",
         "quantity": 1,
         "goal": "Order a Alpine Green Apple iPhone 13 Pro with 256 GB storage. I dropped my phone and it stopped working. The old number was 905-555-6789. Set the monthly data allowance to 500MB."
+    },
+    {
+        "item": "Apple iPhone 13",
+        "color": "Midnight",
+        "original_phone_number": "122-456-7890",
+        "storage": "128 GB",
+        "replacement_reason": "I just want a new phone",
+        "replacement": "no",
+        "monthly_data_allowance": "500MB",
+        "quantity": 1,
+        "goal": "Order a Midnight Apple iPhone 13 with 128 GB storage. I just want a new phone. The old number was 122-456-7890. Set the monthly data allowance to 500MB."
+    },
+    {
+        "item": "Apple iPhone 13",
+        "color": "Green",
+        "original_phone_number": "133-456-7890",
+        "storage": "256 GB",
+        "replacement_reason": "I need it as a second phone",
+        "replacement": "no",
+        "monthly_data_allowance": "Unlimited",
+        "quantity": 1,
+        "goal": "Order a Green Apple iPhone 13 with 256 GB storage. I need it as a second phone. The old number was 133-456-7890. Set the monthly data allowance to Unlimited."
     }
 ]
