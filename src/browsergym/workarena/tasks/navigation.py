@@ -18,6 +18,18 @@ from ..config import ALL_MENU_PATH, ALL_MENU_CUSTOM_GOAL_PATH, IMPERSONATION_CON
 from ..instance import SNowInstance
 from ..utils import impersonate_user
 
+IGNORE_PARAMS = {"sysparm_clear_stack"}
+
+
+def _normalize_url(url: str) -> str:
+    """Sort query params and remove noise params for consistent comparison."""
+    parsed = parse.urlparse(parse.unquote(url))
+    filtered_params = sorted(
+        (k, v) for k, v in parse.parse_qsl(parsed.query) if k not in IGNORE_PARAMS
+    )
+    cleaned = parsed._replace(query=parse.urlencode(filtered_params))
+    return parse.urlunparse(cleaned)
+
 
 class AllMenuTask(AbstractServiceNowTask):
     """
@@ -126,11 +138,8 @@ class AllMenuTask(AbstractServiceNowTask):
     ) -> Tuple[float, bool, str, dict]:
         page.wait_for_load_state("domcontentloaded")
 
-        # Get the current URL and the final URL
-        current_url = parse.urlunparse(
-            parse.urlparse(parse.unquote(page.evaluate("() => window.location.href")))
-        )
-        final_url = parse.urlunparse(parse.urlparse(parse.unquote(self.final_url)))
+        current_url = _normalize_url(page.evaluate("() => window.location.href"))
+        final_url = _normalize_url(self.final_url)
 
         if final_url == current_url:
             return (
