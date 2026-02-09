@@ -39,4 +39,20 @@
         "close_notes": "Resolved this morning by change request",
         "goal": "Resolve Carol Coughlin's incident about SAP sales app being unaccessible. Choose \"Resolved by change\" for the resolution code and put \"Resolved this morning by change request\" in the resolution notes"
     }
+    {
+        "incident_number": "INC0000020",
+        "incident_caller": "Fred Luddy",
+        "issue": "needs a replacement iPhone",
+        "close_code": "Resolved by change",
+        "close_notes": "Resolved this morning with a change request",
+        "goal": "Resolve Fred Luddy's incident about needing a replacement iPhone. Choose \"Resolved by change\" for the resolution code and put \"Resolved this morning with a change request\" in the resolution notes"
+    }
+    {
+        "incident_number": "INC0000039",
+        "incident_caller": "Bud Richman",
+        "issue": "can't get on to Oregon mail server",
+        "close_code": "Resolved by change",
+        "close_notes": "Resolved this morning with a change request",
+        "goal": "Resolve Bud Richman's incident about being unable to get on to Oregon mail server. Choose \"Resolved by change\" for the resolution code and put \"Resolved this morning with a change request\" in the resolution notes"
+    }
 ]
