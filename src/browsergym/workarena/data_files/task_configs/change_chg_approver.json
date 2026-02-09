@@ -23,5 +23,35 @@
         "change_number": "CHG0000044",
         "approver": "Don Goodliffe",
         "goal": "Update change request CHG0000044 to get Don Goodliffe's approval"
+    },
+    {
+        "change_number": "CHG0000085",
+        "approver": "Don Goodliffe",
+        "goal": "Update change request CHG0000085 to get Don Goodliffe's approval"
+    },
+    {
+        "change_number": "CHG0000043",
+        "approver": "Beth Anglin",
+        "goal": "Update change request CHG0000043 to get Beth Anglin's approval"
+    },
+    {
+        "change_number": "CHG0000070",
+        "approver": "Beth Anglin",
+        "goal": "Update change request CHG0000070 to get Beth Anglin's approval"
+    },
+    {
+        "change_number": "CHG0000060",
+        "approver": "Beth Anglin",
+        "goal": "Update change request CHG0000060 to get Beth Anglin's approval"
+    },
+    {
+        "change_number": "CHG0000047",
+        "approver": "Fred Luddy",
+        "goal": "Update change request CHG0000047 to get Fred Luddy's approval"
+    },
+    {
+        "change_number": "CHG0000083",
+        "approver": "Fred Luddy",
+        "goal": "Update change request CHG0000083 to get Fred Luddy's approval"
     }
 ]
