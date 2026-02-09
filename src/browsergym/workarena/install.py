@@ -8,7 +8,11 @@ import re
 import tenacity
 
 from datetime import datetime
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import (
+    sync_playwright,
+    TimeoutError as PlaywrightTimeoutError,
+    Error as PlaywrightError,
+)
 from tenacity import retry, stop_after_attempt, retry_if_exception_type
 from requests import HTTPError
 from time import sleep
@@ -53,6 +57,63 @@ from .config import (
 from .api.user import set_user_preference
 from .instance import SNowInstance as _BaseSNowInstance
 from .utils import url_login
+
+
+# Common retry decorator for setup steps - retries on transient errors
+RETRYABLE_ERRORS = (ConnectionError, TimeoutError, OSError, PlaywrightTimeoutError, PlaywrightError)
+
+
+def retry_on_transient_error(func):
+    """Decorator that retries a function up to 5 times on transient errors (network, timeouts, etc.)."""
+    return retry(
+        stop=stop_after_attempt(5),
+        retry=retry_if_exception_type(RETRYABLE_ERRORS),
+        reraise=True,
+        before_sleep=lambda retry_state: logging.info(
+            f"Transient error in {func.__name__}. Retrying (attempt {retry_state.attempt_number + 1}/5)..."
+        ),
+    )(func)
+
+
+# Installation progress tracking
+INSTALLATION_PROGRESS_PROPERTY = "workarena.installation.progress"
+
+
+def get_installation_progress() -> dict:
+    """Get the current installation progress from the instance."""
+    try:
+        progress_json = get_sys_property(SNowInstance(), INSTALLATION_PROGRESS_PROPERTY)
+        return json.loads(progress_json) if progress_json else {}
+    except:
+        return {}
+
+
+def save_installation_progress(progress: dict):
+    """Save the installation progress to the instance."""
+    set_sys_property(SNowInstance(), INSTALLATION_PROGRESS_PROPERTY, json.dumps(progress))
+
+
+def mark_step_completed(step_name: str):
+    """Mark a step as completed in the installation progress."""
+    progress = get_installation_progress()
+    progress[step_name] = {"completed": True, "timestamp": datetime.now().isoformat()}
+    save_installation_progress(progress)
+    logging.info(f"Step '{step_name}' marked as completed.")
+
+
+def is_step_completed(step_name: str) -> bool:
+    """Check if a step is already completed."""
+    progress = get_installation_progress()
+    return progress.get(step_name, {}).get("completed", False)
+
+
+def clear_installation_progress():
+    """Clear all installation progress to start fresh."""
+    try:
+        set_sys_property(SNowInstance(), INSTALLATION_PROGRESS_PROPERTY, "{}")
+        logging.info("Installation progress cleared.")
+    except:
+        pass  # Property might not exist yet
 
 
 _CLI_INSTANCE_URL: str | None = None
@@ -346,6 +407,7 @@ def create_knowledge_base(
         )
 
 
+@retry_on_transient_error
 def setup_knowledge_bases():
     """
     Verify that the knowledge base is installed correctly in the instance.
@@ -399,6 +461,7 @@ def setup_knowledge_bases():
             logging.info(f"Knowledge base {kb_name} is already installed.")
 
 
+@retry_on_transient_error
 def setup_workflows():
     """
     Verify that workflows are correctly installed.
@@ -521,6 +584,7 @@ def display_all_expected_columns(
     logging.info(f"...... Done.")
 
 
+@retry_on_transient_error
 def check_all_columns_displayed(
     instance: SNowInstance, url: str, expected_columns: list[str]
 ) -> bool:
@@ -566,6 +630,7 @@ def check_all_columns_displayed(
         return True
 
 
+@retry_on_transient_error
 def setup_list_columns():
     """
     Setup the list view to display the expected number of columns.
@@ -611,12 +676,23 @@ def setup_list_columns():
         },
     }
 
+    # Check which lists still need to be set up
+    lists_to_setup = {
+        k: v for k, v in list_mappings.items() if not is_step_completed(f"list_columns_{k}")
+    }
+
+    if not lists_to_setup:
+        logging.info("All list columns already set up.")
+        return
+
+    logging.info(f"... {len(lists_to_setup)} list(s) to set up: {list(lists_to_setup.keys())}")
     logging.info("... Creating a new user account to validate list columns")
     admin_instance = SNowInstance()
     username, password, usysid = create_user(instance=admin_instance)
     user_instance = SNowInstance(snow_credentials=(username, password))
 
-    for task, task_info in list_mappings.items():
+    for task, task_info in lists_to_setup.items():
+        logging.info(f"... Setting up list: {task}")
         expected_columns_path = task_info["expected_columns_path"]
         with open(expected_columns_path, "r") as f:
             expected_columns = list(json.load(f))
@@ -629,16 +705,21 @@ def setup_list_columns():
             user_instance, task_info["url"], expected_columns=expected_columns
         ), f"Error setting up list columns at {task_info['url']}"
 
+        # Mark this list as completed
+        mark_step_completed(f"list_columns_{task}")
+
     # Delete the user account
     logging.info("... Deleting the test user account")
     table_api_call(instance=admin_instance, table=f"sys_user/{usysid}", method="DELETE")
 
 
 @retry(
-    stop=stop_after_attempt(3),
-    retry=retry_if_exception_type(TimeoutError),
+    stop=stop_after_attempt(5),
+    retry=retry_if_exception_type(RETRYABLE_ERRORS),
     reraise=True,
-    before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
+    before_sleep=lambda retry_state: logging.info(
+        f"Transient error in process_form_fields. Retrying (attempt {retry_state.attempt_number + 1}/5)..."
+    ),
 )
 def process_form_fields(instance: SNowInstance, url: str, expected_fields: list[str], action: str):
     """Process form fields based on the given action."""
@@ -689,6 +770,7 @@ def process_form_fields(instance: SNowInstance, url: str, expected_fields: list[
         return True
 
 
+@retry_on_transient_error
 def setup_form_fields():
     task_mapping = {
         "create_change_request": {
@@ -717,12 +799,22 @@ def setup_form_fields():
         },
     }
 
+    # Check which forms still need to be set up
+    forms_to_setup = {
+        k: v for k, v in task_mapping.items() if not is_step_completed(f"form_fields_{k}")
+    }
+
+    if not forms_to_setup:
+        logging.info("All form fields already set up.")
+        return
+
+    logging.info(f"... {len(forms_to_setup)} form(s) to set up: {list(forms_to_setup.keys())}")
     logging.info("... Creating a new user account to validate form fields")
     admin_instance = SNowInstance()
     username, password, usysid = create_user(instance=admin_instance)
     user_instance = SNowInstance(snow_credentials=(username, password))
 
-    for task, task_info in task_mapping.items():
+    for task, task_info in forms_to_setup.items():
         expected_fields_path = task_info["expected_fields_path"]
         with open(expected_fields_path, "r") as f:
             expected_fields = json.load(f)
@@ -764,6 +856,9 @@ def setup_form_fields():
             user_instance, task_info["url"], expected_fields=expected_fields, action="check"
         ), f"Error setting up form fields at {task_info['url']}"
 
+        # Mark this form as completed
+        mark_step_completed(f"form_fields_{task}")
+
     # Delete the user account
     logging.info("... Deleting the test user account")
     table_api_call(instance=admin_instance, table=f"sys_user/{usysid}", method="DELETE")
@@ -771,6 +866,7 @@ def setup_form_fields():
     logging.info("All form fields properly displayed.")
 
 
+@retry_on_transient_error
 def check_instance_release_support():
     """
     Check that the instance is running a compatible version of ServiceNow.
@@ -793,6 +889,7 @@ def check_instance_release_support():
     return True
 
 
+@retry_on_transient_error
 def enable_url_login():
     """
     Configure the instance to allow login via URL.
@@ -804,6 +901,7 @@ def enable_url_login():
     logging.info("URL login enabled.")
 
 
+@retry_on_transient_error
 def disable_password_policies():
     """
     Disable password policies in the instance.
@@ -836,6 +934,7 @@ def disable_password_policies():
     logging.info("Password policies disabled.")
 
 
+@retry_on_transient_error
 def disable_guided_tours():
     """
     Hide guided tour popups
@@ -852,6 +951,7 @@ def disable_guided_tours():
     logging.info("Guided tours disabled.")
 
 
+@retry_on_transient_error
 def disable_welcome_help_popup():
     """
     Disable the welcome help popup
@@ -861,6 +961,7 @@ def disable_welcome_help_popup():
     logging.info("Welcome help popup disabled.")
 
 
+@retry_on_transient_error
 def disable_analytics_popups():
     """
     Disable analytics popups (needs to be done through UI since Vancouver release)
@@ -872,6 +973,7 @@ def disable_analytics_popups():
     logging.info("Analytics popups disabled.")
 
 
+@retry_on_transient_error
 def setup_ui_themes():
     """
     Install custom UI themes and set it as default
@@ -925,6 +1027,7 @@ def check_ui_themes_installed():
         """
 
 
+@retry_on_transient_error
 def set_home_page():
     logging.info("Setting default home page")
     set_sys_property(
@@ -932,6 +1035,7 @@ def set_home_page():
     )
 
 
+@retry_on_transient_error
 def wipe_system_admin_preferences():
     """
     Wipe all system admin preferences
@@ -964,16 +1068,142 @@ def is_report_filter_using_relative_time(filter):
     return "javascript:gs." in filter or "@ago" in filter
 
 
-def patch_report_filters():
+@retry(
+    stop=stop_after_attempt(5),
+    retry=retry_if_exception_type(RETRYABLE_ERRORS),
+    reraise=True,
+    before_sleep=lambda retry_state: logging.info(
+        f"Network error while patching report. Retrying (attempt {retry_state.attempt_number + 1}/5)..."
+    ),
+)
+def _patch_single_report(instance, report, report_date_filter, report_time_filter):
+    """
+    Patch a single report with date filters. Retries on network errors.
+    """
+    # Find all sys_created_on columns of this record. Some have many.
+    sys_created_on_cols = [
+        c for c in table_column_info(instance, report["table"]).keys() if "sys_created_on" in c
+    ]
+
+    # XXX: We purposely do not support reports with multiple filter conditions for simplicity
+    if len(sys_created_on_cols) == 0 or "^NQ" in report["filter"]:
+        logging.info(f"Discarding report {report['title']} {report['sys_id']}...")
+        raise NotImplementedError()  # Mark for deletion
+
+    if not is_report_filter_using_relative_time(report["filter"]):
+        # That's a report we want to keep (use date cutoff filter)
+        filter_date = report_date_filter
+        filter_time = report_time_filter
+        logging.info(
+            f"Keeping report {report['title']} {report['sys_id']} (columns: {sys_created_on_cols})..."
+        )
+    else:
+        # XXX: We do not support reports with filters that rely on relative time (e.g., last 10 days) because
+        #      there are not stable. In this case, we don't delete them but add a filter to make
+        #      them empty. They will be shown as "No data available".
+        logging.info(
+            f"Disabling report {report['title']} {report['sys_id']} because it uses time filters..."
+        )
+        filter_date = "1900-01-01"
+        filter_time = "00:00:00"
+
+    # Format the filter
+    filter = "".join(
+        [
+            f"^{col}<javascript:gs.dateGenerate('{filter_date}','{filter_time}')"
+            for col in sys_created_on_cols
+        ]
+    ) + ("^" if len(report["filter"]) > 0 and not report["filter"].startswith("^") else "")
+    # Patch the report with the new filter
+    table_api_call(
+        instance=instance,
+        table=f"sys_report/{report['sys_id']}",
+        method="PATCH",
+        json={
+            "filter": filter + report["filter"],
+            "description": report["description"] + " " + REPORT_PATCH_FLAG,
+        },
+    )
+    logging.info(f"... done")
+
+
+def _cleanup_patched_reports(instance):
+    """
+    Remove patch flags and date filters from already-patched reports to allow re-patching.
+    Used when doing a fresh install.
+    """
+    logging.info("Cleaning up previously patched reports for fresh install...")
+
+    reports = table_api_call(
+        instance=instance,
+        table="sys_report",
+        params={
+            "sysparm_query": f"sys_class_name=sys_report^active=true^descriptionLIKE{REPORT_PATCH_FLAG}"
+        },
+    )["result"]
+
+    logging.info(f"Found {len(reports)} previously patched reports to clean up.")
+
+    for i, report in enumerate(reports):
+        logging.info(f"Cleaning up report {i + 1}/{len(reports)}: {report['title']}")
+
+        # Remove the patch flag from description
+        new_description = report["description"].replace(REPORT_PATCH_FLAG, "").strip()
+
+        # Remove the date filter prefix from the filter
+        # The prefix looks like: ^col<javascript:gs.dateGenerate('YYYY-MM-DD','HH:MM:SS')
+        # There might be multiple columns, so we use regex to remove all occurrences
+        filter_pattern = r"\^?[a-z_\.]+<javascript:gs\.dateGenerate\('[^']+','[^']+'\)"
+        new_filter = re.sub(filter_pattern, "", report["filter"])
+        # Clean up any leading ^ that might remain
+        new_filter = new_filter.lstrip("^")
+
+        try:
+            table_api_call(
+                instance=instance,
+                table=f"sys_report/{report['sys_id']}",
+                method="PATCH",
+                json={
+                    "filter": new_filter,
+                    "description": new_description,
+                },
+            )
+            logging.info(f"... cleaned up")
+        except RETRYABLE_ERRORS:
+            # Re-raise network errors so the outer retry can handle them
+            raise
+        except Exception as e:
+            # For other errors (e.g., protected reports), log and continue
+            logging.warning(f"... failed to clean up (skipping): {e}")
+
+
+@retry_on_transient_error
+def patch_report_filters(fresh: bool = False):
     """
     Add filters to reports to make sure they stay frozen in time and don't show new data
     as then instance's life cycle progresses.
 
+    Parameters:
+    -----------
+    fresh: bool
+        If True, reset the report date filter and re-patch all reports (including already-patched ones).
     """
     logging.info("Patching reports with date filter...")
 
     instance = SNowInstance()
-    filter_config = instance.report_filter_config
+
+    # For fresh install, clean up previously patched reports and reset the date filter
+    if fresh:
+        _cleanup_patched_reports(instance)
+        # Clear the existing filter config so a new one is generated
+        logging.info("Clearing existing report filter config for fresh install...")
+        try:
+            set_sys_property(instance=instance, property_name=REPORT_FILTER_PROPERTY, value="")
+        except:
+            pass
+        filter_config = None
+    else:
+        filter_config = instance.report_filter_config
 
     # If the report date filter is already set, we use the existing values (would be the case on reinstall)
     if not filter_config:
@@ -1009,52 +1239,10 @@ def patch_report_filters():
         },
     )["result"]
 
-    for report in reports:
-        # Find all sys_created_on columns of this record. Some have many.
-        sys_created_on_cols = [
-            c for c in table_column_info(instance, report["table"]).keys() if "sys_created_on" in c
-        ]
+    for i, report in enumerate(reports):
+        logging.info(f"Processing report {i + 1}/{len(reports)}: {report['title']}")
         try:
-            # XXX: We purposely do not support reports with multiple filter conditions for simplicity
-            if len(sys_created_on_cols) == 0 or "^NQ" in report["filter"]:
-                logging.info(f"Discarding report {report['title']} {report['sys_id']}...")
-                raise NotImplementedError()  # Mark for deletion
-
-            if not is_report_filter_using_relative_time(report["filter"]):
-                # That's a report we want to keep (use date cutoff filter)
-                filter_date = report_date_filter
-                filter_time = report_time_filter
-                logging.info(
-                    f"Keeping report {report['title']} {report['sys_id']} (columns: {sys_created_on_cols})..."
-                )
-            else:
-                # XXX: We do not support reports with filters that rely on relative time (e.g., last 10 days) because
-                #      there are not stable. In this case, we don't delete them but add a filter to make
-                #      them empty. They will be shown as "No data available".
-                logging.info(
-                    f"Disabling report {report['title']} {report['sys_id']} because it uses time filters..."
-                )
-                filter_date = "1900-01-01"
-                filter_time = "00:00:00"
-
-            # Format the filter
-            filter = "".join(
-                [
-                    f"^{col}<javascript:gs.dateGenerate('{filter_date}','{filter_time}')"
-                    for col in sys_created_on_cols
-                ]
-            ) + ("^" if len(report["filter"]) > 0 and not report["filter"].startswith("^") else "")
-            # Patch the report with the new filter
-            table_api_call(
-                instance=instance,
-                table=f"sys_report/{report['sys_id']}",
-                method="PATCH",
-                json={
-                    "filter": filter + report["filter"],
-                    "description": report["description"] + " " + REPORT_PATCH_FLAG,
-                },
-            )
-            logging.info(f"... done")
+            _patch_single_report(instance, report, report_date_filter, report_time_filter)
 
         except (NotImplementedError, HTTPError):
             # HTTPError occurs when some reports simply cannot be patched because they are critical and protected
@@ -1071,52 +1259,76 @@ def patch_report_filters():
                 logging.error(f"...... could not delete.")
 
 
-@tenacity.retry(
-    stop=tenacity.stop_after_attempt(3),
-    reraise=True,
-    before_sleep=lambda _: logging.info("An error occurred. Retrying..."),
-)
-def setup():
+def run_step(step_name: str, step_func, resume: bool = True, **kwargs):
+    """
+    Run a setup step, skipping if already completed (when resuming).
+
+    Parameters:
+    -----------
+    step_name: str
+        The name of the step (used for progress tracking)
+    step_func: callable
+        The function to run for this step
+    resume: bool
+        If True, skip steps that are already completed
+    **kwargs:
+        Additional arguments to pass to the step function
+    """
+    if resume and is_step_completed(step_name):
+        logging.info(f"Skipping '{step_name}' (already completed)")
+        return
+
+    logging.info(f"Running step: {step_name}")
+    step_func(**kwargs)
+    mark_step_completed(step_name)
+
+
+def setup(resume: bool = True):
     """
     Check that WorkArena is installed correctly in the instance.
 
+    Parameters:
+    -----------
+    resume: bool
+        If True, skip steps that have already been completed.
+        If False, run all steps from the beginning.
     """
+    if not resume:
+        clear_installation_progress()
+
     if not check_instance_release_support():
         return  # Don't continue if the instance is not supported
 
     # Enable URL login (XXX: Do this first since other functions can use URL login)
-    enable_url_login()
+    run_step("enable_url_login", enable_url_login, resume)
 
     # Disable password policies
-    disable_password_policies()
+    run_step("disable_password_policies", disable_password_policies, resume)
 
     # Set default landing page
-    set_home_page()
+    run_step("set_home_page", set_home_page, resume)
 
     # Disable popups for new users
-    # ... guided tours
-    disable_guided_tours()
-    # ... analytics
-    disable_analytics_popups()
-    # ... help
-    disable_welcome_help_popup()
+    run_step("disable_guided_tours", disable_guided_tours, resume)
+    run_step("disable_analytics_popups", disable_analytics_popups, resume)
+    run_step("disable_welcome_help_popup", disable_welcome_help_popup, resume)
 
     # Install custom UI themes (needs to be after disabling popups)
-    setup_ui_themes()
+    run_step("setup_ui_themes", setup_ui_themes, resume)
 
     # Clear all predefined system admin preferences (e.g., default list views, etc.)
-    wipe_system_admin_preferences()
+    run_step("wipe_system_admin_preferences", wipe_system_admin_preferences, resume)
 
-    # Patch all reports to only show data <= April 1, 2024
-    patch_report_filters()
+    # Patch all reports to only show data <= current date
+    run_step("patch_report_filters", patch_report_filters, resume, fresh=not resume)
 
     # XXX: Install workflows first because they may automate some downstream installations
-    setup_workflows()
-    setup_knowledge_bases()
+    run_step("setup_workflows", setup_workflows, resume)
+    run_step("setup_knowledge_bases", setup_knowledge_bases, resume)
 
     # Setup the user list columns by displaying all columns and checking that the expected number are displayed
-    setup_form_fields()
-    setup_list_columns()
+    run_step("setup_form_fields", setup_form_fields, resume)
+    run_step("setup_list_columns", setup_list_columns, resume)
 
     # Save installation date
     logging.info("Saving installation date")
@@ -1125,6 +1337,9 @@ def setup():
         property_name="workarena.installation.date",
         value=datetime.now().isoformat(),
     )
+
+    # Clear progress tracking since installation is complete
+    clear_installation_progress()
 
     logging.info("WorkArena setup complete.")
 
@@ -1144,6 +1359,16 @@ def main():
         "--instance-password",
         required=True,
         help="Password for the admin user on the target ServiceNow instance.",
+    )
+    parser.add_argument(
+        "--fresh",
+        action="store_true",
+        help="Start a fresh installation, ignoring any previous progress.",
+    )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Resume from previous progress without prompting.",
     )
     args = parser.parse_args()
 
@@ -1175,4 +1400,42 @@ Previous installation: {past_install_date}
 
 """
     )
-    setup()
+
+    # Determine whether to resume or start fresh
+    if args.fresh:
+        resume = False
+    elif args.resume:
+        resume = True
+    else:
+        # Check for existing progress and prompt user
+        progress = get_installation_progress()
+        completed_steps = [k for k, v in progress.items() if v.get("completed")]
+
+        if completed_steps:
+            logging.info(
+                f"Found incomplete installation with {len(completed_steps)} completed step(s):"
+            )
+            for step in completed_steps:
+                timestamp = progress[step].get("timestamp", "unknown")
+                logging.info(f"  - {step} (completed at {timestamp})")
+
+            while True:
+                choice = (
+                    input(
+                        "\nDo you want to [r]esume from where you left off, or [s]tart fresh? (r/s): "
+                    )
+                    .strip()
+                    .lower()
+                )
+                if choice in ("r", "resume"):
+                    resume = True
+                    break
+                elif choice in ("s", "start", "fresh"):
+                    resume = False
+                    break
+                else:
+                    print("Please enter 'r' to resume or 's' to start fresh.")
+        else:
+            resume = False  # No previous progress, start fresh
+
+    setup(resume=resume)

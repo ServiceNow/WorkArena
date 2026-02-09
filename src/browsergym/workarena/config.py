@@ -13,7 +13,7 @@ SNOW_SUPPORTED_RELEASES = ["washingtondc"]
 
 # Hugging Face dataset containing available instances
 INSTANCE_REPO_ID = "ServiceNow/WorkArena-Instances"
-INSTANCE_REPO_FILENAME = "instances.json"
+INSTANCE_REPO_FILENAME = "instances_v2.json"
 INSTANCE_REPO_TYPE = "dataset"
 INSTANCE_XOR_SEED = "x3!+-9mi#nhlo%a02$9hna{]"
 
