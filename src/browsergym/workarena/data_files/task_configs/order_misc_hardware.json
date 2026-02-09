@@ -23,5 +23,35 @@
         "item": "StarTech USB to DVI Adapter",
         "quantity": 1,
         "goal": "I need you to get a StarTech USB to DVI Adapter for me in the Service Catalog."
+    },
+    {
+        "item": "Pixel 4a",
+        "quantity": 1,
+        "goal": "I need you to get a Pixel 4a for me in the Service Catalog."
+    },
+    {
+        "item": "Belkin iPad Mini Case",
+        "quantity": 1,
+        "goal": "I need you to get a Belkin iPad Mini Case for me from the Service Catalog."
+    },
+    {
+        "item": "Zoom desk phone",
+        "quantity": 1,
+        "goal": "I need you to get a Zoom desk phone for me from the Service Catalog."
+    },
+    {
+        "item": "Dell XPS 13",
+        "quantity": 1,
+        "goal": "I need you to get a Dell XPS 13 for me from the Service Catalog."
+    },
+    {
+        "item": "Apple Watch",
+        "quantity": 1,
+        "goal": "I need you to get an Apple Watch for me from the Service Catalog."
+    },
+    {
+        "item": "IP 560 Phone",
+        "quantity": 1,
+        "goal": "I need you to get an IP 560 Phone for me from the Service Catalog."
     }
 ]
