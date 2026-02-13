@@ -8,7 +8,6 @@ import logging
 from typing import List
 import numpy as np
 import playwright.sync_api
-import requests
 from playwright.sync_api import Page
 import re
 from time import sleep
@@ -20,6 +19,7 @@ from ..api.requests import (
     get_request_by_id,
     db_delete_from_table,
 )
+from ..api.utils import table_api_call
 from ..config import (
     ORDER_DEVELOPER_LAPTOP_TASK_CONFIG_PATH,
     ORDER_IPAD_MINI_TASK_CONFIG_PATH,
@@ -945,34 +945,30 @@ class OrderResetPasswordTask(OrderFromServiceCatalogTask):
 
     def _get_incident_short_description(self) -> str | None:
         # get incident short description
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/incident",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        response = table_api_call(
+            instance=self.instance,
+            table="incident",
             params={
                 "sysparm_query": f"sys_id={self.incident_sysid}",
                 "sysparm_fields": "short_description",
             },
         )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        result = response.get("result", [])
         if len(result) != 1:
             return None
         return result[0].get("short_description")
 
     def _get_incident_work_notes(self) -> dict | None:
         # get incident work notes
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/sys_journal_field",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        response = table_api_call(
+            instance=self.instance,
+            table="sys_journal_field",
             params={
                 "sysparm_query": f"element_id={self.incident_sysid}^element=work_notes",
                 "sysparm_fields": "sys_id,value",
             },
         )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        result = response.get("result", [])
         if len(result) != 1:
             return None
         return result[0]["value"]
@@ -1027,18 +1023,15 @@ class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
     }
 
     def _get_location(self, location_sys_id: str):
-
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/cmn_location",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        response = table_api_call(
+            instance=self.instance,
+            table="cmn_location",
             params={
                 "sysparm_query": f"sys_id={location_sys_id}",
                 "sysparm_fields": "sys_id,name",
             },
         )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        result = response.get("result", [])
         if len(result) != 1:
             return None
         return result[0]["name"]

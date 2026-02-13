@@ -2,8 +2,6 @@ import json
 from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
-import requests
-
 from ..api.utils import HTTPError, db_delete_from_table, table_api_call
 from ..config import (
     ADD_ADDITIONAL_ASSIGNEE_TO_INCIDENT_CONFIG_PATH,
@@ -15,8 +13,8 @@ from .base import AbstractServiceNowTask
 
 class ServiceNowIncidentTask(AbstractServiceNowTask):
 
-    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home") -> None:
-        super().__init__(seed, start_rel_url=start_rel_url)
+    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home", *args, **kwargs) -> None:
+        super().__init__(seed, start_rel_url=start_rel_url, *args, **kwargs)
         self.task_is_setup = False
         self.config = fixed_config if fixed_config else self.random.choice(self.all_configs())
         self.timeout = 60000
@@ -54,18 +52,15 @@ class AddAdditionalAssigneeToIncidentTask(ServiceNowIncidentTask):
     def _get_initial_incident_additional_assignee_list(self):
         incident_number = self.config["incident_number"]
 
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/incident",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="incident",
             params={
                 "sysparm_query": f"number={incident_number}",
                 "sysparm_fields": "sys_id,additional_assignee_list",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             raise ValueError(f"Incident {incident_number} not found")
 
@@ -80,18 +75,15 @@ class AddAdditionalAssigneeToIncidentTask(ServiceNowIncidentTask):
         additional_assignee_list = self.config["additional_assignee_list"]
 
         # Query incident table in ServiceNow
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/incident",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="incident",
             params={
                 "sysparm_query": f"number={incident_number}",
                 "sysparm_fields": "sys_id,number,additional_assignee_list",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
 
         # check for additional_assignee_list
         if result and result[0]["additional_assignee_list"] == additional_assignee_list:
@@ -113,10 +105,10 @@ class AddAdditionalAssigneeToIncidentTask(ServiceNowIncidentTask):
         # revert the additional_assignee_list to the initial value
         if self.initial_incident_additional_assignee_list is not None and self.config["additional_assignee_list"] != self.initial_incident_additional_assignee_list:
             try:
-                requests.patch(
-                    f"{self.instance.snow_url}/api/now/table/incident/{self.config['incident_number']}",
-                    auth=self.instance.snow_credentials,
-                    headers={"Accept": "application/json"},
+                table_api_call(
+                    instance=self.instance,
+                    table=f"incident/{self.config['incident_number']}",
+                    method="PATCH",
                     json={
                         "additional_assignee_list": self.initial_incident_additional_assignee_list,
                     },
@@ -136,18 +128,15 @@ class UpdateIncidentTask(ServiceNowIncidentTask):
     def _get_initial_incident_urgency(self):
         incident_number = self.config["incident_number"]
 
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/incident",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="incident",
             params={
                 "sysparm_query": f"number={incident_number}",
                 "sysparm_fields": "sys_id,urgency",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             raise ValueError(f"Incident {incident_number} not found")
 
@@ -162,19 +151,15 @@ class UpdateIncidentTask(ServiceNowIncidentTask):
         comment = self.config["comment"]
         updated_urgency = self.config["updated_urgency"]
 
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/incident",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="incident",
             params={
                 "sysparm_query": f"number={incident_number}",
                 "sysparm_fields": "sys_id,urgency",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             return (
                 0,
@@ -194,19 +179,15 @@ class UpdateIncidentTask(ServiceNowIncidentTask):
         incident_sys_id = result[0]["sys_id"]
 
         # search for comments in sys_journal_field
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/sys_journal_field",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="sys_journal_field",
             params={
                 "sysparm_query": f"element_id={incident_sys_id}",
                 "sysparm_fields": "sys_id,value",
                 "sysparm_limit": 100,
             },
-        )
-        response.raise_for_status()
-
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             return (
                 0,
@@ -270,21 +251,18 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
         self._get_initial_incident_info()
     
     def _get_initial_incident_info(self):
-        
+
         incident_number = self.config["incident_number"]
 
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/incident",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="incident",
             params={
                 "sysparm_query": f"number={incident_number}",
                 "sysparm_fields": "sys_id,number,close_code,close_notes,state",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             raise ValueError(f"Incident {incident_number} not found")
 
@@ -299,19 +277,16 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
 
         incident_number = self.config["incident_number"]
 
-        # Query sc_req_item to check the RITM status
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/incident",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        # Query incident to check the status
+        result = table_api_call(
+            instance=self.instance,
+            table="incident",
             params={
                 "sysparm_query": f"number={incident_number}",
                 "sysparm_fields": "sys_id,number,close_code,close_notes",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             return (
                 0,
@@ -350,10 +325,10 @@ class ResolveIncidentTask(ServiceNowIncidentTask):
         # reset the close code to the initial value
         if self.initial_incident_close_code is not None and self.config["close_code"] != self.initial_incident_close_code:
             try:
-                requests.patch(
-                    f"{self.instance.snow_url}/api/now/table/incident/{self.incident_sys_id}",
-                    auth=self.instance.snow_credentials,
-                    headers={"Accept": "application/json"},
+                table_api_call(
+                    instance=self.instance,
+                    table=f"incident/{self.incident_sys_id}",
+                    method="PATCH",
                     json={
                         "close_code": self.initial_incident_close_code,
                         "close_notes": "",

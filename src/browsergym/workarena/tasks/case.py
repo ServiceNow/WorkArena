@@ -2,8 +2,6 @@ import json
 from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
-import requests
-
 from ..api.utils import (
     HTTPError,
     db_delete_from_table,
@@ -21,8 +19,8 @@ from .base import AbstractServiceNowTask
 
 class ServiceNowCaseTask(AbstractServiceNowTask):
 
-    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home") -> None:
-        super().__init__(seed, start_rel_url=start_rel_url)
+    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home", *args, **kwargs) -> None:
+        super().__init__(seed, start_rel_url=start_rel_url, *args, **kwargs)
         self.task_is_setup = False
         self.config = fixed_config if fixed_config else self.random.choice(self.all_configs())
         self.timeout = 60000
@@ -118,10 +116,10 @@ class CloseCaseTask(ServiceNowCaseTask):
     def teardown(self) -> None:
 
         # revert the state to initial_state
-        requests.patch(
-            f"{self.instance.snow_url}/api/now/table/sn_customerservice_case/{self.record_sys_id}",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        table_api_call(
+            instance=self.instance,
+            table=f"sn_customerservice_case/{self.record_sys_id}",
+            method="PATCH",
             json={
                 "resolution_code": self.initial_state,
                 "close_notes": "",

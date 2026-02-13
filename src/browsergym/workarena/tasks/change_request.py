@@ -3,8 +3,6 @@ import json
 from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
-import requests
-
 from ..api.utils import HTTPError, table_api_call
 from ..config import (
     CHANGE_CHANGE_REQUEST_APPROVER_CONFIG_PATH,
@@ -14,8 +12,8 @@ from .base import AbstractServiceNowTask
 
 class ServiceNowChangeRequestTask(AbstractServiceNowTask):
 
-    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home") -> None:
-        super().__init__(seed, start_rel_url=start_rel_url)
+    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home", *args, **kwargs) -> None:
+        super().__init__(seed, start_rel_url=start_rel_url, *args, **kwargs)
         self.task_is_setup = False
         self.config = fixed_config if fixed_config else self.random.choice(self.all_configs())
         self.timeout = 60000
@@ -52,18 +50,15 @@ class ChangeChangeRequestApproverTask(ServiceNowChangeRequestTask):
         raise ValueError(f"Approver {self.config['approver']} not found for change request {self.config['change_number']}")
 
     def _get_change_request_sys_id(self, change_number: str) -> str:
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/change_request",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="change_request",
             params={
                 "sysparm_query": f"number={change_number}",
                 "sysparm_fields": "sys_id,active",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             raise ValueError(f"Change request {change_number} not found")
         return result[0]["sys_id"]
@@ -71,19 +66,16 @@ class ChangeChangeRequestApproverTask(ServiceNowChangeRequestTask):
     def _get_change_request_approvers_list(self, change_request_sys_id: str) -> List[str]:
 
         # list approvers for change request
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/sysapproval_approver",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="sysapproval_approver",
             params={
                 "sysparm_query": f"sysapproval={change_request_sys_id}",
                 "sysparm_fields": "sys_id,approver,state",
                 "sysparm_display_value": "true",
                 "sysparm_limit": 100,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         return result
 
     def all_configs(self):
@@ -123,10 +115,10 @@ class ChangeChangeRequestApproverTask(ServiceNowChangeRequestTask):
         # revert the change request approver state to the initial state
         if self.change_request_approver_sys_id is not None:
             try:
-                requests.patch(
-                    f"{self.instance.snow_url}/api/now/table/sysapproval_approver/{self.change_request_approver_sys_id}",
-                    auth=self.instance.snow_credentials,
-                    headers={"Accept": "application/json"},
+                table_api_call(
+                    instance=self.instance,
+                    table=f"sysapproval_approver/{self.change_request_approver_sys_id}",
+                    method="PATCH",
                     json={
                         "state": self.initial_change_request_approver_state,
                     },

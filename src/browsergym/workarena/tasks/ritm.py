@@ -2,8 +2,6 @@ import json
 from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
-import requests
-
 from ..api.utils import HTTPError, table_api_call
 from ..config import (
     CHANGE_RITM_STATUS_CONFIG_PATH,
@@ -17,8 +15,8 @@ class ServiceNowRitmTask(AbstractServiceNowTask):
     Generic task for ritm manipulation (create/edit) in a table using a Glide form.
     """
 
-    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home") -> None:
-        super().__init__(seed, start_rel_url=start_rel_url)
+    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home", *args, **kwargs) -> None:
+        super().__init__(seed, start_rel_url=start_rel_url, *args, **kwargs)
         self.task_is_setup = False
         self.config = fixed_config if fixed_config else self.random.choice(self.all_configs())
         self.timeout = 60000
@@ -57,23 +55,16 @@ class ChangeRitmStatusTask(ServiceNowRitmTask):
     def _get_initial_state(self):
         ritm_number = self.config["ritm_number"]
 
-        # get instance url and credentials
-        instance_url = self.instance.snow_url
-        snow_username, snow_password = self.instance.snow_credentials
-
         # Query sc_req_item to check the RITM status
-        response = requests.get(
-            f"{instance_url}/api/now/table/sc_req_item",
-            auth=(snow_username, snow_password),
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="sc_req_item",
             params={
                 "sysparm_query": f"number={ritm_number}",
                 "sysparm_fields": "sys_id,number,approval",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             raise ValueError(f"RITM {ritm_number} not found")
         return result[0]["approval"]
@@ -84,23 +75,16 @@ class ChangeRitmStatusTask(ServiceNowRitmTask):
         ritm_number = self.config["ritm_number"]
         approval = self.config["approval"]
 
-        # get instance url and credentials
-        instance_url = self.instance.snow_url
-        snow_username, snow_password = self.instance.snow_credentials
-
         # Query sc_req_item to check the RITM status
-        response = requests.get(
-            f"{instance_url}/api/now/table/sc_req_item",
-            auth=(snow_username, snow_password),
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="sc_req_item",
             params={
                 "sysparm_query": f"number={ritm_number}^approval={approval}",
                 "sysparm_fields": "sys_id,number,approval",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if result:
             # Found a matching RITM with the correct status
 
@@ -124,10 +108,10 @@ class ChangeRitmStatusTask(ServiceNowRitmTask):
         # revert to previous state
         if self.initial_approval and self.initial_approval != self.config["approval"]:
             try:
-                requests.patch(
-                    f"{self.instance.snow_url}/api/now/table/sc_req_item/{self.record_sys_id}",
-                    auth=self.instance.snow_credentials,
-                    headers={"Accept": "application/json"},
+                table_api_call(
+                    instance=self.instance,
+                    table=f"sc_req_item/{self.record_sys_id}",
+                    method="PATCH",
                     json={
                         "approval": self.initial_approval,
                     },
@@ -135,7 +119,7 @@ class ChangeRitmStatusTask(ServiceNowRitmTask):
             except HTTPError:
                 # sys_id was stored in local storage (for submitted)
                 # but the record is absent from the database (probably invalid form)
-                pass            
+                pass
 
 class UpdateRitmQuantityTask(ServiceNowRitmTask):
 
@@ -152,18 +136,15 @@ class UpdateRitmQuantityTask(ServiceNowRitmTask):
         ritm_number = self.config["ritm_number"]
 
         # Query sc_req_item to check the RITM status
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/sc_req_item",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="sc_req_item",
             params={
                 "sysparm_query": f"number={ritm_number}",
                 "sysparm_fields": "sys_id,number,quantity",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             raise ValueError(f"RITM {ritm_number} not found")
         return result[0]["quantity"]
@@ -175,19 +156,16 @@ class UpdateRitmQuantityTask(ServiceNowRitmTask):
         ritm_number = self.config["ritm_number"]
         quantity = self.config["quantity"]
 
-        # Query sn_customerservice_case in ServiceNow
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/sc_req_item",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        # Query sc_req_item in ServiceNow
+        result = table_api_call(
+            instance=self.instance,
+            table="sc_req_item",
             params={
                 "sysparm_query": f"number={ritm_number}",
                 "sysparm_fields": "sys_id,number,quantity",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
 
         # check for quantity
         if result and int(result[0]["quantity"]) == int(quantity):
@@ -209,10 +187,10 @@ class UpdateRitmQuantityTask(ServiceNowRitmTask):
     def teardown(self) -> None:
         if self.initial_quantity and self.initial_quantity != self.config["quantity"]:
             try:
-                requests.patch(
-                    f"{self.instance.snow_url}/api/now/table/sc_req_item/{self.record_sys_id}",
-                    auth=self.instance.snow_credentials,
-                    headers={"Accept": "application/json"},
+                table_api_call(
+                    instance=self.instance,
+                    table=f"sc_req_item/{self.record_sys_id}",
+                    method="PATCH",
                     json={
                         "quantity": self.initial_quantity,
                     },

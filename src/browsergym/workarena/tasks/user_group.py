@@ -2,8 +2,6 @@ import json
 from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
-import requests
-
 from ..api.utils import HTTPError, table_api_call, db_delete_from_table
 from ..config import DEACTIVATE_USER_GROUP_CONFIG_PATH, CREATE_USER_GROUP_CONFIG_PATH, CREATE_USER_GROUP_ADD_USERS_CONFIG_PATH
 from .base import AbstractServiceNowTask
@@ -11,8 +9,8 @@ from .base import AbstractServiceNowTask
 
 class ServiceNowUserGroupTask(AbstractServiceNowTask):
 
-    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home") -> None:
-        super().__init__(seed, start_rel_url=start_rel_url)
+    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home", *args, **kwargs) -> None:
+        super().__init__(seed, start_rel_url=start_rel_url, *args, **kwargs)
         self.task_is_setup = False
         self.config = fixed_config if fixed_config else self.random.choice(self.all_configs())
         self.timeout = 60000
@@ -185,19 +183,16 @@ class DeactivateUserGroupTask(ServiceNowUserGroupTask):
 
         name = self.config["name"]
 
-        # Query sn_customerservice_case in ServiceNow
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/sys_user_group",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        # Query sys_user_group in ServiceNow
+        result = table_api_call(
+            instance=self.instance,
+            table="sys_user_group",
             params={
                 "sysparm_query": f"name={name}",
                 "sysparm_fields": "sys_id,name,active",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if not result:
             return (
                 0,
@@ -224,10 +219,10 @@ class DeactivateUserGroupTask(ServiceNowUserGroupTask):
 
     def teardown(self) -> None:
         try:
-            requests.patch(
-                f"{self.instance.snow_url}/api/now/table/sys_user_group/{self.user_group_sys_id}",
-                auth=self.instance.snow_credentials,
-                headers={"Accept": "application/json"},
+            table_api_call(
+                instance=self.instance,
+                table=f"sys_user_group/{self.user_group_sys_id}",
+                method="PATCH",
                 json={
                     "active": True,
                 },

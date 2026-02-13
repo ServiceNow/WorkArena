@@ -2,9 +2,7 @@ import json
 from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
-import requests
-
-from ..api.utils import HTTPError, db_delete_from_table
+from ..api.utils import HTTPError, db_delete_from_table, table_api_call
 from ..config import (
     CREATE_INTERACTION_CONFIG_PATH,
 )
@@ -13,8 +11,8 @@ from .base import AbstractServiceNowTask
 
 class ServiceNowInteractionTask(AbstractServiceNowTask):
 
-    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home") -> None:
-        super().__init__(seed, start_rel_url=start_rel_url)
+    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home", *args, **kwargs) -> None:
+        super().__init__(seed, start_rel_url=start_rel_url, *args, **kwargs)
         self.task_is_setup = False
         self.config = fixed_config if fixed_config else self.random.choice(self.all_configs())
         self.timeout = 60000
@@ -45,18 +43,15 @@ class CreateInteractionTask(ServiceNowInteractionTask):
         # TODO: difficult to verify and test
         # no way of guaranteeing correct retrieval based on short description
         # no existing interactions on the platform we can use to test function
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/interaction",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="interaction",
             params={
                 "sysparm_query": f"short_descriptionLIKE{customer_problem}",
                 "sysparm_fields": "sys_id,short_description",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         if result:
             # Interaction exists with matching short description
             # get sys_id from result

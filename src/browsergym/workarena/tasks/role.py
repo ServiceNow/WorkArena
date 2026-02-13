@@ -2,9 +2,7 @@ import json
 from typing import Any, Dict, List, Tuple
 
 import playwright.sync_api
-import requests
-
-from ..api.utils import HTTPError, db_delete_from_table
+from ..api.utils import HTTPError, db_delete_from_table, table_api_call
 from ..config import (
     ASSIGN_ROLE_TO_USER_ADMIN_CONFIG_PATH,
     ASSIGN_ROLES_TO_USER_EXPLICIT_CONFIG_PATH,
@@ -18,8 +16,8 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
     Generic task for role manipulation (create/edit) in a table using a Glide form.
     """
 
-    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home") -> None:
-        super().__init__(seed, start_rel_url=start_rel_url)
+    def __init__(self, seed: int, fixed_config: Dict[str, Any] = None, start_rel_url: str = "/now/nav/ui/home", *args, **kwargs) -> None:
+        super().__init__(seed, start_rel_url=start_rel_url, *args, **kwargs)
         self.task_is_setup = False
         self.config = fixed_config if fixed_config else self.random.choice(self.all_configs())
         self.timeout = 60000
@@ -44,18 +42,15 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
         user_roles = [role.strip() for role in user_roles.split(",")]
 
         # query instance to get user sys id
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/sys_user",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        record = table_api_call(
+            instance=self.instance,
+            table="sys_user",
             params={
                 "sysparm_query": f"name={user_full_name}",
                 "sysparm_fields": "sys_id",
                 "sysparm_limit": 1,
             },
-        )
-        response.raise_for_status()
-        record = response.json().get("result", [])
+        )["result"]
         if not record:
             return (
                 0,
@@ -66,19 +61,16 @@ class ServiceNowRoleTask(AbstractServiceNowTask):
         user_sys_id = record[0]["sys_id"]
 
         # query sys_user_has_role to find user roles
-        response = requests.get(
-            f"{self.instance.snow_url}/api/now/table/sys_user_has_role",
-            auth=self.instance.snow_credentials,
-            headers={"Accept": "application/json"},
+        result = table_api_call(
+            instance=self.instance,
+            table="sys_user_has_role",
             params={
                 "sysparm_query": f"user={user_sys_id}",
                 "sysparm_display_value": "all",
                 "sysparm_fields": "sys_id,role",
                 "sysparm_limit": 200,
             },
-        )
-        response.raise_for_status()
-        result = response.json().get("result", [])
+        )["result"]
         role_to_sys_id_mapping = {elem["role"]["display_value"]: elem["sys_id"] for elem in result}
         for role in user_roles:
             if not role in role_to_sys_id_mapping:
