@@ -1,54 +1,54 @@
 [
     {
         "name": "Survey Creators",
-        "goal": "Deactivate the Survey Creators group"
+        "goal": "Deactivate the Survey Creators user group"
     },
     {
         "name": "Wyoming Dispatchers",
-        "goal": "Deactivate the Wyoming Dispatchers group"
+        "goal": "Deactivate the Wyoming Dispatchers user group"
     },
     {
         "name": "EMEA Escalation Approvers",
-        "goal": "Deactivate the EMEA Escalation Approvers group"
+        "goal": "Deactivate the EMEA Escalation Approvers user group"
     },
     {
         "name": "East Qualifiers",
-        "goal": "Deactivate the East Qualifiers group"
+        "goal": "Deactivate the East Qualifiers user group"
     },
     {
         "name": "Project Mgmt",
-        "goal": "Deactivate the Project Mgmt group"
+        "goal": "Deactivate the Project Mgmt user group"
     },
     {
         "name": "Indiana Dispatchers",
-        "goal": "Deactivate the Indiana Dispatchers group"
+        "goal": "Deactivate the Indiana Dispatchers user group"
     },
     {
         "name": "Network CAB Managers",
-        "goal": "Deactivate the Network CAB Managers group"
+        "goal": "Deactivate the Network CAB Managers user group"
     },
     {
         "name": "Procurement",
-        "goal": "Deactivate the Procurement group"
+        "goal": "Deactivate the Procurement user group"
     },
     {
         "name": "San Diego Border",
-        "goal": "Deactivate the San Diego Border group"
+        "goal": "Deactivate the San Diego Border user group"
     },
     {
         "name": "South East",
-        "goal": "Deactivate the South East group"
+        "goal": "Deactivate the South East user group"
     },
     {
         "name": "Studio Users",
-        "goal": "Deactivate the Studio Users group"
+        "goal": "Deactivate the Studio Users user group"
     },
     {
         "name": "US Presidents Group 3",
-        "goal": "Deactivate the US Presidents Group 3 group"
+        "goal": "Deactivate the US Presidents Group 3 user group"
     },
     {
         "name": "South",
-        "goal": "Deactivate the South group"
+        "goal": "Deactivate the South user group"
     }
 ]

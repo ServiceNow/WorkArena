@@ -15,38 +15,13 @@
         "goal": "Get the resolution notes for CS0001004"
     },
     {
-        "case_number": "CS0000002",
-        "close_notes": "all good now",
-        "goal": "Get the resolution notes for CS0000002"
-    },
-    {
         "case_number": "CS0001404",
         "close_notes": "Resolved",
         "goal": "Get the resolution notes for CS0001404"
     },
     {
-        "case_number": "CS1000002",
-        "close_notes": "Resolved",
-        "goal": "Get the resolution notes for CS1000002"
-    },
-    {
         "case_number": "CS0002002",
-        "close_notes": "Resolved",
+        "close_notes": "related change fixed",
         "goal": "Get the resolution notes for CS0002002"
-    },
-    {
-        "case_number": "CS0000714",
-        "close_notes": "Resolved",
-        "goal": "Get the resolution notes for CS0000714"
-    },
-    {
-        "case_number": "CS0000877",
-        "close_notes": "Resolved",
-        "goal": "Get the resolution notes for CS0000877"
-    },
-    {
-        "case_number": "CS0000003",
-        "close_notes": "Resolved",
-        "goal": "Get the resolution notes for CS0000003"
     }
 ]

@@ -22,23 +22,23 @@
     },
     {
         "name": "Catalog Managers",
-        "manager": "Jason Lynn",
+        "manager": "Jason Roy",
         "type": "catalog",
         "roles": "catalog_manager",
-        "goal": "Create an active user group named \"Catalog Managers\". Its manager is Jason Lynn, type is catalog, and roles include catalog_manager"
+        "goal": "Create an active user group named \"Catalog Managers\". Its manager is Jason Roy, type is catalog, and roles include catalog_manager"
     },
     {
         "name": "Survey Admins",
-        "manager": "Karen Boyd",
+        "manager": "Karen Zombo",
         "type": "survey",
         "roles": "survey_admin",
-        "goal": "Create an active user group named \"Survey Admins\". Its manager is Karen Boyd, type is survey, and roles include survey_admin"
+        "goal": "Create an active user group named \"Survey Admins\". Its manager is Karen Zombo, type is survey, and roles include survey_admin"
     },
     {
         "name": "ITIL User Group",
-        "manager": "Ian Hooper",
+        "manager": "Ingrid Blake",
         "type": "itil",
         "roles": "itil",
-        "goal": "Create an active user group named \"ITIL User Group\". Its manager is Ian Hooper, type is itil, and roles include itil"
+        "goal": "Create an active user group named \"ITIL User Group\". Its manager is Ingrid Blake, type is itil, and roles include itil"
     }
 ]
