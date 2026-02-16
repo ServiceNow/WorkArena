@@ -133,6 +133,7 @@ class CloseCaseTask(ServiceNowCaseTask):
 class GetCaseResolutionNotesTask(ServiceNowCaseTask):
 
     def validate(self, page: playwright.sync_api.Page, chat_messages: List[str]) -> Tuple[float, bool, str, dict]:
+        # TODO: retrieve resolution notes from instances instead of from config
         close_notes = self.config["close_notes"]
 
         # check for close_notes
