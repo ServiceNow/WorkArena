@@ -177,7 +177,11 @@ class GenericCreateWorkspaceTask(GenericNewRecordTask):
                 f"typeof window.{self.js_prefix} !== 'undefined' && window.{self.js_prefix}.WORKARENA_LOAD_COMPLETE",
             )
         except:
-            page.wait_for_load_state("networkidle")
+            logging.debug(f"Timed out waiting for {self.js_prefix}.WORKARENA_LOAD_COMPLETE, falling back to load state")
+            try:
+                page.wait_for_load_state("load", timeout=30000)
+            except:
+                logging.warning("Timed out waiting for load state, proceeding anyway")
             return
         logging.debug(f"Detected {self.js_prefix} ready")
 
