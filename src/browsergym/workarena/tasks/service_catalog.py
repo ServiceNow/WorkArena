@@ -898,7 +898,7 @@ class OrderMiscHardwareWithBusinessJustificationTask(OrderFromServiceCatalogTask
         # NOTE: we don't check for `requested for` field.
 
         # business justification
-        if requested_item["options"]["Business justification"] != self.config["business_justification"]:
+        if re.sub(r'[^\w\s]', '', requested_item["options"]["Business justification"]).lower() != re.sub(r'[^\w\s]', '', self.config["business_justification"]).lower():
             return 0, True, "", {"message": "The requested business justification is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
@@ -1051,13 +1051,26 @@ class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
         if not requested_item["options"].get(self.FIELD_NAME_MAPPING["shipping_type"]).lower() == self.SHIPPING_TYPE_MAPPING[self.config["shipping_type"]].lower():
             return 0, True, "", {"message": "The requested shipping type is incorrect."}
 
-        # for destination, we need to do a lookup
-        # TODO: for now we only look at the destination field, but we could also setup the postcode, city, address line 1/2, etc.
-        destination = self._get_location(requested_item["options"].get(self.FIELD_NAME_MAPPING["destination"]))
-        if destination is None:
-            return 0, True, "", {"message": "The requested destination is incorrect."}
-        if not destination.lower() == self.config["destination"].lower():
-            return 0, True, "", {"message": "The requested destination is incorrect."}
+        # Validate destination based on shipping type
+        if self.config["shipping_type"] == "Inter-office":
+            # Internal: destination is a cmn_location reference, look up by sys_id
+            destination = self._get_location(requested_item["options"].get(self.FIELD_NAME_MAPPING["destination"]))
+            if destination is None:
+                return 0, True, "", {"message": "The requested destination is incorrect."}
+            if not destination.lower() == self.config["destination"].lower():
+                return 0, True, "", {"message": "The requested destination is incorrect."}
+        else:
+            # External: destination is split across separate address fields
+            # Check that each non-empty field value appears in the expected destination
+            options = requested_item["options"]
+            expected = re.sub(r'[^\w\s]', '', self.config["destination"]).lower()
+            for field in ["Address Line 1", "City"]:
+                value = options.get(field, "").strip()
+                if not value:
+                    continue
+                normalized_value = re.sub(r'[^\w\s]', '', value).lower()
+                if normalized_value not in expected:
+                    return 0, True, "", {"message": f"The requested destination field '{field}' has unexpected value '{value}'."}
 
         parcel_details = requested_item["options"].get(self.FIELD_NAME_MAPPING["parcel_details"])
         if parcel_details is None:
@@ -1102,7 +1115,7 @@ class OrderSoftwareAccessTask(OrderFromServiceCatalogTask):
         # NOTE: we don't check for `requested for` field.
 
         # business justification
-        if requested_item["options"].get("Business justification", "") != self.config["business_justification"]:
+        if re.sub(r'[^\w\s]', '', requested_item["options"].get("Business justification", "")).lower() != re.sub(r'[^\w\s]', '', self.config["business_justification"]).lower():
             return 0, True, "", {"message": "The requested business justification is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
