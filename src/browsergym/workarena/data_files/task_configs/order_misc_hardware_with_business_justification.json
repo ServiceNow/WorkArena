@@ -30,21 +30,9 @@
         "goal": "Order a Wireless keyboard and mouse from the Service Catalog. Set the business justification to \"Can't find my keyboard and mouse\"."
     },
     {
-        "item": "Acer Aspire NX",
+        "item": "Sales Laptop",
         "business_justification": "need laptop for my sales work specifically",
         "quantity": 1,
         "goal": "Order an Acer Aspire NX from the Service Catalog. Set the business justification to \"need laptop for my sales work specifically\"."
-    },
-    {
-        "item": "copier paper",
-        "business_justification": "need a lot of paper for new printer",
-        "quantity": 3,
-        "goal": "Order copier paper from the Service Catalog. Set the business justification to \"need a lot of paper for new printer\"."
-    },
-    {
-        "item": "Camtasia",
-        "business_justification": "making a video for trainees",
-        "quantity": 1,
-        "goal": "Order Camtasia from the Service Catalog. Set the business justification to \"making a video for trainees\"."
     }
 ]
