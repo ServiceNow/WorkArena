@@ -799,30 +799,30 @@ class OrderIphoneTask(OrderFromServiceCatalogTask):
             return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
+            return 0, True, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
-            return 0, False, "", {"message": "The requested quantity is incorrect."}
+            return 0, True, "", {"message": "The requested quantity is incorrect."}
 
         # go over values
         if requested_item["options"][self.FIELD_NAME_MAPPING["monthly_data_allowance"]].lower() != self.config["monthly_data_allowance"].lower():
-            return 0, False, "", {"message": "The requested monthly data allowance is incorrect."}
+            return 0, True, "", {"message": "The requested monthly data allowance is incorrect."}
 
         if requested_item["options"][self.FIELD_NAME_MAPPING["replacement"]] != self.config["replacement"]:
-            return 0, False, "", {"message": "The requested replacement status is incorrect."}
+            return 0, True, "", {"message": "The requested replacement status is incorrect."}
 
         if self.config["replacement"].lower() == "yes":
             entered_phone_number = ''.join(filter(str.isdigit, requested_item["options"][self.FIELD_NAME_MAPPING["original_phone_number"]]))
             ground_truth_phone_number = ''.join(filter(str.isdigit, self.config["original_phone_number"]))
             if entered_phone_number != ground_truth_phone_number:
-                return 0, False, "", {"message": "The requested original phone number is incorrect."}
+                return 0, True, "", {"message": "The requested original phone number is incorrect."}
 
         if requested_item["options"][self.FIELD_NAME_MAPPING["color"]] != self.COLOR_MAPPING[self.config["color"]]:
             # TODO: display color and config color is not the same
-            return 0, False, "", {"message": "The requested color is incorrect."}
+            return 0, True, "", {"message": "The requested color is incorrect."}
 
         if requested_item["options"][self.FIELD_NAME_MAPPING["storage"]] != self.config["storage"].removesuffix(" GB"):
-            return 0, False, "", {"message": "The requested storage is incorrect."}
+            return 0, True, "", {"message": "The requested storage is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
         
@@ -849,18 +849,18 @@ class OrderMobilePhoneTask(OrderFromServiceCatalogTask):
             return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
+            return 0, True, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
-            return 0, False, "", {"message": "The requested quantity is incorrect."}
+            return 0, True, "", {"message": "The requested quantity is incorrect."}
 
         # go over values
 
         if requested_item["options"][self.FIELD_NAME_MAPPING["color"]] != self.COLOR_MAPPING[self.config["color"]]:
-            return 0, False, "", {"message": "The requested color is incorrect."}
+            return 0, True, "", {"message": "The requested color is incorrect."}
 
         if requested_item["options"][self.FIELD_NAME_MAPPING["storage"]] != self.config["storage"].removesuffix(" GB"):
-            return 0, False, "", {"message": "The requested storage is incorrect."}
+            return 0, True, "", {"message": "The requested storage is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
 
@@ -872,12 +872,12 @@ class OrderMiscHardwareTask(OrderFromServiceCatalogTask):
         requested_item = self._get_requested_item(page)
         if requested_item is None:
             return 0, False, "", {"message": "The requested item is not found."}
-        
+
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
+            return 0, True, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
-            return 0, False, "", {"message": "The requested quantity is incorrect."}
+            return 0, True, "", {"message": "The requested quantity is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
 
@@ -888,18 +888,18 @@ class OrderMiscHardwareWithBusinessJustificationTask(OrderFromServiceCatalogTask
         requested_item = self._get_requested_item(page)
         if requested_item is None:
             return 0, False, "", {"message": "The requested item is not found."}
-        
+
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
+            return 0, True, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
-            return 0, False, "", {"message": "The requested quantity is incorrect."}
+            return 0, True, "", {"message": "The requested quantity is incorrect."}
 
         # NOTE: we don't check for `requested for` field.
 
         # business justification
         if requested_item["options"]["Business justification"] != self.config["business_justification"]:
-            return 0, False, "", {"message": "The requested business justification is incorrect."}
+            return 0, True, "", {"message": "The requested business justification is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
 
@@ -917,18 +917,18 @@ class OrderPaperSuppliesTask(OrderFromServiceCatalogTask):
         requested_item = self._get_requested_item(page)
         if requested_item is None:
             return 0, False, "", {"message": "The requested item is not found."}
-        
+
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
+            return 0, True, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
-            return 0, False, "", {"message": "The requested quantity is incorrect."}
+            return 0, True, "", {"message": "The requested quantity is incorrect."}
 
         # check values
         # we check only for 1 value.
         # TODO: expand to multiple items at once
         if str(requested_item["options"][self.ITEM_NAME_MAPPING[self.config["supplies"]]]) != str(self.config["number"]):
-            return 0, False, "", {"message": "The requested item and number is incorrect."}
+            return 0, True, "", {"message": "The requested item and number is incorrect."}
 
         # NOTE: we don't look at `Additional requirements` field.
 
@@ -981,19 +981,19 @@ class OrderResetPasswordTask(OrderFromServiceCatalogTask):
         incident_short_description = self._get_incident_short_description()
         incident_work_notes = self._get_incident_work_notes()
         if incident_short_description is None or incident_work_notes is None:
-            return 0, False, "", {"message": "The incident short description or work notes is not found."}
+            return 0, True, "", {"message": "The incident short description or work notes is not found."}
 
         # sanity check short description
         if not incident_short_description.startswith("Reset the password"):
-            return 0, False, "", {"message": "The incident short description should start with 'Reset the password'."}
+            return 0, True, "", {"message": "The incident short description should start with 'Reset the password'."}
         if not incident_short_description.endswith(self.config["item"]):
-            return 0, False, "", {"message": "The incident short description should end with the item name."}
-        
+            return 0, True, "", {"message": "The incident short description should end with the item name."}
+
         # sanity check work notes
         if not f"System : {self.config['item']}".lower() in incident_work_notes.lower():
-            return 0, False, "", {"message": "The incident work notes should contain the item name."}
+            return 0, True, "", {"message": "The incident work notes should contain the item name."}
         if not f"Contact : {self.config['contact']}".lower() in incident_work_notes.lower():
-            return 0, False, "", {"message": "The incident work notes should contain the contact method."}
+            return 0, True, "", {"message": "The incident work notes should contain the contact method."}
 
         return 1, True, "", {"message": "Task completed successfully."}
 
@@ -1042,29 +1042,29 @@ class OrderPackagingAndShippingTask(OrderFromServiceCatalogTask):
             return 0, False, "", {"message": "The requested item is not found."}
         
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
+            return 0, True, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
-            return 0, False, "", {"message": "The requested quantity is incorrect."}
+            return 0, True, "", {"message": "The requested quantity is incorrect."}
 
         # validate values
         if not requested_item["options"].get(self.FIELD_NAME_MAPPING["shipping_type"]).lower() == self.SHIPPING_TYPE_MAPPING[self.config["shipping_type"]].lower():
-            return 0, False, "", {"message": "The requested shipping type is incorrect."}
+            return 0, True, "", {"message": "The requested shipping type is incorrect."}
 
         # for destination, we need to do a lookup
         # TODO: for now we only look at the destination field, but we could also setup the postcode, city, address line 1/2, etc.
         destination = self._get_location(requested_item["options"].get(self.FIELD_NAME_MAPPING["destination"]))
         if destination is None:
-            return 0, False, "", {"message": "The requested destination is incorrect."}
+            return 0, True, "", {"message": "The requested destination is incorrect."}
         if not destination.lower() == self.config["destination"].lower():
-            return 0, False, "", {"message": "The requested destination is incorrect."}
+            return 0, True, "", {"message": "The requested destination is incorrect."}
 
         parcel_details = requested_item["options"].get(self.FIELD_NAME_MAPPING["parcel_details"])
         if parcel_details is None:
-            return 0, False, "", {"message": "The requested parcel details is incorrect."}
+            return 0, True, "", {"message": "The requested parcel details is incorrect."}
         for keyword in self.config["parcel_keywords"].split(" "):
             if not keyword.lower() in parcel_details.lower():
-                return 0, False, "", {"message": "The requested parcel details does not contain the expected keyword."}
+                return 0, True, "", {"message": "The requested parcel details does not contain the expected keyword."}
 
         return 1, True, "", {"message": "Task completed successfully."}
 
@@ -1075,12 +1075,12 @@ class OrderSoftwareTask(OrderFromServiceCatalogTask):
         requested_item = self._get_requested_item(page)
         if requested_item is None:
             return 0, False, "", {"message": "The requested item is not found."}
-        
+
         if not requested_item["cat_item"]["display_value"].lower() == self.config["item"].lower():
-            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
+            return 0, True, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
-            return 0, False, "", {"message": "The requested quantity is incorrect."}
+            return 0, True, "", {"message": "The requested quantity is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
 
@@ -1091,19 +1091,19 @@ class OrderSoftwareAccessTask(OrderFromServiceCatalogTask):
         requested_item = self._get_requested_item(page)
         if requested_item is None:
             return 0, False, "", {"message": "The requested item is not found."}
-        
+
         # here the `item` field is the software name, but the catalog item contains more info (e.g. `Request Dropbox account`)
         if not self.config["item"].lower() in requested_item["cat_item"]["display_value"].lower():
-            return 0, False, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
+            return 0, True, "", {"message": f"The requested item is incorrect: {requested_item['cat_item']['display_value']} instead of {self.config['item']}"}
 
         if not requested_item["quantity"] == str(self.config["quantity"]):
-            return 0, False, "", {"message": "The requested quantity is incorrect."}
+            return 0, True, "", {"message": "The requested quantity is incorrect."}
 
         # NOTE: we don't check for `requested for` field.
 
         # business justification
         if requested_item["options"].get("Business justification", "") != self.config["business_justification"]:
-            return 0, False, "", {"message": "The requested business justification is incorrect."}
+            return 0, True, "", {"message": "The requested business justification is incorrect."}
 
         return 1, True, "", {"message": "Task completed successfully."}
 
