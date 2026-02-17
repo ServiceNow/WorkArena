@@ -202,8 +202,8 @@ class DeactivateUserGroupTask(ServiceNowUserGroupTask):
             )
         self.user_group_sys_id = result[0]["sys_id"]
 
-        # check for active
-        if not result[0]["active"]:
+        # check for active - API returns "true"/"false" as strings
+        if result[0]["active"] == "false":
             return (
                 1,
                 True,
