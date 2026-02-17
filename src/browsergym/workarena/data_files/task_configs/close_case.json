@@ -1,0 +1,37 @@
+[
+    {
+        "case_number": "CS1000001",
+        "resolution": "solved by customer",
+        "resolution_code": 4,
+        "close_notes": "Noise issue resolved after customer reduced dryer load",
+        "goal": "Close CS1000001, marking it as solved by customer. In the resolution notes, put \"Noise issue resolved after customer reduced dryer load\""
+    },
+    {
+        "case_number": "CS0000503",
+        "resolution": "fixed by support / guidance provided",
+        "resolution_code": 1,
+        "close_notes": "Shipped a replacement FabriKare FX400 dryer to the customer",
+        "goal": "Close CS0000503, marking it as fixed by support / guidance provided. In the resolution notes, put \"Shipped a replacement FabriKare FX400 dryer to the customer\""
+    },
+    {
+        "case_number": "CS0000008",
+        "resolution": "inconclusive - cannot reproduce",
+        "resolution_code": 6,
+        "close_notes": "Unable to sound alarm for more than one minute",
+        "goal": "Close CS0000008, marking it as inconclusive - cannot reproduce. In the resolution notes, put \"Unable to sound alarm for more than one minute\""
+    },
+    {
+        "case_number": "CS0001401",
+        "resolution": "voided/canceled",
+        "resolution_code": 9,
+        "close_notes": "Customer called in, requesting we cancel the case",
+        "goal": "Close CS0001401, marking it as voided/canceled. In the resolution notes, put \"Customer called in, requesting we cancel the case\""
+    },
+    {
+        "case_number": "CS1000002",
+        "resolution": "duplicate issue",
+        "resolution_code": 8,
+        "close_notes": "Closing as duplicate issue, see CS0000501",
+        "goal": "Close CS1000002, marking it as duplicate issue. In the resolution notes, put \"Closing as duplicate issue, see CS0000501\""
+    }
+]

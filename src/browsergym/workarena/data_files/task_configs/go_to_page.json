@@ -1,0 +1,52 @@
+[
+    {
+        "page": "the Contracts table",
+        "url": "/now/nav/ui/classic/params/target/ast_contract_list.do",
+        "goal": "Go to the Contracts table"
+    },
+    {
+        "page": "the page that lists all SLA definitions",
+        "url": "/now/nav/ui/classic/params/target/contract_sla_list.do",
+        "goal": "Go to the page that lists all SLA definitions"
+    },
+    {
+        "page": "where installed plugins and applications are listed",
+        "url": "/now/app-manager/home/tab/installed/sort/install_date",
+        "goal": "Go to where installed plugins and applications are listed"
+    },
+    {
+        "page": "Flow Designer",
+        "url": "/now/workflow-studio/home/flow",
+        "goal": "Go to Flow Designer"
+    },
+    {
+        "page": "the page that tells you which skills different users have",
+        "url": "/now/nav/ui/classic/params/target/sys_user_has_skill_list.do",
+        "goal": "Go to the page that tells you which skills different users have"
+    },
+    {
+        "page": "where you can view all consent policies",
+        "url": "now/nav/ui/classic/params/target/sys_analytics_consent_policy_list.do",
+        "goal": "Go to the page that lists all consent policies"
+    },
+    {
+        "page": "where to see all agent personal schedules",
+        "url": "/now/nav/ui/classic/params/target/agent_events_list.do",
+        "goal": "Go to the page that lists all agent personal schedules"
+    },
+    {
+        "page": "My Assets",
+        "url": "/now/nav/ui/classic/params/target/%24pa_dashboard.do",
+        "goal": "Go to the page that shows My Assets"
+    },
+    {
+        "page": "the page that shows benchmark indicators",
+        "url": "/now/nav/ui/classic/params/target/sn_bm_common_indicator_category_list.do",
+        "goal": "Go to the page that shows benchmark indicators"
+    },
+    {
+        "page": "NLU Workbench",
+        "url": "/now/nlu-workbench/home",
+        "goal": "Go to the NLU Workbench"
+    }
+]

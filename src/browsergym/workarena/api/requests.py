@@ -125,10 +125,12 @@ def get_request_items(instance: SNowInstance, sys_id: str) -> list[dict]:
             "sysparm_fields": ",".join(
                 [
                     "sys_id",
+                    "cat_item",
                     "short_description",
                     "quantity",
                 ]
             ),
+            "sysparm_display_value": "true",
         },
     )["result"]
 

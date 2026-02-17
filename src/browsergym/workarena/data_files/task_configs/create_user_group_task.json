@@ -1,0 +1,302 @@
+[
+    {
+        "goal": "Create an active user group named '{group[name]}'. Its manager is {group[manager]} and type is {group[type]}. Assign the role {role} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.manager": "Manager",
+            "group.type": "Type",
+            "role": "Role"
+        },
+        "task_fields": [
+            "group.name",
+            "group.manager",
+            "group.type",
+            "role",
+            "group.active"
+        ],  
+        "template_record": {                        
+            "group": {
+                "name": "ITIL User Group",
+                "manager": "Pierre Salera",
+                "type": "itil"
+            },
+            "group.name": "ITIL User Group",
+            "group.manager": "Pierre Salera",
+            "group.type": "itil",
+            "role": "itil",
+            "group.active": "true"
+        },
+        "child_table": "sys_group_has_role",
+        "child_table_fields": "group.name, role, group.manager, group.type, group.active"
+    },
+    {
+        "goal": "Create an active user group named '{group[name]}'. Its manager is {group[manager]} and type is {group[type]}. Assign the role {role} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.manager": "Manager",
+            "group.type": "Type",
+            "role": "Role"
+        },
+        "task_fields": [
+            "group.name",
+            "group.manager",
+            "group.type",
+            "role",
+            "group.active"
+        ],  
+        "template_record": {                        
+            "group": {
+                "name": "Survey Admins",
+                "manager": "Alene Rabeck",
+                "type": "survey"
+            },
+            "group.name": "Survey Admins",
+            "group.manager": "Alene Rabeck",
+            "group.type": "survey",
+            "role": "survey_admin",
+            "group.active": "true"
+        },
+        "child_table": "sys_group_has_role",
+        "child_table_fields": "group.name, role, group.manager, group.type, group.active"
+    },
+    {
+        "goal": "Create an active user group named '{group[name]}'. Its manager is {group[manager]} and type is {group[type]}. Assign the role {role} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.manager": "Manager",
+            "group.type": "Type",
+            "role": "Role"
+        },
+        "task_fields": [
+            "group.name",
+            "group.manager",
+            "group.type",
+            "role",
+            "group.active"
+        ],  
+        "template_record": {                        
+            "group": {
+                "name": "Catalog Managers",
+                "manager": "Zachary Mockus",
+                "type": "catalog"
+            },
+            "group.name": "Catalog Managers",
+            "group.manager": "Zachary Mockus",
+            "group.type": "catalog",
+            "role": "catalog_manager",
+            "group.active": "true"
+        },
+        "child_table": "sys_group_has_role",
+        "child_table_fields": "group.name, role, group.manager, group.type, group.active"
+    },
+    {
+        "goal": "Create an active user group named '{group[name]}'. Its manager is {group[manager]} and type is {group[type]}. Assign the role {role} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.manager": "Manager",
+            "group.type": "Type",
+            "role": "Role"
+        },
+        "task_fields": [
+            "group.name",
+            "group.manager",
+            "group.type",
+            "role",
+            "group.active"
+        ],  
+        "template_record": {                        
+            "group": {
+                "name": "WM Qualifiers",
+                "manager": "Keisha Ransonet",
+                "type": "wm_qualification"
+            },
+            "group.name": "WM Qualifiers",
+            "group.manager": "Keisha Ransonet",
+            "group.type": "wm_qualification",
+            "role": "wm_qualifier",
+            "group.active": "true"
+        },
+        "child_table": "sys_group_has_role",
+        "child_table_fields": "group.name, role, group.manager, group.type, group.active"
+    },
+    {
+        "goal": "Create an active user group named '{group[name]}'. Its manager is {group[manager]} and type is {group[type]}. Assign the role {role} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.manager": "Manager",
+            "group.type": "Type",
+            "role": "Role"
+        },
+        "task_fields": [
+            "group.name",
+            "group.manager",
+            "group.type",
+            "role",
+            "group.active"
+        ],  
+        "template_record": {                        
+            "group": {
+                "name": "WM Dispatchers",
+                "manager": "Mark Crawford",
+                "type": "wm_dispatch"
+            },
+            "group.name": "WM Dispatchers",
+            "group.manager": "Mark Crawford",
+            "group.type": "wm_dispatch",
+            "role": "wm_dispatcher",
+            "group.active": "true"
+        },
+        "child_table": "sys_group_has_role",
+        "child_table_fields": "group.name, role, group.manager, group.type, group.active"
+    },
+    {
+        "goal": "Create an active user group with the name '{group[name]}' and description '{group[description]}'. Add {user} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.description": "Description",
+            "user": "Members"
+        },
+        "task_fields": [
+            "group.name",
+            "group.description",
+            "group.active"
+        ],
+        "task_list_fields": [
+            "user"
+        ],
+        "num_expected_child_records": 3,
+        "template_record": {                        
+            "group": {
+                "name": "NYC Coed Soccer",
+                "description": "We play at the Parade Grounds on Saturdays at 10",
+                "active": "true"
+            },
+            "group.name": "NYC Coed Soccer",
+            "group.description": "We play at the Parade Grounds on Saturdays at 10",
+            "group.active": "true",
+            "user": ["Chad Araiza", "Eva Seahorn", "Floyd Veazey"]
+        },
+        "child_table": "sys_user_grmember",
+        "child_table_fields": "group.name, user, group.description, group.active"
+    },
+    {
+        "goal": "Create an active user group with the name '{group[name]}' and description '{group[description]}'. Add {user} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.description": "Description",
+            "user": "Members"
+        },
+        "task_fields": [
+            "group.name",
+            "group.description",
+            "group.active"
+        ],
+        "task_list_fields": [
+            "user"
+        ],
+        "num_expected_child_records": 3,
+        "template_record": {                        
+            "group": {
+                "name": "NYC Run Club",
+                "description": "We run Monday mornings at 7",
+                "active": "true"
+            },
+            "group.name": "NYC Run Club",
+            "group.description": "We run Monday mornings at 7",
+            "group.active": "true",
+            "user": ["Chad Araiza", "Eva Seahorn", "Floyd Veazey"]
+        },
+        "child_table": "sys_user_grmember",
+        "child_table_fields": "group.name, user, group.description, group.active"
+    },
+    {
+        "goal": "Create an active user group with the name '{group[name]}' and description '{group[description]}'. Add {user} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.description": "Description",
+            "user": "Members"
+        },
+        "task_fields": [
+            "group.name",
+            "group.description",
+            "group.active"
+        ],
+        "task_list_fields": [
+            "user"
+        ],
+        "num_expected_child_records": 3,
+        "template_record": {                        
+            "group": {
+                "name": "NYC Happy Hour Group",
+                "description": "We get together for happy hour on Thursdays at 4",
+                "active": "true"
+            },
+            "group.name": "NYC Happy Hour Group",
+            "group.description": "We get together for happy hour on Thursdays at 4",
+            "group.active": "true",
+            "user": ["Chad Araiza", "Eva Seahorn", "Floyd Veazey"]
+        },
+        "child_table": "sys_user_grmember",
+        "child_table_fields": "group.name, user, group.description, group.active"
+    },
+    {
+        "goal": "Create an active user group with the name '{group[name]}' and description '{group[description]}'. Add {user} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.description": "Description",
+            "user": "Members"
+        },
+        "task_fields": [
+            "group.name",
+            "group.description",
+            "group.active"
+        ],
+        "task_list_fields": [
+            "user"
+        ],
+        "num_expected_child_records": 3,
+        "template_record": {                        
+            "group": {
+                "name": "NYC Yogis",
+                "description": "We practice yoga in Bryant Park on Tuesdays at 8",
+                "active": "true"
+            },
+            "group.name": "NYC Yogis",
+            "group.description": "We practice yoga in Bryant Park on Tuesdays at 8",
+            "group.active": "true",
+            "user": ["Chad Araiza", "Eva Seahorn", "Floyd Veazey"]
+        },
+        "child_table": "sys_user_grmember",
+        "child_table_fields": "group.name, user, group.description, group.active"
+    },
+    {
+        "goal": "Create an active user group with the name '{group[name]}' and description '{group[description]}'. Add {user} to the group",
+        "fields": {
+            "group.name": "Name",
+            "group.description": "Description",
+            "user": "Members"
+        },
+        "task_fields": [
+            "group.name",
+            "group.description",
+            "group.active"
+        ],
+        "task_list_fields": [
+            "user"
+        ],
+        "num_expected_child_records": 3,
+        "template_record": {                        
+            "group": {
+                "name": "NYC Cat Enthusiasts",
+                "description": "We volunteer at cat shelters on Sundays at 11",
+                "active": "true"
+            },
+            "group.name": "NYC Cat Enthusiasts",
+            "group.description": "We volunteer at cat shelters on Sundays at 11",
+            "group.active": "true",
+            "user": ["Chad Araiza", "Eva Seahorn", "Floyd Veazey"]
+        },
+        "child_table": "sys_user_grmember",
+        "child_table_fields": "group.name, user, group.description, group.active"
+    }
+]

@@ -1,0 +1,37 @@
+[
+    {
+        "item": "Paper and Supplies",
+        "supplies": "reams of paper",
+        "number": 3,
+        "quantity": 1,
+        "goal": "We need office supplies! Order 3 reams of paper."
+    },
+    {
+        "item": "Paper and Supplies",
+        "supplies": "boxes of pens",
+        "number": 2,
+        "quantity": 1,
+        "goal": "We need office supplies! Order 2 boxes of pens."
+    },
+    {
+        "item": "Paper and Supplies",
+        "supplies": "tubes of screen wipes",
+        "number": 4,
+        "quantity": 1,
+        "goal": "We need office supplies! Order 4 tubes of screen wipes."
+    },
+    {
+        "item": "Paper and Supplies",
+        "supplies": "boxes of pens",
+        "number": 2,
+        "quantity": 1,
+        "goal": "We need office supplies! Order 2 boxes of pens."
+    },
+    {
+        "item": "Paper and Supplies",
+        "supplies": "reams of paper",
+        "number": 5,
+        "quantity": 1,
+        "goal": "We need office supplies! Order 5 reams of paper."
+    }
+]

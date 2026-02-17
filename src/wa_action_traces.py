@@ -112,7 +112,7 @@ def extract_trace(task_cls, headless=True):
 
     env.reset()
     # For compositional tasks, we need to cheat on each subtask
-    if hasattr(env.task, 'subtasks'):
+    if hasattr(env.task, "subtasks"):
         # This is a compositional task, solve each subtask
         for subtask_idx in range(len(env.task.subtasks)):
             env.task.cheat(env.page, env.chat.messages, subtask_idx)
