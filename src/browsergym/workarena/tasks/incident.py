@@ -346,5 +346,6 @@ class CreateIncidentTasksTask(ServiceNowIncidentTask):
 
 __TASKS__ = [
     ResolveIncidentTask,
+    UpdateIncidentTask,
     AddAdditionalAssigneeToIncidentTask,
 ]
