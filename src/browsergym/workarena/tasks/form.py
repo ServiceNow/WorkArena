@@ -371,6 +371,54 @@ class ServiceNowFormTask(AbstractServiceNowTask):
 
                 runInGsftMainOnlyAndProtectByURL(monitorChangeOnFields, '{url_suffix}');
             """,
+            f"""
+                function removePersonalizeFormButton() {{
+                    waLog('Searching for Personalize Form button...', 'removePersonalizeFormButton');
+                    let button = document.querySelector('#togglePersonalizeForm');
+                    if (button) {{
+                        button.remove();
+                        waLog('Removed Personalize Form button', 'removePersonalizeFormButton');
+                    }}
+                }}
+
+                runInGsftMainOnlyAndProtectByURL(removePersonalizeFormButton, '{url_suffix}');
+            """,
+            f"""
+                function removeAdditionalActionsButton() {{
+                    waLog('Searching for Additional Actions button...', 'removeAdditionalActionsButton');
+                    let button = document.querySelector('button.additional-actions-context-menu-button');
+                    if (button) {{
+                        button.remove();
+                        waLog('Removed Additional Actions button', 'removeAdditionalActionsButton');
+                    }}
+                }}
+
+                runInGsftMainOnlyAndProtectByURL(removeAdditionalActionsButton, '{url_suffix}');
+            """,
+            f"""
+                function removeContextMenus() {{
+                    waLog('Setting up context menu removal observer...', 'removeContextMenus');
+                    // Remove any existing context menus
+                    document.querySelectorAll('.context_menu').forEach((menu) => {{
+                        menu.remove();
+                    }});
+                    // Observe for new context menus being added
+                    const observer = new MutationObserver((mutations) => {{
+                        mutations.forEach((mutation) => {{
+                            mutation.addedNodes.forEach((node) => {{
+                                if (node.nodeType === 1 && node.classList && node.classList.contains('context_menu')) {{
+                                    node.remove();
+                                    waLog('Removed dynamically added context menu', 'removeContextMenus');
+                                }}
+                            }});
+                        }});
+                    }});
+                    observer.observe(document.body, {{ childList: true, subtree: true }});
+                    waLog('Context menu observer active', 'removeContextMenus');
+                }}
+
+                runInGsftMainOnlyAndProtectByURL(removeContextMenus, '{url_suffix}');
+            """,
         ]
 
     def start(self, page: Page) -> None:

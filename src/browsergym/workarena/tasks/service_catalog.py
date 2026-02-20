@@ -225,6 +225,9 @@ class OrderHardwareTask(AbstractServiceNowTask):
             "registerGsftMainLoaded()",
             self._get_disable_add_to_cart_script(),
             self._get_remove_top_items_panel_script(),
+            self._get_remove_add_content_button_script(),
+            self._get_remove_header_decorations_script(),
+            self._get_remove_more_options_buttons_script(),
         ]
 
     def _get_disable_add_to_cart_script(self):
@@ -274,6 +277,60 @@ class OrderHardwareTask(AbstractServiceNowTask):
 
             runInGsftMainOnlyAndProtectByURL(removeTopItemsPanel, `catalog_home`);
             """
+        return script
+
+    def _get_remove_add_content_button_script(self):
+        """
+        Removes the 'Add content' button from the service catalog page.
+        """
+        script = """
+            function removeAddContentButton() {
+                waLog('Searching for Add content button...', 'removeAddContentButton');
+                let button = document.querySelector('button[aria-label="Add content"]');
+                if (button) {
+                    button.remove();
+                    waLog('Removed Add content button', 'removeAddContentButton');
+                }
+            }
+
+            runInGsftMainOnlyAndProtectByURL(removeAddContentButton, 'catalog_home');
+        """
+        return script
+
+    def _get_remove_header_decorations_script(self):
+        """
+        Removes all header decoration panels (edit/settings/close buttons) from the service catalog page.
+        """
+        script = """
+            function removeHeaderDecorations() {
+                waLog('Searching for header decoration panels...', 'removeHeaderDecorations');
+                let panels = document.querySelectorAll('div.header_decorations');
+                panels.forEach((panel) => {
+                    panel.remove();
+                });
+                waLog('Removed ' + panels.length + ' header decoration panels', 'removeHeaderDecorations');
+            }
+
+            runInGsftMainOnlyAndProtectByURL(removeHeaderDecorations, 'catalog_home');
+        """
+        return script
+
+    def _get_remove_more_options_buttons_script(self):
+        """
+        Removes all 'More Options' buttons from the service catalog page.
+        """
+        script = """
+            function removeMoreOptionsButtons() {
+                waLog('Searching for More Options buttons...', 'removeMoreOptionsButtons');
+                let buttons = document.querySelectorAll('button.btn.btn-icon.icon-ellipsis');
+                buttons.forEach((button) => {
+                    button.remove();
+                });
+                waLog('Removed ' + buttons.length + ' More Options buttons', 'removeMoreOptionsButtons');
+            }
+
+            runInGsftMainOnlyAndProtectByURL(removeMoreOptionsButtons, 'com.glideapp.servicecatalog');
+        """
         return script
 
     def setup_goal(self, page: Page) -> tuple[str, dict]:

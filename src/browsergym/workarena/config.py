@@ -1,4 +1,6 @@
 from importlib import resources
+from json import load as json_load
+from os.path import exists
 
 from ..workarena import data_files
 from ..workarena.tasks import utils
@@ -8,6 +10,12 @@ SNOW_DATA_LOOKBACK_MINUTES = 5
 SNOW_BROWSER_TIMEOUT = 30000  # Milliseconds
 SNOW_JS_UTILS_FILEPATH = str(resources.files(utils).joinpath("js_utils.js"))
 SNOW_SUPPORTED_RELEASES = ["washingtondc"]
+
+# Hugging Face dataset containing available instances
+INSTANCE_REPO_ID = "ServiceNow/WorkArena-Instances"
+INSTANCE_REPO_FILENAME = "instances_v2.json"
+INSTANCE_REPO_TYPE = "dataset"
+INSTANCE_XOR_SEED = "x3!+-9mi#nhlo%a02$9hna{]"
 
 # Path to the Menu navigation task configuration
 ALL_MENU_PATH = str(resources.files(data_files).joinpath("task_configs/all_menu.json"))
@@ -224,4 +232,4 @@ EXPECTED_REQUEST_ITEM_FORM_FIELDS_PATH = str(
 
 # Report date filter patch flag
 REPORT_PATCH_FLAG = "WORKARENA_DATE_FILTER_PATCH"
-REPORT_DATE_FILTER = "2024-04-01"
+REPORT_FILTER_PROPERTY = "workarena.report.filter.config"
