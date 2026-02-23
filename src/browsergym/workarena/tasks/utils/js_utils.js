@@ -34,6 +34,9 @@ function findElementInShadowDOM(selector, root = document) {
     // Return null if the element is not found in any shadow root
     return null;
 }
+// Explicitly expose on window so it is accessible via frame.evaluate_handle()
+// when all init scripts are merged into a single string (see base.py).
+window.findElementInShadowDOM = findElementInShadowDOM;
 
 
 /**
