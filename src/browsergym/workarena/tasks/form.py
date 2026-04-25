@@ -335,18 +335,54 @@ class ServiceNowFormTask(AbstractServiceNowTask):
             f"""
                 function patchSubmitButton() {{
                     waLog('Attempting to override form submit function', 'patchSubmitButton');
-                    // Save the original function if it hasn't been saved yet
+
+                    // Patch 1: intercept the classic gsftSubmit path (used by hidden buttons
+                    // inside gsft_main, including the cheat path and keyboard shortcuts).
                     if(typeof old_gsftSubmit == 'undefined'){{
                         old_gsftSubmit = new Function('return ' + gsftSubmit.toString())();
-                        waLog('Saved original submit function', 'patchSubmitButton');
+                        waLog('Saved original gsftSubmit', 'patchSubmitButton');
                     }}
-
-                    // Override the function to save the sys_id in the local storage
                     gsftSubmit = function(control, form, action_name) {{
                         localStorage['{self.session_sys_id_field}'] = {self.js_api_forms}.getUniqueValue();
+                        if (action_name === 'sysverb_insert_and_stay') {{
+                            action_name = 'sysverb_insert';
+                            waLog('Normalized sysverb_insert_and_stay in gsftSubmit', 'patchSubmitButton');
+                        }}
                         old_gsftSubmit(control, form, action_name);
                     }};
-                    waLog('Patched submit function. All done.', 'patchSubmitButton');
+
+                    // Patch 2: intercept writes to the sys_action hidden input via
+                    // Object.defineProperty. This catches any code path — including the outer
+                    // React UI accessing the iframe form from outside — regardless of whether a
+                    // submit event fires. (Programmatic form.submit() does not fire submit events,
+                    // so a submit-event listener would miss this path.)
+                    //
+                    // IMPORTANT: we must also call the original prototype setter so that the
+                    // browser's native form serializer (which reads the internal DOM slot, not
+                    // our JS getter) sees the normalized value during form submission.
+                    var sysActionEl = document.querySelector('[name="sys_action"]');
+                    if (sysActionEl && !sysActionEl.__waPatchedValue) {{
+                        sysActionEl.__waPatchedValue = true;
+                        var _origValueDescriptor = Object.getOwnPropertyDescriptor(
+                            Object.getPrototypeOf(sysActionEl), 'value'
+                        );
+                        var _sysActionValue = sysActionEl.value;
+                        Object.defineProperty(sysActionEl, 'value', {{
+                            get: function() {{ return _sysActionValue; }},
+                            set: function(v) {{
+                                _sysActionValue = (v === 'sysverb_insert_and_stay') ? 'sysverb_insert' : v;
+                                // Update the underlying DOM slot so native form submission reads the
+                                // normalized value (bypasses our getter, reads internal slot directly).
+                                _origValueDescriptor.set.call(this, _sysActionValue);
+                                waLog('sys_action set to: ' + _sysActionValue, 'patchSubmitButton');
+                            }},
+                            configurable: true,
+                            enumerable: true
+                        }});
+                        waLog('sys_action value setter patched', 'patchSubmitButton');
+                    }}
+
+                    waLog('Submit patched (gsftSubmit + sys_action setter). All done.', 'patchSubmitButton');
                 }}
 
                 runInGsftMainOnlyAndProtectByURL(patchSubmitButton, '{url_suffix}');
@@ -645,7 +681,22 @@ class GenericNewRecordTask(ServiceNowFormTask):
             False  # Indicates if the page is on the form view; used in validation
         )
 
+    def _normalize_sysverb_in_post(self, route, request) -> None:
+        """Patch 3: network-level catch-all to normalize sysverb_insert_and_stay → sysverb_insert.
+
+        Patches 1 and 2 handle the JS-layer paths (gsftSubmit and the sys_action setter).
+        This catches any remaining mechanism where the POST body is built without going
+        through the patched JS paths (e.g. React submitting via fetch with a hardcoded action).
+        """
+        if request.method == "POST" and "sysverb_insert_and_stay" in (request.post_data or ""):
+            route.continue_(
+                post_data=request.post_data.replace("sysverb_insert_and_stay", "sysverb_insert")
+            )
+        else:
+            route.continue_()
+
     def setup_goal(self, page: Page) -> tuple[str, dict]:
+        page.route("**", self._normalize_sysverb_in_post)
         super().setup_goal(page=page)
 
         # Get the task configuration
@@ -950,6 +1001,11 @@ class GenericNewRecordTask(ServiceNowFormTask):
         return right_url
 
     def teardown(self) -> None:
+        try:
+            self.page.unroute("**", self._normalize_sysverb_in_post)
+        except Exception:
+            pass
+
         self._wait_for_ready(self.page, iframe_only=True)
 
         # Retrieve the current record's sys_id from the session storage
