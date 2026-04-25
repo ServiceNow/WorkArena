@@ -102,9 +102,7 @@ if not INSTANCE_POOL:
     )
 
 
-@pytest.fixture(
-    scope="session", params=INSTANCE_POOL, ids=[e["url"] for e in INSTANCE_POOL]
-)
+@pytest.fixture(scope="session", params=INSTANCE_POOL, ids=[e["url"] for e in INSTANCE_POOL])
 def snow_instance_entry(request):
     return request.param
 
@@ -133,19 +131,21 @@ def test_patch2_sys_action_setter_normalizes_value(page: Page, snow_instance_ent
     # Access gsft_main via Playwright's content_frame() — gsft_main is nested inside
     # gsft_root and is not reachable from the outer page's document.getElementById.
     gsft_main = page.wait_for_selector("iframe#gsft_main").content_frame()
-    result = gsft_main.evaluate("""() => {
+    result = gsft_main.evaluate(
+        """() => {
         const form = document.querySelector('form');
         if (!form) return 'no_form';
         const sysAction = form.elements['sys_action'];
         if (!sysAction) return 'no_sys_action';
         sysAction.value = 'sysverb_insert_and_stay';
         return sysAction.value;
-    }""")
+    }"""
+    )
 
     task.teardown()
-    assert result == "sysverb_insert", (
-        f"Expected sys_action.value to be normalized to 'sysverb_insert', got {result!r}"
-    )
+    assert (
+        result == "sysverb_insert"
+    ), f"Expected sys_action.value to be normalized to 'sysverb_insert', got {result!r}"
 
 
 @retry(
@@ -182,7 +182,8 @@ def test_patch3_route_intercepts_before_network(page: Page, snow_instance_entry)
     task.setup(page=page)  # Patch 3 registered SECOND → fires FIRST in LIFO
 
     # Simulate the React Submit path: set sys_action to insert_and_stay, then submit().
-    page.evaluate("""() => {
+    page.evaluate(
+        """() => {
         const iframe = document.getElementById('gsft_main');
         if (!iframe) return;
         const form = iframe.contentDocument.querySelector('form');
@@ -190,7 +191,8 @@ def test_patch3_route_intercepts_before_network(page: Page, snow_instance_entry)
         const sysAction = form.elements['sys_action'];
         if (sysAction) sysAction.value = 'sysverb_insert_and_stay';
         form.submit();
-    }""")
+    }"""
+    )
     page.wait_for_timeout(3000)
 
     task.teardown()
