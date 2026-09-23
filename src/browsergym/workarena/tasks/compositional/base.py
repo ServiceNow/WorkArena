@@ -122,17 +122,19 @@ class CompositionalTask(AbstractServiceNowTask):
                 ),
             ]
             self.subtasks.extend(level_3_final_tasks)
-            # Set identical user credentials for all subtasks
-            for task in self.subtasks:
-                task._base_initial_instance = self.instance
-                task._base_user_name, task._base_user_password, task._base_user_sysid = (
-                    self._base_user_name,
-                    self._base_user_password,
-                    self._base_user_sysid,
-                )
-                task.instance = self.instance
-                task.instance.snow_credentials = (self._base_user_name, self._base_user_password)
 
+        # Needed at every level: an unbound subtask would otherwise use a random pool instance
+        for task in self.subtasks:
+            task._base_initial_instance = self.instance
+            task._base_user_name, task._base_user_password, task._base_user_sysid = (
+                self._base_user_name,
+                self._base_user_password,
+                self._base_user_sysid,
+            )
+            task.instance = self.instance
+            task.instance.snow_credentials = (self._base_user_name, self._base_user_password)
+
+        if self.level == 3:
             # Finish the setup with the L3-specific tasks
             for task in self.subtasks[-2:]:
                 task.setup(page=page, do_start=False)
