@@ -371,7 +371,7 @@ class OrderHardwareTask(AbstractServiceNowTask):
         element.click()
         self._wait_for_ready(page=page)
 
-        element = iframe.get_by_role("link", name=self.requested_item, exact=True)
+        element = iframe.wait_for_selector(f"h2:has-text('{self.requested_item}')", strict=True)
         element.click()
         self._wait_for_ready(page=page, wait_for_form_api=True)
 
@@ -687,7 +687,7 @@ class OrderAppleMacBookPro15Task(OrderHardwareTask):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            fixed_request_item='Apple MacBook Pro 15"',
+            fixed_request_item="Apple MacBook Pro 15",
             **kwargs,
         )
 
