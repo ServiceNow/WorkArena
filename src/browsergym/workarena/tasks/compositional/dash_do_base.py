@@ -28,6 +28,19 @@ from ...instance import SNowInstance
 from browsergym.workarena.tasks.navigation import AllMenuTask
 from browsergym.workarena.tasks.service_catalog import META_CONFIGS
 
+# Maps each META_CONFIGS item to the sys_name of its catalog item, which can differ from its name
+CATALOG_ITEM_SYS_NAMES = {
+    "Developer Laptop (Mac)": "Developer Laptop (Mac)",
+    "iPad mini": "iPad mini",
+    "iPad pro": "iPad pro",
+    "Sales Laptop": "Sales Laptop",
+    "Standard Laptop": "Standard Laptop",
+    "Apple Watch": "Apple Watch",
+    "Apple MacBook Pro 15": 'Apple MacBook Pro 15"',
+    "Development Laptop (PC)": "Development Laptop (PC)",
+    "Loaner Laptop": "Notebook Computer Loaner",
+}
+
 
 class DashboardRetrieveAndDoTask(CompositionalTask, HumanEvalTask):
     def __init__(
@@ -863,17 +876,7 @@ class DashboardRetrieveCatalogAndDoTask(DashboardRetrieveAndDoTask):
         random_service_catalog_items = self.random.choice(
             catalog_item_list, self.random.randint(self.min_items, self.max_items), replace=False
         ).tolist()
-        cat_item_sys_name = {
-            "Developer Laptop (Mac)": "Developer Laptop (Mac)",
-            "iPad mini": "iPad mini",
-            "iPad pro": "iPad pro",
-            "Sales Laptop": "Sales Laptop",
-            "Standard Laptop": "Standard Laptop",
-            "Apple Watch": "Apple Watch",
-            "Apple MacBook Pro 15": 'Apple MacBook Pro 15"',
-            "Development Laptop (PC)": "Development Laptop (PC)",
-            "Loaner Laptop": "Notebook Computer Loaner",
-        }
+        cat_item_sys_name = CATALOG_ITEM_SYS_NAMES
 
         # shuffle
         self.random.shuffle(random_service_catalog_items)
@@ -1149,17 +1152,7 @@ class DashboardRetrieveCatalogAndDoInfeasibleTask(DashboardRetrieveAndDoInfeasib
         random_service_catalog_items = self.random.choice(
             catalog_item_list, self.random.randint(self.min_items, self.max_items), replace=False
         ).tolist()
-        cat_item_sys_name = {
-            "Developer Laptop (Mac)": "Developer Laptop (Mac)",
-            "iPad mini": "iPad mini",
-            "iPad pro": "iPad pro",
-            "Sales Laptop": "Sales Laptop",
-            "Standard Laptop": "Standard Laptop",
-            "Apple Watch": "Apple Watch",
-            "Apple MacBook Pro 15": 'Apple MacBook Pro 15"',
-            "Development Laptop (PC)": "Development Laptop (PC)",
-            "Loaner Laptop": "Notebook Computer Loaner",
-        }
+        cat_item_sys_name = CATALOG_ITEM_SYS_NAMES
 
         # shuffle
         self.random.shuffle(random_service_catalog_items)

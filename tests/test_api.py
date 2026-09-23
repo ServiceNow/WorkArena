@@ -15,8 +15,11 @@ def test_set_user_preference(system):
 
     # Create a user to get a sys_id
     if not system:
-        uname, pwd, sysid = create_user(SNowInstance())
-        user_instance = SNowInstance(snow_credentials=(uname, pwd))
+        # Stay on admin_instance's instance: SNowInstance() picks a random pool instance on each call
+        uname, pwd, sysid = create_user(admin_instance)
+        user_instance = SNowInstance(
+            snow_url=admin_instance.snow_url, snow_credentials=(uname, pwd)
+        )
         user = sysid
     else:
         user_instance = admin_instance

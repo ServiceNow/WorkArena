@@ -26,7 +26,8 @@ def test_login_wrong_credentials(login_func, page: Page):
     Test logging into the instance with the wrong credentials
 
     """
-    # Log in with wrong credentials
-    instance = SNowInstance(snow_credentials=("wrong", "wrong"))
+    # Log in with wrong credentials. Pass the URL too: SNowInstance replaces credentials given without one
+    url = SNowInstance().snow_url
+    instance = SNowInstance(snow_url=url, snow_credentials=("wrong", "wrong"))
     with pytest.raises(RuntimeError):
         login_func(instance=instance, page=page)

@@ -80,3 +80,79 @@ jobs:
 
       - name: Run snow instance tests
         run: pytest -n 20 --durations=10 --slowmo 1000 -v tests/test_snow_instance.py
+
+
+  check-pool-health:
+    name: Check catalog preconditions on every instance
+    runs-on: ubuntu-22.04
+
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    env:
+      HUGGING_FACE_HUB_TOKEN: ${{ secrets.HUGGING_FACE_HUB_TOKEN }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+
+      - name: Run pool health checks
+        run: pytest -v -m pool_health tests/test_instance_preconditions.py
+
+
+  test-nightly-shard:
+    name: Test a nightly shard of slow and compositional tasks
+    runs-on: ubuntu-22.04
+    # Run after the L1 jobs rather than alongside them, to spread the load on the shared pool
+    needs: test-snow-instance
+    if: ${{ !cancelled() }}
+
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    env:
+      HUGGING_FACE_HUB_TOKEN: ${{ secrets.HUGGING_FACE_HUB_TOKEN }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        working-directory: ./dev
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright
+        run: playwright install chromium --with-deps
+
+      # Each weekday runs one seventh of the tests, so everything is covered weekly, with a new seed each day
+      - name: Pick tonight's shard and seed
+        run: |
+          echo "WORKARENA_TEST_SHARD=$(( $(date -u +%u) - 1 ))/7" >> "$GITHUB_ENV"
+          echo "WORKARENA_TEST_SEED=$(date -u +%j)" >> "$GITHUB_ENV"
+
+      - name: Report shard and seed
+        run: |
+          echo "Shard \`$WORKARENA_TEST_SHARD\`, seed \`$WORKARENA_TEST_SEED\`." | tee -a "$GITHUB_STEP_SUMMARY"
+          echo "Reproduce with \`WORKARENA_TEST_SHARD=$WORKARENA_TEST_SHARD WORKARENA_TEST_SEED=$WORKARENA_TEST_SEED\` and the pytest command below." | tee -a "$GITHUB_STEP_SUMMARY"
+
+      # L1 (test_task_general.py) already runs in full every night in test-l1-tasks
+      - name: Run shard
+        run: pytest -n 20 --durations=10 --slowmo 1000 -v -m 'slow or pricy' --ignore=tests/test_task_general.py tests
