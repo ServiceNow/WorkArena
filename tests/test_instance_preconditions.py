@@ -5,6 +5,8 @@ These detect instance drift (e.g. a benchmark agent editing a catalog item) rath
 
 """
 
+from collections import Counter
+from functools import lru_cache
 from types import SimpleNamespace
 
 import pytest
@@ -45,20 +47,46 @@ VALIDATED_SYS_NAMES = sorted(
 )
 
 
-@pytest.fixture(
-    scope="module",
-    params=INSTANCE_POOL,
-    ids=[entry["url"].split("//")[1].split(".")[0] for entry in INSTANCE_POOL],
+# Content fields expected to be identical on every instance; sys_updated_on and the like churn legitimately
+COMPARED_FIELDS = (
+    "name",
+    "sys_name",
+    "active",
+    "category",
+    "price",
+    "short_description",
+    "sc_catalogs",
+    "order",
 )
-def catalog(request):
-    instance = SNowInstance(
-        snow_url=request.param["url"], snow_credentials=("admin", request.param["password"])
-    )
+
+
+def _host(entry):
+    return entry["url"].split("//")[1].split(".")[0]
+
+
+@lru_cache(maxsize=None)
+def _fetch_catalog(url, password):
+    instance = SNowInstance(snow_url=url, snow_credentials=("admin", password))
+    fields = ("sys_id", "category.title", "sys_updated_by") + COMPARED_FIELDS
     return table_api_call(
         instance=instance,
         table="sc_cat_item",
-        params={"sysparm_fields": "name,sys_name,active,category.title", "sysparm_limit": "10000"},
+        params={
+            "sysparm_fields": ",".join(fields),
+            "sysparm_limit": "10000",
+            "sysparm_exclude_reference_link": "true",
+        },
     )["result"]
+
+
+@pytest.fixture(scope="module", params=INSTANCE_POOL, ids=[_host(e) for e in INSTANCE_POOL])
+def instance_entry(request):
+    return request.param
+
+
+@pytest.fixture(scope="module")
+def catalog(instance_entry):
+    return _fetch_catalog(instance_entry["url"], instance_entry["password"])
 
 
 @pytest.mark.pool_health
@@ -93,3 +121,49 @@ def test_queried_sys_name_resolves(catalog, sys_name):
 def test_validated_sys_name_is_exact(catalog, sys_name):
     matches = _sys_name_matches(catalog, sys_name)
     assert matches == [sys_name], f"expected exactly sys_name '{sys_name}', found {matches}"
+
+
+@pytest.mark.pool_health
+def test_catalog_matches_other_instances(instance_entry, catalog):
+    # Compares against the majority of the pool, so drift shared by most instances goes unnoticed
+    pool = {
+        _host(e): {row["sys_id"]: row for row in _fetch_catalog(e["url"], e["password"])}
+        for e in INSTANCE_POOL
+    }
+    if len(pool) < 2:
+        pytest.skip("Only one instance in the pool, nothing to compare against")
+    size = len(pool)
+    mine = {row["sys_id"]: row for row in catalog}
+
+    problems = []
+    for sys_id in sorted(set().union(*pool.values())):
+        holders = [host for host in pool if sys_id in pool[host]]
+        if len(holders) == size:
+            continue
+        if sys_id in mine and len(holders) * 2 <= size:
+            row = mine[sys_id]
+            problems.append(
+                f"extra item {row['name']!r} ({sys_id}) found on {len(holders)}/{size} instances, "
+                f"last updated by {row['sys_updated_by']}"
+            )
+        elif sys_id not in mine and len(holders) * 2 > size:
+            name = pool[holders[0]][sys_id]["name"]
+            problems.append(
+                f"missing item {name!r} ({sys_id}) found on {len(holders)}/{size} instances"
+            )
+
+    for sys_id, row in sorted(mine.items()):
+        if any(sys_id not in pool[host] for host in pool):
+            continue  # presence differences are reported above
+        for field in COMPARED_FIELDS:
+            counts = Counter(pool[host][sys_id][field] for host in pool)
+            if len(counts) == 1:
+                continue
+            value, count = counts.most_common(1)[0]
+            if row[field] != value or count * 2 <= size:
+                problems.append(
+                    f"{row['name']!r}: {field}={row[field]!r} while {count}/{size} instances have "
+                    f"{value!r}, last updated by {row['sys_updated_by']}"
+                )
+
+    assert not problems, "catalog differs from the rest of the pool:\n" + "\n".join(problems)
