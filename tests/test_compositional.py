@@ -4,6 +4,8 @@ Tests that are not specific to any particular kind of task.
 """
 
 import logging
+import os
+import warnings
 
 import pytest
 
@@ -13,6 +15,18 @@ from utils import setup_playwright
 from playwright.sync_api import Page, TimeoutError
 from tenacity import retry, stop_after_attempt, retry_if_exception_type
 from browsergym.workarena import ALL_COMPOSITIONAL_TASKS, get_all_tasks_agents
+
+# Nightly CI rotates the seed; default to 0 so local runs stay reproducible
+TEST_SEED = int(os.environ.get("WORKARENA_TEST_SEED", "0"))
+
+
+def warn_retry(retry_state):
+    # A warning (unlike logging) shows up in the pytest summary even when the test eventually passes
+    warnings.warn(
+        f"Retrying after attempt {retry_state.attempt_number} failed with "
+        f"{retry_state.outcome.exception()!r}"
+    )
+
 
 AGENT_L2_SAMPLED_SET = get_all_tasks_agents(filter="l2")
 
@@ -41,11 +55,12 @@ HUMAN_L3_SAMPLED_TASKS, HUMAN_L3_SEEDS = [sampled_set[0] for sampled_set in HUMA
 
 @retry(
     stop=stop_after_attempt(5),
+    retry=retry_if_exception_type(TimeoutError),
     reraise=True,
-    before_sleep=lambda _: logging.info("Retrying due to a TimeoutError..."),
+    before_sleep=warn_retry,
 )
 @pytest.mark.parametrize("task_entrypoint", ALL_COMPOSITIONAL_TASKS)
-@pytest.mark.parametrize("random_seed", range(1))
+@pytest.mark.parametrize("random_seed", [TEST_SEED])
 @pytest.mark.parametrize("level", range(2, 4))
 @pytest.mark.pricy
 def test_cheat_compositional(task_entrypoint, random_seed, level, page: Page):

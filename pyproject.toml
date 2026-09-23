@@ -67,4 +67,6 @@ filterwarnings = [
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "pricy: marks expensive end-to-end tests of compositional tasks",
+    "pool_health: checks the state of the ServiceNow instance pool rather than the code",
 ]
