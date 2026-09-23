@@ -174,7 +174,7 @@ class OnBoardUserTask(CompositionalTask, HumanEvalTask):
                 fixed_config={
                     "configuration": {},
                     "description": "Apple MacBook Pro",
-                    "item": 'Apple MacBook Pro 15"',
+                    "item": "Apple MacBook Pro 15",
                     "quantity": 1,
                 },
                 is_validated=True,
