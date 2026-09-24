@@ -34,7 +34,7 @@ def test_validate_filter_list_task(page: Page, query):
     query = query.replace("^", r"%5E").replace("=", r"%3D")
     task.page.goto(
         task.instance.snow_url
-        + rf"/now/nav/ui/classic/params/target/incident_list.do?sysparm_query={query}"
+        + rf"/now/nav/ui/classic/params/target/incident_list.do%3Fsysparm_query%3D{query}"
     )
     reward, done, _, info = task.validate(page, [])
     task.teardown()
@@ -73,7 +73,7 @@ def test_invalid_filter_list_task(page: Page, query, expected_message):
     query = query.replace("^", r"%5E").replace("=", r"%3D")
     task.page.goto(
         task.instance.snow_url
-        + f"/now/nav/ui/classic/params/target/incident_list.do?sysparm_query={query}"
+        + f"/now/nav/ui/classic/params/target/incident_list.do%3Fsysparm_query%3D{query}"
     )
     reward, done, _, info = task.validate(page, [])
     task.teardown()
