@@ -12,9 +12,9 @@ from browsergym.workarena.instance import SNowInstance, fetch_instances
 from browsergym.workarena.utils import ui_login
 
 # bugfix: use same playwright instance in browsergym and pytest
-from utils import setup_playwright
+from utils import RedactedInstanceEntry, setup_playwright
 
-INSTANCE_POOL = fetch_instances()
+INSTANCE_POOL = [RedactedInstanceEntry(entry) for entry in fetch_instances()]
 
 if not INSTANCE_POOL:
     pytest.skip(
