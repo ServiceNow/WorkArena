@@ -9,7 +9,7 @@ import pickle
 import pytest
 
 # bugfix: use same playwright instance in browsergym and pytest
-from utils import setup_playwright
+from utils import RedactedInstanceEntry, setup_playwright
 
 from playwright.sync_api import Page, TimeoutError
 from tenacity import retry, stop_after_attempt, retry_if_exception_type
@@ -17,7 +17,7 @@ from tenacity import retry, stop_after_attempt, retry_if_exception_type
 from browsergym.workarena import ATOMIC_TASKS
 from browsergym.workarena.instance import SNowInstance, fetch_instances
 
-INSTANCE_POOL = fetch_instances()
+INSTANCE_POOL = [RedactedInstanceEntry(entry) for entry in fetch_instances()]
 
 if not INSTANCE_POOL:
     pytest.skip(

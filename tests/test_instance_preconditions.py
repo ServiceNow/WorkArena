@@ -21,7 +21,9 @@ from browsergym.workarena.tasks.compositional import (
 )
 from browsergym.workarena.tasks.compositional.dash_do_base import CATALOG_ITEM_SYS_NAMES
 
-INSTANCE_POOL = fetch_instances()
+from utils import RedactedInstanceEntry
+
+INSTANCE_POOL = [RedactedInstanceEntry(entry) for entry in fetch_instances()]
 
 # Tasks only read snow_url at construction, so a stand-in lets us read their item names offline
 _OFFLINE = SimpleNamespace(snow_url="https://offline.service-now.com")
