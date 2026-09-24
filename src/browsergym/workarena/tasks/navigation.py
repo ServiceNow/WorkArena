@@ -112,11 +112,10 @@ class AllMenuTask(AbstractServiceNowTask):
             locator = parent_div_locator
 
         # Click the final menu item
-        menu_item = locator.get_by_label(path[-1], exact=True)
-        # In some cases, like System Scheduler > Scheduled Jobs > Scheduled Jobs, modules are repeated in the path
-        # This causes problems when clicking. Therefore, we pick the last item
-        if menu_item.count() > 1:
-            menu_item = menu_item.first
+        # The label matches several elements: the item's row is aria-labelledby its link, and in some cases,
+        # like System Scheduler > Scheduled Jobs > Scheduled Jobs, modules are repeated in the path.
+        # Always take the first match: checking count() first races with the menu's rendering under load.
+        menu_item = locator.get_by_label(path[-1], exact=True).first
         with page.expect_navigation():
             menu_item.click()
         page.wait_for_timeout(2000)
