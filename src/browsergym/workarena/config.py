@@ -7,7 +7,7 @@ from ..workarena.tasks import utils
 
 # ServiceNow configuration
 SNOW_DATA_LOOKBACK_MINUTES = 5
-SNOW_BROWSER_TIMEOUT = 30000  # Milliseconds
+SNOW_BROWSER_TIMEOUT = 60000  # Milliseconds
 SNOW_JS_UTILS_FILEPATH = str(resources.files(utils).joinpath("js_utils.js"))
 SNOW_SUPPORTED_RELEASES = ["washingtondc"]
 
