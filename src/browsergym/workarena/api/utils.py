@@ -62,13 +62,14 @@ def table_api_call(
         params=params,
         json=json,
     )
+
+    # Check for HTTP success code before decoding the response body.
+    response.raise_for_status()
+
     if method == "POST":
         sys_id = response.json()["result"]["sys_id"]
         data = {}
         params = {"sysparm_query": f"sys_id={sys_id}"}
-
-    # Check for HTTP success code (fail otherwise)
-    response.raise_for_status()
 
     record_exists = False
     num_retries = 0
