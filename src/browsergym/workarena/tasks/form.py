@@ -819,7 +819,8 @@ class GenericNewRecordTask(ServiceNowFormTask):
                 # On the change request page, additional steps need to be taken to open the form
                 if self.table_label == "change request":
                     self._wait_for_ready(page, iframe_only=True)
-                    iframe.get_by_label("All").click()
+                    # "All" also substring-matches the list view's "Select All" checkbox label
+                    iframe.get_by_label("All").first.click()
                     iframe.get_by_text("Normal").first.click()
         self._fill_fields(page, iframe, self.task_fields)
 
