@@ -526,7 +526,11 @@ class ServiceNowFormTask(AbstractServiceNowTask):
         # Check if the record was created
         if self.check_record_created:
             # This does not work if multiple forms are created at once. The localStorage returns null after the first form
-            for attempt in range(5):
+            # Give this the same budget as other browser-side waits: under load, the record can
+            # take a while to become queryable via the API even though it was genuinely created.
+            wait_per_attempt_ms = 1500
+            max_attempts = SNOW_BROWSER_TIMEOUT // wait_per_attempt_ms
+            for attempt in range(max_attempts):
                 # in update tasks, the sys_id is already known as the asset is created from the start
                 if update:
                     sys_id = self.record_sys_id
@@ -544,8 +548,8 @@ class ServiceNowFormTask(AbstractServiceNowTask):
                 )["result"]
                 if len(record) > 0:
                     break
-                page.wait_for_timeout(1500)
-                if attempt == 4:
+                page.wait_for_timeout(wait_per_attempt_ms)
+                if attempt == max_attempts - 1:
                     raise ValueError("The record was not created.")
 
     def _set_required_config_attributes(self, config: dict) -> None:
@@ -815,7 +819,8 @@ class GenericNewRecordTask(ServiceNowFormTask):
                 # On the change request page, additional steps need to be taken to open the form
                 if self.table_label == "change request":
                     self._wait_for_ready(page, iframe_only=True)
-                    iframe.get_by_label("All").click()
+                    # "All" also substring-matches the list view's "Select All" checkbox label
+                    iframe.get_by_label("All").first.click()
                     iframe.get_by_text("Normal").first.click()
         self._fill_fields(page, iframe, self.task_fields)
 
