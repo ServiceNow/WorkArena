@@ -2,11 +2,38 @@ import requests
 
 from ..instance import SNowInstance
 
-from requests.exceptions import HTTPError
+from requests.exceptions import ConnectionError, HTTPError
+from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
 from time import sleep
 
 # ServiceNow API configuration
 SNOW_API_HEADERS = {"Content-Type": "application/json", "Accept": "application/json"}
+
+# Gateway/proxy status codes that indicate a transient blip on an overloaded instance
+# rather than a real API error
+_TRANSIENT_STATUS_CODES = {502, 503, 504}
+
+
+def _is_transient_http_error(exception: BaseException) -> bool:
+    if isinstance(exception, ConnectionError):
+        return True
+    return (
+        isinstance(exception, HTTPError)
+        and exception.response is not None
+        and exception.response.status_code in _TRANSIENT_STATUS_CODES
+    )
+
+
+@retry(
+    retry=retry_if_exception(_is_transient_http_error),
+    stop=stop_after_attempt(5),
+    wait=wait_exponential(multiplier=1, min=1, max=10),
+    reraise=True,
+)
+def _request_with_retry(**kwargs) -> requests.Response:
+    response = requests.request(**kwargs)
+    response.raise_for_status()
+    return response
 
 
 def table_api_call(
@@ -52,8 +79,8 @@ def table_api_call(
 
     """
 
-    # Query API
-    response = requests.request(
+    # Query API (retries transient gateway/connection errors from the shared, load-sensitive instance)
+    response = _request_with_retry(
         method=method,
         url=instance.snow_url + f"/api/now/table/{table}",
         auth=instance.snow_credentials,
@@ -66,9 +93,6 @@ def table_api_call(
         sys_id = response.json()["result"]["sys_id"]
         data = {}
         params = {"sysparm_query": f"sys_id={sys_id}"}
-
-    # Check for HTTP success code (fail otherwise)
-    response.raise_for_status()
 
     record_exists = False
     num_retries = 0
@@ -120,12 +144,12 @@ def table_column_info(instance: SNowInstance, table: str) -> dict:
 
     """
     # Query the Meta API to get most of the column info (e.g., valid choices)
-    response = requests.get(
+    response = _request_with_retry(
+        method="GET",
         url=instance.snow_url + f"/api/now/ui/meta/{table}",
         auth=instance.snow_credentials,
         headers=SNOW_API_HEADERS,
     )
-    response.raise_for_status()
     meta_info = response.json()["result"]["columns"]
 
     # Clean column value choices
@@ -164,11 +188,9 @@ def db_delete_from_table(instance: SNowInstance, sys_id: str, table: str) -> Non
 
     """
     # Query API
-    response = requests.delete(
+    _request_with_retry(
+        method="DELETE",
         url=instance.snow_url + f"/api/now/table/{table}/{sys_id}",
         auth=instance.snow_credentials,
         headers=SNOW_API_HEADERS,
     )
-
-    # Check for HTTP code 200 (fail otherwise)
-    response.raise_for_status()
