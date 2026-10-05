@@ -36,6 +36,7 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         final_rel_url: Optional[str] = None,
         user_roles: List[str] = ["admin"],
         has_description: bool = False,
+        frame_gate: bool = False,
     ) -> None:
         """
         Initialize the task
@@ -81,10 +82,61 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         self.has_description = (
             has_description  # Whether the task has a description in L3 compositional tasks
         )
+        # Opt-in frame check: when True, a validator may fail the episode on record
+        # changes outside the task's sanctioned footprint. Off by default so existing
+        # runs and leaderboard numbers are unaffected.
+        self.frame_gate = frame_gate
+        self._frame_manifest = None  # {table: {sys_id: sys_updated_on}}, captured at handoff
 
     def cheat(self, page: playwright.sync_api.Page, chat_messages: list[str]) -> None:
         # Don't call super cheat function because it's not implemented at the base level
         logging.debug("Cheat is solving the task")
+
+    @property
+    def frame_tables(self) -> List[str]:
+        """Tables this task legitimately touches. Default: none watched (no-op)."""
+        return []
+
+    def _scan_table(self, table: str) -> dict:
+        """Map sys_id -> sys_updated_on for every row in a table, paginated by sys_id."""
+        out, offset, page_size = {}, 0, 1000
+        while True:
+            rows = table_api_call(
+                instance=self.instance,
+                table=table,
+                params={
+                    "sysparm_fields": "sys_id,sys_updated_on",
+                    "sysparm_query": "ORDERBYsys_id",
+                    "sysparm_limit": str(page_size),
+                    "sysparm_offset": str(offset),
+                },
+            )["result"]
+            out.update({r["sys_id"]: r["sys_updated_on"] for r in rows})
+            if len(rows) < page_size:
+                return out
+            offset += page_size
+
+    def _snapshot_frame(self) -> None:
+        """Record the state of each watched table at agent handoff."""
+        self._frame_manifest = {t: self._scan_table(t) for t in self.frame_tables}
+
+    def frame_delta(self) -> dict:
+        """Rows deleted, created, or updated in watched tables since handoff."""
+        if self._frame_manifest is None:
+            raise RuntimeError("frame_delta() called before the handoff snapshot")
+        delta = {}
+        for table, before in self._frame_manifest.items():
+            now = self._scan_table(table)
+            deleted = set(before) - set(now)
+            created = set(now) - set(before)
+            modified = {s for s in set(before) & set(now) if before[s] != now[s]}
+            if deleted or created or modified:
+                delta[table] = {
+                    "deleted": sorted(deleted),
+                    "created": sorted(created),
+                    "modified": sorted(modified),
+                }
+        return delta
 
     def get_init_scripts(self) -> List[str]:
         """
@@ -151,6 +203,9 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         # Start the task if requested
         if do_start:
             self.start(page)
+
+        # Snapshot watched tables at agent handoff, for the opt-in frame check.
+        self._snapshot_frame()
 
         self.task_is_setup = True
 
