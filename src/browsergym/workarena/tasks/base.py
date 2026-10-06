@@ -142,11 +142,16 @@ class AbstractServiceNowTask(AbstractBrowserTask, ABC):
         goal, info = self.setup_goal(page=page)
 
         # Load a few utility functions for init scripts
-        page.context.add_init_script(path=SNOW_JS_UTILS_FILEPATH)
+        with open(SNOW_JS_UTILS_FILEPATH, "r") as f:
+            utils_script = f.read()
 
-        # Add the initialization scripts to the page context
-        for script in self.get_init_scripts():
-            page.context.add_init_script(script)
+        # Merge all init scripts in a single file so they're guaranteed to be
+        # executed in order and in a shared context.
+        init_scripts =  [utils_script] + self.get_init_scripts()
+        init_script_js = "\n".join(init_scripts)
+        # Install initialization scripts in existing pages, and register them
+        # in the page context so that future pages will run them on creation.
+        page.context.add_init_script(init_script_js)
 
         # Start the task if requested
         if do_start:
